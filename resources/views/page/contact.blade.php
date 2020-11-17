@@ -110,10 +110,10 @@
 </section><!--end section-->
 
 <section>
-    <div class="container" style="margin: 3rem;">
+    <div class="container" style="margin-top: 3rem; margin-bottom: 3rem;">
         <div class="row justify-content-center">
             {{-- <x-map-location-view /> --}}
-            <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d3964.70913512724!2d3.4337298145814796!3d6.43139829534688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x103bf523987b2019%3A0xcc13c7ff493f6e39!2s284%20Ajose%20Adeogun%20St%2C%20Victoria%20Island%2C%20Lagos!3m2!1d6.4313983!2d3.4359184999999997!5e0!3m2!1sen!2sng!4v1604627184133!5m2!1sen!2sng" width="900" height="450" frameborder="0" style="border:0;" allowfullscreen="true" aria-hidden="false" tabindex="0"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d3964.70913512724!2d3.4337298145814796!3d6.43139829534688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x103bf523987b2019%3A0xcc13c7ff493f6e39!2s284%20Ajose%20Adeogun%20St%2C%20Victoria%20Island%2C%20Lagos!3m2!1d6.4313983!2d3.4359184999999997!5e0!3m2!1sen!2sng!4v1604627184133!5m2!1sen!2sng" width="1000" height="350" frameborder="0" style="border:0;" allowfullscreen="true" aria-hidden="false" tabindex="0"></iframe>
         </div>
     </div>
 </section>

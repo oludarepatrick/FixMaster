@@ -24,7 +24,7 @@
     <link href="{{ asset('assets/client/css/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Slider -->
     <link rel="stylesheet" href="{{ asset('assets/client/css/owl.carousel.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/client/css/owl.theme.default.min.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('assets/client/css/owl.theme.default.min.css') }}" /> --}}
     <!-- Main Css -->
     <link href="{{ asset('assets/frontend/css/style.css') }}" rel="stylesheet" type="text/css" id="theme-opt" />
     <!-- <link href="{{ asset('assets/client/css/style.css') }}" rel="stylesheet" type="text/css" id="theme-opt" /> -->

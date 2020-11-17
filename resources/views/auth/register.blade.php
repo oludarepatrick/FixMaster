@@ -79,7 +79,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group position-relative">
-                                        <label>Tow/City <span class="text-danger">*</span></label>
+                                        <label>Town/City <span class="text-danger">*</span></label>
                                         <i data-feather="navigation" class="fea icon-sm icons"></i>
                                         <select class="form-control pl-5">
                                             <option>Select...</option>

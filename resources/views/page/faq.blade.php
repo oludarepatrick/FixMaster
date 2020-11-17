@@ -10,6 +10,14 @@
 .bg-light {
     background-color: #e97d1f14 !important;
 }
+a.h6:hover {
+    color: #e97d1f !important;
+}
+
+a.h6:focus {
+    color: #e97d1f !important;
+}
+
 </style>
  <!-- Start Section -->
  <section class="section">
@@ -28,10 +36,10 @@
                     <div class="col-lg-4 col-md-5 col-12 d-none d-md-block">
                         <div class="rounded shadow p-4 sticky-bar">
                             <ul class="list-unstyled mb-0">
-                                <li><a href="#tech" class="mouse-down h6 text-dark">General Questions</a></li>
-                                <li class="mt-4"><a href="#general" class="mouse-down h6 text-dark">Payments Questions</a></li>
-                                <li class="mt-4"><a href="#payment" class="mouse-down h6 text-dark">Security Questions</a></li>
-                                <li class="mt-4"><a href="#support" class="mouse-down h6 text-dark">Account & Profile Questions</a></li>
+                                <li class="add-active"><a href="#tech" class="mouse-down h6 text-dark selected">General Questions</a></li>
+                                <li class="mt-4 add-active"><a href="#general" class="mouse-down h6 text-dark ">Payments Questions</a></li>
+                                <li class="mt-4 add-active"><a href="#payment" class="mouse-down h6 text-dark">Security Questions</a></li>
+                                <li class="mt-4 add-active"><a href="#support" class="mouse-down h6 text-dark">Account & Profile Questions</a></li>
                             </ul>
                         </div>
                     </div><!--end col-->
@@ -225,4 +233,14 @@
         </section><!--end section-->
         <!-- End Section -->
 
+@section('scripts')
+<script>
+    $(document).ready(function (){
+        $(document).on("click", '.add-active', function(e){
+            $("li.add-active a").removeClass("selected");
+            $(this).closest('li').find('a').addClass('selected');
+        });
+    });
+</script>
+@endsection
 @endsection

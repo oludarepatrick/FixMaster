@@ -49,7 +49,7 @@
                   <th class="text-center">#</th>
                   <th>Job Ref.</th>
                   <th>Client</th>
-                  <th>Phone Number</th>
+                  <th>Technician</th>
                   <th class="text-center">Amount</th>
                   <th>Status</th>
                   <th class="text-center">Date</th>
@@ -61,9 +61,9 @@
                   <td class="tx-color-03 tx-center">1</td>
                   <td class="tx-medium">REF-234094623496</td>
                   <td class="tx-medium">Femi Joseph</td>
-                  <td class="tx-medium">08125456489</td>
+                  <td class="tx-medium">Andrew Nwankwo</td>
                   <td class="text-medium text-center">₦14,000</td>
-                  <td class="text-medium text-danger">Not Assigned</td>
+                  <td class="text-medium text-info">Reviewed by Admin</td>
                   <td class="text-medium">May 15th 2020 at 11:30am</td>
                   <td class=" text-center">
                     <div class="dropdown-file">

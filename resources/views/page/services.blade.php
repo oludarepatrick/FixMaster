@@ -78,6 +78,8 @@
 
                         </div>
                         <a href="{{ route('page.services_details') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -97,6 +99,8 @@
 
                         </div>
                         <a href="{{ route('page.services_details') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -114,6 +118,8 @@
 
                         </div>
                         <a href="{{ route('page.services_details') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -143,6 +149,8 @@
 
                         </div>
                         <a href="{{ route('page.services_details') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -162,6 +170,8 @@
 
                         </div>
                         <a href="{{ route('page.services_details') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -179,6 +189,8 @@
 
                         </div>
                         <a href="{{ route('page.services_details') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -199,6 +211,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -218,6 +232,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -235,6 +251,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -264,6 +282,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -283,6 +303,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -300,6 +322,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -330,6 +354,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -349,6 +375,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -366,6 +394,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -396,6 +426,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -415,6 +447,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -432,6 +466,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -462,6 +498,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -481,6 +519,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -498,6 +538,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -528,6 +570,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -547,6 +591,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -564,6 +610,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -594,6 +642,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -613,6 +663,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -630,6 +682,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>
@@ -660,6 +714,8 @@
 
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-outline-fix btn-block">Request Service</a>
+                        <p class="text-center mb-0 mt-1"><a class="btn btn-primary btn-sm" href="{{ route('page.services_details') }}">Details</a></p>
+
                     </div>
                 </div>
             </div>

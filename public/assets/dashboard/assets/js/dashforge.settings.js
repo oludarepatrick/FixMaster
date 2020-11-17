@@ -4,7 +4,7 @@ $(function(){
 
   // Append settings
   $.ajax({
-    url: '../../settings.html',
+    // url: '../../settings.html',
     success: function(result){
       $('body').append(result);
       feather.replace();

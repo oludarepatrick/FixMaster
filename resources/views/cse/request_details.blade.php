@@ -3,6 +3,7 @@
 @include('layouts.partials._messages')
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/dashboard/assets/css/dashforge.filemgr.css') }}">
+<link href="{{ asset('assets/dashboard/lib/prismjs/themes/prism-vs.css') }}" rel="stylesheet">
 
 <div class="content-body">
     <div class="container pd-x-0">
@@ -15,7 +16,7 @@
               <li class="breadcrumb-item active" aria-current="page">New Request Details</li>
             </ol>
           </nav>
-          <h4 class="mg-b-0 tx-spacing--1">Job: REF-234094623496</h4><hr>
+          {{-- <h4 class="mg-b-0 tx-spacing--1">Job: REF-234094623496</h4><hr> --}}
           <div class="media align-items-center">
             <span class="tx-color-03 d-none d-sm-block">
               {{-- <i data-feather="credit-card" class="wd-60 ht-60"></i> --}}
@@ -26,6 +27,204 @@
               <p class="tx-13 tx-color-03 mg-b-0">08125456489</p>
             </div>
           </div><!-- media -->
+        </div>
+      </div>
+
+      <div class="row row-xs">
+        <div class="col-lg-12 col-xl-12">
+          <table class="table table-striped table-sm mg-b-0">
+            <tbody>
+              <tr>
+                <td class="tx-medium">Job Reference</td>
+                <td class="tx-color-03">REF-234094623496</td>
+              </tr>
+              <tr>
+                <td class="tx-medium">Service Required</td>
+                <td class="tx-color-03">Mechanical (Generator)</td>
+              </tr>
+              <tr>
+                <td class="tx-medium">Scheduled Date & Time</td>
+                <td class="tx-color-03">May 15th 2020 at 11:30am</td>
+              </tr>
+              <tr>
+                <td class="tx-medium">Service Charge</td>
+                <td class="tx-color-03">₦14,000 (Urgent Fee)</td>
+              </tr>
+              <tr>
+                <td class="tx-medium">Security Code</td>
+                <td class="tx-color-03">SEC-02IW742BS83</td>
+              </tr>
+              <tr>
+                <td class="tx-medium">Payment Status</td>
+                <td class="tx-color-03">Paid</td>
+              </tr>
+              <tr>
+                <td class="tx-medium">L.G.A</td>
+                <td class="tx-color-03">Ibeju-Lekki</td>
+              </tr>
+              <tr>
+                <td class="tx-medium">Town/City</td>
+                <td class="tx-color-03">Ibeju-Lekki</td>
+              </tr>
+              <tr>
+                <td class="tx-medium">Request Address</td>
+                <td class="tx-color-03">7, Abagbo Close, Victoria Island, Lagos, Nigeria</td>
+              </tr>
+              <tr>
+                <td class="tx-medium">Request Description</td>
+                <td class="tx-color-03">My generator just stopped working and it's refusing to come on. I need urgent repairs today.</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="divider-text">Media Files</div>
+
+          <div class="row">
+            <div class="pd-20 pd-lg-25 pd-xl-30">
+  
+              <div class="row row-xs">
+                <div class="col-6 col-sm-6 col-md-6 col-xl mg-t-10 mg-sm-t-0">
+                  <div class="card card-file">
+                    <div class="dropdown-file">
+                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a href="" class="dropdown-item download"><i data-feather="download"></i>View</a>
+                      </div>
+                    </div><!-- dropdown -->
+                    <div class="card-file-thumb tx-indigo">
+                      <i class="far fa-file-image"></i>
+                    </div>
+                    <div class="card-body">
+                      <h6><a href="" class="link-02">IMG_063037.jpg</a></h6>
+                      <span>4.1mb</span>
+                    </div>
+                  </div>
+                </div><!-- col -->
+                <div class="col-6 col-sm-6 col-md-6 col-xl mg-t-10 mg-xl-t-0">
+                  <div class="card card-file">
+                    <div class="dropdown-file">
+                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a href="" class="dropdown-item download"><i data-feather="download"></i>View</a>
+                      </div>
+                    </div><!-- dropdown -->
+                    <div class="card-file-thumb tx-primary">
+                      <i class="far fa-file-video"></i>
+                    </div>
+                    <div class="card-body">
+                      <h6><a href="" class="link-02">VID_063037.mp4</a></h6>
+                      <span>12mb</span>
+                    </div>
+                  </div>
+                </div><!-- col -->
+              </div><!-- row -->
+              
+            </div>
+          </div>
+
+          <div class="divider-text">Update Actions</div>
+
+         <div class="form-row">
+          <div class="tx-13 mg-b-25">
+            <div id="wizard1">
+              <h3>Personal Information</h3>
+              <section>
+                <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
+                <div class="row row-sm">
+                  <div class="form-group col-sm-6">
+                    <label>Fullname</label>
+                    <input type="text" class="form-control" placeholder="Firstname">
+                  </div><!-- col -->
+                  <div class="form-group col-sm-6 d-flex align-items-end">
+                    <input type="text" class="form-control" placeholder="Lastname">
+                  </div><!-- col -->
+                  <div class="col-sm-4 col-md-5">
+                    <label>Birthday</label>
+                    <select class="custom-select" required>
+                      <option value="" disabled selected="">Select Month</option>
+                      <option value="1">January</option>
+                      <option value="2">February</option>
+                      <option value="3">March</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4 col-md-3 mg-t-10 mg-sm-t-0 d-flex align-items-end">
+                    <select class="custom-select" required>
+                      <option value="" disabled selected="">Select Day</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4 mg-t-10 mg-sm-t-0 d-flex align-items-end">
+                    <select class="custom-select" required>
+                      <option value="" disabled selected="">Select Year</option>
+                      <option value="1">2019</option>
+                      <option value="2">2018</option>
+                      <option value="3">2017</option>
+                    </select>
+                  </div>
+                </div><!-- form-row -->
+              </section>
+              <h3>Billing Information</h3>
+              <section>
+                <p class="mg-b-20">Wonderful transition effects.</p>
+                <div class="row row-sm">
+                  <div class="form-group col-sm-6">
+                    <label>Client Name</label>
+                    <input type="text" class="form-control" placeholder="Firstname">
+                  </div><!-- col -->
+                  <div class="form-group col-sm-6 d-flex align-items-end">
+                    <input type="text" class="form-control" placeholder="Lastname">
+                  </div><!-- col -->
+                  <div class="col-12">
+                    <label>Notes</label>
+                    <textarea class="form-control" rows="1" placeholder="Enter some notes"></textarea>
+                  </div><!-- col -->
+                </div><!-- row -->
+              </section>
+              <h3>Payment Details</h3>
+              <section>
+                <p class="mg-b-20">The next and previous buttons help you to navigate through your content.</p>
+                <div class="row row-sm">
+                  <div class="form-group col-12">
+                    <input type="text" class="form-control" placeholder="Credit card number">
+                  </div><!-- col -->
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" placeholder="Name on card">
+                  </div><!-- col -->
+                  <div class="col-7 col-sm-3 mg-t-20 mg-sm-t-0 d-flex align-items-end">
+                    <input type="text" class="form-control" placeholder="Exp. date">
+                  </div><!-- col -->
+                  <div class="col-5 col-sm-3 mg-t-20 mg-sm-t-0 d-flex align-items-end">
+                    <input type="text" class="form-control" placeholder="CVC/CVV">
+                  </div><!-- col -->
+                </div><!-- row -->
+              </section>
+            </div>
+          </div><!-- df-example -->
+        </div><!-- df-example -->
+
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label>CSE</label>
+              <select class="custom-select">
+                <option selected>Select...</option>
+                <option value="1">Godfrey Diwa(Mushin [Abule-Ijesha])</option>
+                <option value="2">Rilwan Bello(Alimosho [Egbeda])</option>
+                <option value="2">Mayowa Olaoye(Ojo [Iyana-Iba])</option>
+              </select>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Technician</label>
+              <select class="custom-select">
+                <option selected>Select...</option>
+                <option value="1">Andrew Nwankwo (Mushin [Abule-Ijesha])</option>
+                <option value="2">Taofeek Adedokun (Alimosho [Egbeda])</option>
+                <option value="2">Blessing Nnamdi (Ojo [Iyana-Iba])</option>
+              </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Assign</button>
+
         </div>
       </div>
 
@@ -293,4 +492,69 @@
       </div>
     </div>
 </div>
+
+@section('scripts')
+    {{-- <script src="{{ asset('assets/dashboard/lib/parsleyjs/parsley.min.js') }}"></script> --}}
+
+<script>
+  $(function(){
+    'use strict'
+
+    // $('#wizard1').steps({
+    //   headerTag: 'h3',
+    //   bodyTag: 'section',
+    //   autoFocus: true,
+    //   titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>'
+    // });
+
+    // $('#wizard2').steps({
+    //   headerTag: 'h3',
+    //   bodyTag: 'section',
+    //   autoFocus: true,
+    //   titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
+    //   onStepChanging: function (event, currentIndex, newIndex) {
+    //     if(currentIndex < newIndex) {
+    //       // Step 1 form validation
+    //       if(currentIndex === 0) {
+    //         var fname = $('#firstname').parsley();
+    //         var lname = $('#lastname').parsley();
+
+    //         if(fname.isValid() && lname.isValid()) {
+    //           return true;
+    //         } else {
+    //           fname.validate();
+    //           lname.validate();
+    //         }
+    //       }
+
+    //       // Step 2 form validation
+    //       if(currentIndex === 1) {
+    //         var email = $('#email').parsley();
+    //         if(email.isValid()) {
+    //           return true;
+    //         } else { email.validate(); }
+    //       }
+    //     // Always allow step back to the previous step even if the current step is not valid.
+    //     } else { return true; }
+    //   }
+    // });
+
+    // $('#wizard3').steps({
+    //   headerTag: 'h3',
+    //   bodyTag: 'section',
+    //   autoFocus: true,
+    //   titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
+    //   stepsOrientation: 1
+    // });
+
+    // $('#wizard4').steps({
+    //   headerTag: 'h3',
+    //   bodyTag: 'section',
+    //   autoFocus: true,
+    //   titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>'
+    // });
+
+  });
+</script>
+@endsection
 @endsection

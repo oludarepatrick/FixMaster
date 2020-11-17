@@ -1,11 +1,14 @@
 //Owl Carousel
 $('#customer-testi').owlCarousel({
   loop:true,
-  nav: false,
-  dots: true,
+  nav: true,
+  // dots: true,
   autoplay:true,
   autoplayTimeout:3000,
   autoplayHoverPause:true,
+  // stagePadding: 50,
+  // rtl:true,
+  margin: 10,
   responsive:{
       0:{
           items:1

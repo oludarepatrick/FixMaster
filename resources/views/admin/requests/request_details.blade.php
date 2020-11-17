@@ -49,6 +49,10 @@
                 <td class="tx-color-03">₦14,000 (Urgent Fee)</td>
               </tr>
               <tr>
+                <td class="tx-medium">Security Code</td>
+                <td class="tx-color-03">SEC-02IW742BS83</td>
+              </tr>
+              <tr>
                 <td class="tx-medium">Payment Status</td>
                 <td class="tx-color-03">Paid</td>
               </tr>
@@ -122,21 +126,23 @@
               <label>CSE</label>
               <select class="custom-select">
                 <option selected>Select...</option>
-                <option value="1">Godfrey Diwa</option>
-                <option value="2">Rilwan Bello</option>
-                <option value="2">Mayowa Olaoye</option>
+                <option value="1">Godfrey Diwa(Mushin [Abule-Ijesha])</option>
+                <option value="2">Rilwan Bello(Alimosho [Egbeda])</option>
+                <option value="2">Mayowa Olaoye(Ojo [Iyana-Iba])</option>
               </select>
             </div>
             <div class="form-group col-md-4">
               <label>Technician</label>
               <select class="custom-select">
                 <option selected>Select...</option>
-                <option value="1">Andrew Nwankwo</option>
-                <option value="2">Taofeek Adedokun</option>
-                <option value="2">Blessing Nnamdi</option>
+                <option value="1">Andrew Nwankwo (Mushin [Abule-Ijesha])</option>
+                <option value="2">Taofeek Adedokun (Alimosho [Egbeda])</option>
+                <option value="2">Blessing Nnamdi (Ojo [Iyana-Iba])</option>
               </select>
             </div>
         </div>
+        <button type="submit" class="btn btn-primary">Assign</button>
+
         </div>
       </div>
     </div>

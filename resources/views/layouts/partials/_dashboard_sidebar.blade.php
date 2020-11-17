@@ -4,7 +4,7 @@
   <div class="aside-header">
       <a href="{{ route('cse.home')}}" class="aside-logo">
       {{-- dash<span>forge</span> --}}
-      <img src="{{ asset('assets/images/home-fix-logo.png') }}" alt="FixMaster Logo"  style="margin-top: -3px; width: 25%">
+      <img src="{{ asset('assets/images/home-fix-logo.png') }}" alt="FixMaster Logo" height="160"  style="margin-top: -40px; margin-bottom: -38px;">
     </a>
     <a href="" class="aside-menu-link">
       <i data-feather="menu"></i>
@@ -43,7 +43,7 @@
       
       
       <li class="nav-label mg-t-25">Adminstration</li>
-      <li class="nav-item {{ Route::currentRouteNamed('cse.technicians', 'cse.technicians_profile') ? 'active show' : '' }}"><a href="{{ route('cse.technicians') }}" class="nav-link"><i data-feather="users"></i> <span>Technicians/Artisans</span></a></li>
+      {{-- <li class="nav-item {{ Route::currentRouteNamed('cse.technicians', 'cse.technicians_profile') ? 'active show' : '' }}"><a href="{{ route('cse.technicians') }}" class="nav-link"><i data-feather="users"></i> <span>Technicians/Artisans</span></a></li> --}}
 
       
 
@@ -56,6 +56,8 @@
           <li class="{{ Route::currentRouteNamed('cse.requests_cancelled') ? 'active' : '' }}"><a href="{{ route('cse.requests_cancelled') }}">Cancelled</a></li>
         </ul>
       </li>
+
+      <li class="nav-item {{ Route::currentRouteNamed('cse.payments') ? 'active show' : '' }}"><a href="{{ route('cse.payments') }}" class="nav-link"><i data-feather="credit-card"></i> <span>Location Ping</span></a></li>
 
       <li class="nav-item {{ Route::currentRouteNamed('cse.payments') ? 'active show' : '' }}"><a href="{{ route('cse.payments') }}" class="nav-link"><i data-feather="credit-card"></i> <span>Payments</span></a></li>
 
@@ -144,7 +146,7 @@
   <div class="aside-header">
       <a href="{{ route('admin.home')}}" class="aside-logo">
       {{-- dash<span>forge</span> --}}
-      <img src="{{ asset('assets/images/home-fix-logo.png') }}" alt="FixMaster Logo"  style="margin-top: -3px; width: 25%">
+      <img src="{{ asset('assets/images/home-fix-logo.png') }}" alt="FixMaster Logo" height="160"  style="margin-top: -40px; margin-bottom: -38px;">
     </a>
     <a href="" class="aside-menu-link">
       <i data-feather="menu"></i>
@@ -154,7 +156,7 @@
   <div class="aside-body">
     <div class="aside-loggedin">
       <div class="d-flex align-items-center justify-content-start">
-        <a href="" class="avatar"><img src="{{ asset('assets/images/home-fix-logo.png') }}" class="rounded-circle" alt="Male Avatar"></a>
+        <a href="" class="avatar"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt="Male Avatar"></a>
         <div class="aside-alert-link">
         <a href="{{ route('admin.messages') }}" class="new" data-toggle="tooltip" title="You have 2 unread messages"><i data-feather="message-square"></i></a>
           {{-- <a href="" class="new" data-toggle="tooltip" title="You have 4 new notifications"><i data-feather="bell"></i></a> --}}
@@ -171,7 +173,7 @@
       <div class="collapse" id="loggedinMenu">
         <ul class="nav nav-aside mg-b-0">
           {{-- <li class="nav-item"><a href="" class="nav-link"><i data-feather="edit"></i> <span>Edit Profile</span></a></li> --}}
-          <li class="nav-item {{ Route::currentRouteNamed('admin.view_profile') ? 'active' : '' }}"><a href="{{ route('admin.view_profile') }}" class="nav-link"><i data-feather="user"></i> <span>View Profile</span></a></li>
+          {{-- <li class="nav-item {{ Route::currentRouteNamed('admin.view_profile') ? 'active' : '' }}"><a href="{{ route('admin.view_profile') }}" class="nav-link"><i data-feather="user"></i> <span>View Profile</span></a></li> --}}
 
           <li class="nav-item {{ Route::currentRouteNamed('admin.edit_profile') ? 'active' : '' }}"><a href="{{ route('admin.edit_profile') }}" class="nav-link"><i data-feather="settings"></i> <span>Account Settings</span></a></li>
         </ul>

@@ -43,19 +43,19 @@
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">First Name</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="David">
+                                <input type="text" class="form-control" id="inputEmail4" value="Charles">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">Middle Name</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="Shina">
+                                <input type="text" class="form-control" id="inputEmail4" value="">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">Last Name</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="Adesanya">
+                                <input type="text" class="form-control" id="inputEmail4" value="Famoriyo">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4" value="david.adesanya@gmail.com">
+                                <input type="email" class="form-control" id="inputEmail4" value="afrikafrique@gmail.com">
                             </div>
                           <div class="form-group col-md-4">
                             <label for="inputEmail4">Mobile Phone</label>
@@ -73,14 +73,14 @@
                             </div>
                           </div> --}}
 
-                          <div class="form-group col-md-6">
+                          {{-- <div class="form-group col-md-6">
                             <label for="inputAddress2">Home Address</label>
                             <textarea rows="3" class="form-control" id="inputAddress2"></textarea>
                           </div>
                             <div class="form-group col-md-6">
                                 <label for="inputAddress2">Work Address</label>
                                 <textarea rows="3" class="form-control" id="inputAddress2"></textarea>
-                            </div>
+                            </div> --}}
 
                         </div>
     

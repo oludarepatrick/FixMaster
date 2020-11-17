@@ -21,7 +21,7 @@
     <div class="container">
         <!-- Logo container-->
         <div>
-            <a class="logo" href="index.html">
+        <a class="logo" href="{{ route('page.home') }}">
             {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" height="70" alt=""> --}}
             <img src="{{ asset('assets/images/home-fix-logo.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;" height="160" alt="">
             
@@ -55,23 +55,48 @@
             <ul class="navigation-menu">
                 <li><a class="{{ Route::currentRouteNamed('page.home') ? 'selected' : '' }}" href="{{ route('page.home') }}">Home</a></li>
                 <li><a class="{{ Route::currentRouteNamed('page.about') ? 'selected' : '' }}" href="{{ route('page.about') }}">About Us</a></li>
-                <li><a class="{{ Route::currentRouteNamed('page.how_it_works') ? 'selected' : '' }}" href="{{ route('page.how_it_works') }}">How it works</a></li>
-                <!-- <li><a class="{{ Route::currentRouteNamed('page.why_home_fix') ? 'selected' : '' }}" href="{{ route('page.why_home_fix') }}">Why FixMaster?</a></li> -->
-                <li><a class="{{ Route::currentRouteNamed('page.careers') ? 'selected' : '' }}" href="{{ route('page.careers') }}">Join Us</a></li>
+
+                {{-- <li><a class="{{ Route::currentRouteNamed('page.how_it_works') ? 'selected' : '' }}" href="{{ route('page.how_it_works') }}">How it works</a></li> --}}
+
+                {{-- <li><a class="{{ Route::currentRouteNamed('page.why_home_fix') ? 'selected' : '' }}" href="{{ route('page.why_home_fix') }}">Why FixMaster?</a></li>  --}}
+
+                {{-- <li><a class="{{ Route::currentRouteNamed('page.careers') ? 'selected' : '' }}" href="{{ route('page.careers') }}">Join Us</a></li> --}}
 
                 {{-- @if(Route::currentRouteNamed('page.services', 'page.services_details'))
                     <li><a class="{{ Route::currentRouteNamed('page.services', 'page.services_details') ? 'selected' : '' }}"  href="{{ route('page.services') }}">Services</a></li>
                 @endif --}}
-                <li><a class="{{ Route::currentRouteNamed('page.faq') ? 'selected' : '' }}" href="{{ route('page.faq') }}">FAQ</a></li>
+                {{-- <li><a class="{{ Route::currentRouteNamed('page.faq') ? 'selected' : '' }}" href="{{ route('page.faq') }}">FAQ</a></li> --}}
+
+                <li class="has-submenu {{ Route::currentRouteNamed('page.how_it_works', 'page.faq') ? 'selected' : '' }}">
+                    <a href="javascript:void(0)">How it works</a><span class="menu-arrow"></span>
+                    <ul class="submenu">
+                        <li><a class="{{ Route::currentRouteNamed('page.how_it_works') ? 'selected' : '' }}" href="{{ route('page.how_it_works') }}">How It Works</a></li>
+                        <li><a class="{{ Route::currentRouteNamed('page.faq') ? 'selected' : '' }}" href="{{ route('page.faq') }}">FAQ</a></li>
+                    </ul>
+                </li>
                 
                 <li><a class="{{ Route::currentRouteNamed('page.contact') ? 'selected' : '' }}" href="{{ route('page.contact') }}">Contact</a></li>
-                <li class="has-submenu">
-                    <a href="javascript:void(0)">Get Started</a><span class="menu-arrow"></span>
+
+                
+                <li class="has-submenu {{ Route::currentRouteNamed('page.careers', 'login', 'register') ? 'selected' : '' }}"">
+                    <a href="javascript:void(0)">Get started</a><span class="menu-arrow"></span>
                     <ul class="submenu">
                         <li><a href="{{ route('register') }}">Register</a></li>
                         <li><a href="{{ route('login') }}">Login</a></li>
+                        <li class="has-submenu"><a href="javascript:void(0)"> Apply <span class="submenu-arrow"></span>
+                            <ul class="submenu">
+                                <li><a href="{{ route('page.careers') }}">CSE</a></li>
+                                <li><a href="{{ route('page.careers') }}">Franchisee</a></li>
+                                <li><a href="{{ route('page.careers') }}">Intern</a></li>
+                                <li><a href="{{ route('page.careers') }}">Service Partner</a></li>
+                                <li><a href="{{ route('page.careers') }}">Supplier</a></li>
+                                <li><a href="{{ route('page.careers') }}">Trainee</a></li>
+                                <li><a href="{{ route('page.careers') }}">Technician</a></li>
+                            </ul> 
+                        </li>
                     </ul>
                 </li>
+                
             </ul><!--end navigation menu-->
             
         </div><!--end navigation-->

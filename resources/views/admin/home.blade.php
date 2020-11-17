@@ -13,7 +13,7 @@
             {{-- <li class="breadcrumb-item active" aria-current="page">Website Analytics</li> --}}
           </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Welcome to Ludwig Enterprise Dashboard</h4>
+        <h4 class="mg-b-0 tx-spacing--1">Welcome to Fix<span style="color: #E97D1F;">Master</span> Dashboard</h4>
       </div>
       {{-- <div class="d-none d-md-block">
         <button class="btn btn-sm pd-x-15 btn-white btn-uppercase"><i data-feather="save" class="wd-10 mg-r-5"></i> Save</button>
@@ -225,7 +225,7 @@
             <li class="list-group-item d-flex pd-sm-x-20">
               <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
               <div class="pd-sm-l-10">
-                <p class="tx-medium mg-b-0">Payment from FixMaster for REF-234094623496 job</p>
+                <p class="tx-medium mg-b-0">Payment from Femi Joseph for REF-234094623496 job</p>
                 <small class="tx-12 tx-color-03 mg-b-0">Apr 3, 2020, 12:56pm</small>
               </div>
               <div class="mg-l-auto text-right">
@@ -236,7 +236,7 @@
             <li class="list-group-item d-flex pd-sm-x-20">
               <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
               <div class="pd-sm-l-10">
-                <p class="tx-medium mg-b-0">Payment from FixMaster for REF-094009623412 job</p>
+                <p class="tx-medium mg-b-0">Payment from Esuruoso Favour for REF-094009623412 job</p>
                 <small class="tx-12 tx-color-03 mg-b-0">Mar 21, 2020, 3:30pm</small>
               </div>
               <div class="mg-l-auto text-right">
@@ -247,7 +247,7 @@
             <li class="list-group-item d-flex pd-sm-x-20">
               <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
               <div class="pd-sm-l-10">
-                <p class="tx-medium mg-b-0">Payment from FixMaster for REF-237290223123</p>
+                <p class="tx-medium mg-b-0">Payment from Haruna Ahmadu for REF-237290223123</p>
                 <small class="tx-12 tx-color-03 mg-b-0">Feb 25, 2020, 8:17am</small>
               </div>
               <div class="mg-l-auto text-right">
@@ -258,7 +258,7 @@
             <li class="list-group-item d-flex pd-sm-x-20">
               <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
               <div class="pd-sm-l-10">
-                <p class="tx-medium mg-b-0">Payment from FixMaster for REF-234094623496 job</p>
+                <p class="tx-medium mg-b-0">Payment from Oluyemi Ayotunde for REF-234094623496 job</p>
                 <small class="tx-12 tx-color-03 mg-b-0">Jan 18, 2020, 7:30pm</small>
               </div>
               <div class="mg-l-auto text-right">
@@ -269,7 +269,7 @@
             <li class="list-group-item d-flex pd-sm-x-20">
               <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
               <div class="pd-sm-l-10">
-                <p class="tx-medium mg-b-0">Payment from FixMaster for REF-544199238409 job</p>
+                <p class="tx-medium mg-b-0">Payment from Cynthia Akam for REF-544199238409 job</p>
                 <small class="tx-12 tx-color-03 mg-b-0">Jan 8, 2020, 6:18am</small>
               </div>
               <div class="mg-l-auto text-right">
@@ -279,7 +279,7 @@
             </li>
           </ul>
           <div class="card-footer text-center tx-13">
-          <a href="{{ route('admin.payments') }}" class="link-03">View All Transactions <i class="icon ion-md-arrow-down mg-l-5"></i></a>
+          <a href="{{ route('admin.received_payments') }}" class="link-03">View All Transactions <i class="icon ion-md-arrow-down mg-l-5"></i></a>
           </div><!-- card-footer -->
         </div><!-- card -->
       </div>
@@ -369,6 +369,151 @@
         </div><!-- card -->
       </div>
       
+      <div class="col-lg-6 mg-t-10">
+        <div class="card">
+          <div class="card-header d-flex align-items-start justify-content-between">
+            <h6 class="lh-5 mg-b-0">Total Visits</h6>
+            {{-- <a href="" class="tx-13 link-03">Mar 01 - Mar 20, 2019 <i class="icon ion-ios-arrow-down"></i></a> --}}
+          </div><!-- card-header -->
+          <div class="card-body pd-y-15 pd-x-10">
+            <div class="table-responsive">
+              <table class="table table-borderless table-sm tx-13 tx-nowrap mg-b-0">
+                <thead>
+                  <tr class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase">
+                    <th class="wd-5p">Link</th>
+                    <th>Page Title</th>
+                    <th class="text-right">Percentage (%)</th>
+                    <th class="text-right">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="align-middle text-center"><a href=""><i data-feather="external-link" class="wd-12 ht-12 stroke-wd-3"></i></a></td>
+                    <td class="align-middle tx-medium">Home</td>
+                    <td class="align-middle text-right">
+                      <div class="wd-150 d-inline-block">
+                        <div class="progress ht-4 mg-b-0">
+                          <div class="progress-bar bg-teal wd-65p" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle text-right"><span class="tx-medium">65.35%</span></td>
+                  </tr>
+                  <tr>
+                    <td class="align-middle text-center"><a href=""><i data-feather="external-link" class="wd-12 ht-12 stroke-wd-3"></i></a></td>
+                    <td class="align-middle tx-medium">Services</td>
+                    <td class="align-middle text-right">
+                      <div class="wd-150 d-inline-block">
+                        <div class="progress ht-4 mg-b-0">
+                          <div class="progress-bar bg-primary wd-85p" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="text-right"><span class="tx-medium">84.97%</span></td>
+                  </tr>
+                  <tr>
+                    <td class="align-middle text-center"><a href=""><i data-feather="external-link" class="wd-12 ht-12 stroke-wd-3"></i></a></td>
+                    <td class="align-middle tx-medium">Service Details</td>
+                    <td class="align-middle text-right">
+                      <div class="wd-150 d-inline-block">
+                        <div class="progress ht-4 mg-b-0">
+                          <div class="progress-bar bg-warning wd-45p" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="text-right"><span class="tx-medium">38.66%</span></td>
+                  </tr>
+                  <tr>
+                    <td class="align-middle text-center"><a href=""><i data-feather="external-link" class="wd-12 ht-12 stroke-wd-3"></i></a></td>
+                    <td class="align-middle tx-medium">Contact Us</td>
+                    <td class="align-middle text-right">
+                      <div class="wd-150 d-inline-block">
+                        <div class="progress ht-4 mg-b-0">
+                          <div class="progress-bar bg-pink wd-15p" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="text-right"><span class="tx-medium">16.11%</span></td>
+                  </tr>
+                  <tr>
+                    <td class="align-middle text-center"><a href=""><i data-feather="external-link" class="wd-12 ht-12 stroke-wd-3"></i></a></td>
+                    <td class="align-middle tx-medium">How It Works</td>
+                    <td class="align-middle text-right">
+                      <div class="wd-150 d-inline-block">
+                        <div class="progress ht-4 mg-b-0">
+                          <div class="progress-bar bg-teal wd-60p" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="text-right"><span class="tx-medium">59.34%</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div><!-- card-body -->
+        </div><!-- card -->
+      </div><!-- col -->
+      <div class="col-lg-6 mg-t-10">
+        <div class="card">
+          <div class="card-header d-sm-flex align-items-start justify-content-between">
+            <h6 class="lh-5 mg-b-0">Browser Used By Users</h6>
+            {{-- <a href="" class="tx-13 link-03">Mar 01 - Mar 20, 2019 <i class="icon ion-ios-arrow-down"></i></a> --}}
+          </div><!-- card-header -->
+          <div class="card-body pd-y-15 pd-x-10">
+            <div class="table-responsive">
+              <table class="table table-borderless table-sm tx-13 tx-nowrap mg-b-0">
+                <thead>
+                  <tr class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase">
+                    <th class="wd-5p">&nbsp;</th>
+                    <th>Browser</th>
+                    <th class="text-right">Sessions</th>
+                    <th class="text-right">Bounce Rate</th>
+                    <th class="text-right">Conversion Rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><i class="fab fa-chrome tx-primary op-6"></i></td>
+                    <td class="tx-medium">Google Chrome</td>
+                    <td class="text-right">13,410</td>
+                    <td class="text-right">40.95%</td>
+                    <td class="text-right">19.45%</td>
+                  </tr>
+                  <tr>
+                    <td><i class="fab fa-firefox tx-orange"></i></td>
+                    <td class="tx-medium">Mozilla Firefox</td>
+                    <td class="text-right">1,710</td>
+                    <td class="text-right">47.58%</td>
+                    <td class="text-right">19.99%</td>
+                  </tr>
+                  <tr>
+                    <td><i class="fab fa-safari tx-primary"></i></td>
+                    <td class="tx-medium">Apple Safari</td>
+                    <td class="text-right">1,340</td>
+                    <td class="text-right">56.50%</td>
+                    <td class="text-right">11.00%</td>
+                  </tr>
+                  <tr>
+                    <td><i class="fab fa-edge tx-primary"></i></td>
+                    <td class="tx-medium">Microsoft Edge</td>
+                    <td class="text-right">713</td>
+                    <td class="text-right">59.62%</td>
+                    <td class="text-right">4.69%</td>
+                  </tr>
+                  <tr>
+                    <td><i class="fab fa-opera tx-danger"></i></td>
+                    <td class="tx-medium">Opera</td>
+                    <td class="text-right">380</td>
+                    <td class="text-right">52.50%</td>
+                    <td class="text-right">8.75%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div><!-- table-responsive -->
+          </div><!-- card-body -->
+        </div><!-- card -->
+      </div><!-- col -->
+
     </div><!-- row -->
   </div><!-- container -->
 </div>
