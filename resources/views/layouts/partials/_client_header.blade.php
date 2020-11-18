@@ -1,5 +1,5 @@
 <!-- Navbar STart -->
-<header id="topnav" class="defaultscroll sticky">
+<header id="topnav" class="defaultscroll sticky navbar-dark">
     <div class="container">
         <!-- Logo container-->
         <div>
@@ -8,8 +8,13 @@
                 <img src="{{ asset('assets/images/home-fix-logo-new.png') }}" class="l-light" height="70" alt="FixMaster light">
             </a> --}}
             <a class="logo" href="index.html">
-                <img src="{{ asset('assets/images/home-fix-logo.png') }}" class="l-dark" height="160" style="margin-top: -38px !important; margin-bottom: -38px !important;" alt="FixMaster logo">
+                {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" class="l-dark" height="160" style="margin-top: -38px !important; margin-bottom: -38px !important;" alt="FixMaster logo"> --}}
             <img src="{{ asset('assets/images/home-fix-logo-new.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;" class="l-light" height="160" alt="FixMaster logo">
+
+            {{-- <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;"  class="l-light" height="140" alt="FixMaster logo"> --}}
+
+            <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;"  class="l-dark" height="140" alt="FixMaster logo">
+
             </a>
         </div>                 
         
@@ -31,11 +36,25 @@
         <div id="navigation">
             <!-- Navigation Menu-->   
             <ul class="navigation-menu nav-light">
-            <li class="{{ Route::currentRouteNamed('client.home') ? 'active' : '' }}"><a href="{{ route('client.home') }}">Home</a></li>
-               
-                <li class="has-submenu {{ Route::currentRouteNamed('client.messages', 'client.services', 'client.service_quote', 'client.service_custom', 'client.requests', 'client.request_details', 'client.request_invoice', 'client.messages', 'client.payments', 'client.settings', 'client.wallet', 'client.technician_profile') ? 'active' : '' }}">
-                    <a href="javascript:void(0)">Components</a><span class="menu-arrow"></span>
+                <li ><a href="{{ route('page.home') }}">FixMaster Home</a></li>
+
+                <li><a class="{{ Route::currentRouteNamed('page.about') ? 'selected' : '' }}" href="{{ route('page.about') }}">About us</a></li>
+                
+                <li class="has-submenu {{ Route::currentRouteNamed('page.how_it_works', 'page.faq') ? 'selected' : '' }}">
+                    <a href="javascript:void(0)">How it works</a><span class="menu-arrow"></span>
                     <ul class="submenu">
+                        <li><a class="{{ Route::currentRouteNamed('page.how_it_works') ? 'selected' : '' }}" href="{{ route('page.how_it_works') }}">How It Works</a></li>
+                        <li><a class="{{ Route::currentRouteNamed('page.faq') ? 'selected' : '' }}" href="{{ route('page.faq') }}">FAQ</a></li>
+                    </ul>
+                </li>
+                
+                <li><a class="{{ Route::currentRouteNamed('page.contact') ? 'selected' : '' }}" href="{{ route('page.contact') }}">Contact</a></li>
+
+                <li class="has-submenu {{ Route::currentRouteNamed('client.home', 'client.messages', 'client.services', 'client.service_quote', 'client.service_custom', 'client.requests', 'client.request_details', 'client.request_invoice', 'client.messages', 'client.payments', 'client.settings', 'client.wallet', 'client.technician_profile') ? 'active' : '' }}">
+                    <a href="javascript:void(0)" class="l-dark l-light">Profile</a><span class="menu-arrow"></span>
+                    <ul class="submenu">
+                        <li class="{{ Route::currentRouteNamed('client.home') ? 'active' : '' }}"><a href="{{ route('client.home') }}">Dashboard</a></li>
+
                         <li class="{{ Route::currentRouteNamed('client.services', 'client.service_quote', 'client.service_custom') ? 'active' : '' }}"><a href="{{ route('client.services') }}">Book a Service</a></li>
 
                         <li class="{{ Route::currentRouteNamed('client.wallet') ? 'active' : '' }}"><a href="{{ route('client.wallet') }}">E-Wallet</a></li>
@@ -48,17 +67,46 @@
 
                         <li class="{{ Route::currentRouteNamed('client.settings') ? 'active' : '' }}"><a href="{{ route('client.settings') }}">Settings</a></li>
 
-                        <li><a href="{{ route('login') }}">Logout</a></li>
+                        {{-- <li><a href="{{ route('login') }}">Logout</a></li> --}}
                     </ul>
                 </li>
+
+                <li title="Logout"><a href="{{ route('login') }}" ><i class="uil uil-sign-out-alt" style="font-size: 20px" ></i></a></li>
+
             </ul><!--end navigation menu-->
         </div><!--end navigation-->
     </div><!--end container-->
 </header><!--end header-->
 <!-- Navbar End -->
 
+<style>
+    #topnav .navigation-menu.nav-light > li > a{
+        color: #ffffff !important;
+    }
+    #topnav .navigation-menu.nav-light > li > a:hover{
+        color: #fff !important;
+    }
+    #topnav.nav-sticky .navigation-menu.nav-light > li > a {
+        color: #3c4858 !important;
+    }
+    #topnav .navigation-menu.nav-light > li > a:focus{
+        color: #ffff !important;
+    }
+
+    #topnav .navigation-menu.nav-light > li > a:active{
+        color: #ffff !important;
+    }
+    /* #topnav.nav-sticky .navigation-menu > li > a {
+        color: #3c4858 !important;
+    } */
+    /* #topnav .navigation-menu .has-submenu .menu-arrow {
+        border: solid #ffffff;
+    } */
+</style>
+
 <!-- Hero Start -->
-<section class="bg-profile d-table w-100 bg-primary" style="background: url('{{ asset("assets/images/account/bg.png") }}') center center no-repeat;">
+{{-- <section class="bg-profile d-table w-100 bg-primary" style="background: url('{{ asset("assets/images/account/bg.png") }}') center center no-repeat;"> --}}
+    <section class="bg-profile d-table w-100  bg-primar" style="background-color: #ff9800 !important;" >
     <div class="container">
         <div class="row">
             <div class="col-lg-12">

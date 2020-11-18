@@ -10,23 +10,26 @@
                             <div class="card event-schedule rounded border">
                                 <div class="card-body">
                                     <div class="media">
-                                        <ul class="date text-center text-primary mr-3 mb-0 list-unstyled">
+                                        {{-- <ul class="date text-center text-primary mr-3 mb-0 list-unstyled">
                                         <li class="day font-weight-bold mb-2">{{ date('d') }}</li>
                                             <li class="month font-weight-bold">{{ date('M') }}</li>
                                             <li class="month font-weight-bold">{{ date('Y') }}</li>
-                                        </ul>
+                                        </ul> --}}
                                         <div class="media-body content">
                                             <h4><a href="javascript:void(0)" class="text-dark title">Balance</a></h4>
                                             <p class="text-muted location-time"><span class="text-dark h6">₦54,560.00</span></p>
                                             <a href="{{ route('client.wallet') }}" class="btn btn-sm btn-outline-primary mouse-down">Fund Account</a>
                                         </div>
                                     </div>
+                                    <div class="mt-1">
+                                        <small>Last Login: <br>May 15 2020 12:32pm</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="widget mt-4 pt-2">
-                        <h5 class="widget-title">Components :</h5>
+                        <h5 class="widget-title">Profile :</h5>
                     </div>
                     
                     <div class="widget">
@@ -34,7 +37,7 @@
                             <div class="col-6 mt-4 pt-2">
                             <a href="{{ route('client.home') }}" class="accounts rounded d-block shadow text-center py-3 {{ Route::currentRouteNamed('client.home') ? 'active' : '' }}">
                                     <span class="pro-icons h3 text-muted"><i class="uil uil-user"></i></span>
-                                    <h6 class="title text-dark h6 my-0">Profile</h6>
+                                    <h6 class="title text-dark h6 my-0">Dashboard</h6>
                                 </a>
                             </div><!--end col-->
 

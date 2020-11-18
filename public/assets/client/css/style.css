@@ -1848,8 +1848,8 @@ button:not(:disabled) {
 }
 
 .social-icon.social li a {
-  color: #adb5bd;
-  border-color: #adb5bd;
+  color: #e97d1f;
+  border-color: #e97d1f;
 }
 
 .back-to-top {
@@ -4584,7 +4584,10 @@ p {
 }
 
 .bg-profile {
-  padding: 100px 0;
+  /* padding: 100px 0; */
+  margin-top: -5em !important;
+  padding-bottom: 50px !important;
+  /* padding: 0px 0 !important; */
   background-size: cover;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;

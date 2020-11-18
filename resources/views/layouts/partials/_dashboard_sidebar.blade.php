@@ -4,7 +4,9 @@
   <div class="aside-header">
       <a href="{{ route('cse.home')}}" class="aside-logo">
       {{-- dash<span>forge</span> --}}
-      <img src="{{ asset('assets/images/home-fix-logo.png') }}" alt="FixMaster Logo" height="160"  style="margin-top: -40px; margin-bottom: -38px;">
+      {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" alt="FixMaster Logo" height="160"  style="margin-top: -40px; margin-bottom: -38px;"> --}}
+      {{-- <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" alt="FixMaster Logo" height="120"> --}}
+
     </a>
     <a href="" class="aside-menu-link">
       <i data-feather="menu"></i>
@@ -26,7 +28,8 @@
           <h6 class="tx-semibold mg-b-0">David Adesanya</h6>
           <i data-feather="chevron-down"></i>
         </a>
-        <p class="tx-color-03 tx-12 mg-b-0">Ludwig Enterprise (CSE)</p>
+        {{-- <p class="tx-color-03 tx-12 mg-b-0">Ludwig Enterprise (CSE)</p> --}}
+        <p class="tx-color-03 tx-12 mg-b-0">CSE</p>
       </div>
       <div class="collapse" id="loggedinMenu">
         <ul class="nav nav-aside mg-b-0">
@@ -43,9 +46,19 @@
       
       
       <li class="nav-label mg-t-25">Adminstration</li>
-      {{-- <li class="nav-item {{ Route::currentRouteNamed('cse.technicians', 'cse.technicians_profile') ? 'active show' : '' }}"><a href="{{ route('cse.technicians') }}" class="nav-link"><i data-feather="users"></i> <span>Technicians/Artisans</span></a></li> --}}
+      {{-- <li class="nav-item {{ Route::currentRouteNamed('cse.technicians', 'cse.technicians_profile') ? 'active show' : '' }}"><a href="{{ route('cse.technicians') }}" class="nav-link"><i data-feather="users"></i> <span>Technicians</span></a></li> --}}
 
-      
+      <li class="nav-item"><a href="#" class="nav-link"><i data-feather="map-pin"></i> <span>Location Ping</span></a></li>
+
+
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('cse.messages', 'cse.messages_sent') ? 'active show' : '' }}">
+        <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
+        <ul> 
+          <li class="{{ Route::currentRouteNamed('cse.messages') ? 'active' : '' }}"><a href="{{ route('cse.messages') }}">Inbox</a></li>
+          <li class="{{ Route::currentRouteNamed('cse.messages_sent') ? 'active' : '' }}"><a href="{{ route('cse.messages_sent') }}">Sent</a></li>
+          <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li>
+        </ul>
+      </li>
 
       <li class="nav-item with-sub {{ Route::currentRouteNamed('cse.requests', 'cse.requests_ongoing', 'cse.requests_completed', 'cse.requests_cancelled', 'cse.request_details', 'cse.request_ongoing_details', 'cse.request_completed_details') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="git-pull-request"></i> <span>Requests</span></a>
@@ -57,18 +70,10 @@
         </ul>
       </li>
 
-      <li class="nav-item {{ Route::currentRouteNamed('cse.payments') ? 'active show' : '' }}"><a href="{{ route('cse.payments') }}" class="nav-link"><i data-feather="credit-card"></i> <span>Location Ping</span></a></li>
 
       <li class="nav-item {{ Route::currentRouteNamed('cse.payments') ? 'active show' : '' }}"><a href="{{ route('cse.payments') }}" class="nav-link"><i data-feather="credit-card"></i> <span>Payments</span></a></li>
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('cse.messages', 'cse.messages_sent') ? 'active show' : '' }}">
-        <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
-        <ul> 
-          <li class="{{ Route::currentRouteNamed('cse.messages') ? 'active' : '' }}"><a href="{{ route('cse.messages') }}">Inbox</a></li>
-          <li class="{{ Route::currentRouteNamed('cse.messages_sent') ? 'active' : '' }}"><a href="{{ route('cse.messages_sent') }}">Sent</a></li>
-          <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li>
-        </ul>
-      </li>
+      
 
       {{-- <li class="nav-item with-sub">
         <a href="" class="nav-link"><i data-feather="credit-card"></i> <span>Payments</span></a>
@@ -84,12 +89,13 @@
 <!-- END CSE SIDEBAR MENU -->
 
 <!-- START TECHINICIAN SIDEBAR MENU -->
-@if(Route::currentRouteNamed('technician.home', 'technician.requests', 'technician.request_details', 'technician.payments', 'technician.messages', 'technician.view_profile', 'technician.edit_profile'))
+@if(Route::currentRouteNamed('technician.home', 'technician.requests', 'technician.request_details', 'technician.payments', 'technician.messages', 'technician.messages_sent', 'technician.view_profile', 'technician.edit_profile'))
 <aside class="aside aside-fixed" id="sidebarMenu">
   <div class="aside-header">
       <a href="{{ route('technician.home')}}" class="aside-logo">
       {{-- dash<span>forge</span> --}}
-      <img src="{{ asset('assets/images/home-fix-logo.png') }}" alt="FixMaster Logo"  style="margin-top: -3px; width: 25%">
+      {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" alt="FixMaster Logo"  style="margin-top: -3px; width: 25%"> --}}
+      {{-- <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" alt="FixMaster Logo" height="120"> --}}
     </a>
     <a href="" class="aside-menu-link">
       <i data-feather="menu"></i>
@@ -111,7 +117,8 @@
           <h6 class="tx-semibold mg-b-0">Andrew Nwankwo</h6>
           <i data-feather="chevron-down"></i>
         </a>
-        <p class="tx-color-03 tx-12 mg-b-0">Ludwig Enterprise (TECHNICIAN)</p>
+        {{-- <p class="tx-color-03 tx-12 mg-b-0">Ludwig Enterprise (TECHNICIAN)</p> --}}
+        <p class="tx-color-03 tx-12 mg-b-0">Technician</p>
       </div>
       <div class="collapse" id="loggedinMenu">
         <ul class="nav nav-aside mg-b-0">
@@ -129,6 +136,15 @@
       
       <li class="nav-label mg-t-25">Adminstration</li>
 
+      {{-- <li class="nav-item with-sub {{ Route::currentRouteNamed('technician.messages', 'technician.messages_sent') ? 'active show' : '' }}">
+        <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
+        <ul> 
+          <li class="{{ Route::currentRouteNamed('technician.messages') ? 'active' : '' }}"><a href="{{ route('technician.messages') }}">Inbox</a></li>
+          <li class="{{ Route::currentRouteNamed('technician.messages_sent') ? 'active' : '' }}"><a href="{{ route('technician.messages_sent') }}">Sent</a></li>
+          <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li>
+        </ul>
+      </li> --}}
+
       <li class="nav-item {{ Route::currentRouteNamed('technician.requests', 'technician.request_details') ? 'active show' : '' }}"><a href="{{ route('technician.requests') }}" class="nav-link"><i data-feather="git-pull-request"></i> <span>Requests</span></a></li>
 
 
@@ -141,12 +157,14 @@
 <!-- END TECHINICIAN SIDEBAR MENU -->
 
 <!-- START ADMIN SIDEBAR MENU -->
-@if(Route::currentRouteNamed('admin.home', 'admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details', 'admin.payments', 'admin.messages', 'admin.messages_sent', 'admin.view_profile', 'admin.edit_profile', 'admin.technicians', 'admin.technicians_profile', 'admin.add_admin', 'admin.list_admin', 'admin.summary_admin', 'admin.edit_admin', 'admin.activity_log_admin', 'admin.add_cse', 'admin.list_cse', 'admin.summary_cse', 'admin.edit_cse', 'admin.activity_log_cse', 'admin.list_client', 'admin.summary_client', 'admin.utility_reset_password', 'admin.add_technician', 'admin.list_technician', 'admin.summary_technician', 'admin.edit_technician', 'admin.activity_log_technician', 'admin.add_franchise', 'admin.edit_franchise', 'admin.list_franchise', 'admin.tools_request', 'admin.tools_inventory', 'admin.rfq', 'admin.services', 'admin.add_category', 'admin.edit_category', 'admin.list_category', 'admin.disbursed_payments', 'admin.received_payments'))
+@if(Route::currentRouteNamed('admin.home', 'admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details', 'admin.payments', 'admin.messages', 'admin.messages_sent', 'admin.view_profile', 'admin.edit_profile', 'admin.technicians', 'admin.technicians_profile', 'admin.add_admin', 'admin.list_admin', 'admin.summary_admin', 'admin.edit_admin', 'admin.activity_log_admin', 'admin.add_cse', 'admin.list_cse', 'admin.summary_cse', 'admin.edit_cse', 'admin.activity_log_cse', 'admin.list_client', 'admin.summary_client', 'admin.utility_reset_password', 'admin.utility_project_status', 'admin.utility_verify_payment', 'admin.add_technician', 'admin.list_technician', 'admin.summary_technician', 'admin.edit_technician', 'admin.activity_log_technician', 'admin.add_franchise', 'admin.edit_franchise', 'admin.list_franchise', 'admin.tools_request', 'admin.tools_inventory', 'admin.rfq', 'admin.services', 'admin.add_category', 'admin.edit_category', 'admin.list_category', 'admin.disbursed_payments', 'admin.received_payments'))
 <aside class="aside aside-fixed" id="sidebarMenu">
   <div class="aside-header">
       <a href="{{ route('admin.home')}}" class="aside-logo">
       {{-- dash<span>forge</span> --}}
-      <img src="{{ asset('assets/images/home-fix-logo.png') }}" alt="FixMaster Logo" height="160"  style="margin-top: -40px; margin-bottom: -38px;">
+      {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" alt="FixMaster Logo" height="160"  style="margin-top: -40px; margin-bottom: -38px;"> --}}
+      {{-- <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" alt="FixMaster Logo" height="120"> --}}
+
     </a>
     <a href="" class="aside-menu-link">
       <i data-feather="menu"></i>
@@ -186,13 +204,13 @@
       
       <li class="nav-label mg-t-25">Adminstration</li>
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.add_franchise', 'admin.edit_franchise', 'admin.list_franchise') ? 'active show' : '' }}">
+      {{-- <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.add_franchise', 'admin.edit_franchise', 'admin.list_franchise') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="trello"></i> <span>Franchise</span></a>
         <ul>
         <li class="{{ Route::currentRouteNamed('admin.add_franchise') ? 'active' : '' }}"><a href="{{ route('admin.add_franchise') }}">Add</a></li>
         <li class="{{ Route::currentRouteNamed('admin.edit_franchise', 'admin.list_franchise') ? 'active' : '' }}"><a href="{{ route('admin.list_franchise') }}">List</a></li>
         </ul>
-      </li>
+      </li> --}}
 
       <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.messages', 'admin.messages_sent') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
@@ -244,12 +262,13 @@
       </ul>
     </li>
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.utility_reset_password') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.utility_reset_password', 'admin.utility_project_status', 'admin.utility_verify_payment') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="sliders"></i> <span>Utilities</span></a>
         <ul>
+          <li class="{{ Route::currentRouteNamed('admin.utility_project_status') ? 'active' : '' }}"><a href="{{ route('admin.utility_project_status') }}">Project Status</a></li>
           <li><a href="#">Referral</a></li>
           <li class="{{ Route::currentRouteNamed('admin.utility_reset_password') ? 'active' : '' }}"><a href="{{ route('admin.utility_reset_password') }}">Reset Password</a></li>
-          <li><a href="#">Verify Payment</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.utility_verify_payment') ? 'active' : '' }}"><a href="{{ route('admin.utility_verify_payment') }}">Verify Payment</a></li>
         </ul>
       </li>
       

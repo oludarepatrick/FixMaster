@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Dashboard')
+@section('title', 'Admin Dashboard')
 @include('layouts.partials._messages')
 @section('content')
 
@@ -287,7 +287,7 @@
       <div class="col-md-6 col-xl-6 mg-t-10">
         <div class="card ht-100p">
           <div class="card-header d-flex align-items-center justify-content-between">
-            <h6 class="mg-b-0">Technicians/Artisans</h6>
+            <h6 class="mg-b-0">Technicians</h6>
             {{-- <div class="d-flex align-items-center tx-18">
               <a href="" class="link-03 lh-0"><i class="icon ion-md-refresh"></i></a>
               <a href="" class="link-03 lh-0 mg-l-10"><i class="icon ion-md-more"></i></a>
@@ -453,6 +453,7 @@
           </div><!-- card-body -->
         </div><!-- card -->
       </div><!-- col -->
+      
       <div class="col-lg-6 mg-t-10">
         <div class="card">
           <div class="card-header d-sm-flex align-items-start justify-content-between">

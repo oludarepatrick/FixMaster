@@ -49,15 +49,15 @@
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
               <label for="password">Password</label>
               <input type="password" class="form-control" id="password" placeholder="Password">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
               <label for="confirm_password">Confirm Password</label>
               <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
             </div>
-            <div class="form-group col-md-3">
+            {{-- <div class="form-group col-md-3">
               <label>Franchise</label>
               <select class="custom-select">
                 <option selected>Select...</option>
@@ -65,8 +65,8 @@
                 <option value="2">Franchise 2</option>
                 <option value="2">Franchise 2</option>
               </select>
-            </div>
-            <div class="form-group col-md-3">
+            </div> --}}
+            <div class="form-group col-md-4">
               <label>Status</label>
               <select class="custom-select">
                 <option selected>Select...</option>

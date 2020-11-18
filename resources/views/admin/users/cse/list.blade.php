@@ -39,7 +39,7 @@
                   <th>E-Mail</th>
                   <th>Phone Number</th>
                   <th>Status</th>
-                  <th>Requests Completed</th>
+                  <th class="text-center">Requests Completed</th>
                   <th>Date Created</th>
                   <th>Action</th>
                 </tr>

@@ -92,10 +92,10 @@
                 <i class="icon ion-md-star lh-0 tx-gray-300"></i>
               </div>
             </div>
-            <div class="col-6 col-sm mg-t-20">
+            {{-- <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Franchise</label>
               <p class="tx-primary tx-rubik mg-b-0">Demo Franchise</p>
-            </div>
+            </div> --}}
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">ID</label>
               <p class="tx-primary tx-rubik mg-b-0">CSE-23804223</p>

@@ -174,7 +174,7 @@ a.h6:focus {
                                     </a>
                                     <div id="collapsefifthenn" class="collapse" aria-labelledby="headingfiftheen" data-parent="#accordionExamplefour">
                                         <div class="card-body px-2 py-4">
-                                            <p class="text-muted mb-0 faq-ans">Clients in need of a professional Technicians/Artisans are to click on the “Register” button on the Get Started dropdown option on the navigation bar to fill-in the Registration form. Suppliers/Technicians/Artisans are required to click on the “Join Us” button at the navigation bar and fill-in the Registration form.</p>
+                                            <p class="text-muted mb-0 faq-ans">Clients in need of a professional Technicians are to click on the “Register” button on the Get Started dropdown option on the navigation bar to fill-in the Registration form. Suppliers/Technicians are required to click on the “Join Us” button at the navigation bar and fill-in the Registration form.</p>
                                         </div>
                                     </div>
                                 </div>

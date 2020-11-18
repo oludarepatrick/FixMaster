@@ -8,16 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>@yield('title') | FixMaster.ng - We Fix, You Relax!</title>
-    <meta name="Author" content="Anthony Joboy (Lagos, Nigeria)" />
-    <meta name="Telephone" content="Tel: +234 903 554 7107" />
+    {{-- <meta name="Author" content="Anthony Joboy (Lagos, Nigeria)" />
+    <meta name="Telephone" content="Tel: +234 903 554 7107" /> --}}
     <meta name="description" content="FixMaster is your best trusted one-call solution for a wide range of home maintenance, servicing and repair needs. Our well-trained & certified uniformed technicians are fully insured professionals with robust experience to provide home services to fully meet your needs with singular objective to make you totally relax while your repair requests are professionally handled." />
     <meta name="keywords" content="Home-fix, Home-improvement, Home-repairs, Cleaning-services, Modern" />
-    <meta name="email" content="info@FixMaster.ng" />
-    <meta name="website" content="https://FixMaster.ng" />
+    <meta name="email" content="info@homefix.ng" />
+    <meta name="website" content="http://homefix.ng" />
     <meta name="Version" content="v0.0.1" />
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('assets/images/home-fix-logo.png') }}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{ asset('assets/images/home-fix-logo-colored.png') }}" type="image/png" sizes="16x16">
 
     <!-- vendor css -->
     <link href="{{ asset('assets/dashboard/lib/fontawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="{{ asset('assets/dashboard/assets/datatables/dataTables.bs4.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/dashboard/assets/datatables/dataTables.bs4-custom.css') }}" />
     <link href="{{ asset('assets/dashboard/lib/select2/css/select2.min.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('assets/dashboard/lib/prismjs/themes/prism-vs.css') }}" rel="stylesheet">
   </head>
   
   <body class="app-mail">
@@ -53,6 +53,7 @@
     
 
     <script src="{{ asset('assets/dashboard/lib/jquery/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/frontend/js/jquery-3.5.1.min.js') }}"></script> --}}
     <script src="{{ asset('assets/dashboard/lib/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/assets/js/dashforge.settings.js') }}"></script>
     <script src="{{ asset('assets/dashboard/assets/js/dashforge.js') }}"></script>
@@ -73,7 +74,8 @@
 
     <script src="{{ asset('assets/dashboard/assets/datatables/dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/assets/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/dashboard/assets/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/lib/jquery-steps/build/jquery.steps.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/dashboard/assets/js/custom.js') }}"></script> --}}
 
     @yield('scripts')
 
@@ -101,6 +103,7 @@
 
       });
     </script>
+
     <script>
       $(function(){
         'use strict'
@@ -328,11 +331,6 @@
 
       })
     </script>
-    <script>
-      $(function(){
-        'use strict'
-
-      });
-    </script>
+   
   </body>
 </html>

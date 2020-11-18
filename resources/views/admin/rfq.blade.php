@@ -177,7 +177,7 @@
                     <tr>
                       <td class="tx-color-03 tx-center">1</td>
                       <td class="tx-medium">Plug</td>
-                      <td class="tx-medium text-center"">PL-2342</td>
+                      <td class="tx-medium">PL-2342</td>
                       <td class="tx-medium text-center">1</td>
                       <td class="tx-medium text-center">₦4000</td>
                     </tr>
@@ -185,7 +185,7 @@
                     <tr>
                         <td class="tx-color-03 tx-center">2</td>
                         <td class="tx-medium">Carburetor</td>
-                        <td class="tx-medium text-center">TX-2342</td>
+                        <td class="tx-medium">TX-2342</td>
                         <td class="tx-medium text-center">2</td>
                         <td class="tx-medium text-center">₦10000</td>
                     </tr>

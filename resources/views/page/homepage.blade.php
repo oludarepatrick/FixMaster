@@ -8,16 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Home | FixMaster.ng - We Fix, You Relax!</title>
-    <meta name="Author" content="Anthony Joboy (Lagos, Nigeria)" />
-    <meta name="Telephone" content="Tel: +234 903 554 7107" />
+    {{-- <meta name="Author" content="Anthony Joboy (Lagos, Nigeria)" />
+    <meta name="Telephone" content="Tel: +234 903 554 7107" /> --}}
     <meta name="description" content="FixMaster is your best trusted one-call solution for a wide range of home maintenance, servicing and repair needs. Our well-trained & certified uniformed technicians are fully insured professionals with robust experience to provide home services to fully meet your needs with singular objective to make you totally relax while your repair requests are professionally handled." />
     <meta name="keywords" content="Home-fix, Home-improvement, Home-repairs, Cleaning-services, Modern" />
-    <meta name="email" content="info@FixMaster.ng" />
-    <meta name="website" content="https://FixMaster.ng" />
+    <meta name="email" content="info@homefix.ng" />
+    <meta name="website" content="http://homefix.ng" />
     <meta name="Version" content="v0.0.1" />
     <!-- favicon -->
     <!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
-    <link rel="icon" href="{{ asset('assets/images/home-fix-logo-new.png') }}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{ asset('assets/images/home-fix-logo-colored.png') }}" type="image/png" sizes="16x16">
     <!-- Bootstrap -->
     <link href="{{ asset('assets/client/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Icons -->
@@ -71,8 +71,12 @@
             <img src="{{ asset('assets/images/home-fix-logo-new.png') }}" class="l-light" height="70" alt="">
             </a> --}}
         <a class="logo" href="{{ route('page.home') }}">
-                <img src="{{ asset('assets/images/home-fix-logo.png') }}" class="l-dark" height="160" style="margin-top: -38px !important; margin-bottom: -38px !important;" alt="FixMaster logo">
+                {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" class="l-dark" height="160" style="margin-top: -38px !important; margin-bottom: -38px !important;" alt="FixMaster logo"> --}}
+
             <img src="{{ asset('assets/images/home-fix-logo-new.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;" class="l-light" height="160" alt="FixMaster logo">
+
+            <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;"  class="l-dark" height="140" alt="FixMaster logo">
+
             </a>
         </div>
         <div class="buy-button">
@@ -150,11 +154,11 @@
                         <li class="has-submenu"><a href="javascript:void(0)"> Apply <span class="submenu-arrow"></span>
                             <ul class="submenu">
                                 <li><a href="{{ route('page.careers') }}">CSE</a></li>
-                                <li><a href="{{ route('page.careers') }}">Franchisee</a></li>
+                                {{-- <li><a href="{{ route('page.careers') }}">Franchisee</a></li>
                                 <li><a href="{{ route('page.careers') }}">Intern</a></li>
-                                <li><a href="{{ route('page.careers') }}">Service Partner</a></li>
+                                <li><a href="{{ route('page.careers') }}">Service Partner</a></li> --}}
                                 <li><a href="{{ route('page.careers') }}">Supplier</a></li>
-                                <li><a href="{{ route('page.careers') }}">Trainee</a></li>
+                                {{-- <li><a href="{{ route('page.careers') }}">Trainee</a></li> --}}
                                 <li><a href="{{ route('page.careers') }}">Technician</a></li>
                             </ul> 
                         </li>

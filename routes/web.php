@@ -73,6 +73,8 @@ Route::prefix('technician')->group(function () {
         Route::view('/profile/edit', 	            'technician.edit_profile')->name('edit_profile');
         Route::view('/payments', 	                'technician.payments')->name('payments');
         Route::view('/messages', 	                'technician.messages')->name('messages');
+        Route::view('/messages/sent', 	            'technician.messages_sent')->name('messages_sent');
+
     });
 });
 
@@ -114,6 +116,9 @@ Route::prefix('admin')->group(function () {
         Route::view('/users/client/summary', 	        'admin.users.client.summary')->name('summary_client');
 
         Route::view('/users/utilities/reset-password', 	'admin.utilities.reset_password')->name('utility_reset_password');
+        Route::view('/users/utilities/project-status', 	'admin.utilities.project_status')->name('utility_project_status');
+        Route::view('/users/utilities/verify-payment', 	'admin.utilities.verify_payment')->name('utility_verify_payment');
+        
         
         Route::view('/users/technician/add', 	        'admin.users.technician.add')->name('add_technician');
         Route::view('/users/technician/edit', 	        'admin.users.technician.edit')->name('edit_technician');

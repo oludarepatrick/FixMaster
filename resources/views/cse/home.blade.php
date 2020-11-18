@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Dashboard')
+@section('title', 'CSE Dashboard')
 @include('layouts.partials._messages')
 @section('content')
 
@@ -13,7 +13,8 @@
             {{-- <li class="breadcrumb-item active" aria-current="page">Website Analytics</li> --}}
           </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Welcome to Ludwig Enterprise Dashboard</h4>
+        {{-- <h4 class="mg-b-0 tx-spacing--1">Welcome to Ludwig Enterprise Dashboard</h4> --}}
+        <h4 class="mg-b-0 tx-spacing--1">Welcome to Fix<span style="color: #E97D1F;">Master</span> CSE Dashboard</h4>
       </div>
       {{-- <div class="d-none d-md-block">
         <button class="btn btn-sm pd-x-15 btn-white btn-uppercase"><i data-feather="save" class="wd-10 mg-r-5"></i> Save</button>
@@ -157,7 +158,7 @@
                   </div>
                   <div class="col-sm-6 col-lg-12 mg-t-30">
                     <div class="d-flex align-items-center justify-content-between mg-b-5">
-                      <h6 class="tx-uppercase tx-10 tx-spacing-1 tx-color-02 tx-semibold mg-b-0">Technicians</h6>
+                      <h6 class="tx-uppercase tx-10 tx-spacing-1 tx-color-02 tx-semibold mg-b-0">Payments Received</h6>
                       {{-- <span class="tx-10 tx-color-04">85% goal reached</span> --}}
                     </div>
                     <div class="d-flex justify-content-between mg-b-5">
@@ -251,7 +252,7 @@
       <div class="col-md-6 col-xl-6 mg-t-10">
         <div class="card ht-100p">
           <div class="card-header d-flex align-items-center justify-content-between">
-            <h6 class="mg-b-0">Technicians/Artisans</h6>
+            <h6 class="mg-b-0">Ongoing Jobs</h6>
             {{-- <div class="d-flex align-items-center tx-18">
               <a href="" class="link-03 lh-0"><i class="icon ion-md-refresh"></i></a>
               <a href="" class="link-03 lh-0 mg-l-10"><i class="icon ion-md-more"></i></a>
@@ -261,27 +262,13 @@
             <li class="list-group-item d-flex pd-x-20">
               <div class="avatar"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt=""></div>
               <div class="pd-l-10">
-                <p class="tx-medium mg-b-0">Andrew Nwankwo</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Completed Jobs: 12</small>
+                <p class="tx-medium mg-b-0">REF-544199238409</p>
+                <small class="tx-12 tx-color-03 mg-b-0">Femi Joseph</small>
               </div>
               <div class="mg-l-auto d-flex align-self-center">
                 <nav class="nav nav-icon-only">
-                  <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a>
-                  <a href="" class="nav-link d-none d-sm-block" title="View Profile"><i data-feather="user"></i></a>
-                </nav>
-              </div>
-            </li>
-
-            <li class="list-group-item d-flex pd-x-20">
-              <div class="avatar"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt=""></div>
-              <div class="pd-l-10">
-                <p class="tx-medium mg-b-0">Taofeek Adedokun</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Completed Jobs: 9</small>
-              </div>
-              <div class="mg-l-auto d-flex align-self-center">
-                <nav class="nav nav-icon-only">
-                  <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a>
-                  <a href="" class="nav-link d-none d-sm-block" title="View Profile"><i data-feather="user"></i></a>
+                  {{-- <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a> --}}
+                  <a href="" class="nav-link d-none d-sm-block" title="View Details"><i data-feather="arrow-right"></i></a>
                 </nav>
               </div>
             </li>
@@ -289,26 +276,13 @@
             <li class="list-group-item d-flex pd-x-20">
               <div class="avatar"><img src="{{ asset('assets/images/default-female-avatar.png') }}" class="rounded-circle" alt=""></div>
               <div class="pd-l-10">
-                <p class="tx-medium mg-b-0">Blessing Nnamdi</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Completed Jobs: 8</small>
+                <p class="tx-medium mg-b-0">REF-094009623412</p>
+                <small class="tx-12 tx-color-03 mg-b-0">Esuruoso Favour</small>
               </div>
               <div class="mg-l-auto d-flex align-self-center">
                 <nav class="nav nav-icon-only">
-                  <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a>
-                  <a href="" class="nav-link d-none d-sm-block" title="View Profile"><i data-feather="user"></i></a>
-                </nav>
-              </div>
-            </li>
-            <li class="list-group-item d-flex pd-x-20">
-              <div class="avatar"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt=""></div>
-              <div class="pd-l-10">
-                <p class="tx-medium mg-b-0">Bidemi George</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Completed Jobs: 6</small>
-              </div>
-              <div class="mg-l-auto d-flex align-self-center">
-                <nav class="nav nav-icon-only">
-                  <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a>
-                  <a href="" class="nav-link d-none d-sm-block" title="View Profile"><i data-feather="user"></i></a>
+                  {{-- <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a> --}}
+                  <a href="" class="nav-link d-none d-sm-block" title="View Details"><i data-feather="arrow-right"></i></a>
                 </nav>
               </div>
             </li>
@@ -316,19 +290,20 @@
             <li class="list-group-item d-flex pd-x-20">
               <div class="avatar"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt=""></div>
               <div class="pd-l-10">
-                <p class="tx-medium mg-b-0">Isaac Johnson</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Completed Jobs: 4</small>
+                <p class="tx-medium mg-b-0">REF-237290223123</p>
+                <small class="tx-12 tx-color-03 mg-b-0">Haruna Ahmadu</small>
               </div>
               <div class="mg-l-auto d-flex align-self-center">
                 <nav class="nav nav-icon-only">
-                  <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a>
-                  <a href="" class="nav-link d-none d-sm-block" title="View Profile"><i data-feather="user"></i></a>
+                  {{-- <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a> --}}
+                  <a href="" class="nav-link d-none d-sm-block" title="View Details"><i data-feather="arrow-right"></i></a>
                 </nav>
               </div>
             </li>
+            
           </ul>
           <div class="card-footer text-center tx-13">
-            <a href="{{ route('cse.technicians') }}" class="link-03">View More <i class="icon ion-md-arrow-down mg-l-5"></i></a>
+            <a href="{{ route('cse.requests_ongoing') }}" class="link-03">View More <i class="icon ion-md-arrow-down mg-l-5"></i></a>
           </div><!-- card-footer -->
         </div><!-- card -->
       </div>

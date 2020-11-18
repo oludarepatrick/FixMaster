@@ -23,7 +23,8 @@
         <div>
         <a class="logo" href="{{ route('page.home') }}">
             {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" height="70" alt=""> --}}
-            <img src="{{ asset('assets/images/home-fix-logo.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;" height="160" alt="">
+            {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;" height="160" alt="FixMaster logo"> --}}
+            <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;" height="140" alt="FixMaster logo">
             
             </a>
         </div>
@@ -86,11 +87,11 @@
                         <li class="has-submenu"><a href="javascript:void(0)"> Apply <span class="submenu-arrow"></span>
                             <ul class="submenu">
                                 <li><a href="{{ route('page.careers') }}">CSE</a></li>
-                                <li><a href="{{ route('page.careers') }}">Franchisee</a></li>
+                                {{-- <li><a href="{{ route('page.careers') }}">Franchisee</a></li>
                                 <li><a href="{{ route('page.careers') }}">Intern</a></li>
-                                <li><a href="{{ route('page.careers') }}">Service Partner</a></li>
+                                <li><a href="{{ route('page.careers') }}">Service Partner</a></li> --}}
                                 <li><a href="{{ route('page.careers') }}">Supplier</a></li>
-                                <li><a href="{{ route('page.careers') }}">Trainee</a></li>
+                                {{-- <li><a href="{{ route('page.careers') }}">Trainee</a></li> --}}
                                 <li><a href="{{ route('page.careers') }}">Technician</a></li>
                             </ul> 
                         </li>

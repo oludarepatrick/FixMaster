@@ -169,9 +169,9 @@
             </div>
         </div><!--end col-->
 
-        <div class="col-12 mt-4 pt-2">
+        {{-- <div class="col-12 mt-4 pt-2">
         <a href="{{ route('client.services') }}" class="btn btn-primary">See More <i class="mdi mdi-chevron-right"></i></a>
-        </div><!--end col-->
+        </div><!--end col--> --}}
     </div><!--end row-->
 </div><!--end col-->
 @endsection

@@ -23,7 +23,7 @@
           <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
             <div>
               <h6 class="mg-b-5">Your Most Recent Requets</h6>
-            <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>Technicians/Artisans</strong> assigned to Ludwig Enterprise as of <strong>{{ date('l jS F Y') }}</strong>.</p>
+            <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>Technicians</strong> assigned to Ludwig Enterprise as of <strong>{{ date('l jS F Y') }}</strong>.</p>
             </div>
             
           </div><!-- card-header -->

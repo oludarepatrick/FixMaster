@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="section-title text-center mb-4 pb-2">
                     <h4 class="title mb-4">We are Hiring!</h4>
-                    <p class="text-muted para-desc mx-auto mb-0"> <span>FixMaster</span> is always looking for service professionals who are experts in their trade and provide great service to their customers ranging from Customer Service Executives(CSE's) to Technicians/Artisans to Suppliers. The best home service professionals use <span>FixMaster</span> for the great pay and flexible scheduling.</p>
+                    <p class="text-muted para-desc mx-auto mb-0"> <span>FixMaster</span> is always looking for service professionals who are experts in their trade and provide great service to their customers ranging from Customer Service Executives(CSE's) to Technicians to Suppliers. The best home service professionals use <span>FixMaster</span> for the great pay and flexible scheduling.</p>
                 </div>
             </div><!--end col-->
         </div><!--end row-->

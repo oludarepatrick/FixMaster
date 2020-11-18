@@ -20,7 +20,7 @@
       <div class="row row-xs">
         {{-- <div class="col-lg-12 col-xl-12"> --}}
 
-          <div class="col-md-8">
+          <div class="col-md-12">
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="first_name">First Name</label>
@@ -46,10 +46,10 @@
               </div>
               <div class="form-group col-md-4">
                 <label>Designation</label>
-                <select class="custom-select">
+                <select class="custom-select" id="designation">
                   <option selected>Select...</option>
-                  <option value="1">Administrator</option>
-                  <option value="2">Super Admin</option>
+                  <option value="admin">Administrator</option>
+                  <option value="super_admin">Super Admin</option>
                 </select>
               </div>
             </div>
@@ -63,55 +63,106 @@
                 <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
               </div>
             </div>
-            
-            <button type="submit" class="btn btn-primary">Create</button>
           </div>
           
-          <div class="col-md-4">
+          <div class="col-md-12 d-none permission">
             <fieldset class="form-fieldset">
-              <legend>Permissions</legend>
+              <legend>Access & Permissions</legend>
               <p>Check areas to allow Admin Access.</p>
               <div class="form-row">
-                  <div class="custom-control custom-checkbox ">
-                    <input type="checkbox" id="customRadio2" name="customRadio" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio2">Clients</label>
+                  <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox ">
+                      <input type="checkbox" id="customRadio2" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio2">Administrators</label>
+                    </div>
                   </div>
 
-                  <div class="custom-control custom-checkbox" style="margin-left: 4.15rem !important;">
-                    <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">Technicians</label>
+                  <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox ">
+                      <input type="checkbox" id="customRadio2" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio2">Clients</label>
+                    </div>
                   </div>
-              </div>
 
-              <div class="form-row">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
-                  <label class="custom-control-label" for="customRadio1">Administrator</label>
-                </div>
-                
-                <div class="ml-4 custom-control custom-checkbox">
-                  <input type="checkbox" id="customRadio2" name="customRadio" class="custom-control-input">
-                  <label class="custom-control-label" for="customRadio2">CSE's</label>
-                </div>
-              </div>
+                  <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox ">
+                      <input type="checkbox" id="customRadio2" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio2">CSE's</label>
+                    </div>
+                  </div>
 
-              <div class="form-row">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
-                  <label class="custom-control-label" for="customRadio1">Requests</label>
-                </div>
-                <div class="custom-control custom-checkbox" style="margin-left: 3.15rem !important;">
-                  <input type="checkbox" id="customRadio2" name="customRadio" class="custom-control-input">
-                  <label class="custom-control-label" for="customRadio2">Payments</label>
-                </div>
+                  <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio1">Payments</label>
+                    </div>
+                  </div>
 
-                
+                  <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio1">Requests</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio1">RFQ's</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio1">Service & Category</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio1">Technicians</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio1">Tools</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio1">Utilities</label>
+                    </div>
+                  </div>
               </div>
             </fieldset>
+          </div>
+
+          <div class="col-md-12 mt-4">
+            <button type="submit" class="btn btn-primary">Create</button>
           </div>
       </div>
     </form>
 
     </div>
 </div>
+
+@section('scripts')
+<script>
+  $(document).ready(function (){
+    $('#designation').change(function () {
+        if ($(this).val() == 'super_admin') {
+            $('.permission').addClass('d-none');    
+        }else{
+          $('.permission').removeClass('d-none');    
+        }
+    });
+  });
+</script>
+@endsection
 @endsection
