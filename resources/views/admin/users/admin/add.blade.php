@@ -92,9 +92,30 @@
                   </div>
 
                   <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox ">
+                      <input type="checkbox" id="customRadio2" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio2">Location Request</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-2">
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
                       <label class="custom-control-label" for="customRadio1">Payments</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio1">Payment Gateway</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-2">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio1">Rating</label>
                     </div>
                   </div>
 

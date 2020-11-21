@@ -37,6 +37,7 @@ Route::prefix('client')->group(function () {
     Route::view('/services', 	            'client.services')->name('client.services');
     Route::view('/service/custom', 	        'client.service_custom')->name('client.service_custom');
     Route::view('/services/quote', 	        'client.service_quote')->name('client.service_quote');
+    Route::view('/service-details', 		'client.service_details')->name('client.services_details');
     Route::view('/requests', 	            'client.requests')->name('client.requests');
     Route::view('/requests/details', 	    'client.request_details')->name('client.request_details');
     Route::view('/requests/invoice', 	    'client.request_invoice')->name('client.request_invoice');
@@ -62,6 +63,7 @@ Route::prefix('cse')->group(function () {
     Route::view('/payments', 	                'cse.payments')->name('cse.payments');
     Route::view('/messages', 	                'cse.messages')->name('cse.messages');
     Route::view('/messages/sent', 	            'cse.messages_sent')->name('cse.messages_sent');
+    Route::view('/location-request', 	        'cse.location_request')->name('cse.location_request');
 });
 
 Route::prefix('technician')->group(function () {
@@ -74,6 +76,7 @@ Route::prefix('technician')->group(function () {
         Route::view('/payments', 	                'technician.payments')->name('payments');
         Route::view('/messages', 	                'technician.messages')->name('messages');
         Route::view('/messages/sent', 	            'technician.messages_sent')->name('messages_sent');
+        Route::view('/location-request', 	        'technician.location_request')->name('location_request');
 
     });
 });
@@ -137,10 +140,18 @@ Route::prefix('admin')->group(function () {
         Route::view('/category/add', 	                'admin.services.add_category')->name('add_category');
         Route::view('/category/edit', 	                'admin.services.edit_category')->name('edit_category');
         Route::view('/category/list', 	                'admin.services.list_category')->name('list_category');
+        Route::view('/category/review', 	            'admin.services.review_category')->name('review_category');
 
         Route::view('/payments/disbursed', 	            'admin.payments.disbursed')->name('disbursed_payments');
         Route::view('/payments/received', 	            'admin.payments.received')->name('received_payments');
 
+        Route::view('/ratings/category', 	            'admin.ratings.category')->name('category_ratings');
+        Route::view('/ratings/job', 	                'admin.ratings.job')->name('job_ratings');
+        Route::view('/location-request', 	            'admin.location_request')->name('location_request');
+        Route::view('/payment-gateway/add', 	        'admin.payment_gateways.add')->name('add_payment_gateway');
+        Route::view('/payment-gateway/edit', 	        'admin.payment_gateways.edit')->name('edit_payment_gateway');
+        Route::view('/payment-gateway/list', 	        'admin.payment_gateways.list')->name('list_payment_gateway');
+        
     });
 });
 

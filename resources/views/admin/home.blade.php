@@ -13,7 +13,7 @@
             {{-- <li class="breadcrumb-item active" aria-current="page">Website Analytics</li> --}}
           </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">Welcome to Fix<span style="color: #E97D1F;">Master</span> Dashboard</h4>
+        <h4 class="mg-b-0 tx-spacing--1">Welcome to Fix<span style="color: #E97D1F;">Master</span> Admin Dashboard</h4>
       </div>
       {{-- <div class="d-none d-md-block">
         <button class="btn btn-sm pd-x-15 btn-white btn-uppercase"><i data-feather="save" class="wd-10 mg-r-5"></i> Save</button>
@@ -211,7 +211,164 @@
           </div><!-- card-body -->
         </div><!-- card -->
       </div>
+
+      <div class="col-lg-12 col-xl-12 mg-t-10">
+        <style>
+          canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+          }
+        </style>
+        <div class="card">
+          <div style="width:100%;">
+            <canvas id="canvas"></canvas>
+          </div>
+      </div>
+      </div>
       
+      <div class="col-md-6 col-xl-4 mg-t-10 order-md-1 order-xl-0">
+        <div class="card ht-lg-100p">
+          <div class="card-header d-flex align-items-center justify-content-between">
+            <h6 class="mg-b-0">Highest Requests by L.G.A</h6>
+            <div class="tx-13 d-flex align-items-center">
+              {{-- <span class="mg-r-5">Country:</span> <a href="" class="d-flex align-items-center link-03 lh-0">USA <i class="icon ion-ios-arrow-down mg-l-5"></i></a> --}}
+            </div>
+          </div><!-- card-header -->
+          <div class="card-body pd-0">
+            
+            <div class="table-responsive">
+              <table class="table table-borderless table-dashboard table-dashboard-one">
+                <thead>
+                  <tr>
+                    <th class="wd-40">L.G.A</th>
+                    <th class="wd-25 text-right">Requests</th>
+                    <th class="wd-35 text-right">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="tx-medium">Alimosho</td>
+                    <td class="text-right">73</td>
+                    <td class="text-right">₦150,200.80</td>
+                  </tr>
+                  <tr>
+                    <td class="tx-medium">Kosofe</td>
+                    <td class="text-right">64</td>
+                    <td class="text-right">₦138,910.20</td>
+                  </tr>
+                  <tr>
+                    <td class="tx-medium">Ibeju-Lekki</td>
+                    <td class="text-right">58</td>
+                    <td class="text-right">₦132,050.00</td>
+                  </tr>
+                  <tr>
+                    <td class="tx-medium">Mushin</td>
+                    <td class="text-right">31</td>
+                    <td class="text-right">₦127,762.10</td>
+                  </tr>
+                  <tr>
+                    <td class="tx-medium">Ojo</td>
+                    <td class="text-right">17</td>
+                    <td class="text-right">₦117,087.50</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div><!-- table-responsive -->
+          </div><!-- card-body -->
+        </div><!-- card -->
+      </div><!-- col -->
+
+      
+      <div class="col-lg-12 col-xl-8 mg-t-10">
+        <div class="card mg-b-10">
+          <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
+            <div>
+              {{-- <h6 class="mg-b-5">Your earnings since inception</h6> --}}
+              <p class="tx-13 tx-color-03 mg-b-0">Your Payments gross total since inception</p>
+            </div>
+            <div class="d-flex mg-t-20 mg-sm-t-0">
+              {{-- <div class="btn-group flex-fill">
+                <button class="btn btn-white btn-xs active">Range</button>
+                <button class="btn btn-white btn-xs">Period</button>
+              </div> --}}
+            </div>
+          </div><!-- card-header -->
+          <div class="card-body pd-y-30">
+            <div class="d-sm-flex">
+              <div class="media">
+                <div class="wd-40 wd-md-50 ht-40 ht-md-50 bg-teal tx-white mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded op-6">
+                  <i data-feather="bar-chart-2"></i>
+                </div>
+                <div class="media-body">
+                  <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold tx-nowrap mg-b-5 mg-md-b-8"> Recieved</h6>
+                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0">₦1,958,104</h4>
+                </div>
+              </div>
+              <div class="media mg-t-20 mg-sm-t-0 mg-sm-l-15 mg-md-l-40">
+                <div class="wd-40 wd-md-50 ht-40 ht-md-50 bg-pink tx-white mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded op-5">
+                  <i data-feather="bar-chart-2"></i>
+                </div>
+                <div class="media-body">
+                  <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold mg-b-5 mg-md-b-8"> Disbursed</h6>
+                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0">₦234,769</h4>
+                </div>
+              </div>
+              <div class="media mg-t-20 mg-sm-t-0 mg-sm-l-15 mg-md-l-40">
+                <div class="wd-40 wd-md-50 ht-40 ht-md-50 bg-primary tx-white mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded op-4">
+                  <i data-feather="bar-chart-2"></i>
+                </div>
+                <div class="media-body">
+                  <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold mg-b-5 mg-md-b-8">Profit/Loss</h6>
+                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0 text-success">₦1,608,469</h4>
+                </div>
+              </div>
+            </div>
+          </div><!-- card-body -->
+          <div class="table-responsive">
+            <h4 class="ml-4 mt-4 mb-4 mg-b-5">Highest Returning Jobs</h4>
+
+            <table class="table table-dashboard mg-b-0">
+              <thead>
+                <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-right">Job Ref</th>
+                  <th class="text-right">Client</th>
+                  <th class="text-right">Amount</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center">1</td>
+                  <td class="text-right">REF-234094623496</td>
+                  <td class="text-right">Femi Joseph</td>
+                  <td class="tx-medium text-right">₦32,500</td>
+                  <td class="tx-color-03 tx-normal">May 15th 2020</td>
+                </tr> 
+
+                <tr>
+                  <td class="text-center">2</td>
+                  <td class="text-right">REF-234094623496</td>
+                  <td class="text-right">Haruna Ahmadu</td>
+                  <td class="tx-medium text-right">₦30,000</td>
+                  <td class="tx-color-03 tx-normal">May 15th 2020</td>
+                </tr> 
+
+                <tr>
+                  <td class="text-center">3</td>
+                  <td class="text-right">REF-237290223123</td>
+                  <td class="text-right">Oluyemi Ayotunde</td>
+                  <td class="tx-medium text-right">₦28,800</td>
+                  <td class="tx-color-03 tx-normal">May 15th 2020</td>
+                </tr> 
+              </tbody>
+            </table>
+          </div><!-- table-responsive -->
+        </div><!-- card -->
+
+      </div><!-- col -->
+
       <div class="col-md-6 col-xl-6 mg-t-10">
         <div class="card ht-100p">
           <div class="card-header d-flex align-items-center justify-content-between">
@@ -287,7 +444,7 @@
       <div class="col-md-6 col-xl-6 mg-t-10">
         <div class="card ht-100p">
           <div class="card-header d-flex align-items-center justify-content-between">
-            <h6 class="mg-b-0">Technicians</h6>
+            <h6 class="mg-b-0">CSE's</h6>
             {{-- <div class="d-flex align-items-center tx-18">
               <a href="" class="link-03 lh-0"><i class="icon ion-md-refresh"></i></a>
               <a href="" class="link-03 lh-0 mg-l-10"><i class="icon ion-md-more"></i></a>
@@ -364,7 +521,7 @@
             </li>
           </ul>
           <div class="card-footer text-center tx-13">
-            <a href="{{ route('admin.technicians') }}" class="link-03">View More <i class="icon ion-md-arrow-down mg-l-5"></i></a>
+            <a href="{{ route('admin.list_cse') }}" class="link-03">View More <i class="icon ion-md-arrow-down mg-l-5"></i></a>
           </div><!-- card-footer -->
         </div><!-- card -->
       </div>
@@ -521,6 +678,150 @@
 
 
 @section('scripts')
+<script src="{{ asset('assets/dashboard/assets/js/chart294.min.js') }}"></script>
+<script src="{{ asset('assets/dashboard/assets/js/utils.js') }}"></script>
+{{-- <script src="https://www.chartjs.org/samples/latest/utils.js"></script> --}}
+
+<script>
+  var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var config = {
+    type: 'line',
+    data: {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [{
+        label: 'Payments Disbursed',
+        borderColor: window.chartColors.red,
+        backgroundColor: window.chartColors.red,
+        data: [
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor()
+        ],
+      }, {
+        label: 'Requests',
+        borderColor: window.chartColors.blue,
+        backgroundColor: window.chartColors.blue,
+        data: [
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor()
+        ],
+      }, {
+        label: 'Payments Recieved',
+        borderColor: window.chartColors.green,
+        backgroundColor: window.chartColors.green,
+        data: [
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor()
+        ],
+      }], 
+    },
+    options: {
+      responsive: true,
+      title: {
+        display: true,
+        text: 'Payments/Requests Chart'
+      },
+      tooltips: {
+        mode: 'index',
+      },
+      hover: {
+        mode: 'index'
+      },
+      scales: {
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Month'
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Value'
+          }
+        }]
+      }
+    }
+  };
+
+  window.onload = function() {
+    var ctx = document.getElementById('canvas').getContext('2d');
+    window.myLine = new Chart(ctx, config);
+  };
+
+  document.getElementById('randomizeData').addEventListener('click', function() {
+    config.data.datasets.forEach(function(dataset) {
+      dataset.data = dataset.data.map(function() {
+        return randomScalingFactor();
+      });
+
+    });
+
+    window.myLine.update();
+  });
+
+  var colorNames = Object.keys(window.chartColors);
+  document.getElementById('addDataset').addEventListener('click', function() {
+    var colorName = colorNames[config.data.datasets.length % colorNames.length];
+    var newColor = window.chartColors[colorName];
+    var newDataset = {
+      label: 'Dataset ' + config.data.datasets.length,
+      borderColor: newColor,
+      backgroundColor: newColor,
+      data: [],
+    };
+
+    for (var index = 0; index < config.data.labels.length; ++index) {
+      newDataset.data.push(randomScalingFactor());
+    }
+
+    config.data.datasets.push(newDataset);
+    window.myLine.update();
+  });
+
+  document.getElementById('addData').addEventListener('click', function() {
+    if (config.data.datasets.length > 0) {
+      var month = MONTHS[config.data.labels.length % MONTHS.length];
+      config.data.labels.push(month);
+
+      config.data.datasets.forEach(function(dataset) {
+        dataset.data.push(randomScalingFactor());
+      });
+
+      window.myLine.update();
+    }
+  });
+
+  document.getElementById('removeDataset').addEventListener('click', function() {
+    config.data.datasets.splice(0, 1);
+    window.myLine.update();
+  });
+
+  document.getElementById('removeData').addEventListener('click', function() {
+    config.data.labels.splice(-1, 1); // remove the label first
+
+    config.data.datasets.forEach(function(dataset) {
+      dataset.data.pop();
+    });
+
+    window.myLine.update();
+  });
+</script>
 <script>
     $(document).ready(function() {
 

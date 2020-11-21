@@ -23,7 +23,7 @@
           <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
             <div>
               <h6 class="mg-b-5">Tools requested as of {{ date('M, d Y') }}</h6>
-              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of all FixMaster Tools requested by CSE's.</p>
+              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of all FixMaster Tools requested for a job.</p>
             </div>
             
           </div><!-- card-header -->
@@ -38,7 +38,7 @@
                   <th>Batch Number</th>
                   <th>Client</th>
                   <th>Admin</th>
-                  <th>CSE</th>
+                  <th>Requested By</th>
                   <th>Status</th>
                   <th>Date Created</th>
                   <th>Action</th>

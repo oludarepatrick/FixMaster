@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
-                    <a href="index.html" class="logo-footer">
+                <a href="{{ route('page.home') }}" class="logo-footer">
                         <img class=" preload-me" src="{{ asset('assets/images/home-fix-logo-new.png') }}"
                         style="margin-top: -65px !important; margin-bottom: -38px !important;" height="160" alt="FixMaster.ng">
                     </a>

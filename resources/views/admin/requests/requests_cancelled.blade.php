@@ -24,7 +24,7 @@
           <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
             <div>
               <h6 class="mg-b-5">Your Most Recent Requets</h6>
-              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>Cancelled Requests</strong> assigned to Ludwig Enterprise by FixMaster Admin.</p>
+              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>Cancelled Requests</strong> assigned  by FixMaster Admin.</p>
             </div>
             
           </div><!-- card-header -->
@@ -100,119 +100,84 @@
     </div><!-- row -->
 
     <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg wd-sm-650" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-body pd-x-25 pd-sm-x-30 pd-t-40 pd-sm-t-20 pd-b-15 pd-sm-b-20">
             <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </a>
-            <div class="media align-items-center">
-              <span class="tx-color-03 d-none d-sm-block">
-                {{-- <i data-feather="credit-card" class="wd-60 ht-60"></i> --}}
-                <img src="{{ asset('assets/images/default-male-avatar.png') }}" class="avatar rounded-circle" alt="Male Avatar">
-              </span>
-              <div class="media-body mg-sm-l-20">
-                <h4 class="tx-18 tx-sm-20 mg-b-2">Femi Joseph</h4>
-                <p class="tx-13 tx-color-03 mg-b-0">08125456489</p>
+            <h5 class="mg-b-2"><strong>Job Description</strong></h5>
+
+            <div class="row row-sm mt-4 mb-4">
+              <div class="col-lg-12 col-xl-12">                
+                <table class="table table-striped table-sm mg-b-0">
+                  <tbody>
+                    <tr>
+                      <td class="tx-medium">Client</td>
+                      <td class="tx-color-03">Femi Joseph</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">Job Reference</td>
+                      <td class="tx-color-03">REF-234094623496</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">Service Required</td>
+                      <td class="tx-color-03">Mechanical (Generator)</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">Scheduled Date & Time</td>
+                      <td class="tx-color-03">May 15th 2020 at 11:30am</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">Initial Service Charge</td>
+                      <td class="tx-color-03">₦14,000 (Urgent Fee)</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">Total Service Charge</td>
+                      <td class="tx-color-03">₦14,000 (Urgent Fee)</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">CSE Assigned</td>
+                      <td class="tx-color-03">Godfrey Diwa</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">Technician Assigned</td>
+                      <td class="tx-color-03">Andrew Nwankwo</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">L.G.A</td>
+                      <td class="tx-color-03">Ibeju-Lekki</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">Town/City</td>
+                      <td class="tx-color-03">Ibeju-Lekki</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">Request Address</td>
+                      <td class="tx-color-03">7, Abagbo Close, Victoria Island, Lagos, Nigeria</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">Request Description</td>
+                      <td class="tx-color-03">My generator just stopped working and it's refusing to come on. I need urgent repairs today.</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">Date of Cancellation</td>
+                      <td class="tx-color-03">May 15th 2020 at 11:30am</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">Cancelled By</td>
+                      <td class="tx-color-03">Femi Joseph</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-medium">Reason</td>
+                      <td class="tx-color-03">My generator began working again after manual observance. Thanks.</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+
               </div>
-            </div><!-- media -->
-            <div class="nav-wrapper mg-b-20 tx-13">
-              <div>
-                <nav class="nav nav-line tx-medium">
-                  <a href="#description" class="nav-link active" data-toggle="tab">Description</a>
-                  <a href="#media" class="nav-link" data-toggle="tab">Media</a>
-                  <a href="#technician" class="nav-link" data-toggle="tab">Reason</a>
-                </nav>
-              </div>
-            </div><!-- nav-wrapper -->
-
-            <div class="tab-content">
-              <div id="description" class="tab-pane fade active show">                
-                <ul class="activity tx-13 mg-b-10">
-                  <li class="activity-item">
-                    <div class="activity-icon bg-secondary-light tx-secondary">
-                      <i data-feather="link"></i>
-                    </div>
-                    <div class="activity-body">
-                      <h5 class="mg-b-2"><strong>Job Reference</strong></h5>
-                      <h6 class="tx-color-03">REF-234094623496</h6>
-                    </div><!-- activity-body -->
-                  </li><!-- activity-item -->
-                  <li class="activity-item">
-                    <div class="activity-icon bg-primary-light tx-primary">
-                      <i data-feather="codepen"></i>
-                    </div>
-                    <div class="activity-body">
-                      <h5 class="mg-b-2"><strong>Service Required</strong></h5>
-                      <h6 class="tx-color-03">Mechanical (Generator)</h6>
-                    </div><!-- activity-body -->
-                  </li><!-- activity-item -->
-                  <li class="activity-item">
-                    <div class="activity-icon bg-success-light tx-success">
-                      <i data-feather="map-pin"></i>
-                    </div>
-                    <div class="activity-body">
-                      <h5 class="mg-b-2"><strong>Request Location</strong></h5>
-                      <h6 class="tx-color-03"> 7, Abagbo Close, Victoria Island, Lagos, Nigeria</h6>
-                    </div><!-- activity-body -->
-                  </li><!-- activity-item -->
-                  <li class="activity-item">
-                    <div class="activity-icon bg-warning-light tx-orange">
-                      <i data-feather="calendar"></i>
-                    </div>
-                    <div class="activity-body">
-                      <h5 class="mg-b-2"><strong>Scheduled Date & Time</strong></h5>
-                      <h6 class="tx-color-03"> May 15th 2020 at 11:30am</h6>
-                    </div><!-- activity-body -->
-                  </li><!-- activity-item -->
-                  <li class="activity-item">
-                    <div class="activity-icon bg-info-light tx-info">
-                      <i data-feather="credit-card"></i>
-                    </div>
-                    <div class="activity-body">
-                      <h5 class="mg-b-2"><strong>Service Charge</strong></h5>
-                      <h6 class="tx-color-03"> ₦14,000</h6>
-                    </div><!-- activity-body -->
-                  </li><!-- activity-item -->
-                  <li class="activity-item">
-                    <div class="activity-icon bg-pink-light tx-pink">
-                      <i data-feather="flag"></i>
-                    </div>
-                    <div class="activity-body">
-                      <h5 class="mg-b-2"><strong>Payment Status</strong></h5>
-                      <h6 class="tx-color-03"> Cancelled</h6>
-                    </div><!-- activity-body -->
-                  </li><!-- activity-item -->
-                  <li class="activity-item">
-                    <div class="activity-icon bg-indigo-light tx-indigo">
-                      <i data-feather="file"></i>
-                    </div>
-                    <div class="activity-body">
-                      <h5 class="mg-b-2"><strong>Request Description</strong></h5>
-                      <h6 class="tx-color-03"> My generator just stopped working and it's refusing to come on. I need urgent repairs today.</h6>
-                    </div><!-- activity-body -->
-                  </li><!-- activity-item -->
-                </ul><!-- activity -->
-              </div><!-- tab-pane -->
-
-              <div id="media" class="tab-pane fade">
-                <div class="placeholder-paragraph aligned-centered">
-                  <div class="line"></div>
-                  <div class="line"></div>
-                </div>
-              </div><!-- tab-pane -->
-
-              <div id="technician" class="tab-pane fade">
-                {{-- <h4 class="tx-18 tx-sm-20 mg-b-2">Reason for Service Request Cancellation</h4> --}}
-
-                <h5 class="mg-b-2"><strong>Cancelled By</strong></h5>
-                <h6 class="tx-color-03">Femi Joseph</h6>
-
-                <h5 class="mg-b-2"><strong>Description </strong></h5>
-                <h6 class="tx-color-03"> My generator began working again after manual observance. Thanks.</h6>
-              </div>
-
-            </div><!-- tab-content -->
+            </div>
           </div><!-- modal-body -->
         </div><!-- modal-content -->
       </div><!-- modal-dialog -->

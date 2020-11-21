@@ -8,7 +8,7 @@
                     <div class="widget">
                         <div class="row mt-4  text-center">
                             <div class="card event-schedule rounded border">
-                                <div class="card-body">
+                                <div class="card-body event-width">
                                     <div class="media">
                                         {{-- <ul class="date text-center text-primary mr-3 mb-0 list-unstyled">
                                         <li class="day font-weight-bold mb-2">{{ date('d') }}</li>
@@ -42,7 +42,7 @@
                             </div><!--end col-->
 
                             <div class="col-6 mt-4 pt-2">
-                                <a href="{{ route('client.services') }}" class="accounts rounded d-block shadow text-center py-3 {{ Route::currentRouteNamed('client.services', 'client.service_quote', 'client.service_custom') ? 'active' : '' }}">
+                                <a href="{{ route('client.services') }}" class="accounts rounded d-block shadow text-center py-3 {{ Route::currentRouteNamed('client.services', 'client.service_quote', 'client.service_custom', 'client.services_details') ? 'active' : '' }}">
                                     <span class="pro-icons h3 text-muted"><i class="uil uil-calendar-alt"></i></span>
                                     <h6 class="title text-dark h6 my-0">Book a Service</h6>
                                 </a>

@@ -4,9 +4,6 @@
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
 <link href="{{ asset('assets/frontend/css/service-details.css') }}" rel="stylesheet" type="text/css"/>
 
-<style>
-.
-</style>
 <section class="section">
     <div class="container" style="margin-top: 3rem;">
         <div class="row justify-content-center">
@@ -40,7 +37,7 @@
             <div class="col-md-7 mt-4 mt-sm-0 pt-2 pt-sm-0">
                 <div class=" ml-md-4">
                     <div class="row">
-                        <div class="col-md-3 container">
+                        <div class="star-main-rating">
                             <div class="inner_game">
                                 <div class="rating_game mt-3 text-center">
                                     <span class="rating-num">4.5</span>
@@ -64,7 +61,7 @@
                         </div>
                     
                     
-                    <div class="col-md-9 col-sm-9 rating-bars">
+                    <div class="star-width rating-bars">
                         <div class="rating-holder">
                             <ul>
                                 <li class="">

@@ -129,7 +129,7 @@
         // Basic with search
         $('.select2').select2({
           placeholder: 'Choose one',
-          searchInputPlaceholder: 'Search E-Mails'
+          searchInputPlaceholder: 'Search Job Reference'
         });
 
         $('.verify-payment').click(function(){

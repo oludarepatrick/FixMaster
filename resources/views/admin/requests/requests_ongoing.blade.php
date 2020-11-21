@@ -23,7 +23,7 @@
           <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
             <div>
               <h6 class="mg-b-5">Your Most Recent Requets</h6>
-              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>Ongoing Requests</strong> assigned to Ludwig Enterprise by FixMaster Admin and has been assigned a Technician/Artisan.</p>
+              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>Ongoing Requests</strong> assigned  by FixMaster Admin and has been assigned a Technician/Artisan.</p>
             </div>
             
           </div><!-- card-header -->
@@ -68,7 +68,7 @@
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('cse.request_ongoing_details') }}"class="dropdown-item details"><i class="fas fa-bezier-curve"></i> Define Actions</a>
+                      <a href="{{ route('admin.request_ongoing_details') }}"class="dropdown-item details"><i class="fas fa-bezier-curve"></i> Define Actions</a>
                         <a href="#" class="dropdown-item details text-success"><i class="fas fa-check"></i> Mark as Completed</a>
                       </div>
                     </div>
@@ -87,7 +87,7 @@
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#modalDetails" data-toggle="modal" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
+                        <a href="{{ route('admin.request_ongoing_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
                         <a href="#" class="dropdown-item details text-success"><i class="fas fa-check"></i> Mark as Completed</a>
                       </div>
                     </div>
@@ -106,7 +106,7 @@
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('cse.request_ongoing_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
+                      <a href="{{ route('admin.request_ongoing_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
                         <a href="#" class="dropdown-item details text-success"><i class="fas fa-check"></i> Mark as Completed</a>
                       <li class="nav-label mg-t-25">Status Update</li>
                       

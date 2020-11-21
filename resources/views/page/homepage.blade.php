@@ -66,7 +66,7 @@
     <div class="container">
         <!-- Logo container-->
         <div>
-            {{-- <a class="logo" href="index.html">
+            {{-- <a class="logo" href="{{ route('page.home') }}">
             <img src="{{ asset('assets/images/home-fix-logo.png') }}" class="l-dark" height="70" alt="">
             <img src="{{ asset('assets/images/home-fix-logo-new.png') }}" class="l-light" height="70" alt="">
             </a> --}}

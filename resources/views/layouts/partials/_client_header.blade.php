@@ -1,3 +1,48 @@
+<style>
+    #topnav .navigation-menu.nav-light > li > a{
+        color: #ffffff !important;
+    }
+    #topnav .navigation-menu.nav-light > li > a:hover{
+        color: #fff !important;
+    }
+    #topnav.nav-sticky .navigation-menu.nav-light > li > a {
+        color: #3c4858 !important;
+    }
+    #topnav .navigation-menu.nav-light > li > a:focus{
+        color: #ffff !important;
+    }
+
+    #topnav .navigation-menu.nav-light > li > a:active{
+        color: #ffff !important;
+    }
+    /* #topnav.nav-sticky .navigation-menu > li > a {
+        color: #3c4858 !important;
+    } */
+    /* #topnav .navigation-menu .has-submenu .menu-arrow {
+        border: solid #ffffff;
+    } */
+    @media (max-width: 991px){
+        #topnav .navigation-menu.nav-light > li > a {
+            color: #3c4858 !important;
+            padding: 10px 20px;
+        }
+    }
+
+    .event-width{
+        width: 320px !important;
+    }
+
+    @media (max-width: 992px){
+        .event-width{
+            margin-left: -20px !important;
+        }
+    }
+
+    .avatar.avatar-large {
+        border: 1px solid;
+        border-color: #e97d1f;
+    }
+</style>
 <!-- Navbar STart -->
 <header id="topnav" class="defaultscroll sticky navbar-dark">
     <div class="container">
@@ -7,7 +52,7 @@
                 <img src="{{ asset('assets/images/home-fix-logo.png') }}" class="l-dark" height="70" alt="FixMaster dark logo">
                 <img src="{{ asset('assets/images/home-fix-logo-new.png') }}" class="l-light" height="70" alt="FixMaster light">
             </a> --}}
-            <a class="logo" href="index.html">
+        <a class="logo" href="{{ route('client.home') }}">
                 {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" class="l-dark" height="160" style="margin-top: -38px !important; margin-bottom: -38px !important;" alt="FixMaster logo"> --}}
             <img src="{{ asset('assets/images/home-fix-logo-new.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;" class="l-light" height="160" alt="FixMaster logo">
 
@@ -50,12 +95,12 @@
                 
                 <li><a class="{{ Route::currentRouteNamed('page.contact') ? 'selected' : '' }}" href="{{ route('page.contact') }}">Contact</a></li>
 
-                <li class="has-submenu {{ Route::currentRouteNamed('client.home', 'client.messages', 'client.services', 'client.service_quote', 'client.service_custom', 'client.requests', 'client.request_details', 'client.request_invoice', 'client.messages', 'client.payments', 'client.settings', 'client.wallet', 'client.technician_profile') ? 'active' : '' }}">
+                <li class="has-submenu {{ Route::currentRouteNamed('client.home', 'client.messages', 'client.services', 'client.service_quote', 'client.service_custom', 'client.services_details', 'client.requests', 'client.request_details', 'client.request_invoice', 'client.messages', 'client.payments', 'client.settings', 'client.wallet', 'client.technician_profile') ? 'active' : '' }}">
                     <a href="javascript:void(0)" class="l-dark l-light">Profile</a><span class="menu-arrow"></span>
                     <ul class="submenu">
                         <li class="{{ Route::currentRouteNamed('client.home') ? 'active' : '' }}"><a href="{{ route('client.home') }}">Dashboard</a></li>
 
-                        <li class="{{ Route::currentRouteNamed('client.services', 'client.service_quote', 'client.service_custom') ? 'active' : '' }}"><a href="{{ route('client.services') }}">Book a Service</a></li>
+                        <li class="{{ Route::currentRouteNamed('client.services', 'client.service_quote', 'client.service_custom', 'client.services_details') ? 'active' : '' }}"><a href="{{ route('client.services') }}">Book a Service</a></li>
 
                         <li class="{{ Route::currentRouteNamed('client.wallet') ? 'active' : '' }}"><a href="{{ route('client.wallet') }}">E-Wallet</a></li>
 
@@ -79,30 +124,7 @@
 </header><!--end header-->
 <!-- Navbar End -->
 
-<style>
-    #topnav .navigation-menu.nav-light > li > a{
-        color: #ffffff !important;
-    }
-    #topnav .navigation-menu.nav-light > li > a:hover{
-        color: #fff !important;
-    }
-    #topnav.nav-sticky .navigation-menu.nav-light > li > a {
-        color: #3c4858 !important;
-    }
-    #topnav .navigation-menu.nav-light > li > a:focus{
-        color: #ffff !important;
-    }
 
-    #topnav .navigation-menu.nav-light > li > a:active{
-        color: #ffff !important;
-    }
-    /* #topnav.nav-sticky .navigation-menu > li > a {
-        color: #3c4858 !important;
-    } */
-    /* #topnav .navigation-menu .has-submenu .menu-arrow {
-        border: solid #ffffff;
-    } */
-</style>
 
 <!-- Hero Start -->
 {{-- <section class="bg-profile d-table w-100 bg-primary" style="background: url('{{ asset("assets/images/account/bg.png") }}') center center no-repeat;"> --}}

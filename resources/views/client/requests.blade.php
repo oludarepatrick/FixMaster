@@ -79,7 +79,7 @@
                 <tr>
                     <th class="py-3">#</th>
                     <th class="py-3">Service</th>
-                    <th class="py-3">Technician</th>
+                    <th class="py-3">CSE</th>
                     <th class="py-3">Date</th>
                     <th class="py-3">Amount</th>
                     <th class="py-3">Status</th>

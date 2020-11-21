@@ -1,5 +1,5 @@
 <!-- START CSE SIDEBAR MENU -->
-@if(Route::currentRouteNamed('cse.home', 'cse.requests', 'cse.requests_ongoing', 'cse.requests_completed', 'cse.requests_cancelled', 'cse.request_details', 'cse.request_ongoing_details', 'cse.request_completed_details', 'cse.payments', 'cse.messages', 'cse.messages_sent', 'cse.view_profile', 'cse.edit_profile', 'cse.technicians', 'cse.technicians_profile'))
+@if(Route::currentRouteNamed('cse.home', 'cse.requests', 'cse.requests_ongoing', 'cse.requests_completed', 'cse.requests_cancelled', 'cse.request_details', 'cse.request_ongoing_details', 'cse.request_completed_details', 'cse.payments', 'cse.messages', 'cse.messages_sent', 'cse.view_profile', 'cse.edit_profile', 'cse.technicians', 'cse.technicians_profile', 'cse.location_request'))
 <aside class="aside aside-fixed" id="sidebarMenu">
   <div class="aside-header">
       <a href="{{ route('cse.home')}}" class="aside-logo">
@@ -25,7 +25,7 @@
       </div>
       <div class="aside-loggedin-user">
         <a href="#loggedinMenu" class="d-flex align-items-center justify-content-between mg-b-2" data-toggle="collapse">
-          <h6 class="tx-semibold mg-b-0">David Adesanya</h6>
+          <h6 class="tx-semibold mg-b-0">Godfrey Diwa</h6>
           <i data-feather="chevron-down"></i>
         </a>
         {{-- <p class="tx-color-03 tx-12 mg-b-0">Ludwig Enterprise (CSE)</p> --}}
@@ -46,9 +46,8 @@
       
       
       <li class="nav-label mg-t-25">Adminstration</li>
-      {{-- <li class="nav-item {{ Route::currentRouteNamed('cse.technicians', 'cse.technicians_profile') ? 'active show' : '' }}"><a href="{{ route('cse.technicians') }}" class="nav-link"><i data-feather="users"></i> <span>Technicians</span></a></li> --}}
 
-      <li class="nav-item"><a href="#" class="nav-link"><i data-feather="map-pin"></i> <span>Location Ping</span></a></li>
+      <li class="nav-item {{ Route::currentRouteNamed('cse.location_request') ? 'active show' : '' }}""><a href="{{ route('cse.location_request') }}" class="nav-link"><i data-feather="map-pin"></i> <span>Location Request</span></a></li>
 
 
       <li class="nav-item with-sub {{ Route::currentRouteNamed('cse.messages', 'cse.messages_sent') ? 'active show' : '' }}">
@@ -89,7 +88,7 @@
 <!-- END CSE SIDEBAR MENU -->
 
 <!-- START TECHINICIAN SIDEBAR MENU -->
-@if(Route::currentRouteNamed('technician.home', 'technician.requests', 'technician.request_details', 'technician.payments', 'technician.messages', 'technician.messages_sent', 'technician.view_profile', 'technician.edit_profile'))
+@if(Route::currentRouteNamed('technician.home', 'technician.requests', 'technician.request_details', 'technician.payments', 'technician.messages', 'technician.messages_sent', 'technician.view_profile', 'technician.edit_profile', 'technician.location_request'))
 <aside class="aside aside-fixed" id="sidebarMenu">
   <div class="aside-header">
       <a href="{{ route('technician.home')}}" class="aside-logo">
@@ -144,6 +143,7 @@
           <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li>
         </ul>
       </li> --}}
+      <li class="nav-item {{ Route::currentRouteNamed('technician.location_request') ? 'active show' : '' }}""><a href="{{ route('technician.location_request') }}" class="nav-link"><i data-feather="map-pin"></i> <span>Location Request</span></a></li>
 
       <li class="nav-item {{ Route::currentRouteNamed('technician.requests', 'technician.request_details') ? 'active show' : '' }}"><a href="{{ route('technician.requests') }}" class="nav-link"><i data-feather="git-pull-request"></i> <span>Requests</span></a></li>
 
@@ -157,7 +157,7 @@
 <!-- END TECHINICIAN SIDEBAR MENU -->
 
 <!-- START ADMIN SIDEBAR MENU -->
-@if(Route::currentRouteNamed('admin.home', 'admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details', 'admin.payments', 'admin.messages', 'admin.messages_sent', 'admin.view_profile', 'admin.edit_profile', 'admin.technicians', 'admin.technicians_profile', 'admin.add_admin', 'admin.list_admin', 'admin.summary_admin', 'admin.edit_admin', 'admin.activity_log_admin', 'admin.add_cse', 'admin.list_cse', 'admin.summary_cse', 'admin.edit_cse', 'admin.activity_log_cse', 'admin.list_client', 'admin.summary_client', 'admin.utility_reset_password', 'admin.utility_project_status', 'admin.utility_verify_payment', 'admin.add_technician', 'admin.list_technician', 'admin.summary_technician', 'admin.edit_technician', 'admin.activity_log_technician', 'admin.add_franchise', 'admin.edit_franchise', 'admin.list_franchise', 'admin.tools_request', 'admin.tools_inventory', 'admin.rfq', 'admin.services', 'admin.add_category', 'admin.edit_category', 'admin.list_category', 'admin.disbursed_payments', 'admin.received_payments'))
+@if(Route::currentRouteNamed('admin.home', 'admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details', 'admin.payments', 'admin.messages', 'admin.messages_sent', 'admin.view_profile', 'admin.edit_profile', 'admin.technicians', 'admin.technicians_profile', 'admin.add_admin', 'admin.list_admin', 'admin.summary_admin', 'admin.edit_admin', 'admin.activity_log_admin', 'admin.add_cse', 'admin.list_cse', 'admin.summary_cse', 'admin.edit_cse', 'admin.activity_log_cse', 'admin.list_client', 'admin.summary_client', 'admin.utility_reset_password', 'admin.utility_project_status', 'admin.utility_verify_payment', 'admin.add_technician', 'admin.list_technician', 'admin.summary_technician', 'admin.edit_technician', 'admin.activity_log_technician', 'admin.add_franchise', 'admin.edit_franchise', 'admin.list_franchise', 'admin.tools_request', 'admin.tools_inventory', 'admin.rfq', 'admin.services', 'admin.add_category', 'admin.edit_category', 'admin.list_category', 'admin.review_category', 'admin.disbursed_payments', 'admin.received_payments', 'admin.category_ratings', 'admin.job_ratings', 'admin.location_request', 'admin.add_payment_gateway', 'admin.list_payment_gateway', 'admin.edit_payment_gateway'))
 <aside class="aside aside-fixed" id="sidebarMenu">
   <div class="aside-header">
       <a href="{{ route('admin.home')}}" class="aside-logo">
@@ -211,6 +211,7 @@
         <li class="{{ Route::currentRouteNamed('admin.edit_franchise', 'admin.list_franchise') ? 'active' : '' }}"><a href="{{ route('admin.list_franchise') }}">List</a></li>
         </ul>
       </li> --}}
+      <li class="nav-item {{ Route::currentRouteNamed('admin.location_request') ? 'active show' : '' }}"><a href="{{ route('admin.location_request') }}" class="nav-link"><i data-feather="map-pin"></i> <span>Location Request</span></a></li>
 
       <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.messages', 'admin.messages_sent') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
@@ -221,17 +222,6 @@
         </ul>
       </li>
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details') ? 'active show' : '' }}">
-        <a href="" class="nav-link"><i data-feather="git-pull-request"></i> <span>Requests</span></a>
-        <ul>
-        <li class="{{ Route::currentRouteNamed('admin.requests', 'admin.request_details') ? 'active' : '' }}"><a href="{{ route('admin.requests') }}">New</a></li>
-          <li class="{{ Route::currentRouteNamed('admin.requests_ongoing', 'admin.request_ongoing_details') ? 'active' : '' }}"><a href="{{ route('admin.requests_ongoing') }}">Ongoing</a></li>
-          <li class="{{ Route::currentRouteNamed('admin.requests_completed', 'admin.request_completed_details') ? 'active' : '' }}"><a href="{{ route('admin.requests_completed') }}">Completed</a></li>
-          <li class="{{ Route::currentRouteNamed('admin.requests_cancelled') ? 'active' : '' }}"><a href="{{ route('admin.requests_cancelled') }}">Cancelled</a></li>
-        </ul>
-      </li>
-
-    <li class="nav-item {{ Route::currentRouteNamed('admin.rfq') ? 'active show' : '' }}"><a href="{{ route('admin.rfq') }}" class="nav-link"><i data-feather="file-text"></i> <span>RFQ's</span></a></li>
       
 
       <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.disbursed_payments', 'admin.received_payments') ? 'active show' : '' }}">
@@ -244,13 +234,42 @@
 
       
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.services', 'admin.add_category', 'admin.edit_category', 'admin.list_category') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.add_payment_gateway', 'admin.list_payment_gateway', 'admin.edit_payment_gateway') ? 'active show' : '' }}">
+        <a href="" class="nav-link"><i data-feather="credit-card"></i> <span>Payment Gateway</span></a>
+        <ul> 
+          <li class="{{ Route::currentRouteNamed('admin.add_payment_gateway') ? 'active' : '' }}"><a href="{{ route('admin.add_payment_gateway') }}">Add</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.list_payment_gateway', 'admin.edit_payment_gateway') ? 'active' : '' }}"><a href="{{ route('admin.list_payment_gateway') }}">List</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.category_ratings', 'admin.job_ratings') ? 'active show' : '' }}">
+        <a href="" class="nav-link"><i data-feather="star"></i> <span>Rating</span></a>
+        <ul> 
+          <li class="{{ Route::currentRouteNamed('admin.category_ratings') ? 'active' : '' }}"><a href="{{ route('admin.category_ratings') }}">Category Rating</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.job_ratings') ? 'active' : '' }}"><a href="{{ route('admin.job_ratings') }}">Job Rating</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details') ? 'active show' : '' }}">
+        <a href="" class="nav-link"><i data-feather="git-pull-request"></i> <span>Requests</span></a>
+        <ul>
+          <li class="{{ Route::currentRouteNamed('admin.requests', 'admin.request_details') ? 'active' : '' }}"><a href="{{ route('admin.requests') }}">New</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.requests_ongoing', 'admin.request_ongoing_details') ? 'active' : '' }}"><a href="{{ route('admin.requests_ongoing') }}">Ongoing</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.requests_completed', 'admin.request_completed_details') ? 'active' : '' }}"><a href="{{ route('admin.requests_completed') }}">Completed</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.requests_cancelled') ? 'active' : '' }}"><a href="{{ route('admin.requests_cancelled') }}">Cancelled</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item {{ Route::currentRouteNamed('admin.rfq') ? 'active show' : '' }}"><a href="{{ route('admin.rfq') }}" class="nav-link"><i data-feather="file-text"></i> <span>RFQ's</span></a></li>
+
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.services', 'admin.add_category', 'admin.edit_category', 'admin.list_category', 'admin.review_category') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="aperture"></i> <span>Service & Category</span></a>
         <ul>
-        <li class="{{ Route::currentRouteNamed('admin.add_category') ? 'active' : '' }}"><a href="{{ route('admin.add_category') }}">Add Category</a></li>
-        <li class="{{ Route::currentRouteNamed('admin.edit_category', 'admin.list_category') ? 'active' : '' }}"><a href="{{ route('admin.list_category') }}">Category List</a></li>
-        <li class="{{ Route::currentRouteNamed('admin.services') ? 'active' : '' }}"><a href="{{ route('admin.services') }}">Services</a></li>
-        </ul>
+          <li class="{{ Route::currentRouteNamed('admin.add_category') ? 'active' : '' }}"><a href="{{ route('admin.add_category') }}">Add Category</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.edit_category', 'admin.list_category') ? 'active' : '' }}"><a href="{{ route('admin.list_category') }}">Category List</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.review_category') ? 'active' : '' }}"><a href="{{ route('admin.review_category') }}">Category Review</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.services') ? 'active' : '' }}"><a href="{{ route('admin.services') }}">Services</a></li>
+          </ul>
       </li>
 
 

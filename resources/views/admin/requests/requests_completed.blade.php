@@ -24,7 +24,7 @@
           <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
             <div>
               <h6 class="mg-b-5">Your Most Recent Requets</h6>
-              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>Completed Requests</strong> assigned to Ludwig Enterprise by FixMaster Admin and has been marked as completed.</p>
+              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>Completed Requests</strong> assigned  by FixMaster Admin and has been marked as completed.</p>
             </div>
             
           </div><!-- card-header -->
@@ -136,7 +136,7 @@
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="{{ route('cse.request_completed_details') }}"  class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
+                        <a href="{{ route('admin.request_completed_details') }}"  class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
                         <a href="#" class="dropdown-item details text-danger"><i class="fas fa-undo"></i> Revert to Ongoing</a>
                       </div>
                     </div>
@@ -155,7 +155,7 @@
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="{{ route('cse.request_completed_details') }}"  class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
+                        <a href="{{ route('admin.request_completed_details') }}"  class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
                         <a href="#" class="dropdown-item details text-danger"><i class="fas fa-undo"></i> Revert to Ongoing</a>
                       </div>
                     </div>
@@ -174,7 +174,7 @@
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="{{ route('cse.request_completed_details') }}"  class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
+                        <a href="{{ route('admin.request_completed_details') }}"  class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
                         <a href="#" class="dropdown-item details text-danger"><i class="fas fa-undo"></i> Revert to Ongoing</a>
                       </div>
                     </div>
@@ -193,7 +193,7 @@
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="{{ route('cse.request_completed_details') }}"  class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
+                        <a href="{{ route('admin.request_completed_details') }}"  class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
                         <a href="#" class="dropdown-item details text-danger"><i class="fas fa-undo"></i> Revert to Ongoing</a>
                       </div>
                     </div>

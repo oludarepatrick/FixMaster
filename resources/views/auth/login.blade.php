@@ -40,7 +40,7 @@
                                                 <label class="custom-control-label" for="customCheck1">Remember me</label>
                                             </div>
                                         </div>
-                                        <p class="forgot-pass mb-0"><a href="auth-re-password-three.html" class="text-dark font-weight-bold">Forgot password ?</a></p>
+                                        <p class="forgot-pass mb-0"><a href="#" class="text-dark font-weight-bold">Forgot password ?</a></p>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-0">

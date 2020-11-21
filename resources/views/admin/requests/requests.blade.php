@@ -23,7 +23,7 @@
           <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
             <div>
               <h6 class="mg-b-5">Your Most Recent Requets</h6>
-              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>New Requests</strong> assigned to Ludwig Enterprise by FixMaster Admin after careful understudy of each request and with assumed initial payments made by the clients.</p>
+              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>New Requests</strong> assigned  by FixMaster Admin after careful understudy of each request and with assumed initial payments made by the clients.</p>
             </div>
             
           </div><!-- card-header -->
@@ -62,7 +62,7 @@
                   <td class="tx-medium">Femi Joseph</td>
                   <td class="tx-medium">08125456489</td>
                   <td class="text-medium text-center">₦14,000</td>
-                  <td class="text-medium text-danger">Not Assigned</td>
+                  <td class="text-medium text-success">Paid</td>
                   <td class="text-medium">May 15th 2020 at 11:30am</td>
                   <td class=" text-center">
                     <div class="dropdown-file">
@@ -80,7 +80,7 @@
                   <td class="tx-medium">Derrick Nnamdi</td>
                   <td class="tx-medium">09038652973</td>
                   <td class="text-medium text-center">₦25,000</td>
-                  <td class="text-medium text-danger">Not Assigned</td>
+                  <td class="text-medium text-success">Paid</td>
                   <td class="text-medium">May 12th 2020 at 8:26pm</td>
                   <td class=" text-center">
                     <div class="dropdown-file">
@@ -98,7 +98,7 @@
                   <td class="tx-medium">William Olukayode</td>
                   <td class="tx-medium">07052983091</td>
                   <td class="text-medium text-center">₦12,800</td>
-                  <td class="text-medium text-danger">Not Assigned</td>
+                  <td class="text-medium text-warning">Pending</td>
                   <td class="text-medium">May 11th 2020 at 09:12am</td>
                   <td class=" text-center">
                     <div class="dropdown-file">
@@ -116,7 +116,7 @@
                   <td class="tx-medium">Mobolaji Adetoun</td>
                   <td class="tx-medium">08037628192</td>
                   <td class="text-medium text-center">₦6,500</td>
-                  <td class="text-medium text-danger">Not Assigned</td>
+                  <td class="text-medium text-success">Paid</td>
                   <td class="text-medium">May 11th 2020 at 8:19am</td>
                   <td class=" text-center">
                     <div class="dropdown-file">

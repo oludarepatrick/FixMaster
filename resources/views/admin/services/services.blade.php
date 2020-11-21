@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Services')
+@section('title', 'Services List')
 @include('layouts.partials._messages')
 @section('content')
 <div class="content-body">
@@ -9,10 +9,10 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
             <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Services</li>
+              <li class="breadcrumb-item active" aria-current="page">Services List</li>
             </ol>
           </nav>
-          <h4 class="mg-b-0 tx-spacing--1">Services</h4>
+          <h4 class="mg-b-0 tx-spacing--1">Services List</h4>
         </div>
       </div>
 
@@ -26,7 +26,7 @@
               <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
                 <div>
                   <h6 class="mg-b-5">Services as of {{ date('M, d Y') }}</h6>
-                  <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of all FixMaster Services.</p>
+                  <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of all FixMaster core Services.</p>
                 </div>
                 
               </div><!-- card-header -->
