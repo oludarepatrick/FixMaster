@@ -17,7 +17,7 @@
     <meta name="Version" content="v0.0.1" />
     <!-- favicon -->
     <!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
-    <link rel="icon" href="{{ asset('assets/images/home-fix-logo-colored.png') }}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png" sizes="16x16">
     <!-- Bootstrap -->
     <link href="{{ asset('assets/client/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Icons -->
@@ -52,7 +52,7 @@
         color: #fff !important;
         border: 1px solid #e97d1f !important;
     }
-    #topnav .navigation-menu.nav-light > li > a{
+    /* #topnav .navigation-menu.nav-light > li > a{
         color: #ffffff !important;
     }
     #topnav .navigation-menu.nav-light > li > a:hover{
@@ -60,6 +60,30 @@
     }
     #topnav.nav-sticky .navigation-menu.nav-light > li > a {
         color: #3c4858 !important;
+    } */
+
+    #topnav .navigation-menu.nav-light > li > a{
+        color: #ffffff !important;
+    }
+    #topnav .navigation-menu.nav-light > li > a:hover{
+        color: #fff !important;
+    }
+    #topnav.nav-sticky .navigation-menu.nav-light > li > a {
+        color: #3c4858 !important;
+    }
+    #topnav .navigation-menu.nav-light > li > a:focus{
+        color: #ffff !important;
+    }
+
+    #topnav .navigation-menu.nav-light > li > a:active{
+        color: #ffff !important;
+    }
+
+    @media (max-width: 991px){
+        #topnav .navigation-menu.nav-light > li > a {
+            color: #3c4858 !important;
+            padding: 10px 20px;
+        }
     }
 </style>
 <header id="topnav" class="defaultscroll sticky">
@@ -73,9 +97,9 @@
         <a class="logo" href="{{ route('page.home') }}">
                 {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" class="l-dark" height="160" style="margin-top: -38px !important; margin-bottom: -38px !important;" alt="FixMaster logo"> --}}
 
-            <img src="{{ asset('assets/images/home-fix-logo-new.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;" class="l-light" height="160" alt="FixMaster logo">
+            <img src="{{ asset('assets/images/home-fix-logo-new.png') }}" style="margin-top: -90px !important; margin-bottom: -38px !important;" class="l-light" height="250" alt="FixMaster logo">
 
-            <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;"  class="l-dark" height="140" alt="FixMaster logo">
+            <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -40px !important; margin-bottom: -38px !important; margin-left: 50px !important"  class="l-dark" height="70" alt="FixMaster logo">
 
             </a>
         </div>

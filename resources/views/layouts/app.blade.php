@@ -17,7 +17,7 @@
     <meta name="Version" content="v0.0.1" />
     <!-- favicon -->
     <!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
-    <link rel="icon" href="{{ asset('assets/images/home-fix-logo-colored.png') }}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png" sizes="16x16">
     <!-- Bootstrap -->
     <link href="{{ asset('assets/client/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Icons -->

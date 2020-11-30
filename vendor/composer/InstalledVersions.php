@@ -14,12 +14,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => 'cea21f6e38360ced62c9636ec65034f8485daac8',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -41,6 +41,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '283a40c901101e66de7061bd359252c013dcc43c',
+    ),
+    'composer/ca-bundle' => 
+    array (
+      'pretty_version' => '1.2.8',
+      'version' => '1.2.8.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8a7ecad675253e4654ea05505233285377405215',
     ),
     'cordoval/hamcrest-php' => 
     array (
@@ -172,6 +181,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '01de0fe5f71c70d1930ee9a80385f9cc28e0f63a',
+    ),
+    'geoip2/geoip2' => 
+    array (
+      'pretty_version' => 'v2.8.0',
+      'version' => '2.8.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '63b0d87d47ee8c9431bff70244401db5ced82bd9',
     ),
     'graham-campbell/result-type' => 
     array (
@@ -453,12 +471,12 @@ private static $installed = array (
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => 'cea21f6e38360ced62c9636ec65034f8485daac8',
     ),
     'laravel/tinker' => 
     array (
@@ -504,6 +522,24 @@ private static $installed = array (
       array (
       ),
       'reference' => '353f66d7555d8a90781f6f5e7091932f9a4250aa',
+    ),
+    'maxmind-db/reader' => 
+    array (
+      'pretty_version' => 'v1.8.0',
+      'version' => '1.8.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b566d429ac9aec10594b0935be8ff38302f8d5c8',
+    ),
+    'maxmind/web-service-common' => 
+    array (
+      'pretty_version' => 'v0.8.1',
+      'version' => '0.8.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '32f274051c543fc865e5a84d3a2c703913641ea8',
     ),
     'mockery/mockery' => 
     array (
@@ -972,6 +1008,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'c6c1022351a901512170118436c764e473f6de8c',
+    ),
+    'stevebauman/location' => 
+    array (
+      'pretty_version' => 'v5.2.0',
+      'version' => '5.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '7be60fd319fe5e62a13b6d427a16f6b1ff2daf0b',
     ),
     'swiftmailer/swiftmailer' => 
     array (

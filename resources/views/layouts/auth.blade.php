@@ -15,7 +15,7 @@
         <meta name="website" content="https://FixMaster.ng" />
         <meta name="Version" content="v0.0.1" />
         <!-- favicon -->
-        <link rel="icon" href="{{ asset('assets/images/home-fix-logo.png') }}" type="image/png" />
+        <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png" />
 
         <!-- Bootstrap -->
         {{-- <link href="{{ asset('assets/dashboard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -78,6 +78,31 @@
         <script src="{{asset('assets/frontend/js/scroll.js')}}"></script>
         <script src="{{asset('assets/frontend/js/typed/lib/typed.js')}}"></script>
         <script src="{{ asset('assets/frontend/js/unicons.js') }}"></script>
+        <script src="{{ asset('assets/client/js/sweetalert2.min.js') }}"></script>
+
+        <script>
+            function displayMessage(message, type){
+          
+              const Toast = swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 8000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+              });
+              Toast.fire({
+                      icon: type,
+                    //   type: 'success',
+                      title: message
+              });
+          
+            }
+          </script>
+        @yield('scripts')
        
     </body>
 </html>

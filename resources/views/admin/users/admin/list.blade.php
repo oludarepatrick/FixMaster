@@ -36,27 +36,37 @@
                   <th class="text-center">#</th>
                   <th>Full Name</th>
                   <th>E-Mail</th>
+                  <th>Created By</th>
                   <th>Phone Number</th>
-                  <th>Designation</th>
+                  <th>Access Level</th>
                   <th>Status</th>
                   <th>Date Created</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
+                @foreach ($admins as $admin)
+                @foreach ($admin->admins as $item)@endforeach
                 <tr>
-                  <td class="tx-color-03 tx-center">1</td>
-                  <td class="tx-medium">David Akinsola</td>
-                  <td class="tx-medium">akinsola.olufemi@yahoo.com</td>
-                  <td class="tx-medium">08034516890</td>
-                  <td class="text-medium">Admin</td>
-                  <td class="text-medium text-success">Active</td>
-                  <td class="text-medium">May 15th 2020</td>
+                <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                <td class="tx-medium">{{ $admin->fullName->name }}</td>
+                <td class="tx-medium">{{ $admin->email }}</td>
+                <td class="tx-medium">{{ $createdBy->find($item->created_by)->name }}</td>
+                <td class="tx-medium">{{ $item->phone_number }}</td>
+                  <td class="text-medium text-info">
+                    @if($item->designation == 'ADMIN_ROLE') Admin @else Super Admin @endif
+                  </td>
+                  @if($admin->is_active == '1') 
+                    <td class="text-medium text-success">Active</td>
+                  @else 
+                    <td class="text-medium text-danger">Inctive</td>
+                  @endif
+                <td class="text-medium">{{ Carbon\Carbon::parse($admin->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                   <td class=" text-center">
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_admin') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
+                      <a href="{{ route('admin.summary_admin', $admin->id) }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
                       <a href="{{ route('admin.edit_admin') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
                       <a href="{{ route('admin.activity_log_admin') }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a>
                         <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
@@ -65,50 +75,8 @@
                     </div>
                   </td>
                 </tr>
-
-                <tr>
-                  <td class="tx-color-03 tx-center">2</td>
-                  <td class="tx-medium">Obuchi Omotosho</td>
-                  <td class="tx-medium">duruobuchi@gmail.com</td>
-                  <td class="tx-medium">08034516890</td>
-                  <td class="text-medium">Admin</td>
-                  <td class="text-medium text-danger">Inactive</td>
-                  <td class="text-medium">May 15th 2020</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_admin') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="{{ route('admin.edit_admin') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                      <a href="{{ route('admin.activity_log_admin') }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a>
-                        <a href="" class="dropdown-item details text-success"><i class="fas fa-undo"></i> Reinstate</a>
-                        <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              
-                <tr>
-                  <td class="tx-color-03 tx-center">3</td>
-                  <td class="tx-medium">Adewale Balogun</td>
-                  <td class="tx-medium">noemial2@email.com</td>
-                  <td class="tx-medium">08034516890</td>
-                  <td class="text-medium">Admin</td>
-                  <td class="text-medium text-danger">Inactive</td>
-                  <td class="text-medium">May 15th 2020</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_admin') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="{{ route('admin.edit_admin') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                      <a href="{{ route('admin.activity_log_admin') }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a>
-                        <a href="" class="dropdown-item details text-success"><i class="fas fa-undo"></i> Reinstate</a>
-                        <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+                @endforeach
+                
 
               </tbody>
             </table>

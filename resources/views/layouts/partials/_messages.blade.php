@@ -1,7 +1,5 @@
 
-{{-- <script type="text/javascript" src="{{ asset('assets/login-signup-css/js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/other-css-js/toast.js') }}"></script>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/other-css-js/toast.css') }}"/> --}}
+<link href="{{ asset('assets/client/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
 {{-- Primary Alert --}}
 @if(Session::has('primary'))
@@ -29,9 +27,13 @@
 {{-- Success Alert --}}
 @if($message = Session::get('success'))
 
-<div class="notify top-right do-show" data-notification-status="success">{!! $message !!}</div>
-    
-  <a href="#" class="button d-none" data-type="bar-top" data-status="success"></a>
+  @section('scripts')
+    <script>
+      var message = '{{ $message }}';
+      var type = 'success';
+      displayMessage(message, type);
+    </script>
+  @endsection
 
 @endif
 
@@ -104,26 +106,37 @@
 @endif
 
 {{-- If the page has any error passed to it --}}
-@if(count($errors) > 0)
-
-  @foreach($errors->all() as $error)
-    {{-- <div class="notify bar-top do-show" data-notification-status="error">{{ $error }}</div> --}}
-
-    <div class="notify top-right do-show" data-notification-status="error">{{ $error }}</div><br>
-    
-    <a href="#" class="button d-none" data-type="bar-top" data-status="error"></a>
-
-  @endforeach
-
-
+{{-- @if(count($errors) > 0)
+  <div class="container">
+    <div class="alert alert-outline alert-danger d-flex align-items-center" role="alert">
+      <ul class="list-grou">
+      @foreach($errors->all() as $error)
+        <li style="list-style-type: none; !important"><i data-feather="alert-circle" class="mg-r-10"></i> {{ $error }}</li>
+      @endforeach
+      </ul>
+    </div>
+  </div>
+@endif --}}
+@if ($errors->any())
+<div class="container">
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+  </div>
 @endif
 
 @if ($message = Session::get('error'))
-
-  <div class="notify top-right do-show" data-notification-status="error">{{ $message }}</div>
-    
-  <a href="#" class="button d-none" data-type="bar-top" data-status="error"></a>
-
+  @section('scripts')
+    <script>
+      var message = '{{ $message }}';
+      var type = 'error';
+      displayMessage(message, type);
+    </script>
+  @endsection
 @endif
 
 {{-- @if($errors->has('email'))
@@ -138,27 +151,3 @@
   </span>
 @endif
  --}}
-
-
-
- {{-- <div class="notify bar-top do-show" data-notification-status="success">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, reprehenderit obcaecati itaque. Officiis libero provident perspiciatis eum fugiat laudantium sequi.</div>
-
-<main>
-  <div class="wrapper">
-    <h1>CSS-only Notifications Component</h1>
-
-    <p>
-      This is a Sass mixin that provides notifications functionality using little-to-none Javascript.<br> It makes use of CSS transitions and animations to display notifications as popups or bars on different locations of the viewport.<br> The best thing
-      is that it is fully customizable and easy to use. :)
-    </p>
-
-    <nav>
-      <a href="#" class="button" data-type="top-left" data-status="success">Top Left</a>
-      <a href="#" class="button" data-type="top-right" data-status="warning">Top Right</a>
-      <a href="#" class="button" data-type="bottom-right" data-status="error">Bottom Right</a>
-      <a href="#" class="button" data-type="bottom-left" data-status="notice">Bottom Left</a>
-      <a href="#" class="button" data-type="bar-top" data-status="plain">Top bar</a>
-      <a href="#" class="button" data-type="bar-bottom" data-status="plain">Bottom bar</a>
-    </nav>
-  </div>
-</main> --}}

@@ -17,7 +17,7 @@
     <meta name="Version" content="v0.0.1" />
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('assets/images/home-fix-logo-colored.png') }}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png" sizes="16x16">
 
     <!-- vendor css -->
     <link href="{{ asset('assets/dashboard/lib/fontawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
@@ -76,6 +76,30 @@
     <script src="{{ asset('assets/dashboard/assets/datatables/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/lib/jquery-steps/build/jquery.steps.min.js') }}"></script>
     {{-- <script src="{{ asset('assets/dashboard/assets/js/custom.js') }}"></script> --}}
+    <script src="{{ asset('assets/client/js/sweetalert2.min.js') }}"></script>
+
+    <script>
+        function displayMessage(message, type){
+      
+          const Toast = swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 8000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+          });
+          Toast.fire({
+                  icon: type,
+                //   type: 'success',
+                  title: message
+          });
+      
+        }
+      </script>
 
     @yield('scripts')
 

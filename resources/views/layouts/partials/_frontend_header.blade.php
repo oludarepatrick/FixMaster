@@ -27,8 +27,11 @@
         <a class="logo" href="{{ route('page.home') }}">
             {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" height="70" alt=""> --}}
             {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;" height="160" alt="FixMaster logo"> --}}
-            <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;" height="140" alt="FixMaster logo">
+
+            {{-- <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;" height="140" alt="FixMaster logo"> --}}
             
+            <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -40px !important; margin-bottom: -38px !important; margin-left: 50px !important" height="70" alt="FixMaster logo">
+
             </a>
         </div>
         @if(Route::currentRouteNamed('page.home', 'page.about', 'page.contact', 'page.home', 'page.how_it_works', 'page.why_home_fix', 'page.careers', 'page.faq', 'page.services'))

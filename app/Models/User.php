@@ -17,9 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'email',  'password', 'remember_token', 'email_verification_token', 'email_verified_at',	'is_email_verified', 'designation', 'is_active', 'is_deleted', 'login_count',
     ];
 
     /**
@@ -28,8 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token', 'email_verification_token',
     ];
 
     /**
@@ -40,4 +37,43 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+   
+    protected $dates = [
+        'current_sign_in', 'last_sign_in'
+    ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id');
+    }
+
+    public function fullName()
+    {
+        return $this->hasOne(Name::class);
+    }
+    
+    public function superAdmin()
+    {
+        return $this->hasOne(SuperAdmin::class);
+    }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
+    }
+
+    public function admins()
+    {
+        return $this->hasMany(Admin::class);
+    }
+
+    public function activityLogs()
+    {
+        return $this->hasMany(ActivityLog::class);
+    }
+
+    public function adminPermissions()
+    {
+        return $this->hasOne(AdminPermission::class);
+    }
 }

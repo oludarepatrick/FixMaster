@@ -45,16 +45,16 @@
     </div> -->
     <!-- Loader -->
     
-    <div class="back-to-home rounded d-none d-sm-block">
+    {{-- <div class="back-to-home rounded d-none d-sm-block">
     <a href="{{ route('page.home') }}" class="btn btn-icon btn-soft-primary"><i data-feather="home" class="icons"></i></a>
-    </div>
+    </div> --}}
 
     <!-- ERROR PAGE -->
     <section class="bg-home d-flex align-items-center">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-12 text-center">
-                    <img src="{{ asset('assets/images/404.svg') }}" class="img-fluid" alt="">
+                    <img src="{{ asset('assets/images/404.svg') }}" width="75%" class="img-fluid" alt="">
                     <div class="text-uppercase mt-4 display-3">Oh ! no</div>
                     <div class="text-capitalize text-dark mb-4 error-page">Page Not Found</div>
                     {{-- <p class="text-muted para-desc mx-auto">Start working with <span class="text-primary font-weight-bold">Landrick</span> that can provide everything you need to generate awareness, drive traffic, connect.</p> --}}

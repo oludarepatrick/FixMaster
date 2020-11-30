@@ -16,7 +16,7 @@
     <meta name="website" content="https://FixMaster.ng" />
     <meta name="Version" content="v0.0.1" />
 
-    <link rel="icon" href="{{ asset('assets/images/home-fix-logo-colored.png') }}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png" sizes="16x16">
     <!-- Bootstrap -->
     <link href="{{ asset('assets/client/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Icons -->
@@ -90,6 +90,30 @@
     <script src="{{ asset('assets/client/js/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('assets/client/js/polyfill.js') }}"></script>
     <script src="https://unicons.iconscout.com/release/v2.1.9/script/monochrome/bundle.js"></script>
+    <script src="{{ asset('assets/client/js/sweetalert2.min.js') }}"></script>
+
+    <script>
+        function displayMessage(message, type){
+      
+          const Toast = swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 8000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+          });
+          Toast.fire({
+                  icon: type,
+                //   type: 'success',
+                  title: message
+          });
+      
+        }
+      </script>
 
     <script>
       $(document).ready(function () {

@@ -1,5 +1,6 @@
- @extends('layouts.app')
+@extends('layouts.app')
 @section('contents')
+
   <div class="back-to-home rounded d-none d-sm-block">
         <a href="{{url('/')}}" class="btn btn-icon btn-soft-primary1"><i data-feather="home" class="icons"></i></a>
     </div>
@@ -15,13 +16,13 @@
                                 <div class="card login-page border-0" style="z-index: 1">
                                     <div class="card-body p-0">
                                         <h4 class="card-title text-center texty">Login</h4>  
-                                        <form class="login-form mt-4">
+                                    <form class="login-form mt-4" >
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="form-group position-relative">
-                                                        <label>Your Email <span class="text-danger">*</span></label>
+                                                        <label>E-Mail <span class="text-danger">*</span></label>
                                                         <i data-feather="user" class="fea icon-sm icons"></i>
-                                                        <input type="email" class="form-control pl-5" placeholder="Email" name="email" required="">
+                                                        <input type="email" class="form-control pl-5" placeholder="E-Mail address" name="email" required="">
                                                     </div>
                                                 </div><!--end col-->
     
@@ -29,7 +30,7 @@
                                                     <div class="form-group position-relative">
                                                         <label>Password <span class="text-danger">*</span></label>
                                                         <i data-feather="key" class="fea icon-sm icons"></i>
-                                                        <input type="password" class="form-control pl-5" placeholder="Password" required="">
+                                                        <input type="password" class="form-control pl-5" placeholder="Password" name="password" required="">
                                                     </div>
                                                 </div><!--end col-->
     
@@ -37,7 +38,7 @@
                                                     <div class="d-flex justify-content-between">
                                                         <div class="form-group">
                                                             <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                                <input type="checkbox" class="custom-control-input" name="remember_me" id="customCheck1">
                                                                 <label class="custom-control-label" for="customCheck1">Remember me</label>
                                                             </div>
                                                         </div>
@@ -46,7 +47,7 @@
                                                 </div><!--end col-->
 
                                                 <div class="col-lg-12 mb-0">
-                                                    <button class="btn btn-prim btn-block">Login</button>
+                                                    <button type="submit" class="btn btn-prim btn-block">Login</button>
                                                 </div><!--end col-->
 
                                                 <div class="col-12 text-center">

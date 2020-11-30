@@ -88,19 +88,9 @@
     <div class="container">
         <!-- Logo container-->
         <div>
-        {{-- <a class="logo" href="{{ url('/') }}">
-                <img src="{{ asset('assets/images/home-fix-logo.png') }}" class="l-dark" height="70" alt="FixMaster dark logo">
-                <img src="{{ asset('assets/images/home-fix-logo-new.png') }}" class="l-light" height="70" alt="FixMaster light">
-            </a> --}}
         <a class="logo" href="{{ route('client.home') }}">
-                {{-- <img src="{{ asset('assets/images/home-fix-logo.png') }}" class="l-dark" height="160" style="margin-top: -38px !important; margin-bottom: -38px !important;" alt="FixMaster logo"> --}}
-            <img src="{{ asset('assets/images/home-fix-logo.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;" class="l-light" height="160" alt="FixMaster logo">
-
-            {{-- <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;"  class="l-light" height="140" alt="FixMaster logo"> --}}
-
-            <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -38px !important; margin-bottom: -38px !important;"  class="l-dark" height="140" alt="FixMaster logo">
-
-            </a>
+            <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -40px !important; margin-bottom: -38px !important; margin-left: 50px !important" height="70" alt="FixMaster logo">
+        </a>
         </div>                 
         
         <!-- End Logo container-->

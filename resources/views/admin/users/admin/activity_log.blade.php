@@ -34,8 +34,8 @@
                 <div class="form-group">
                     <label>Sort Type</label>
                     <select class="custom-select">
-                        <option value="None">Select...</option>
-                        <option selected value="Date Range">Others</option>
+                        <option selected value="None">Select...</option>
+                        <option  value="Date Range">Others</option>
                         <option value="Date">Payments</option>
                         <option value="Month">Requests</option>
                     </select>
