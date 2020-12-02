@@ -37,4 +37,9 @@ class Admin extends Model
         return $this->hasMany(User::class)->withDefault();
     }
 
+    public function fullName()
+    {
+        return $this->hasOne(Name::class, 'user_id');
+    }
+
 }

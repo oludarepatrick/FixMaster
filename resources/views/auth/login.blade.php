@@ -1,7 +1,6 @@
 @extends('layouts.auth')
 @section('title', 'Login')
 @section('content')
-@include('layouts.partials._messages')
 
 <section class="bg-home bg-circle-gradiant d-flex align-items-center">
     <div class="bg-overlay bg-overlay-white"></div>
@@ -10,6 +9,8 @@
             <div class="col-lg-5 col-md-8"> 
                 <div class="card login-page bg-white shadow rounded border-0">
                     <div class="card-body">
+                        @include('layouts.partials._messages')
+
                         <div class="align-items-center text-center justify-content-center">   
                             <img src="{{ asset('assets/images/home-fix-logo.png')}}" class="img-fluid d-block mx-auto" alt="FixMaster Logo" style="width: 15em; height: 15em; margin-top: -100px !important; margin-bottom: -60px !important;">
                         </div>

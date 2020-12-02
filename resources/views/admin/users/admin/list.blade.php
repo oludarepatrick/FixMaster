@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('title', 'Administrators List')
-@include('layouts.partials._messages')
 @section('content')
+@include('layouts.partials._messages')
 
 <div class="content-body">
   <div class="container pd-x-0">
@@ -67,8 +67,8 @@
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
                       <a href="{{ route('admin.summary_admin', $admin->id) }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="{{ route('admin.edit_admin') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                      <a href="{{ route('admin.activity_log_admin') }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a>
+                      <a href="{{ route('admin.edit_admin', $admin->id) }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
+                      <a href="{{ route('admin.activity_log_admin', $admin->id) }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a>
                         <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
                         <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
                       </div>

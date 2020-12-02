@@ -131,10 +131,9 @@ Auth::routes();
     // Route::group(['middleware' => 'adminRole'], function () {
         Route::prefix('admin')->group(function () {
             Route::name('admin.')->group(function () {
-                Route::get('/',                       [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('home');
-                Route::get('/activity-log',                       [App\Http\Controllers\ActivityLogController::class, 'index'])->name('activity_log');
+                Route::get('/',                                     [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('home');
+                Route::get('/activity-log',                         [App\Http\Controllers\ActivityLogController::class, 'index'])->name('activity_log');
 
-                // Route::view('/', 			                'admin.home')->name('home');
                 Route::view('/requests', 	                'admin.requests.requests')->name('requests');
                 Route::view('/requests/details/new', 	    'admin.requests.request_details')->name('request_details');
                 Route::view('/requests/details/ongoing', 	'admin.requests.request_ongoing_details')->name('request_ongoing_details');
@@ -150,14 +149,13 @@ Auth::routes();
                 Route::view('/messages', 	                'admin.messages')->name('messages');
                 Route::view('/messages/sent', 	            'admin.messages_sent')->name('messages_sent');
 
-                Route::get('/users/admin',                  [App\Http\Controllers\AdminUserController::class, 'index'])->name('list_admin');
-                Route::get('/users/admin/add',              [App\Http\Controllers\AdminUserController::class, 'create'])->name('add_admin');
-                Route::post('/users/admin/store',           [App\Http\Controllers\AdminUserController::class, 'store'])->name('store_admin');
-                Route::get('/users/admin/summary/{user}',    [App\Http\Controllers\AdminUserController::class, 'show'])->name('summary_admin');
-
-                Route::view('/users/admin/edit', 	        'admin.users.admin.edit')->name('edit_admin');
-                // Route::view('/users/admin/summary', 	    'admin.users.admin.summary')->name('summary_admin');
-                Route::view('/users/admin/activity-log', 	'admin.users.admin.activity_log')->name('activity_log_admin');
+                Route::get('/users/admin',                          [App\Http\Controllers\AdminUserController::class, 'index'])->name('list_admin');
+                Route::get('/users/admin/add',                      [App\Http\Controllers\AdminUserController::class, 'create'])->name('add_admin');
+                Route::post('/users/admin/store',                   [App\Http\Controllers\AdminUserController::class, 'store'])->name('store_admin');
+                Route::get('/users/admin/summary/{user}',           [App\Http\Controllers\AdminUserController::class, 'show'])->name('summary_admin');
+                Route::get('/users/admin/edit/{user}',              [App\Http\Controllers\AdminUserController::class, 'edit'])->name('edit_admin');
+                Route::get('/users/admin/activity-log/{user}', 	    [App\Http\Controllers\AdminUserController::class, 'activityLog'])->name('activity_log_admin');
+                Route::put('/users/admin/update/{user}',            [App\Http\Controllers\AdminUserController::class, 'update'])->name('update_admin');
 
 
                 Route::view('/users/cse/add', 	            'admin.users.cse.add')->name('add_cse');

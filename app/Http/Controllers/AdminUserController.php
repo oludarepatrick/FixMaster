@@ -100,7 +100,7 @@ class AdminUserController extends Controller
         ]);
 
         if($createUserRecord AND $createAdminRecord AND $createNameRecord){
-            //Record crurrenlty looged in user activity
+            //Record crurrenlty logged in user activity
             $this->message = new ActivityLogController();
             $message = Auth::user()->fullName->name.' created '.$request->input('first_name').' '.$request->input('last_name').' profile at '.\Carbon\Carbon::parse(now() , 'UTC')->isoFormat('LL h:mm:ssa');
             $this->message->createMessage($message, $type='Others');
@@ -143,5 +143,123 @@ class AdminUserController extends Controller
         ];
 
         return view('admin.users.admin.summary', $data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($user)
+    {
+        $userExists = User::findOrFail($user);
+        
+        $admin = User::ActiveAdmin($user)->first();
+        // $admin = User::where('id', $user)->with('admins', 'adminPermissions')->first();
+        // return $admin;
+        // foreach($admin->admins as $item){
+        //     return $item->first_name;
+
+        // }
+
+        $data = [
+            'admin' =>  $admin
+        ];
+
+        return view('admin.users.admin.edit', $data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function activityLog($user)
+    {
+        $userExists = User::findOrFail($user);
+        
+        $admin = User::where('id', $user)->with('admins')->first();
+
+        $data = [
+            'admin' =>  $admin
+        ];
+
+        return view('admin.users.admin.activity_log', $data);
+    }
+
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        // return $request;
+
+        //Validate user input fields
+        $this->validateUpdateRequest($id);
+
+        $designation = $request->input('designation');
+
+        //Update User record on `users` table
+        $updateUserRecord = User::where('id', $id)->update([
+            'email'             =>   $request->input('email'),
+        ]);
+
+        //Update User record on `admins` table
+        $updateAdminRecord = Admin::where('user_id', $id)->update([
+            'first_name'        =>  $request->input('first_name'),
+            'middle_name'       =>  $request->input('middle_name'),
+            'last_name'         =>  $request->input('last_name'),
+            'phone_number'      =>  $request->input('phone_number'),
+            'designation'       =>  $designation,
+        ]);
+
+        //Update User record on `admin_permissions` table
+        $this->permission = new AdminPermissionController();
+
+        if($designation === 'ADMIN_ROLE'){
+            $this->permission->updateAdminRole($request, $id);
+        }else{
+            $this->permission->updateSuperAdminRole($id);
+        }
+
+        //Update User record on `names` table
+        $updateNameRecord = Name::where('user_id', $id)->update([
+            'name'              =>  $request->input('first_name').' '.$request->input('last_name'),
+        ]);
+
+        if($updateUserRecord AND $updateAdminRecord AND $updateNameRecord){
+            //Record crurrenlty logged in user activity
+            $this->message = new ActivityLogController();
+            $message = Auth::user()->fullName->name.' updated '.$request->input('first_name').' '.$request->input('last_name').'\s profile at '.\Carbon\Carbon::parse(now() , 'UTC')->isoFormat('LL h:mm:ssa');
+            $this->message->createMessage($message, $type='Others');
+
+            return redirect()->route('admin.list_admin')->with('success', $request->input('first_name').' '.$request->input('last_name').'\'s profile was successfully updated.');
+
+        }else{
+            return back()->with('error', 'An error occurred while trying to update Admin Profile.');
+        }
+
+        return back()->withInput();
+
+    }
+
+    /**
+     * Validate user input fields
+     */
+    private function validateUpdateRequest($id){
+        return request()->validate([
+            'first_name'                =>   'required',
+            'middle_name'               =>   '',
+            'last_name'                 =>   'required',
+            'email'                     =>   'required|email|unique:users,email,'.$id.',id', 
+            'phone_number'              =>   'required|Numeric|unique:admins,phone_number,'.$id.',user_id', 
+            'designation'               =>   'required',
+        ]);
     }
 }

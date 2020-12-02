@@ -28,9 +28,10 @@
             </div><!-- card-header -->
             <div class="card-body pd-25">
               <div class="media">
-                <div class="wd-80 ht-80 bg-ui-04 rounded d-flex align-items-center justify-content-center">
-                  <i data-feather="file-text" class="tx-white-7 wd-40 ht-40"></i>
-                </div>
+                <div class="pos-relative d-inline-block mg-b-20">
+                  <div class="avatar avatar-xxl"><span class="avatar-initial rounded-circle bg-gray-700 tx-normal"><i class="icon ion-md-person"></i></span></div>
+                  {{-- <a href="" class="contact-edit-photo"><i data-feather="edit-2"></i></a> --}}
+              </div>
                 <div class="media-body pd-l-25">
                   {{-- <h5 class="mg-b-5 mb-2">Business Type: Marine Cargo</h5> --}}
                   <div class="table-responsive">
@@ -58,7 +59,7 @@
                         </tr>
                         <tr>
                           <td class="tx-medium">Created By</td>
-                        <td class="tx-color-03">{{ $createdBy->find($admin->admin->created_by)->name }}</td>
+                          <td class="tx-color-03">{{ $createdBy->find($admin->admin->created_by)->name }}</td>
                         </tr>
                         <tr>
                           <td class="tx-medium">Date Created</td>

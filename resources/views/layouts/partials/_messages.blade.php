@@ -118,7 +118,7 @@
   </div>
 @endif --}}
 @if ($errors->any())
-<div class="container">
+{{-- <div class="container">
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -126,7 +126,17 @@
             @endforeach
         </ul>
     </div>
-  </div>
+  </div> --}}
+  @foreach ($errors->all() as $error)
+    @section('scripts')
+      <script>
+        var message = '{{ $error }}';
+        var type = 'error';
+        displayMessage(message, type);
+      </script>
+    @endsection
+  @endforeach
+
 @endif
 
 @if ($message = Session::get('error'))

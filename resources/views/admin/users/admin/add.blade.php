@@ -106,7 +106,7 @@
           </div>
           
           <div class="col-md-12 d-none permission">
-            <fieldset class="form-fieldset">
+            {{-- <fieldset class="form-fieldset"> --}}
               <legend>Access & Permissions</legend>
               <p>Check areas to allow Admin Access.</p>
               <div class="form-row">
@@ -201,11 +201,11 @@
                     </div>
                   </div>
               </div>
-            </fieldset>
+            {{-- </fieldset> --}}
           </div>
 
           <div class="col-md-12 mt-4">
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Create Profile</button>
           </div>
 
         </form>

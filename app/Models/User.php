@@ -76,4 +76,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(AdminPermission::class);
     }
+
+    public function scopeActiveAdmin($query, $args){
+        return $query->where('id', $args)
+        ->select('id', 'email')
+        ->with(['admins' => function($query){
+            return $query->select('first_name', 'middle_name', 'last_name', 'designation', 'phone_number', 'user_id');
+        }])
+        ->with('adminPermissions');
+    }
 }

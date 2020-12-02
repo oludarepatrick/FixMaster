@@ -17,4 +17,9 @@ class Name extends Model
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault();
     }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
+    }
 }
