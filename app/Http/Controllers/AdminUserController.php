@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Admin;
 use App\Models\AdminPermission;
 use App\Models\Name;
+use App\Models\ActivityLog;
 
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AdminPermissionController;
@@ -36,7 +37,8 @@ class AdminUserController extends Controller
         }])
         ->where('users.designation', '[ADMIN_ROLE]')
         ->where('users.is_deleted', '0')
-        ->orderBy('users.created_at', 'DESC')
+        ->orderBy('users.is_active', 'DESC')
+        ->latest('users.created_at')
         ->get();
 
         // return $admins;
@@ -102,7 +104,7 @@ class AdminUserController extends Controller
         if($createUserRecord AND $createAdminRecord AND $createNameRecord){
             //Record crurrenlty logged in user activity
             $this->message = new ActivityLogController();
-            $message = Auth::user()->fullName->name.' created '.$request->input('first_name').' '.$request->input('last_name').' profile at '.\Carbon\Carbon::parse(now() , 'UTC')->isoFormat('LL h:mm:ssa');
+            $message = Auth::user()->fullName->name.' created '.$request->input('first_name').' '.$request->input('last_name').'\'s profile at '.\Carbon\Carbon::parse(now() , 'UTC')->isoFormat('LL h:mm:ssa');
             $this->message->createMessage($message, $type='Others');
 
             return back()->with('success', 'Admin profile was successfully created.');
@@ -156,12 +158,6 @@ class AdminUserController extends Controller
         $userExists = User::findOrFail($user);
         
         $admin = User::ActiveAdmin($user)->first();
-        // $admin = User::where('id', $user)->with('admins', 'adminPermissions')->first();
-        // return $admin;
-        // foreach($admin->admins as $item){
-        //     return $item->first_name;
-
-        // }
 
         $data = [
             'admin' =>  $admin
@@ -180,13 +176,17 @@ class AdminUserController extends Controller
     {
         $userExists = User::findOrFail($user);
         
-        $admin = User::where('id', $user)->with('admins')->first();
+        $activityLogs = $userExists->activityLogs()->orderBy('created_at', 'DESC')->get();
+
+        $fullName = $userExists->fullName->name;
 
         $data = [
-            'admin' =>  $admin
+            'activityLogs'  =>  $activityLogs,
+            'fullName'      =>  $fullName,
+            'userId'        =>  $user,
         ];
 
-        return view('admin.users.admin.activity_log', $data);
+        return view('admin.users.admin.activity_log', $data)->with('i');
     }
 
      /**
@@ -261,5 +261,161 @@ class AdminUserController extends Controller
             'phone_number'              =>   'required|Numeric|unique:admins,phone_number,'.$id.',user_id', 
             'designation'               =>   'required',
         ]);
+    }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($user)
+    {
+        $userExists = User::findOrFail($user);
+
+        $softDeleteUser = User::where('id', $user)->update([
+            'is_deleted'    => '1',
+        ]);
+
+        if($softDeleteUser){
+            //Record crurrenlty logged in user activity
+            $this->message = new ActivityLogController();
+            $message = Auth::user()->fullName->name.' deleted '.User::find($user)->fullName->name.'\'s profile at '.\Carbon\Carbon::parse(now() , 'UTC')->isoFormat('LL h:mm:ssa');
+            $this->message->createMessage($message, $type='Others');
+            
+            return redirect()->route('admin.list_admin')->with('success', 'Admin Profile has been deleted.');
+            
+        }else{
+            return back()->with('error', 'An error occurred while trying to delete Admin Profile.');
+        } 
+    }
+
+    public function deactivate($user)
+    {
+        $userExists = User::findOrFail($user);
+
+        $deactivateUser = User::where('id', $user)->update([
+            'is_active'    => '0',
+        ]);
+
+        if($deactivateUser){
+            //Record crurrenlty logged in user activity
+            $this->message = new ActivityLogController();
+            $message = Auth::user()->fullName->name.' deactivated '.User::find($user)->fullName->name.'\'s profile at '.\Carbon\Carbon::parse(now() , 'UTC')->isoFormat('LL h:mm:ssa');
+            $this->message->createMessage($message, $type='Others');
+
+            return redirect()->route('admin.list_admin')->with('success', 'Admin Profile has been deactivated.');
+            
+        }else{
+            return back()->with('error', 'An error occurred while trying to deactivate Admin Profile.');
+        } 
+    }
+
+    public function reinstate($user)
+    {
+        $userExists = User::findOrFail($user);
+
+        $reinstateUser = User::where('id', $user)->update([
+            'is_active'    => '1',
+        ]);
+
+        if($reinstateUser){
+            //Record crurrenlty logged in user activity
+            $this->message = new ActivityLogController();
+            $message = Auth::user()->fullName->name.' reinstated '.User::find($user)->fullName->name.'\'s profile at '.\Carbon\Carbon::parse(now() , 'UTC')->isoFormat('LL h:mm:ssa');
+            $this->message->createMessage($message, $type='Others');
+
+            return redirect()->route('admin.list_admin')->with('success', 'Admin has been reinstated.');
+            
+        }else{
+            return back()->with('error', 'An error occurred while trying to reinstate Admin Profile.');
+        } 
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * This is an ajax call to sort a users Activity Log 
+     * present on change of Activity Type select dropdown
+     */
+    public function sortActivityLog(Request $request){
+        if($request->ajax()){
+
+            //Get User ID
+            $userId = $request->get('user');
+            //Get current activity sorting level
+            $level =  $request->get('sort_level');
+            //Get the activity sorting type
+            $type =  $request->get('type');
+            //Get activity log for a specific date
+            $specificDate =  $request->get('date');
+            //Get activity log for a specific year
+            $specificYear =  $request->get('year');
+            //Verify if user exists on `users` table
+            $userExists = User::findOrFail($userId);
+        
+            if($level === 'Level One'){
+
+                $activityLogs = $userExists->activityLogs()
+                ->where('type', $type)
+                ->orderBy('created_at', 'DESC')->get();
+
+                $data = [
+                    'activityLogs'  =>  $activityLogs,
+                ];
+
+                return view('admin.users.admin._activity_log_table', $data)->with('i');
+
+            }
+
+            if($level === 'Level Two'){
+
+                if(!empty($type) && !empty($specificDate)){
+                    $activityLogs = $userExists->activityLogs()
+                    ->where('type', $type)
+                    ->whereDate('created_at', $specificDate)
+                    ->orderBy('created_at', 'DESC')->get();
+                }
+                
+                if(!empty($specificDate)){
+                    $activityLogs = $userExists->activityLogs()
+                    ->whereDate('created_at', $specificDate)
+                    ->orderBy('created_at', 'DESC')->get();
+                }
+
+                $data = [
+                    'activityLogs'  =>  $activityLogs,
+                ];
+
+                return view('admin.users.admin._activity_log_table', $data)->with('i');
+
+            }
+
+            if($level === 'Level Three'){
+                if(!empty($type) && !empty($specificYear)){
+                    $activityLogs = $userExists->activityLogs()
+                    ->where('type', $type)
+                    ->whereYear('created_at', $specificYear)
+                    ->orderBy('created_at', 'DESC')->get();
+                }
+                
+                // if(!empty($specificYear) && ){
+                //     $activityLogs = $userExists->activityLogs()
+                //     ->whereYear('created_at', $specificYear)
+                //     ->orderBy('created_at', 'DESC')->get();
+                // }
+
+                // return $activityLogs;
+
+                $data = [
+                    'activityLogs'  =>  $activityLogs,
+                ];
+
+                return view('admin.users.admin._activity_log_table', $data)->with('i');
+            }
+            
+
+        }
     }
 }

@@ -15,6 +15,9 @@
         </nav>
         <h4 class="mg-b-0 tx-spacing--1">Administrators List</h4>
       </div>
+      <div class="d-md-block">
+        <a href="{{ route('admin.add_admin') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a>
+      </div>
     </div>
 
     <div class="row row-xs">
@@ -59,7 +62,7 @@
                   @if($admin->is_active == '1') 
                     <td class="text-medium text-success">Active</td>
                   @else 
-                    <td class="text-medium text-danger">Inctive</td>
+                    <td class="text-medium text-danger">Inactive</td>
                   @endif
                 <td class="text-medium">{{ Carbon\Carbon::parse($admin->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                   <td class=" text-center">
@@ -69,8 +72,12 @@
                       <a href="{{ route('admin.summary_admin', $admin->id) }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
                       <a href="{{ route('admin.edit_admin', $admin->id) }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
                       <a href="{{ route('admin.activity_log_admin', $admin->id) }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a>
-                        <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                        <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
+                      @if($admin->is_active == '1')
+                        <a href="{{ route('admin.deactivate_admin', $admin->id) }}" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
+                      @else
+                        <a href="{{ route('admin.reinstate_admin', $admin->id) }}" class="dropdown-item details text-success"><i class="fas fa-undo"></i> Reinstate</a>
+                      @endif
+                      <a href="{{ route('admin.delete_admin', $admin->id) }}" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
                       </div>
                     </div>
                   </td>

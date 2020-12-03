@@ -14,6 +14,10 @@
           </nav>
           <h4 class="mg-b-0 tx-spacing--1">Create New Administrator</h4>
         </div>
+
+        <div class="d-md-block">
+          <a href="{{ route('admin.list_admin') }}" class="btn btn-primary"><i class="fas fa-users"></i> Admin List</a>
+        </div>
       </div>
 
       @include('layouts.partials._messages')

@@ -139,8 +139,16 @@ class LoginController extends Controller
     public function logout(){
         //Record user logout time
         if(!empty(Auth::user())){
+
+            //Calculate difference between TimeIn and TimeOut
+            $currentTime = \Carbon\Carbon::now();
+            $start = \Carbon\Carbon::parse(Auth::user()->current_sign_in); //Timestamp when user logged in
+            $end = \Carbon\Carbon::parse($currentTime); //Timestamp when user logged out
+            $seconds = $end->diffInSeconds($start); //Convert timestamp in seconds
+            $sessionTime =  gmdate('H:i:s', $seconds);  //Get time difference
+
             $this->message = new ActivityLogController();
-            $message = Auth::user()->fullName->name.' logged out at '.\Carbon\Carbon::parse(now() , 'UTC')->isoFormat('LL h:mm:ssa');
+            $message = Auth::user()->fullName->name.' logged out at '.\Carbon\Carbon::parse(now() , 'UTC')->isoFormat('LL h:mm:ssa').'[Duration(hrs:min:ss): '.$sessionTime.']';
             $this->message->createMessage($message, $type='Others');
         }
         

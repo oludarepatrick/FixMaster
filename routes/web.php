@@ -156,6 +156,10 @@ Auth::routes();
                 Route::get('/users/admin/edit/{user}',              [App\Http\Controllers\AdminUserController::class, 'edit'])->name('edit_admin');
                 Route::get('/users/admin/activity-log/{user}', 	    [App\Http\Controllers\AdminUserController::class, 'activityLog'])->name('activity_log_admin');
                 Route::put('/users/admin/update/{user}',            [App\Http\Controllers\AdminUserController::class, 'update'])->name('update_admin');
+                Route::get('/users/admin/delete/{user}',            [App\Http\Controllers\AdminUserController::class, 'delete'])->name('delete_admin');
+                Route::get('/users/admin/deactivate/{user}',        [App\Http\Controllers\AdminUserController::class, 'deactivate'])->name('deactivate_admin');
+                Route::get('/users/admin/reinstate/{user}',         [App\Http\Controllers\AdminUserController::class, 'reinstate'])->name('reinstate_admin');
+                Route::post('/users/admin/activity-log/sorting',              [App\Http\Controllers\AdminUserController::class, 'sortActivityLog'])->name('activity_log_sorting_admin');
 
 
                 Route::view('/users/cse/add', 	            'admin.users.cse.add')->name('add_cse');

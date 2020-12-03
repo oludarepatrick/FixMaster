@@ -15,6 +15,15 @@
         </nav>
         {{-- <h4 class="mg-b-0 tx-spacing--1">Administrators List</h4> --}}
       </div>
+      
+      <div class="d-md-block">
+        <a href="{{ route('admin.list_admin') }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a>
+        <a href="{{ route('admin.edit_admin', $admin->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>
+        @if($admin->is_active == 0)
+          <a href="{{ route('admin.reinstate_admin', $admin->id) }}" class="btn btn-success"><i class="fas fa-undo"></i> Reinstate</a>
+        @endif
+        <a href="{{ route('admin.delete_admin', $admin->id) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+      </div>
     </div>
 
     <div class="row row-xs">

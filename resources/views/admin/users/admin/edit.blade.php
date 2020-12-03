@@ -14,6 +14,10 @@
             </ol>
           </nav>
         <h4 class="mg-b-0 tx-spacing--1">Edit {{ $admin->fullName->name }}'s  Account</h4>
+
+        </div>
+        <div class="d-md-block">
+          <a href="{{ route('admin.list_admin') }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a>
         </div>
       </div>
      
@@ -182,7 +186,7 @@
           </div>
 
           <div class="col-md-12 mt-4">
-            <button type="submit" class="btn btn-primary">Update Profile</button>
+            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Update Profile</button>
           </div>
 
         </form>

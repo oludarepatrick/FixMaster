@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>@yield('title') | FixMaster.ng - We Fix, You Relax!</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     {{-- <meta name="Author" content="Anthony Joboy (Lagos, Nigeria)" />
     <meta name="Telephone" content="Tel: +234 903 554 7107" /> --}}
     <meta name="description" content="FixMaster is your best trusted one-call solution for a wide range of home maintenance, servicing and repair needs. Our well-trained & certified uniformed technicians are fully insured professionals with robust experience to provide home services to fully meet your needs with singular objective to make you totally relax while your repair requests are professionally handled." />
@@ -78,28 +80,7 @@
     {{-- <script src="{{ asset('assets/dashboard/assets/js/custom.js') }}"></script> --}}
     <script src="{{ asset('assets/client/js/sweetalert2.min.js') }}"></script>
 
-    <script>
-        function displayMessage(message, type){
-      
-          const Toast = swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 8000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                  toast.addEventListener('mouseleave', Swal.resumeTimer)
-              }
-          });
-          Toast.fire({
-                  icon: type,
-                //   type: 'success',
-                  title: message
-          });
-      
-        }
-      </script>
+    
 
     @yield('scripts')
 
@@ -127,6 +108,29 @@
 
       });
     </script>
+
+<script>
+  function displayMessage(message, type){
+
+    const Toast = swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 8000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+    Toast.fire({
+            icon: type,
+          //   type: 'success',
+            title: message
+    });
+
+  }
+</script>
 
     <script>
       $(function(){
