@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'David Akinsola\'s Summary')
+@section('title', $fullName.'\'s Summary')
 @include('layouts.partials._messages')
 @section('content')
 <div class="content-body">
@@ -14,6 +14,9 @@
           </ol>
         </nav>
         {{-- <h4 class="mg-b-0 tx-spacing--1">Administrators List</h4> --}}
+      </div>
+      <div class="d-md-block">
+        <a href="{{ route('admin.list_admin') }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a>
       </div>
     </div>
 
@@ -30,14 +33,22 @@
          
           <div class="table-responsive">
             <div class="row mt-1 mb-1 ml-1 mr-1">
+            <input value="{{ $userId }}" type="hidden" id="user_id">
+            <input value="{{ route("admin.activity_log_sorting_admin") }}" type="hidden" id="route">
+           
               <div class="col-md-3">
                 <div class="form-group">
                     <label>Sort Type</label>
-                    <select class="custom-select">
-                        <option value="None">Select...</option>
-                        <option selected value="Date Range">Others</option>
-                        <option value="Date">Payments</option>
-                        <option value="Month">Requests</option>
+                    <select class="custom-select" id="activity_log_type">
+                        <option selected value="None">Select...</option>
+                          <option value="Errors">Errors</option>
+                          <option value="Login">Login</option>
+                          <option value="Logout">Logout</option>
+                          <option value="Others">Others</option>
+                          <option value="Payments">Payments</option>
+                          <option value="Profile">Profile</option>
+                          <option value="Requests">Requests</option>
+                          <option value="Unauthorized">Unauthorized</option>
                     </select>
                 </div>
               </div><!--end col-->
@@ -46,10 +57,11 @@
               <div class="col-md-3">
                   <div class="form-group">
                       <label>Sort Date</label>
-                      <select class="custom-select" id="request-sorting">
+                      <select class="custom-select" id="sort_by_range">
                           <option value="None">Select...</option>
                           <option value="Date">Date</option>
                           <option value="Month">Month</option>
+                          <option value="Year">Year</option>
                           <option value="Date Range">Date Range</option>
                       </select>
                   </div>
@@ -58,39 +70,39 @@
               <div class="col-md-3 specific-date d-none">
                   <div class="form-group position-relative">
                       <label>Specify Date <span class="text-danger">*</span></label>
-                      <input name="name" id="name" type="date" class="form-control pl-5">
+                      <input name="name" id="specific_date" type="date" class="form-control pl-5">
                   </div>
               </div>
   
               <div class="col-md-3 sort-by-year d-none">
                   <div class="form-group position-relative">
                       <label>Specify Year <span class="text-danger">*</span></label>
-                      <select class="form-control custom-select" id="Sortbylist-Shop">
-                          <option>Select...</option>
-                          <option>2018</option>
-                          <option>2019</option>
-                          <option>2020</option>
+                      <select class="form-control custom-select" id="sort_by_year">
+                          <option value="">Select...</option>
+                          @foreach ($years as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                          @endforeach
                       </select>
                   </div>
               </div>
   
-              <div class="col-md-3 sort-by-year d-none">
+              <div class="col-md-3 sort-by-year d-none" id="sort-by-month">
                   <div class="form-group position-relative">
                       <label>Specify Month <span class="text-danger">*</span></label>
-                      <select class="form-control custom-select" id="Sortbylist-Shop">
-                          <option>Select...</option>
-                          <option>January</option>
-                          <option>February</option>
-                          <option>March</option>
-                          <option>April</option>
-                          <option>May</option>
-                          <option>June</option>
-                          <option>July</option>
-                          <option>August</option>
-                          <option>September</option>
-                          <option>October</option>
-                          <option>November</option>
-                          <option>December</option>
+                      <select class="form-control custom-select" id="sort_by_month">
+                          <option value="">Select...</option>
+                          <option value="January">January</option>
+                          <option value="February">February</option>
+                          <option value="March">March</option>
+                          <option value="April">April</option>
+                          <option value="May">May</option>
+                          <option value="June">June</option>
+                          <option value="July">July</option>
+                          <option value="August">August</option>
+                          <option value="September">September</option>
+                          <option value="October">October</option>
+                          <option value="November">November</option>
+                          <option value="December">December</option>
                       </select>
                   </div>
               </div>
@@ -98,54 +110,21 @@
               <div class="col-md-3 date-range d-none">
                   <div class="form-group position-relative">
                       <label>From <span class="text-danger">*</span></label>
-                      <input name="name" id="name" type="date" class="form-control pl-5">
+                      <input name="name" id="date_from" type="date" class="form-control pl-5">
                   </div>
               </div>
   
               <div class="col-md-3 date-range d-none">
                   <div class="form-group position-relative">
                       <label>To <span class="text-danger">*</span></label>
-                      <input name="name" id="name" type="date" class="form-control pl-5">
+                      <input name="name" id="date_to" type="date" class="form-control pl-5">
                   </div>
               </div>
             </div>
 
-            <table class="table table-dashboard mg-b-0" id="basicExample">
-              <thead>
-                <tr>
-                  <th width="5%">#</th>
-                  <th width="20%">Date Created</th>
-                  <th width="75%">Message</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="tx-color-03">1</td>
-                  <td class="tx-medium">June 20th 2018, 7:15:29 am</td>
-                  <td class="tx-medium">Logged In successfully</td>
-                </tr>
-
-                <tr>
-                  <td class="tx-color-03">2</td>
-                  <td class="tx-medium">June 18th 2018, 6:18:56 pm</td>
-                  <td class="tx-medium">Updated profile</td>
-                </tr>
-
-                <tr>
-                  <td class="tx-color-03">3</td>
-                  <td class="tx-medium">June 18th 2018, 5:34:15 pm</td>
-                  <td class="tx-medium">Changed password</td>
-                </tr>
-
-                <tr>
-                  <td class="tx-color-03">4</td>
-                  <td class="tx-medium">June 15th 2018, 5:34:15 pm</td>
-                  <td class="tx-medium">Logged Out</td>
-                </tr>
-              
-
-              </tbody>
-            </table>
+            <div id="sort_table">
+              @include('admin.users.admin._activity_log_table')
+            </div>
           </div><!-- table-responsive -->
         </div><!-- card -->
 
@@ -155,34 +134,7 @@
 </div>
 
 @section('scripts')
-<script>
-    $(document).ready(function() {
-
-        $('#request-sorting').on('change', function (){        
-                let option = $("#request-sorting").find("option:selected").val();
-
-                if(option === 'None'){
-                    $('.specific-date, .sort-by-year, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Date'){
-                    $('.specific-date').removeClass('d-none');
-                    $('.sort-by-year, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Month'){
-                    $('.sort-by-year').removeClass('d-none');
-                    $('.specific-date, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Date Range'){
-                    $('.date-range').removeClass('d-none');
-                    $('.specific-date, .sort-by-year').addClass('d-none');
-                }
-        });
-    });
-   
-</script>
+<script src="{{ asset('assets/dashboard/assets/js/table-sort.js') }}"></script>
 @endsection
 
 @endsection

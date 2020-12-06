@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'EditService Category')
+@section('title', 'Edit Service Category')
 @include('layouts.partials._messages')
 @section('content')
 <div class="content-body">
@@ -13,58 +13,110 @@
               <li class="breadcrumb-item active" aria-current="page">Edit Category</li>
             </ol>
           </nav>
-          <h4 class="mg-b-0 tx-spacing--1">Edit Mobile Phone Category</h4>
+          <h4 class="mg-b-0 tx-spacing--1">Edit {{ $category->name }} Category</h4>
         </div>
       </div>
-      <form>
+      
+      <form method="POST" action="{{ route('admin.update_category', $category->id) }}" enctype="multipart/form-data">
+        @csrf @method('PUT')
       <div class="row row-xs">
         <div class="col-md-12">
           <div class="form-row">
-              <div class="form-group col-md-4">
-                  <label for="category_name">Name</label>
-                  <input type="text" class="form-control" id="category_name" placeholder="Name" value="Mobile Phone">
+              <div class="form-group col-md-3">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Name" value="{{ old('name') ?? $category->name }}" autocomplete="off">
+                  @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-3">
                 <label>Service</label>
-                <select class="custom-select">
-                  <option>Select...</option>
-                  <option selected value="1">Communication</option>
-                  <option value="2">Electrical</option>
-                  <option value="2">Mechanical</option>
+                <select class="custom-select @error('service_id') is-invalid @enderror" name="service_id">
+                  <option selected value="">Select...</option>
+                  @foreach($services as $service)
+                    <option value="{{ $service->id }}" {{ old('service_id') == $service->id ? 'selected' : ''}} @if($category->service_id == $service->id) selected @endif>{{ $service->name }}</option>
+                  @endforeach
                 </select>
+                @error('service_id')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-3">
+                <label>Category Cover Image</label>
+                <div class="custom-file">
+                  <input type="file" accept="image/*" class="custom-file-input @error('image') is-invalid @enderror" name="image" id="image">
+                <label class="custom-file-label" id="image-name" for="image">{{ $category->image }}</label>
+                  <input type="hidden" id="old-post-image" name="old_post_image" value="{{ $category->image }}">
+                </div>
+                {{-- <small class="text-danger"> Preferred category cover image size is 350x259.</small> --}}
+                @error('image')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
+              <div class="form-group col-md-3">
                 <label>Status</label>
-                <select class="custom-select">
-                  <option>Select...</option>
-                  <option selected value="1">Active</option>
-                  <option value="2">Inactive</option>
+                <select class="custom-select @error('is_active') is-invalid @enderror" name="is_active" id="is_active">
+                  <option selected value="">Select...</option>
+                  <option value="1" {{ old('is_active') == '1' ? 'selected' : ''}} @if($category->is_active == 1) selected @endif>Active</option>
+                  <option value="0" {{ old('is_active') == '0' ? 'selected' : ''}} @if($category->is_active == 0) selected @endif>Inactive</option>
                 </select>
+                @error('is_active')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
               </div>
           </div>
           <div class="divider-text">Fee Structure</div>
           <div class="form-row">
             <div class="form-group col-md-4">
-              <label for="inputEmail4">Standard Fee</label>
-              <input type="email" class="form-control" id="inputEmail4" placeholder="Standard Fee" value="3500">
+              <label for="standard_fee">Standard Fee</label>
+              <input type="tel" class="form-control @error('standard_fee') is-invalid @enderror" name="standard_fee" id="standard_fee" value="{{ old('standard_fee') ?? $category->standard_fee }}" placeholder="Standard Fee" autocomplete="off" maxlength="11">
+              @error('standard_fee')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
             </div>
+
             <div class="form-group col-md-4">
-              <label for="phone_number">Urgent Fee</label>
-              <input type="text" class="form-control" id="phone_number" placeholder="Urgent Fee" value="5000">
+              <label for="urgent_fee">Urgent Fee</label>
+              <input type="tel" class="form-control @error('urgent_fee') is-invalid @enderror" name="urgent_fee" id="urgent_fee" value="{{ old('urgent_fee') ?? $category->urgent_fee }}" placeholder="Urgent Fee" autocomplete="off" maxlength="11">
+              @error('urgent_fee')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
             </div>
+
             <div class="form-group col-md-4">
-              <label for="phone_number">OOH(Out of Hours) Fee</label>
-              <input type="text" class="form-control" id="phone_number" placeholder="OOH Fee" value="7500">
+              <label for="ooh_fee">OOH(Out of Hours) Fee</label>
+              <input type="tel" class="form-control @error('ooh_fee') is-invalid @enderror" name="ooh_fee" id="ooh_fee" value="{{ old('ooh_fee') ?? $category->ooh_fee }}" placeholder="OOH(Out of Hours) Fee" autocomplete="off" maxlength="11">
+              @error('ooh_fee')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+              @enderror
             </div>
           </div>
           
           <div class="form-row">
             <div class="form-group col-md-12">
               <label for="inputEmail4">Description</label>
-              <textarea rows="3" class="form-control" id="inputAddress2"></textarea>
+              <textarea rows="3" class="form-control @error('description') is-invalid @enderror" name="description" id="description">{{ old('description') ?? $category->description }}</textarea>
+              @error('description')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+              @enderror
             </div>
           </div>
-          
           <button type="submit" class="btn btn-primary">Update</button>
         </div>
       </div>
@@ -72,4 +124,40 @@
 
     </div>
 </div>
+@section('scripts')
+<script>
+  $(document).ready(function (){
+    var standard_fee = new Cleave('#standard_fee', {
+      numeral: true,
+      numeralThousandsGroupStyle: 'thousand'
+    });
+
+    var urgent_fee = new Cleave('#urgent_fee', {
+      numeral: true,
+      numeralThousandsGroupStyle: 'thousand'
+    });
+
+    var ooh_fee = new Cleave('#ooh_fee', {
+      numeral: true,
+      numeralThousandsGroupStyle: 'thousand'
+    });
+
+    
+  //Append the image name from file options to post cover field
+  $(document).ready(function(){
+      $('input[type="file"]').change(function(e){
+          var fileName = e.target.files[0].name;
+          $('#image-name').text(fileName);
+      });
+
+      let previousCoverPhoto = $('#old-post-image').val();
+      $('$image-name').text(previousCoverPhoto);
+
+  });
+
+  });
+</script>
+
+@endsection
+
 @endsection

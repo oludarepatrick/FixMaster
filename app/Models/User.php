@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -17,9 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'email',  'password', 'remember_token', 'email_verification_token', 'email_verified_at',	'is_email_verified', 'designation', 'is_active', 'login_count',
     ];
 
     /**
@@ -28,8 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token', 'email_verification_token',
     ];
 
     /**
@@ -40,4 +38,87 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+   
+    protected $dates = [
+        'current_sign_in', 'last_sign_in'
+    ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id');
+    }
+
+    public function fullName()
+    {
+        return $this->hasOne(Name::class);
+    }
+    
+    public function superAdmin()
+    {
+        return $this->hasOne(SuperAdmin::class);
+    }
+
+    public function superAdmins()
+    {
+        return $this->hasMany(SuperAdmin::class);
+    }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
+    }
+
+    public function admins()
+    {
+        return $this->hasMany(Admin::class);
+    }
+
+    public function activityLogs()
+    {
+        return $this->hasMany(ActivityLog::class);
+    }
+
+    public function adminPermissions()
+    {
+        return $this->hasOne(AdminPermission::class);
+    }
+
+    public function service()
+    {
+        return $this->hasOne(Service::class);
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    public function category()
+    {
+        return $this->hasOne(Category::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function request()
+    {
+        return $this->hasOne(Request::class);
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
+
+    public function scopeActiveAdmin($query, $args){
+        return $query->where('id', $args)
+        ->select('id', 'email')
+        ->with(['admins' => function($query){
+            return $query->select('first_name', 'middle_name', 'last_name', 'designation', 'phone_number', 'user_id');
+        }])
+        ->with('adminPermissions');
+    }
 }
