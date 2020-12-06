@@ -34,14 +34,21 @@
           <div class="table-responsive">
             <div class="row mt-1 mb-1 ml-1 mr-1">
             <input value="{{ $userId }}" type="hidden" id="user_id">
+            <input value="{{ route("admin.activity_log_sorting_admin") }}" type="hidden" id="route">
+           
               <div class="col-md-3">
                 <div class="form-group">
                     <label>Sort Type</label>
                     <select class="custom-select" id="activity_log_type">
                         <option selected value="None">Select...</option>
-                        <option  value="Others">Others</option>
-                        <option value="Payments">Payments</option>
-                        <option value="Requests">Requests</option>
+                          <option value="Errors">Errors</option>
+                          <option value="Login">Login</option>
+                          <option value="Logout">Logout</option>
+                          <option value="Others">Others</option>
+                          <option value="Payments">Payments</option>
+                          <option value="Profile">Profile</option>
+                          <option value="Requests">Requests</option>
+                          <option value="Unauthorized">Unauthorized</option>
                     </select>
                 </div>
               </div><!--end col-->
@@ -71,10 +78,10 @@
                   <div class="form-group position-relative">
                       <label>Specify Year <span class="text-danger">*</span></label>
                       <select class="form-control custom-select" id="sort_by_year">
-                          <option>Select...</option>
-                          <option value="2018">2018</option>
-                          <option value="2019">2019</option>
-                          <option value="2020">2020</option>
+                          <option value="">Select...</option>
+                          @foreach ($years as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                          @endforeach
                       </select>
                   </div>
               </div>
@@ -83,19 +90,19 @@
                   <div class="form-group position-relative">
                       <label>Specify Month <span class="text-danger">*</span></label>
                       <select class="form-control custom-select" id="sort_by_month">
-                          <option>Select...</option>
-                          <option>January</option>
-                          <option>February</option>
-                          <option>March</option>
-                          <option>April</option>
-                          <option>May</option>
-                          <option>June</option>
-                          <option>July</option>
-                          <option>August</option>
-                          <option>September</option>
-                          <option>October</option>
-                          <option>November</option>
-                          <option>December</option>
+                          <option value="">Select...</option>
+                          <option value="January">January</option>
+                          <option value="February">February</option>
+                          <option value="March">March</option>
+                          <option value="April">April</option>
+                          <option value="May">May</option>
+                          <option value="June">June</option>
+                          <option value="July">July</option>
+                          <option value="August">August</option>
+                          <option value="September">September</option>
+                          <option value="October">October</option>
+                          <option value="November">November</option>
+                          <option value="December">December</option>
                       </select>
                   </div>
               </div>
@@ -127,148 +134,7 @@
 </div>
 
 @section('scripts')
-<script>
-    $(document).ready(function() {
-
-        $('#sort_by_range').on('change', function (){        
-                let option = $("#sort_by_range").find("option:selected").val();
-
-                if(option === 'None'){
-                    $('.specific-date, .sort-by-year, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Date'){
-                    $('.specific-date').removeClass('d-none');
-                    $('.sort-by-year, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Month'){
-                    $('.sort-by-year').removeClass('d-none');
-                    $('.specific-date, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Year'){
-                    $('.sort-by-year').removeClass('d-none');
-                    $('#sort-by-month, .specific-date, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Date Range'){
-                    $('.date-range').removeClass('d-none');
-                    $('.specific-date, .sort-by-year').addClass('d-none');
-                }
-        });
-    });
-   
-</script>
-
-<script>
-  //SORT ACTIVITY LOG BY TYPE
-  $('#activity_log_type').on('change', function (){
-    //Get the User ID
-    $userId = $('#user_id').val();
-
-    //Get the Activity Log Type
-    $type = $("#activity_log_type").find("option:selected").val();
-
-    //Set other related sorting fields so default
-    $("#sort_by_range, #sort_by_year, #sort_by_month").prop('selectedIndex', 0);
-    $('#specific_date, #date_from, #date_to').val('');
-
-    //Hide other related sorting fields
-    $('.specific-date, .sort-by-year, .date-range').addClass('d-none');
-
-    //Assign sorting level
-    $sortLevel = 'Level One';
-
-    sortActivityLog($userId, $sortLevel, $type);
-
-  });        
-
-  //SORT ACTIVITY LOG BY SPECIFIC DATE
-  $('#specific_date').change(function (){
-    //Get the User ID
-    $userId = $('#user_id').val();
-
-    //Assign sorting level
-    $sortLevel = 'Level Two';
-
-    //Get the Activity Log Type
-    $type = $("#activity_log_type").find("option:selected").val();
-
-    //Get specific Activity Log date
-    $date = $('#specific_date').val();
-
-    sortActivityLog($userId, $sortLevel, $type, $date);
-
-  });
-
-  //SORT ACTIVITY LOG BY SPECIFIC YEAR 
-  $('#sort_by_year').change(function (){
-    //Get the User ID
-    $userId = $('#user_id').val();
-
-    //Assign sorting level
-    $sortLevel = 'Level Three';
-
-    //Get the Activity Log Type
-    $type = $("#activity_log_type").find("option:selected").val();
-
-    //Get year to sort activity log
-    $year = $('#sort_by_year').find("option:selected").val();
-
-    //Set month to default
-    $("#sort_by_month").prop('selectedIndex', 0);
-
-    sortActivityLog($userId, $sortLevel, $type, $date='', $year);
-
-  });
-
-  function sortActivityLog($userId, $sortLevel, $type, $date, $year){
-    $.ajaxSetup({
-        headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-        
-    $.ajax({
-        url: '{{ route("admin.activity_log_sorting_admin") }}',
-        method: 'POST',
-        data: {"user": $userId, "sort_level": $sortLevel, "type": $type, "date": $date, "year":$year},
-        success: function (data){
-            if(data){
-              console.log(data);
-              //Replace table with new sorted records
-              $('#sort_table').html('');                
-              $('#sort_table').html(data);
-
-              //Add sorting class for jQuery datatable
-              $('#basicExample').addClass('basicExample');
-
-              //Attach JQuery datatable to current sorting
-              if($('#basicExample').hasClass('basicExample')){
-                jQuerySort();
-              }
-            }else {
-              var message = 'Error occured while trying to sort Activity Log table.';
-              var type = 'error';
-              displayMessage(message, type);
-            }            
-        }
-    });
-  }
-
-  function jQuerySort(){
-    $('.basicExample').DataTable({
-          'iDisplayLength': 10,
-          language: {
-                searchPlaceholder: 'Search...',
-                sSearch: '',
-                lengthMenu: '_MENU_ items/page',
-              }
-        });
-  }
-
-</script>
+<script src="{{ asset('assets/dashboard/assets/js/table-sort.js') }}"></script>
 @endsection
 
 @endsection

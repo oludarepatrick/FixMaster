@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email',  'password', 'remember_token', 'email_verification_token', 'email_verified_at',	'is_email_verified', 'designation', 'is_active', 'is_deleted', 'login_count',
+        'email',  'password', 'remember_token', 'email_verification_token', 'email_verified_at',	'is_email_verified', 'designation', 'is_active', 'login_count',
     ];
 
     /**
@@ -57,6 +58,11 @@ class User extends Authenticatable
         return $this->hasOne(SuperAdmin::class);
     }
 
+    public function superAdmins()
+    {
+        return $this->hasMany(SuperAdmin::class);
+    }
+
     public function admin()
     {
         return $this->hasOne(Admin::class);
@@ -75,6 +81,36 @@ class User extends Authenticatable
     public function adminPermissions()
     {
         return $this->hasOne(AdminPermission::class);
+    }
+
+    public function service()
+    {
+        return $this->hasOne(Service::class);
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    public function category()
+    {
+        return $this->hasOne(Category::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function request()
+    {
+        return $this->hasOne(Request::class);
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
     }
 
     public function scopeActiveAdmin($query, $args){

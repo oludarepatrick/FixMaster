@@ -80,7 +80,28 @@
     {{-- <script src="{{ asset('assets/dashboard/assets/js/custom.js') }}"></script> --}}
     <script src="{{ asset('assets/client/js/sweetalert2.min.js') }}"></script>
 
+    <script>
+      function displayMessage(message, type){
     
+        const Toast = swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 8000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+        Toast.fire({
+                icon: type,
+              //   type: 'success',
+                title: message
+        });
+    
+      }
+    </script>
 
     @yield('scripts')
 
@@ -109,28 +130,7 @@
       });
     </script>
 
-<script>
-  function displayMessage(message, type){
 
-    const Toast = swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 8000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-    });
-    Toast.fire({
-            icon: type,
-          //   type: 'success',
-            title: message
-    });
-
-  }
-</script>
 
     <script>
       $(function(){

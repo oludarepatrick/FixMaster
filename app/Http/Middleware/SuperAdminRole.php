@@ -22,7 +22,7 @@ class SuperAdminRole
         $designation = Auth::user()->designation;
 
         if($designation != '[SUPER_ADMIN_ROLE]'){
-            return \redirect('/');
+            return \back()->with('Sotty! You do not have access to this feature.');
         }
 
         return $next($request);

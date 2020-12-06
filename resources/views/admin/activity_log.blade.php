@@ -29,105 +29,98 @@
            
             <div class="table-responsive">
               <div class="row mt-1 mb-1 ml-1 mr-1">
-                <div class="col-md-3">
-                  <div class="form-group">
-                      <label>Sort Type</label>
-                      <select class="custom-select">
-                          <option selected value="None">Select...</option>
-                          <option value="Date Range">Others</option>
-                          <option value="Date">Payments</option>
-                          <option value="Month">Requests</option>
-                      </select>
-                  </div>
-                </div><!--end col-->
-  
-  
-                <div class="col-md-3">
+                <input value="{{ Auth::id() }}" type="hidden" id="user_id">
+                <input value="{{ route("admin.activity_log_sorting_users") }}" type="hidden" id="route">
+               
+                  <div class="col-md-3">
                     <div class="form-group">
-                        <label>Sort Date</label>
-                        <select class="custom-select" id="request-sorting">
-                            <option value="None">Select...</option>
-                            <option value="Date">Date</option>
-                            <option value="Month">Month</option>
-                            <option value="Date Range">Date Range</option>
+                        <label>Sort Type</label>
+                        <select class="custom-select" id="activity_log_type">
+                            <option selected value="None">Select...</option>
+                            <option value="Errors">Errors</option>
+                            <option value="Login">Login</option>
+                            <option value="Logout">Logout</option>
+                            <option value="Others">Others</option>
+                            <option value="Payments">Payments</option>
+                            <option value="Profile">Profile</option>
+                            <option value="Requests">Requests</option>
+                            <option value="Unauthorized">Unauthorized</option>
                         </select>
                     </div>
-                </div><!--end col-->
+                  </div><!--end col-->
     
-                <div class="col-md-3 specific-date d-none">
-                    <div class="form-group position-relative">
-                        <label>Specify Date <span class="text-danger">*</span></label>
-                        <input name="name" id="name" type="date" class="form-control pl-5">
-                    </div>
-                </div>
     
-                <div class="col-md-3 sort-by-year d-none">
-                    <div class="form-group position-relative">
-                        <label>Specify Year <span class="text-danger">*</span></label>
-                        <select class="form-control custom-select" id="Sortbylist-Shop">
-                            <option>Select...</option>
-                            <option>2018</option>
-                            <option>2019</option>
-                            <option>2020</option>
-                        </select>
-                    </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label>Sort Date</label>
+                          <select class="custom-select" id="sort_by_range">
+                              <option value="None">Select...</option>
+                              <option value="Date">Date</option>
+                              <option value="Month">Month</option>
+                              <option value="Year">Year</option>
+                              <option value="Date Range">Date Range</option>
+                          </select>
+                      </div>
+                  </div><!--end col-->
+      
+                  <div class="col-md-3 specific-date d-none">
+                      <div class="form-group position-relative">
+                          <label>Specify Date <span class="text-danger">*</span></label>
+                          <input name="name" id="specific_date" type="date" class="form-control pl-5">
+                      </div>
+                  </div>
+      
+                  <div class="col-md-3 sort-by-year d-none">
+                      <div class="form-group position-relative">
+                          <label>Specify Year <span class="text-danger">*</span></label>
+                          <select class="form-control custom-select" id="sort_by_year">
+                              <option value="">Select...</option>
+                              @foreach ($years as $year)
+                                <option value="{{ $year }}">{{ $year }}</option>
+                              @endforeach
+                          </select>
+                      </div>
+                  </div>
+      
+                  <div class="col-md-3 sort-by-year d-none" id="sort-by-month">
+                      <div class="form-group position-relative">
+                          <label>Specify Month <span class="text-danger">*</span></label>
+                          <select class="form-control custom-select" id="sort_by_month">
+                              <option value="">Select...</option>
+                              <option value="January">January</option>
+                              <option value="February">February</option>
+                              <option value="March">March</option>
+                              <option value="April">April</option>
+                              <option value="May">May</option>
+                              <option value="June">June</option>
+                              <option value="July">July</option>
+                              <option value="August">August</option>
+                              <option value="September">September</option>
+                              <option value="October">October</option>
+                              <option value="November">November</option>
+                              <option value="December">December</option>
+                          </select>
+                      </div>
+                  </div>
+      
+                  <div class="col-md-3 date-range d-none">
+                      <div class="form-group position-relative">
+                          <label>From <span class="text-danger">*</span></label>
+                          <input name="name" id="date_from" type="date" class="form-control pl-5">
+                      </div>
+                  </div>
+      
+                  <div class="col-md-3 date-range d-none">
+                      <div class="form-group position-relative">
+                          <label>To <span class="text-danger">*</span></label>
+                          <input name="name" id="date_to" type="date" class="form-control pl-5">
+                      </div>
+                  </div>
                 </div>
-    
-                <div class="col-md-3 sort-by-year d-none">
-                    <div class="form-group position-relative">
-                        <label>Specify Month <span class="text-danger">*</span></label>
-                        <select class="form-control custom-select" id="Sortbylist-Shop">
-                            <option>Select...</option>
-                            <option>January</option>
-                            <option>February</option>
-                            <option>March</option>
-                            <option>April</option>
-                            <option>May</option>
-                            <option>June</option>
-                            <option>July</option>
-                            <option>August</option>
-                            <option>September</option>
-                            <option>October</option>
-                            <option>November</option>
-                            <option>December</option>
-                        </select>
-                    </div>
-                </div>
-    
-                <div class="col-md-3 date-range d-none">
-                    <div class="form-group position-relative">
-                        <label>From <span class="text-danger">*</span></label>
-                        <input name="name" id="name" type="date" class="form-control pl-5">
-                    </div>
-                </div>
-    
-                <div class="col-md-3 date-range d-none">
-                    <div class="form-group position-relative">
-                        <label>To <span class="text-danger">*</span></label>
-                        <input name="name" id="name" type="date" class="form-control pl-5">
-                    </div>
-                </div>
-              </div>
   
-              <table class="table table-dashboard mg-b-0" id="basicExample">
-                <thead>
-                  <tr>
-                    <th width="5%">#</th>
-                    <th width="20%">Date Created</th>
-                    <th width="75%">Message</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($activityLogs as $activityLog)
-                    <tr>
-                    <td class="tx-color-03">{{ ++$i }}</td>
-                    <td class="tx-medium">{{ Carbon\Carbon::parse($activityLog->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
-                    <td class="tx-medium text-success">{{ $activityLog->message }}</td>
-                    </tr>
-                  @endforeach
-                  
-                </tbody>
-              </table>
+                <div id="sort_table">
+                  @include('admin._activity_log_table')
+                </div>
             </div><!-- table-responsive -->
 
             {{-- <div class="float-right">
@@ -140,4 +133,48 @@
       
     </div>
 </div>
+
+@section('scripts')
+<script src="{{ asset('assets/dashboard/assets/js/table-sort.js') }}"></script>
+<script>
+  $(document).ready(function(){
+
+    $(document).on('click', '#activity-log-details', function(event) {
+        event.preventDefault();
+        let route = $(this).attr('data-url');
+        $.ajax({
+            url: route,
+            beforeSend: function() {
+              $("#sort_table_details").html('<div class="d-flex justify-content-center mt-4 mb-4"><span class="loadingspinner"></span></div>');
+            },
+            // return the result
+            success: function(result) {
+                $('#modal-body').modal("show");
+                $('#modal-body').html(result).show();
+            },
+            complete: function() {
+                $("#sort_table_details").hide();
+            },
+            error: function(jqXHR, testStatus, error) {
+                // console.log(error);
+                // alert("Page " + route + " cannot open. Error:" + error);
+                // var message = "Page " + route + " cannot open. Error:" + error;
+                var message = error+ ' occured while trying to retireve Activity Log details.';
+                var type = 'error';
+                displayMessage(message, type);
+                $("#sort_table_details").hide();
+            },
+            timeout: 8000
+        })
+    });
+
+    $('.close').click(function (){
+      $(".modal-backdrop").remove();
+    });
+
+  });
+</script>
+
+@endsection
+
 @endsection

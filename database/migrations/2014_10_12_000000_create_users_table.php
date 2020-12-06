@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('login_count')->default(0);
             $table->timestamp('current_sign_in')->nullable();
             $table->timestamp('last_sign_in')->nullable();
-            $table->enum('is_deleted', ['0', '1'])->default(0);
+            // $table->enum('is_deleted', ['0', '1'])->default(0);
             $table->softDeletes('deleted_at', 0);
             $table->timestamps();
         });

@@ -31,61 +31,61 @@
                 <div class="tab-pane fade show active" id="description3" role="tabpanel" aria-labelledby="description-tab3">
                   <h6>UPDATE PROFILE</h6>
                   <div class="card-body pd-20 pd-lg-25">
-                    <form>
-                        <div class="d-sm-flex float-left">
-                            <div class="mg-sm-r-30">
-                                <div class="pos-relative d-inline-block mg-b-20">
-                                    <a href="#"><div class="avatar avatar-xxl"><span class="avatar-initial rounded-circle bg-gray-700 tx-normal"><i class="icon ion-md-person"></i></span></div></a>
-                                    {{-- <a href="" class="contact-edit-photo"><i data-feather="edit-2"></i></a> --}}
-                                </div>
-                            </div><!-- col -->
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">First Name</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="Charles">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Middle Name</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Last Name</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="Famoriyo">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4" value="afrikafrique@gmail.com">
-                            </div>
+                  <form method="POST" action="{{ route('admin.update_profile') }}">
+                    @csrf @method('GET')
+                      <div class="d-sm-flex float-left">
+                          <div class="mg-sm-r-30">
+                              <div class="pos-relative d-inline-block mg-b-20">
+                                  <div class="avatar avatar-xxl"><span class="avatar-initial rounded-circle bg-gray-700 tx-normal"><i class="icon ion-md-person"></i></span></div>
+                                  {{-- <a href="" class="contact-edit-photo"><i data-feather="edit-2"></i></a> --}}
+                              </div>
+                          </div><!-- col -->
+                      </div>
+                      <div class="form-row">
                           <div class="form-group col-md-4">
-                            <label for="inputEmail4">Mobile Phone</label>
-                            <input type="tel" class="form-control" id="inputEmail4" maxlength="11" value="08054242309">
+                              <label for="first_name">First Name</label>
+                              <input type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" id="first_name" value="{{ old('first_name') ?? $firstName }}">
+                              @error('first_name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
                           </div>
                           <div class="form-group col-md-4">
-                            <label for="inputEmail4">Work Phone</label>
-                            <input type="tel" class="form-control" id="inputEmail4" maxlength="11" value="08120933092">
+                              <label for="middle_name">Middle Name</label>
+                              <input type="text" class="form-control" id="middle_name" name="middle_name" value="{{ old('middle_name') ?? $middleName }}">
                           </div>
-                          {{-- <div class="form-group col-md-6">
-                            <label class="d-block">Upload Company Logo</label>
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="customFile">
-                              <label class="custom-file-label" for="customFile">Company Logo</label>
-                            </div>
-                          </div> --}}
-
-                          {{-- <div class="form-group col-md-6">
-                            <label for="inputAddress2">Home Address</label>
-                            <textarea rows="3" class="form-control" id="inputAddress2"></textarea>
+                          <div class="form-group col-md-4">
+                              <label for="last_name">Last Name</label>
+                              <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name" name="last_name" value="{{ old('last_name') ?? $lastName }}">
+                              @error('last_name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
                           </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputAddress2">Work Address</label>
-                                <textarea rows="3" class="form-control" id="inputAddress2"></textarea>
-                            </div> --}}
-
+                          <div class="form-group col-md-6">
+                              <label for="email">Email</label>
+                              <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email')?? $email }}">
+                              @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
+                          </div>
+                        <div class="form-group col-md-6">
+                          <label for="phone_number">Mobile Phone</label>
+                          <input type="tel" class="form-control @error('phone_number') is-invalid @enderror" id="phone_number" name="phone_number" maxlength="11" value="{{ old('phone_number')?? $phoneNumber }}">
+                          @error('phone_number')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
                         </div>
-    
-                        <button type="submit" class="btn btn-primary">Update Profile</button>
-                    </form>
+                      </div>
+
+                      <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Update Profile</button>
+                  </form>
                   </div>
                 </div>
 
@@ -93,19 +93,35 @@
                   <h6>CHANGE PASSWORD</h6>
                   <p class="mg-b-0 text-danger">In order to change your password, you need to provide the current password.</p>
                   <div class="card-body pd-20 pd-lg-25">
-                    <form>
+                  <form  method="POST" action="{{ route('admin.update_profile_password') }}">
+                    @csrf @method('PUT')
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="inputEmail4">Current Password</label>
-                                <input type="password" class="form-control" id="inputEmail4">
+                                <label for="current_password">Current Password</label>
+                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" id="current_password" name="current_password">
+                                @error('current_password')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                                @enderror
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputEmail4">New Password</label>
-                                <input type="password" class="form-control" id="inputEmail4">
+                                <label for="new_password">New Password</label>
+                                <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="new_password" name="new_password">
+                                @error('new_password')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                                @enderror
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputEmail4">Confirm Password</label>
-                                <input type="password" class="form-control" id="inputEmail4">
+                                <label for="new_confirm_password">Confirm Password</label>
+                                <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="new_confirm_password" name="new_confirm_password">
+                                @error('new_confirm_password')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                                @enderror
                             </div>
                         </div>
 

@@ -72,7 +72,12 @@
                         </tr>
                         <tr>
                           <td class="tx-medium">Date Created</td>
-                        <td class="tx-color-03">{{ Carbon\Carbon::parse($admin->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }} ({{ $admin->created_at->diffForHumans() }})</td>
+                          <td class="tx-color-03">{{ Carbon\Carbon::parse($admin->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }} ({{ $admin->created_at->diffForHumans() }})</td>
+                        </tr>
+                        <tr>
+                          <td class="tx-medium">Last Edited</td>
+                          <td class="tx-color-03">
+                            @if(!empty($admin->updated_at)) {{ Carbon\Carbon::parse($admin->updated_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }} @else Never @endif </td>
                         </tr>
                         <tr>
                           <td class="tx-medium">Requests Supervised</td>

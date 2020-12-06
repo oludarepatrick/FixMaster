@@ -6,11 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL; 
+
 use Auth;
+use Route;
+
 use App\Models\User;
 use App\Models\Name;
 use App\Models\ActivityLog;
-use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\RecordActivityLogController;
 
 class LoginController extends Controller
 {
@@ -94,6 +98,18 @@ class LoginController extends Controller
             // return $user->fullName->name;
 
             if($isActive == 0){
+
+                //Record Unverified User activity
+                $this->addRecord = new RecordActivityLogController();
+                $id = Auth::id();
+                $type = 'Login';
+                $severity = 'Warning';
+                $actionUrl = Route::currentRouteAction();
+                $controllerActionPath = URL::full();
+                $message = $user->fullName->name.' attempted to login with a deactivated account E-Mail('.$request->get('email').').';
+
+                $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
                 Auth::logout(); //Unset user session
 
                 //Return error message once email is not verified 
@@ -107,28 +123,52 @@ class LoginController extends Controller
                 User::where('id', Auth::id())->increment('login_count', 1);
 
                 //Record user login time
-                $this->message = new ActivityLogController();
-                $message = $user->fullName->name.' logged in at '.\Carbon\Carbon::parse(now() , 'UTC')->isoFormat('LL h:mm:ssa');
-                $this->message->createMessage($message, $type='Others');
+                $this->addRecord = new RecordActivityLogController();
+                $id = Auth::id();
+                $type = 'Login';
+                $severity = 'Informational';
+                $actionUrl = Route::currentRouteAction();
+                $controllerActionPath = URL::full();
+                $message = $user->fullName->name.' logged in.';
 
-                //redirect User to check for more constraints  
-                return \Redirect::to(\Session::get('url.intended'));
+                $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+                //redirect User to check for dashboard url  
+                // return \Redirect::to(\Session::get('url.intended'));
                 // return \Redirect::intended();
-                // return redirect()->route('home');
+                return redirect()->route('home');
                 
             }else{
-                Auth::logout(); //Unset user session
+                //Record Unverified User activity
+                $this->addRecord = new RecordActivityLogController();
+                $id = Auth::id();
+                $type = 'Login';
+                $severity = 'Warning';
+                $actionUrl = Route::currentRouteAction();
+                $controllerActionPath = URL::full();
+                $message = $user->fullName->name.' attempted to login with an unverified E-Mail ('.$request->get('email').').';
+
+                $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+                //Unset user session
+                Auth::logout(); 
 
                 //Return error message once email is not verified 
                 return back()->with('error','Please verify your E-Mail Address before login.');
             }                         
             
         }else{
-            //Record user login time
-            // $this->message = new ActivityLogController();
-            // $message = 'Intrudeer ALert at '.\Carbon\Carbon::parse(now() , 'UTC')->isoFormat('LL h:mm:ssa').' with E-Mail: '.$request->input('email').' and Password: '.$request->input('password');
-            // $this->message->createMessage($message, $type='Others');
 
+            //Record Unauthorized user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = '2';
+            $type = 'Unauthorized';
+            $severity = 'Error';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = 'An Unknown Intruder attempted to login with ('.$request->get('email').' and '.$request->get('password').').';
+
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
             Auth::logout(); //Unset user session
 
             //Return error message once authentication fails
@@ -147,9 +187,16 @@ class LoginController extends Controller
             $seconds = $end->diffInSeconds($start); //Convert timestamp in seconds
             $sessionTime =  gmdate('H:i:s', $seconds);  //Get time difference
 
-            $this->message = new ActivityLogController();
-            $message = Auth::user()->fullName->name.' logged out at '.\Carbon\Carbon::parse(now() , 'UTC')->isoFormat('LL h:mm:ssa').'[Duration(hrs:min:ss): '.$sessionTime.']';
-            $this->message->createMessage($message, $type='Others');
+            //Record user logout time
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Logout';
+            $severity = 'Informational';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = Auth::user()->fullName->name.' logged out with a session duration of '.$sessionTime.'(hrs:min:ss).';
+
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
         }
         
         Auth::logout(); //Unset user session

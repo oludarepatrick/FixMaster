@@ -1,3 +1,5 @@
+
+<div class="d-flex ml-4"><h4 class="text-success">{{ $message }}</h4></div>
 <table class="table table-dashboard mg-b-0" id="basicExample">
     <thead>
       <tr>

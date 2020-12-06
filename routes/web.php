@@ -132,7 +132,9 @@ Auth::routes();
         Route::prefix('admin')->group(function () {
             Route::name('admin.')->group(function () {
                 Route::get('/',                                     [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('home');
-                Route::get('/activity-log',                         [App\Http\Controllers\ActivityLogController::class, 'index'])->name('activity_log');
+                Route::get('/activity-log',                         [App\Http\Controllers\ActivityLogController::class, 'index'])->middleware(['superAdminRole'])->name('activity_log');
+                Route::post('/activity-log/sorting',        [App\Http\Controllers\ActivityLogController::class, 'sortActivityLog'])->name('activity_log_sorting_users');
+                Route::get('/activity-log/details/{id}',    [App\Http\Controllers\ActivityLogController::class, 'activityLogDetails'])->name('activity_log_details');
 
                 Route::view('/requests', 	                'admin.requests.requests')->name('requests');
                 Route::view('/requests/details/new', 	    'admin.requests.request_details')->name('request_details');
@@ -144,7 +146,11 @@ Auth::routes();
                 Route::view('/technicians', 	            'admin.technicians')->name('technicians');
                 Route::view('/technicians/profile', 	    'admin.technicians_profile')->name('technicians_profile');
                 Route::view('/profile', 	                'admin.view_profile')->name('view_profile');
-                Route::view('/profile/edit', 	            'admin.edit_profile')->name('edit_profile');
+
+                Route::get('/profile/edit',                         [App\Http\Controllers\AdminProfileController::class, 'showProfile'])->name('edit_profile');
+                Route::get('/profile/update',                     [App\Http\Controllers\AdminProfileController::class, 'updateProfile'])->name('update_profile');
+                Route::put('/profile/update-passsword',                     [App\Http\Controllers\AdminProfileController::class, 'updatePassword'])->name('update_profile_password');
+                
                 Route::view('/payments', 	                'admin.payments')->name('payments');
                 Route::view('/messages', 	                'admin.messages')->name('messages');
                 Route::view('/messages/sent', 	            'admin.messages_sent')->name('messages_sent');
@@ -159,7 +165,7 @@ Auth::routes();
                 Route::get('/users/admin/delete/{user}',            [App\Http\Controllers\AdminUserController::class, 'delete'])->name('delete_admin');
                 Route::get('/users/admin/deactivate/{user}',        [App\Http\Controllers\AdminUserController::class, 'deactivate'])->name('deactivate_admin');
                 Route::get('/users/admin/reinstate/{user}',         [App\Http\Controllers\AdminUserController::class, 'reinstate'])->name('reinstate_admin');
-                Route::post('/users/admin/activity-log/sorting',              [App\Http\Controllers\AdminUserController::class, 'sortActivityLog'])->name('activity_log_sorting_admin');
+                Route::post('/users/admin/activity-log/sorting',    [App\Http\Controllers\AdminUserController::class, 'sortActivityLog'])->name('activity_log_sorting_admin');
 
 
                 Route::view('/users/cse/add', 	            'admin.users.cse.add')->name('add_cse');
@@ -189,7 +195,16 @@ Auth::routes();
                 Route::view('/tools-request', 	                'admin.tools.requests')->name('tools_request');
                 Route::view('/tools-inventory', 	            'admin.tools.inventory')->name('tools_inventory');
                 Route::view('/rfq', 	                        'admin.rfq')->name('rfq');
-                Route::view('/services', 	                    'admin.services.services')->name('services');
+                Route::get('/services',                          [App\Http\Controllers\ServicesController::class, 'index'])->name('services');
+                Route::post('/services/store',                   [App\Http\Controllers\ServicesController::class, 'store'])->name('store_services');
+                Route::get('/services/delete/{id}',            [App\Http\Controllers\ServicesController::class, 'delete'])->name('delete_service');
+                Route::get('/services/deactivate/{id}',        [App\Http\Controllers\ServicesController::class, 'deactivate'])->name('deactivate_service');
+                Route::get('/services/reinstate/{id}',         [App\Http\Controllers\ServicesController::class, 'reinstate'])->name('reinstate_service');
+                Route::get('/services/details/{id}',           [App\Http\Controllers\ServicesController::class, 'serviceDetails'])->name('service_details');
+                Route::get('/services/reassign/{id}',          [App\Http\Controllers\ServicesController::class, 'serviceReassign'])->name('reassign_service');
+                Route::get('/services/edit/{id}',              [App\Http\Controllers\ServicesController::class, 'edit'])->name('edit_service');
+                Route::post('/services/update/',               [App\Http\Controllers\ServicesController::class, 'update'])->name('update_service');
+
                 Route::view('/category/add', 	                'admin.services.add_category')->name('add_category');
                 Route::view('/category/edit', 	                'admin.services.edit_category')->name('edit_category');
                 Route::view('/category/list', 	                'admin.services.list_category')->name('list_category');

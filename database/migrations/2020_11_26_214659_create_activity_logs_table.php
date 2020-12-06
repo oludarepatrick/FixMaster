@@ -16,9 +16,12 @@ class CreateActivityLogsTable extends Migration
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->enum('type', ['Payment', 'Request', 'Others']);
-            $table->timestamp('created_at');
+            $table->ipAddress('ip_address');
+            $table->enum('type', ['Payment', 'Request', 'Others', 'Login', 'Logout', 'Profile', 'Errors']);
+            $table->string('action_url');
+            $table->string('controller_action_path');
             $table->text('message'); 
+            $table->timestamp('created_at');
         });
     }
 

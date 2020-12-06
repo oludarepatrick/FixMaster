@@ -12,7 +12,7 @@ class ActivityLog extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'user_id', 'created_at', 'type', 'message',
+        'user_id', 'ip_address', 'type', 'severity', 'action_url', 'controller_action_path', 'message', 'created_at',
     ];
 
     public function user()
