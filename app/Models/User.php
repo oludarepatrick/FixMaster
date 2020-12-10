@@ -73,6 +73,16 @@ class User extends Authenticatable
         return $this->hasMany(Admin::class);
     }
 
+    public function client()
+    {
+        return $this->hasOne(Client::class);
+    }
+
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
+
     public function activityLogs()
     {
         return $this->hasMany(ActivityLog::class);
@@ -105,12 +115,12 @@ class User extends Authenticatable
 
     public function request()
     {
-        return $this->hasOne(Request::class);
+        return $this->hasOne(ServiceRequest::class);
     }
 
     public function requests()
     {
-        return $this->hasMany(Request::class);
+        return $this->hasMany(ServiceRequest::class);
     }
 
     public function scopeActiveAdmin($query, $args){
@@ -120,5 +130,22 @@ class User extends Authenticatable
             return $query->select('first_name', 'middle_name', 'last_name', 'designation', 'phone_number', 'user_id');
         }])
         ->with('adminPermissions');
+    }
+
+    /** 
+     * Scope a query to only include active banches
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */    
+    //Function to return all active clients  
+    public function scopeActiveClients($query){
+        return $query->select('id', 'email', 'is_active', 'designation')
+        ->with(['clients' => function($query){
+            return $query->select('phone_number', 'user_id');
+        }])
+        ->where('designation', '[CLIENT_ROLE]')
+        // ->where('id', '!=', 1)
+        ->orderBy('users.created_at', 'ASC');
     }
 }

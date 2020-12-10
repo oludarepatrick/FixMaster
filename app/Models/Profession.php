@@ -5,31 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class Profession extends Model
 {
     use HasFactory;
 
-    public $table = "states";
+    // public $table = "professions";
 
     public $timestamps = false;
 
     protected $fillable = [
-        'name'
+        'name', 'description'
     ];
-
-    public function lgas()
-    {
-        return $this->hasMany(Lga::class, 'state_id')->withDefault();
-    }
 
     public function client()
     {
-        return $this->hasOne(Client::class, 'state_id');
+        return $this->hasOne(Client::class, 'profession_id');
     }
 
     public function clients()
     {
-        return $this->hasMany(Client::class, 'state_id');
+        return $this->hasMany(Client::class, 'profession_id');
     }
 
 }

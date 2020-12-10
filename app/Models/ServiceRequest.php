@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Request extends Model
+class ServiceRequest extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -16,7 +16,7 @@ class Request extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'admin_id', 'cse_id', 'technician_id', 'service_id', 'category_id',
+        'user_id', 'admin_id', 'cse_id', 'technician_id', 'service_id', 'category_id', 'client_project_status',
     ];
 
     public function user()

@@ -104,7 +104,7 @@
     </script>
 
     @yield('scripts')
-
+    @stack('scripts')
     <script>
       $(document).ready(function () {
 

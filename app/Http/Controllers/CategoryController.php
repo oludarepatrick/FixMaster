@@ -48,7 +48,10 @@ class CategoryController extends Controller
      */
     public function create(){
 
-        $services = Service::select('id', 'name')->orderBy('name', 'ASC')->get();
+        $services = Service::select('id', 'name', 'is_active')
+        ->where('id', '!=', 1)
+        ->where('is_active', '1')
+        ->orderBy('name', 'ASC')->get();
 
         $data = [
             'services'  =>  $services,
@@ -195,6 +198,7 @@ class CategoryController extends Controller
          $updateCategory = Category::where('id', $id)->update([
             'service_id'    =>  $request->input('service_id'),
             'name'          =>  ucwords($request->input('name')),
+            'is_active'     =>  $request->input('is_active'),
             'standard_fee'  =>  str_replace(",", "", $request->input('standard_fee')), 
             'urgent_fee'    =>  str_replace(",", "", $request->input('urgent_fee')), 
             'ooh_fee'       =>  str_replace(",", "", $request->input('ooh_fee')), 

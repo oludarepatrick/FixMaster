@@ -22,4 +22,13 @@ class Name extends Model
     {
         return $this->hasOne(Admin::class);
     }
+
+    public function superAdmin()
+    {
+        return $this->hasOne(SuperAdmin::class);
+    }
+    public function client()
+    {
+        return $this->hasOne(Client::class);
+    }
 }

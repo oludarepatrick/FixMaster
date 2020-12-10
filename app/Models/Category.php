@@ -36,12 +36,12 @@ class Category extends Model
 
     public function request()
     {
-        return $this->hasOne(Request::class);
+        return $this->hasOne(ServiceRequest::class);
     }
 
     public function requests()
     {
-        return $this->hasMany(Request::class);
+        return $this->hasMany(ServiceRequest::class);
     }
 
 }

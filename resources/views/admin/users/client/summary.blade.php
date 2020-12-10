@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Haruna Ahmadu\'s Summary')
+@section('title', $user->fullName->name.'\'s Summary')
 @include('layouts.partials._messages')
 @section('content')
 <div class="content-body">
@@ -10,7 +10,7 @@
           <ol class="breadcrumb breadcrumb-style1 mg-b-10">
           <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="{{ route('admin.list_client') }}">Client List</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Haruna Ahmadu</li>
+          <li class="breadcrumb-item active" aria-current="page">{{ $user->fullName->name }}</li>
           </ol>
         </nav>
       </div>
@@ -21,7 +21,7 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Total Requests</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end">
-            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">6</h5>
+          <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $totalRequests }}</h5>
           </div>
           
         </div>
@@ -30,7 +30,7 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Completed Requests</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end">
-            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">4</h5>
+          <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $completedRequests }}</h5>
           </div>
           
         </div>
@@ -39,7 +39,7 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cancelled Requests</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end">
-            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">2</h5>
+          <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $cancelledRequests }}</h5>
           </div>
         </div>
       </div>
@@ -77,15 +77,19 @@
           <div class="row">
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Firstname</label>
-              <p class="mg-b-0">Haruna</p>
+            <p class="mg-b-0">{{ $client->first_name }}</p>
             </div><!-- col -->
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Middlename</label>
-              <p class="mg-b-0">Shina</p>
+              <p class="mg-b-0">{{ $client->middle_name }}</p>
             </div><!-- col -->
             <div class="col-sm mg-t-20 mg-sm-t-0">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Lastname</label>
-              <p class="mg-b-0">Ahmadu</p>
+              <p class="mg-b-0">{{ $client->last_name }}</p>
+            </div><!-- col -->
+            <div class="col-sm mg-t-20 mg-sm-t-0">
+              <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Gender</label>
+              <p class="mg-b-0">{{ $client->gender }}</p>
             </div><!-- col -->
           </div><!-- row -->
 
@@ -94,36 +98,36 @@
           <div class="row row-sm">
             <div class="col-6 col-sm-4">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Email Address</label>
-              <p class="tx-primary mg-b-0">akhmadharuna@gmail.com</p>
+            <p class="tx-primary mg-b-0">{{ $user->email }}</p>
             </div>
             <div class="col-6 col-sm-4">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Mobile Phone</label>
-              <p class="tx-primary tx-rubik mg-b-0">07034776388</p>
+            <p class="tx-primary tx-rubik mg-b-0">{{ $client->phone_number }}</p>
             </div>
             <div class="col-6 col-sm-4 mg-t-20 mg-sm-t-0">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Occupation</label>
-              <p class="tx-primary tx-rubik mg-b-0">Accountant</p>
+            <p class="tx-primary tx-rubik mg-b-0">{{ $client->profession->name }}</p>
             </div>
             <div class="col-sm-4 mg-t-20 mg-sm-t-30">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">State</label>
-              <p class="mg-b-0">Lagos</p>
+            <p class="mg-b-0">{{ $client->state->name }}</p>
             </div>
             <div class="col-sm-4 mg-t-20 mg-sm-t-30">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">L.G.A</label>
-              <p class="mg-b-0">Mushin</p>
+            <p class="mg-b-0">{{ $client->lga->name }}</p>
             </div>
             <div class="col-sm-4 mg-t-20 mg-sm-t-30">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Town/City</label>
-              <p class="mg-b-0">Ibeju-Lekki</p>
+              <p class="mg-b-0">{{ $client->town }}</p>
             </div>
             <div class="col-sm-6 mg-t-20 mg-sm-t-30">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Home Address</label>
-              <p class="mg-b-0">2 Chevron Drive, Lekki Penninsula II 12825, Lekki</p>
+            <p class="mg-b-0">{{ $client->full_address }}</p>
             </div>
-            <div class="col-sm-6 mg-t-20 mg-sm-t-30">
+            {{-- <div class="col-sm-6 mg-t-20 mg-sm-t-30">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Referral Code</label>
               <p class="mg-b-0">L3I8284AJ</p>
-            </div>
+            </div> --}}
            
             
           </div><!-- row -->
