@@ -62,7 +62,7 @@
     <script src="{{ asset('assets/dashboard/assets/js/dashforge.aside.js') }}"></script>
     <script src="{{ asset('assets/dashboard/assets/js/dashforge.sampledata.js') }}"></script>
     <script src="{{ asset('assets/dashboard/lib/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-
+    <script src="{{ asset('assets/dashboard/lib/cleave.js/cleave.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/lib/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/lib/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 
@@ -104,7 +104,7 @@
     </script>
 
     @yield('scripts')
-
+    @stack('scripts')
     <script>
       $(document).ready(function () {
 

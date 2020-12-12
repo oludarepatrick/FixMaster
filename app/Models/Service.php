@@ -25,7 +25,7 @@ class Service extends Model
 
     public function category()
     {
-        return $this->hasOne(Category::class)->withDefault();
+        return $this->hasOne(Category::class);
     }
 
     public function categories()
@@ -35,12 +35,26 @@ class Service extends Model
 
     public function request()
     {
-        return $this->hasOne(Request::class);
+        return $this->hasOne(ServiceRequest::class);
     }
 
     public function requests()
     {
-        return $this->hasMany(Request::class);
+        return $this->hasMany(ServiceRequest::class);
+    }
+
+    /** 
+     * Scope a query to only include active banches
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */    
+    //Function to return all active services  
+    public function scopeActiveServices($query){
+        return $query->select('id', 'name', 'is_active')
+        ->where('id', '!=', 1)
+        ->where('is_active', '1')
+        ->orderBy('name', 'ASC');
     }
 
 }

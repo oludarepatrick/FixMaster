@@ -33,9 +33,14 @@ class HomeController extends Controller
         $designation = Auth::user()->designation;
 
         if(!empty($designation) && ($designation === '[SUPER_ADMIN_ROLE]' || $designation === '[ADMIN_ROLE]')){
-            // return $designation;
-            return redirect()->route('admin.home');
 
+            // return SuperAdmin/Admin dashboard route;
+            return redirect()->route('admin.home');
+        
+        }elseif(!empty($designation) && ($designation === '[CLIENT_ROLE]')) {
+
+            // return SuperAdmin/Admin dashboard route;
+            return redirect()->route('client.home');
         }else{
             Auth::logout(); //Unset user session
 

@@ -19,7 +19,17 @@ class State extends Model
 
     public function lgas()
     {
-        return $this->hasMany(Lga::class, 'state_id')->withDefault();
+        return $this->hasMany(Lga::class, 'state_id');
+    }
+
+    public function client()
+    {
+        return $this->hasOne(Client::class, 'state_id');
+    }
+
+    public function clients()
+    {
+        return $this->hasMany(Client::class, 'state_id');
     }
 
 }

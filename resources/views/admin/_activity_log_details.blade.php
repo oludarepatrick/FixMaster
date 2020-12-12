@@ -1,7 +1,7 @@
 <div class="mg-t-10 mg-md-t-0">
     <div class="card">
         <div class="card-header pd-b-0 pd-t-20 bd-b-0">
-        <h6 class="tx-uppercase tx-spacing-1 tx-semibold tx-20 tx-color-02 mg-b-15"><strong>User Name:</strong> {{ $fullName }}</h6>
+        <h6 class="tx-uppercase tx-spacing-1 tx-semibold tx-20 tx-color-02 mg-b-15"><strong>Admin Name:</strong> {{ $fullName }}</h6>
         <h6 class="mg-b-0">Activity Type</h6>
         </div><!-- card-header -->
         <div class="card-body pd-y-10">
@@ -41,7 +41,7 @@
             </tr>
             <tr>
                 <td><div class="wd-12 ht-12 bd-warning"></div></td>
-                <td class="tx-medium">URL Occurrence</td>
+                <td class="tx-medium">Action Path</td>
                 <td class="text-right">{{ $activityLogDetails->controller_action_path }}</td>
             </tr>
             <tr>
@@ -51,7 +51,7 @@
             </tr>
             <tr>
                 <td><div class="wd-12 ht-12 bd-teal"></div></td>
-                <td class="tx-medium">Occurrence Date</td>
+                <td class="tx-medium">Timestamp</td>
                 <td class="text-right">{{ Carbon\Carbon::parse($activityLogDetails->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
             </tr>
             <tr>

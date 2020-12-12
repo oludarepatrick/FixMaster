@@ -10,7 +10,7 @@
                 <img src="{{ asset('assets/images/job/Circleci.svg') }}" class="avatar avatar-ex-sm" alt="">
                 <div class="media-body content ml-3">
                     <h4 class="title mb-0">Service Requests</h4>
-                    <p class="text-muted mb-0">12 </p>
+                    <p class="text-muted mb-0">{{ $totalRequests }} </p>
                     {{-- <p class="text-muted mb-0"><a href="javascript:void(0)" class="text-primary">CircleCi</a> @London, UK</p>     --}}
                 </div>
             </div>
@@ -22,7 +22,7 @@
                 <img src="{{ asset('assets/images/job/Circleci.svg') }}" class="avatar avatar-ex-sm" alt="">
                 <div class="media-body content ml-3">
                     <h4 class="title mb-0">Completed</h4>
-                    <p class="text-muted mb-0">9</p>
+                <p class="text-muted mb-0">{{ $completedRequests }}</p>
                     {{-- <p class="text-muted mb-0"><a href="javascript:void(0)" class="text-primary">CircleCi</a> @London, UK</p>     --}}
                 </div>
             </div>
@@ -33,7 +33,7 @@
                 <img src="{{ asset('assets/images/job/Circleci.svg') }}" class="avatar avatar-ex-sm" alt="">
                 <div class="media-body content ml-3">
                     <h4 class="title mb-0">Pending</h4>
-                    <p class="text-muted mb-0">3</p>
+                <p class="text-muted mb-0">{{ $cancelledRequests }}</p>
                     {{-- <p class="text-muted mb-0"><a href="javascript:void(0)" class="text-primary">CircleCi</a> @London, UK</p>     --}}
                 </div>
             </div>
@@ -49,28 +49,36 @@
                         <i data-feather="mail" class="fea icon-ex-md text-muted mr-3"></i>
                         <div class="media-body">
                             <h6 class="text-primary mb-0">Email :</h6>
-                            <a href="javascript:void(0)" class="text-muted">femijoseph0203@mail.com</a>
-                        </div>
-                    </div>
-                    <div class="media align-items-center mt-3">
-                        <i data-feather="bookmark" class="fea icon-ex-md text-muted mr-3"></i>
-                        <div class="media-body">
-                            <h6 class="text-primary mb-0">Phone No :</h6>
-                            <a href="javascript:void(0)" class="text-muted">08125456489</a>
+                        <a href="javascript:void(0)" class="text-muted">{{ $user->email }}</a>
                         </div>
                     </div>
                     <div class="media align-items-center mt-3">
                         <i data-feather="phone" class="fea icon-ex-md text-muted mr-3"></i>
                         <div class="media-body">
-                            <h6 class="text-primary mb-0">Occupation :</h6>
-                            <a href="javascript:void(0)" class="text-muted">Accountant</a>
+                            <h6 class="text-primary mb-0">Phone No :</h6>
+                        <a href="javascript:void(0)" class="text-muted">{{ $client->phone_number }}</a>
                         </div>
                     </div>
+                    <div class="media align-items-center mt-3">
+                        <i data-feather="bookmark" class="fea icon-ex-md text-muted mr-3"></i>
+                        <div class="media-body">
+                            <h6 class="text-primary mb-0">Occupation :</h6>
+                        <a href="javascript:void(0)" class="text-muted">{{ $client->profession->name ?? 'Not Selected' }}</a>
+                        </div>
+                    </div>
+                    <div class="media align-items-center mt-3">
+                        <i data-feather="map" class="fea icon-ex-md text-muted mr-3"></i>
+                        <div class="media-body">
+                            <h6 class="text-primary mb-0">State :</h6>
+                        <p class="text-muted mb-0">{{ $client->state->name }}</p>
+                        </div>
+                    </div>
+
                     <div class="media align-items-center mt-3">
                         <i data-feather="map-pin" class="fea icon-ex-md text-muted mr-3"></i>
                         <div class="media-body">
                             <h6 class="text-primary mb-0">L.G.A :</h6>
-                            <p class="text-muted mb-0">Alimosho</p>
+                        <p class="text-muted mb-0">{{ $client->lga->name }}</p>
                         </div>
                     </div>
 
@@ -78,14 +86,14 @@
                         <i data-feather="map-pin" class="fea icon-ex-md text-muted mr-3"></i>
                         <div class="media-body">
                             <h6 class="text-primary mb-0">Town/City :</h6>
-                            <p class="text-muted mb-0">Egbeda</p>
+                        <p class="text-muted mb-0">{{ $client->town }}</p>
                         </div>
                     </div>
                     <div class="media align-items-center mt-3">
-                        <i data-feather="map-pin" class="fea icon-ex-md text-muted mr-3"></i>
+                        <i data-feather="map" class="fea icon-ex-md text-muted mr-3"></i>
                         <div class="media-body">
                             <h6 class="text-primary mb-0">Full Address :</h6>
-                            <a href="javascript:void(0)" class="text-muted">7 Abagbo Close, Victoria Island, Lagos, Nigeria</a>
+                        <a href="javascript:void(0)" class="text-muted">{{ $client->full_address }}</a>
                         </div>
                     </div>
                 </div>

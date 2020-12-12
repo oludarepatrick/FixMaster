@@ -17,12 +17,14 @@
                                         </ul> --}}
                                         <div class="media-body content">
                                             <h4><a href="javascript:void(0)" class="text-dark title">Balance</a></h4>
-                                            <p class="text-muted location-time"><span class="text-dark h6">₦54,560.00</span></p>
+                                        <p class="text-muted location-time"><span class="text-dark h6">₦{{ number_format($user->wallet->balance) }}</span></p>
                                             <a href="{{ route('client.wallet') }}" class="btn btn-sm btn-outline-primary mouse-down">Fund Account</a>
                                         </div>
                                     </div>
                                     <div class="mt-1">
-                                        <small>Last Login: <br>May 15 2020 12:32pm</small>
+                                        <small>Last Login: <br>
+                                            @if(!empty($user->last_sign_in)) {{ Carbon\Carbon::parse($user->last_sign_in, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }} @else Never @endif
+                                        </small>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +85,7 @@
                             </div><!--end col-->
 
                             <div class="col-6 mt-4 pt-2">
-                            <a href="{{ route('login') }}" class="accounts rounded d-block shadow text-center py-3">
+                            <a href="{{ route('logout') }}" class="accounts rounded d-block shadow text-center py-3">
                                     <span class="pro-icons h3 text-muted"><i class="uil uil-sign-out-alt"></i></span>
                                     <h6 class="title text-dark h6 my-0">Logout</h6>
                                 </a>

@@ -66,8 +66,10 @@
                           <div class="dropdown-file">
                             <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                             <div class="dropdown-menu dropdown-menu-right">
+                            @if($service->id == '1')
+                            <a href="#serviceReassign" data-toggle="modal" class="dropdown-item details text-primary" id="service-reassign" data-url="{{ route('admin.reassign_service', $service->id) }}" data-service-name="{{ $service->name}}" title="Reassign {{ $service->name}} categories"><i class="fas fa-undo"></i> Reassign</a>
+                            @else
                             <a href="#serviceDetails" data-toggle="modal" class="dropdown-item details text-primary" title="View {{ $service->name}} details" data-url="{{ route('admin.service_details', $service->id) }}" data-service-name="{{ $service->name}}" id="service-details"><i class="far fa-clipboard"></i> Details</a>
-
                             <a href="#editService" data-toggle="modal" id="service-edit" title="Edit {{ $service->name }}" data-url="{{ route('admin.update_service', $service->id) }}" data-service-name="{{ $service->name }}" data-id="{{ $service->id }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
 
                             @if($service->is_active == '1')
@@ -75,10 +77,12 @@
                             @else
                               <a href="{{ route('admin.reinstate_service', $service->id) }}" class="dropdown-item details text-success" title="Reinstate {{ $service->name}}"><i class="fas fa-undo"></i> Reinstate</a>
                             @endif
-                            @if($service->categories()->count() > 0)
+                            <a href="{{ route('admin.delete_service', $service->id) }}" class="dropdown-item details text-danger" title="Delete {{ $service->name}}"><i class="fas fa-trash"></i> Delete</a>
+                            {{-- @if($service->categories()->count() > 0)
                               <a href="#serviceReassign" data-toggle="modal" class="dropdown-item details text-danger" id="service-reassign" data-url="{{ route('admin.reassign_service', $service->id) }}" data-service-name="{{ $service->name}}" title="Reassign {{ $service->name}} categories"><i class="fas fa-trash"></i> Delete</a>
                             @else
                               <a href="{{ route('admin.delete_service', $service->id) }}" class="dropdown-item details text-danger" title="Delete {{ $service->name}}"><i class="fas fa-trash"></i> Delete</a>
+                            @endif --}}
                             @endif
                             </div>
                           </div>
@@ -98,7 +102,7 @@
 </div>
 
 <div class="modal fade" id="serviceDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
       <div class="modal-content tx-14">
         <div class="modal-header">
           <h6 class="modal-title" id="exampleModalLabel2">Service Details</h6>
@@ -198,10 +202,11 @@
 </div><!-- modal -->
 
 
-@section('scripts')
+@push('scripts')
 <script>
   $(document).ready(function() {
     $(document).on('click', '#service-details', function(event) {
+    // $('body').delegate( '#service-details', 'click', function(event) {
       event.preventDefault();
       let route = $(this).attr('data-url');
       let serviceName = $(this).attr('data-service-name');
@@ -213,15 +218,15 @@
           },
           // return the result
           success: function(result) {
-              $('#modal-body').html('');
               $('#modal-body').modal("show");
+              $('#modal-body').html('');
               $('#modal-body').html(result).show();
           },
           complete: function() {
               $("#spinner-icon").hide();
           },
           error: function(jqXHR, testStatus, error) {
-              var message = error+ ' occured while trying to retireve '+ serviceName +' details.';
+              var message = error+ ' occured while trying to retireve '+ serviceName +' service details.';
               var type = 'error';
               displayMessage(message, type);
               $("#spinner-icon").hide();
@@ -327,8 +332,51 @@
       $(".modal-backdrop").remove();
     });
 
+    $(document).on('change','#assign-service',function(){
+    // $('#assign-service').change(function(){
+      
+       let serviceId = $(this).children("option:selected").data('service-id');
+       let serviceName = $(this).children("option:selected").data('service-name');
+       let categoryId = $(this).children("option:selected").data('category-id');
+       let categoryName = $(this).children("option:selected").data('category-name');
+        let that = $(this);
+       $.ajaxSetup({
+          headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+
+      $.ajax({
+        url: "{{ route('admin.reassign_service_category') }}",
+        method: "POST",
+        // dataType: "JSON",
+        data: {'serviceId':serviceId, 'serviceName':serviceName, 'categoryId':categoryId, 'categoryName, ':categoryName},
+        beforeSend : function(){
+            $("#spinner-icon-4").html('<div class="d-flex justify-content-center mt-4 mb-4"><span class="loadingspinner"></span></div>'); 
+        },
+        success: function (data){
+            if(data == 'success'){
+              $("#spinner-icon-4").hide();
+
+              var message = categoryName+' Category was successfully reassgined to '+ serviceName +' service';
+              var type = 'success';
+              displayMessage(message, type);
+
+              $(that).closest("tr").remove();
+
+            }else{
+              var message = 'Error occured while trying to reassign '+ categoryName +' category to '+ serviceName + ' service';
+              var type = 'error';
+              displayMessage(message, type);
+
+            }
+        }
+      });
+
+    });
+
   });
 </script>
-@endsection
+@endpush
 
 @endsection

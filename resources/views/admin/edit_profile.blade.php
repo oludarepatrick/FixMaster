@@ -84,7 +84,7 @@
                         </div>
                       </div>
 
-                      <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Update Profile</button>
+                      <button type="submit" class="btn btn-warning"> Update Profile</button>
                   </form>
                   </div>
                 </div>

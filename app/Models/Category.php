@@ -11,7 +11,7 @@ class Category extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 'user_id', 'description', 'total_votes', 'rating', 'is_active',
+        'name', 'user_id', 'service_id', 'standard_fee', 'urgent_fee', 'ooh_fee', 'description', 'image', 'total_votes', 'rating', 'is_active', 'updated_at',
     ];
 
     public function user()
@@ -26,22 +26,22 @@ class Category extends Model
 
     public function service()
     {
-        return $this->belongsTo(Category::class, 'service_id')->withDefault();
+        return $this->belongsTo(Service::class, 'service_id');
     }
 
     public function services()
     {
-        return $this->belongsToMany(Category::class, 'service_id')->withDefault();
+        return $this->belongsToMany(Service::class, 'service_id');
     }
 
     public function request()
     {
-        return $this->hasOne(Request::class);
+        return $this->hasOne(ServiceRequest::class);
     }
 
     public function requests()
     {
-        return $this->hasMany(Request::class);
+        return $this->hasMany(ServiceRequest::class);
     }
 
 }

@@ -14,6 +14,9 @@
           </nav>
           <h4 class="mg-b-0 tx-spacing--1">Service Category List</h4>
         </div>
+        <div class="d-md-block">
+          <a href="{{ route('admin.add_category') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a>
+        </div>
       </div>
 
       <div class="row row-xs">
@@ -45,72 +48,37 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach($categories as $category)
                     <tr>
-                      <td class="tx-color-03 tx-center">1</td>
-                      <td class="tx-medium">Mobile Phone</td>
-                      <td class="tx-medium">Communication</td>
+                      <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                      <td class="tx-medium">{{ $category->name }}</td>
+                      <td class="tx-medium">{{ $category->service->name }}</td>
                       <td class="tx-medium text-center">2</td>
                       <td class="tx-medium text-center">3</td>
-                      <td class="tx-medium text-center">8</td>
-                      <td class="text-medium text-success">Active</td>
-                      <td class="text-medium">May 15th 2020</td>
+                      <td class="tx-medium text-center">{{ $category->requests()->count() }}</td>
+                      @if($category->is_active == '1') 
+                        <td class="text-medium text-success">Active</td>
+                      @else 
+                        <td class="text-medium text-danger">Inactive</td>
+                      @endif
+                      <td class="text-medium">{{ Carbon\Carbon::parse($category->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                       <td class=" text-center">
                         <div class="dropdown-file">
                           <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                           <div class="dropdown-menu dropdown-menu-right">
-                          <a href="#serviceCategoryDetails" data-toggle="modal" class="dropdown-item details text-primary"><i class="far fa-clipboard"></i> Details</a>
-                          <a href="{{ route('admin.edit_category') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                            <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                            <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
+                          <a href="#serviceCategoryDetails" data-toggle="modal" class="dropdown-item details text-primary" title="View {{ $category->name}} details" data-url="{{ route('admin.category_details', $category->id) }}" data-category-name="{{ $category->name}}" id="category-details"><i class="far fa-clipboard"></i> Details</a>
+                          <a href="{{ route('admin.edit_category', $category->id) }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
+                          @if($category->is_active == '1')
+                            <a href="{{ route('admin.deactivate_category', $category->id) }}" class="dropdown-item details text-warning" title="Deactivate {{ $category->name}}"><i class="fas fa-ban"></i> Deactivate</a>
+                          @else
+                            <a href="{{ route('admin.reinstate_category', $category->id) }}" class="dropdown-item details text-success" title="Reinstate {{ $category->name}}"><i class="fas fa-undo"></i> Reinstate</a>
+                          @endif
+                          <a href="{{ route('admin.delete_category', $category->id) }}" class="dropdown-item details text-danger" title="Delete {{ $category->name}}"><i class="fas fa-trash"></i> Delete</a>
                           </div>
                         </div>
                       </td>
                     </tr>
-
-                    <tr>
-                      <td class="tx-color-03 tx-center">2</td>
-                      <td class="tx-medium">Generator</td>
-                      <td class="tx-medium">Mechanical</td>
-                      <td class="tx-medium text-center">1</td>
-                      <td class="tx-medium text-center">1</td>
-                      <td class="tx-medium text-center">3</td>
-                      <td class="text-medium text-success">Active</td>
-                      <td class="text-medium">May 15th 2020</td>
-                      <td class=" text-center">
-                        <div class="dropdown-file">
-                          <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                          <div class="dropdown-menu dropdown-menu-right">
-                          <a href="#serviceCategoryDetails" data-toggle="modal" class="dropdown-item details text-primary"><i class="far fa-clipboard"></i> Details</a>
-                          <a href="{{ route('admin.edit_category') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                            <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                            <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td class="tx-color-03 tx-center">2</td>
-                      <td class="tx-medium">Pump</td>
-                      <td class="tx-medium">Mechanical</td>
-                      <td class="tx-medium text-center">1</td>
-                      <td class="tx-medium text-center">0</td>
-                      <td class="tx-medium text-center">1</td>
-                      <td class="text-medium text-success">Active</td>
-                      <td class="text-medium">May 15th 2020</td>
-                      <td class=" text-center">
-                        <div class="dropdown-file">
-                          <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                          <div class="dropdown-menu dropdown-menu-right">
-                          <a href="#serviceCategoryDetails" data-toggle="modal" class="dropdown-item details text-primary"><i class="far fa-clipboard"></i> Details</a>
-                          <a href="{{ route('admin.edit_category') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                            <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                            <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-    
+                    @endforeach
                   </tbody>
                 </table>
               </div><!-- table-responsive -->
@@ -133,49 +101,10 @@
           </button>
         </div>
         <div class="modal-body">
-            <h5>Mobile Phone Service</h5>
-            <div class="table-responsive mt-4">
-              <table class="table table-striped table-sm mg-b-0">
-                <tbody>
-                  <tr>
-                    <td class="tx-medium">Name</td>
-                    <td class="tx-color-03">Mobile Phone</td>
-                  </tr>
-                  <tr>
-                    <td class="tx-medium">Service</td>
-                    <td class="tx-color-03">Communication</td>
-                  </tr>
-                  <tr>
-                    <td class="tx-medium">Status</td>
-                    <td class="tx-color-03">Active</td>
-                  </tr>
-                  <tr>
-                    <td class="tx-medium">Standard Fee</td>
-                    <td class="tx-color-03">₦3,000</td>
-                  </tr>
-                  <tr>
-                    <td class="tx-medium">Urgent Fee</td>
-                    <td class="tx-color-03">₦5,000</td>
-                  </tr>
-                  <tr>
-                    <td class="tx-medium">OOH(Out of Hours) Fee</td>
-                    <td class="tx-color-03">₦7,500</td>
-                  </tr>
-                  <tr>
-                    <td class="tx-medium">Requests</td>
-                    <td class="tx-color-03">8</td>
-                  </tr>
-                  <tr>
-                    <td class="tx-medium">CSE's</td>
-                    <td class="tx-color-03">2</td>
-                  </tr>
-                  <tr>
-                    <td class="tx-medium">Technicians</td>
-                    <td class="tx-color-03">3</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="modal-body" id="modal-body">
+            <!-- Modal displays here -->
+            <div id="spinner-icon"></div>
+        </div>
         </div>
       </div>
     </div>
@@ -186,28 +115,39 @@
 <script>
     $(document).ready(function() {
 
-        $('#request-sorting').on('change', function (){        
-                let option = $("#request-sorting").find("option:selected").val();
+      $(document).on('click', '#category-details', function(event) {
+        event.preventDefault();
+        let route = $(this).attr('data-url');
+        let categoryeName = $(this).attr('data-category-name');
+        
+        $.ajax({
+            url: route,
+            beforeSend: function() {
+              $("#spinner-icon").html('<div class="d-flex justify-content-center mt-4 mb-4"><span class="loadingspinner"></span></div>');
+            },
+            // return the result
+            success: function(result) {
+                $('#modal-body').html('');
+                $('#modal-body').modal("show");
+                $('#modal-body').html(result).show();
+            },
+            complete: function() {
+                $("#spinner-icon").hide();
+            },
+            error: function(jqXHR, testStatus, error) {
+                var message = error+ ' occured while trying to retireve '+ categoryeName +' category details.';
+                var type = 'error';
+                displayMessage(message, type);
+                $("#spinner-icon").hide();
+            },
+            timeout: 8000
+        })
+      });
 
-                if(option === 'None'){
-                    $('.specific-date, .sort-by-year, .date-range').addClass('d-none');
-                }
+      $('.close').click(function (){
+        $(".modal-backdrop").remove();
+      });
 
-                if(option === 'Date'){
-                    $('.specific-date').removeClass('d-none');
-                    $('.sort-by-year, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Month'){
-                    $('.sort-by-year').removeClass('d-none');
-                    $('.specific-date, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Date Range'){
-                    $('.date-range').removeClass('d-none');
-                    $('.specific-date, .sort-by-year').addClass('d-none');
-                }
-        });
     });
    
 </script>

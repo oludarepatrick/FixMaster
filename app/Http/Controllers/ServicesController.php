@@ -9,6 +9,7 @@ use Auth;
 
 use App\Models\User;
 use App\Models\Service;
+use App\Models\Category;
 use App\Models\Name;
 use App\Http\Controllers\RecordActivityLogController;
 
@@ -36,15 +37,21 @@ class ServicesController extends Controller
         return view('admin.services.services', $data)->with('i');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request){
 
         $request->validate([
-            'name'      => 'required',
+            'name'      => 'required|unique:services,name',
         ]);
 
         $createService = Service::create([
-            'name'          =>  ucwords($request->input('name')),
             'user_id'       =>  Auth::id(),
+            'name'          =>  ucwords($request->input('name')),
             'updated_at'    =>  null,
         ]);
 
@@ -87,6 +94,13 @@ class ServicesController extends Controller
     {
         $serviceExists = Service::findOrFail($id);
 
+         foreach($serviceExists->categories as $category){
+                echo $category->id.'<br>';
+                Category::where('id', $category->id)->update([
+                    'service_id'    => 1
+                ]);
+         }
+
         $softDeleteService = Service::where('id', $id)->delete();
 
         if($softDeleteService){
@@ -101,7 +115,7 @@ class ServicesController extends Controller
             $message = Auth::user()->fullName->name.' deleted '.$serviceExists->name.' service';
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 
-            return redirect()->route('admin.services')->with('success', 'Service has been deleted.');
+            return redirect()->route('admin.services')->with('success', 'Service has been deleted and Categories assigned to it has been moved to Uncategorized.');
             
         }else{
             //Record crurrenlty logged in user activity
@@ -263,10 +277,9 @@ class ServicesController extends Controller
 
         Service::findOrFail($id);
 
-        $serviceDetails = Service::where('id', $id)
-        ->first();
+        $serviceDetails = Service::where('id', $id)->first();
 
-        $services = Service::select('id', 'name')->orderBy('name', 'ASC')->get();
+        $services = Service::ActiveServices()->get();
 
         $fullName = User::where('id', $serviceDetails->user_id)->first();
 
@@ -289,7 +302,7 @@ class ServicesController extends Controller
         $serviceDetails = Service::where('id', $id)
         ->first();
 
-        $services = Service::select('id', 'name')->orderBy('name', 'ASC')->get();
+        $services = Service::ActiveServices()->get();
 
         $fullName = User::where('id', $serviceDetails->user_id)->first();
 
@@ -305,5 +318,44 @@ class ServicesController extends Controller
         return view('admin.services._service_reassign', $data)->with('i');
     }
 
+    public function serviceCategoryReassign(Request $request){
+
+        $serviceId = $request->get('serviceId');
+        $serviceName =  $request->get('serviceName');
+        $categoryId =  $request->get('categoryId');
+        $categoryName =  $request->get('categoryName');
+
+        $updateService = Category::where('id', $categoryId)->update([
+            'service_id'    =>  $serviceId
+        ]);
+
+        if($updateService){
+
+            //Record crurrenlty logged in user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Others';
+            $severity = 'Informational';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = Auth::user()->fullName->name.' reassigned '.$categoryName.'category to '.$serviceName.' service';
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return 'success';
+        }else{
+
+            //Record crurrenlty logged in user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Errors';
+            $severity = 'Error';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to reassign '.$categoryName.' category to '.$serviceName.' service';
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return 'failed';
+        }
+    }
     
 }

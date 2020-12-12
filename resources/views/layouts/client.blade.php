@@ -6,6 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title') | FixMaster.ng - We Fix, You Relax!</title>
     <meta name="Author" content="Anthony Joboy (Lagos, Nigeria)" />
@@ -130,7 +131,7 @@
 
 
         //Prevent characters or string asides number in ohone number input field 
-        $("#number").on("keypress keyup blur", function(event) {
+        $("#number, #phone_number").on("keypress keyup blur", function(event) {
             $(this).val($(this).val().replace(/[^\d].+/, ""));
             if ((event.which < 48 || event.which > 57)) {
                 event.preventDefault();
@@ -225,5 +226,7 @@
       });
     </script>
     @yield('scripts')
+    @stack('scripts')
+
   </body>
 </html>

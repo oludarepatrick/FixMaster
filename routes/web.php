@@ -51,11 +51,18 @@ Route::get('details', function () {
    
 });
 
-// Route::get('/login',                        'Auth\LoginController@index')->name('login');
-Route::get('/login',                       [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('login');
-// Route::post('/register',                'Auth\RegisterController@userRegistration')->name('register');
-// Route::get('/email-verify',             'Auth\RegisterController@verifyUserEmail')->name('verify.user_email');
+Route::get('/email', function () {
+    return new ClientRegistrationEmail();
+});
+
+//Client registraion routes
+Route::get('/register',                    [App\Http\Controllers\Auth\RegisterController::class, 'index'])->name('register');
+Route::post('/register',                   [App\Http\Controllers\Auth\RegisterController::class, 'registerClient'])->name('client.register');
+Route::get('/client-email-verify',         [App\Http\Controllers\Auth\RegisterController::class, 'verifyClientEmail'])->name('client.verify_email');
+
+//Users login, verification, logout and dashboard routes
 Route::get('/home',                         [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/login',                        [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('login');
 Route::post('/verify-credentials',          [App\Http\Controllers\Auth\LoginController::class, 'verifyCredentials'])->name('verify_credentials');
 Route::get('/logout',                       [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
@@ -69,24 +76,30 @@ Route::view('/faq', 			            'page.faq')->name('page.faq');
 Route::view('/contact-us', 			        'page.contact')->name('page.contact');
 Route::view('/services', 			        'page.services')->name('page.services');
 Route::view('/service-details', 			'page.service_details')->name('page.services_details');
-// Route::view('/register-client', 			        'page.register')->name('page.register');
-// Route::view('/login-client', 			            'page.login')->name('page.login');
 
-Route::prefix('client')->group(function () {
-    Route::view('/', 			            'client.home')->name('client.home');
-    Route::view('/settings', 	            'client.settings')->name('client.settings');
-    Route::view('/messages', 	            'client.messages')->name('client.messages');
-    Route::view('/services', 	            'client.services')->name('client.services');
-    Route::view('/service/custom', 	        'client.service_custom')->name('client.service_custom');
-    Route::view('/services/quote', 	        'client.service_quote')->name('client.service_quote');
-    Route::view('/service-details', 		'client.service_details')->name('client.services_details');
-    Route::view('/requests', 	            'client.requests')->name('client.requests');
-    Route::view('/requests/details', 	    'client.request_details')->name('client.request_details');
-    Route::view('/requests/invoice', 	    'client.request_invoice')->name('client.request_invoice');
-    Route::view('/payments', 	            'client.payments')->name('client.payments');
-    Route::view('/wallet', 	                'client.wallet')->name('client.wallet');
-    Route::view('/technician', 	            'client.technician_profile')->name('client.technician_profile');
+//Essential Routes
+Route::post('/lga-list',                    [App\Http\Controllers\EssentialsController::class, 'lgasList'])->name('lga_list');
 
+Route::middleware(['clientRole'])->group(function() {
+    Route::prefix('client')->group(function () {
+        Route::get('/',                                     [App\Http\Controllers\ClientDashboardController::class, 'index'])->name('client.home');
+        Route::get('/settings',                                     [App\Http\Controllers\ClientDashboardController::class, 'settings'])->name('client.settings');
+        Route::put('/settings/update-passsword',             [App\Http\Controllers\ClientDashboardController::class, 'updatePassword'])->name('client.update_profile_password');
+        Route::put('/settings/update-profile',            [App\Http\Controllers\ClientDashboardController::class, 'updateProfile'])->name('client.update_profile');
+        Route::put('/settings/update-avatar',            [App\Http\Controllers\ClientDashboardController::class, 'updateAvatar'])->name('client.update_profile_avatar');
+        Route::view('/messages', 	            'client.messages')->name('client.messages');
+        Route::view('/services', 	            'client.services')->name('client.services');
+        Route::view('/service/custom', 	        'client.service_custom')->name('client.service_custom');
+        Route::view('/services/quote', 	        'client.service_quote')->name('client.service_quote');
+        Route::view('/service-details', 		'client.service_details')->name('client.services_details');
+        Route::view('/requests', 	            'client.requests')->name('client.requests');
+        Route::view('/requests/details', 	    'client.request_details')->name('client.request_details');
+        Route::view('/requests/invoice', 	    'client.request_invoice')->name('client.request_invoice');
+        Route::view('/payments', 	            'client.payments')->name('client.payments');
+        Route::view('/wallet', 	                'client.wallet')->name('client.wallet');
+        Route::view('/technician', 	            'client.technician_profile')->name('client.technician_profile');
+
+    });
 });
 
 Route::prefix('cse')->group(function () {
@@ -123,7 +136,7 @@ Route::prefix('technician')->group(function () {
     });
 });
 
-Auth::routes();
+// Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::middleware(['adminRole', 'superAdminRole'])->group(function() {
@@ -133,27 +146,27 @@ Auth::routes();
             Route::name('admin.')->group(function () {
                 Route::get('/',                                     [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('home');
                 Route::get('/activity-log',                         [App\Http\Controllers\ActivityLogController::class, 'index'])->middleware(['superAdminRole'])->name('activity_log');
-                Route::post('/activity-log/sorting',        [App\Http\Controllers\ActivityLogController::class, 'sortActivityLog'])->name('activity_log_sorting_users');
-                Route::get('/activity-log/details/{id}',    [App\Http\Controllers\ActivityLogController::class, 'activityLogDetails'])->name('activity_log_details');
+                Route::post('/activity-log/sorting',                [App\Http\Controllers\ActivityLogController::class, 'sortActivityLog'])->name('activity_log_sorting_users');
+                Route::get('/activity-log/details/{id}',            [App\Http\Controllers\ActivityLogController::class, 'activityLogDetails'])->name('activity_log_details');
 
-                Route::view('/requests', 	                'admin.requests.requests')->name('requests');
-                Route::view('/requests/details/new', 	    'admin.requests.request_details')->name('request_details');
-                Route::view('/requests/details/ongoing', 	'admin.requests.request_ongoing_details')->name('request_ongoing_details');
-                Route::view('/requests/details/completed', 	'admin.requests.request_completed_details')->name('request_completed_details');
-                Route::view('/requests/ongoing', 	        'admin.requests.requests_ongoing')->name('requests_ongoing');
-                Route::view('/requests/completed', 	        'admin.requests.requests_completed')->name('requests_completed');
-                Route::view('/requests/cancelled', 	        'admin.requests.requests_cancelled')->name('requests_cancelled');
-                Route::view('/technicians', 	            'admin.technicians')->name('technicians');
-                Route::view('/technicians/profile', 	    'admin.technicians_profile')->name('technicians_profile');
-                Route::view('/profile', 	                'admin.view_profile')->name('view_profile');
+                Route::view('/requests', 	                        'admin.requests.requests')->name('requests');
+                Route::view('/requests/details/new', 	            'admin.requests.request_details')->name('request_details');
+                Route::view('/requests/details/ongoing', 	        'admin.requests.request_ongoing_details')->name('request_ongoing_details');
+                Route::view('/requests/details/completed', 	        'admin.requests.request_completed_details')->name('request_completed_details');
+                Route::view('/requests/ongoing', 	                'admin.requests.requests_ongoing')->name('requests_ongoing');
+                Route::view('/requests/completed', 	                'admin.requests.requests_completed')->name('requests_completed');
+                Route::view('/requests/cancelled', 	                'admin.requests.requests_cancelled')->name('requests_cancelled');
+                Route::view('/technicians', 	                    'admin.technicians')->name('technicians');
+                Route::view('/technicians/profile', 	            'admin.technicians_profile')->name('technicians_profile');
+                Route::view('/profile', 	                        'admin.view_profile')->name('view_profile');
 
                 Route::get('/profile/edit',                         [App\Http\Controllers\AdminProfileController::class, 'showProfile'])->name('edit_profile');
-                Route::get('/profile/update',                     [App\Http\Controllers\AdminProfileController::class, 'updateProfile'])->name('update_profile');
-                Route::put('/profile/update-passsword',                     [App\Http\Controllers\AdminProfileController::class, 'updatePassword'])->name('update_profile_password');
+                Route::get('/profile/update',                       [App\Http\Controllers\AdminProfileController::class, 'updateProfile'])->name('update_profile');
+                Route::put('/profile/update-passsword',             [App\Http\Controllers\AdminProfileController::class, 'updatePassword'])->name('update_profile_password');
                 
-                Route::view('/payments', 	                'admin.payments')->name('payments');
-                Route::view('/messages', 	                'admin.messages')->name('messages');
-                Route::view('/messages/sent', 	            'admin.messages_sent')->name('messages_sent');
+                Route::view('/payments', 	                        'admin.payments')->name('payments');
+                Route::view('/messages', 	                        'admin.messages')->name('messages');
+                Route::view('/messages/sent', 	                    'admin.messages_sent')->name('messages_sent');
 
                 Route::get('/users/admin',                          [App\Http\Controllers\AdminUserController::class, 'index'])->name('list_admin');
                 Route::get('/users/admin/add',                      [App\Http\Controllers\AdminUserController::class, 'create'])->name('add_admin');
@@ -168,57 +181,70 @@ Auth::routes();
                 Route::post('/users/admin/activity-log/sorting',    [App\Http\Controllers\AdminUserController::class, 'sortActivityLog'])->name('activity_log_sorting_admin');
 
 
-                Route::view('/users/cse/add', 	            'admin.users.cse.add')->name('add_cse');
-                Route::view('/users/cse/edit', 	            'admin.users.cse.edit')->name('edit_cse');
-                Route::view('/users/cse/list', 	            'admin.users.cse.list')->name('list_cse');
-                Route::view('/users/cse/summary', 	        'admin.users.cse.summary')->name('summary_cse');
-                Route::view('/users/cse/activity-log', 	    'admin.users.cse.activity_log')->name('activity_log_cse');
+                Route::view('/users/cse/add', 	                    'admin.users.cse.add')->name('add_cse');
+                Route::view('/users/cse/edit', 	                    'admin.users.cse.edit')->name('edit_cse');
+                Route::view('/users/cse/list', 	                    'admin.users.cse.list')->name('list_cse');
+                Route::view('/users/cse/summary', 	                'admin.users.cse.summary')->name('summary_cse');
+                Route::view('/users/cse/activity-log', 	            'admin.users.cse.activity_log')->name('activity_log_cse');
 
-                Route::view('/users/client/list', 	            'admin.users.client.list')->name('list_client');
-                Route::view('/users/client/summary', 	        'admin.users.client.summary')->name('summary_client');
+                Route::get('/users/client/list', 	                [App\Http\Controllers\AdminClientController::class, 'index'])->name('list_client');
+                Route::put('/users/client/update/{user}',            [App\Http\Controllers\AdminClientController::class, 'update'])->name('update_client');
+                Route::get('/users/client/delete/{user}',            [App\Http\Controllers\AdminClientController::class, 'delete'])->name('delete_client');
+                Route::get('/users/client/deactivate/{user}',        [App\Http\Controllers\AdminClientController::class, 'deactivate'])->name('deactivate_client');
+                Route::get('/users/client/reinstate/{user}',         [App\Http\Controllers\AdminClientController::class, 'reinstate'])->name('reinstate_client');
+                Route::get('/users/client/summary/{user}',         [App\Http\Controllers\AdminClientController::class, 'summary'])->name('summary_client');
+                // Route::view('/users/client/summary', 	            'admin.users.client.summary')->name('summary_client');
 
-                Route::view('/users/utilities/reset-password', 	'admin.utilities.reset_password')->name('utility_reset_password');
-                Route::view('/users/utilities/project-status', 	'admin.utilities.project_status')->name('utility_project_status');
-                Route::view('/users/utilities/verify-payment', 	'admin.utilities.verify_payment')->name('utility_verify_payment');
+                Route::view('/users/utilities/reset-password', 	    'admin.utilities.reset_password')->name('utility_reset_password');
+                Route::view('/users/utilities/project-status', 	    'admin.utilities.project_status')->name('utility_project_status');
+                Route::view('/users/utilities/verify-payment', 	    'admin.utilities.verify_payment')->name('utility_verify_payment');
                 
                 
-                Route::view('/users/technician/add', 	        'admin.users.technician.add')->name('add_technician');
-                Route::view('/users/technician/edit', 	        'admin.users.technician.edit')->name('edit_technician');
-                Route::view('/users/technician/list', 	        'admin.users.technician.list')->name('list_technician');
-                Route::view('/users/technician/summary', 	    'admin.users.technician.summary')->name('summary_technician');
-                Route::view('/users/technician/activity-log', 	'admin.users.technician.activity_log')->name('activity_log_technician');
+                Route::view('/users/technician/add', 	            'admin.users.technician.add')->name('add_technician');
+                Route::view('/users/technician/edit', 	            'admin.users.technician.edit')->name('edit_technician');
+                Route::view('/users/technician/list', 	            'admin.users.technician.list')->name('list_technician');
+                Route::view('/users/technician/summary', 	        'admin.users.technician.summary')->name('summary_technician');
+                Route::view('/users/technician/activity-log', 	    'admin.users.technician.activity_log')->name('activity_log_technician');
 
-                Route::view('/franchise/add', 	                'admin.franchise.add')->name('add_franchise');
-                Route::view('/franchise/edit', 	                'admin.franchise.edit')->name('edit_franchise');
-                Route::view('/franchise/list', 	                'admin.franchise.list')->name('list_franchise');
+                Route::view('/franchise/add', 	                    'admin.franchise.add')->name('add_franchise');
+                Route::view('/franchise/edit', 	                    'admin.franchise.edit')->name('edit_franchise');
+                Route::view('/franchise/list', 	                    'admin.franchise.list')->name('list_franchise');
 
-                Route::view('/tools-request', 	                'admin.tools.requests')->name('tools_request');
-                Route::view('/tools-inventory', 	            'admin.tools.inventory')->name('tools_inventory');
-                Route::view('/rfq', 	                        'admin.rfq')->name('rfq');
-                Route::get('/services',                          [App\Http\Controllers\ServicesController::class, 'index'])->name('services');
-                Route::post('/services/store',                   [App\Http\Controllers\ServicesController::class, 'store'])->name('store_services');
-                Route::get('/services/delete/{id}',            [App\Http\Controllers\ServicesController::class, 'delete'])->name('delete_service');
-                Route::get('/services/deactivate/{id}',        [App\Http\Controllers\ServicesController::class, 'deactivate'])->name('deactivate_service');
-                Route::get('/services/reinstate/{id}',         [App\Http\Controllers\ServicesController::class, 'reinstate'])->name('reinstate_service');
-                Route::get('/services/details/{id}',           [App\Http\Controllers\ServicesController::class, 'serviceDetails'])->name('service_details');
-                Route::get('/services/reassign/{id}',          [App\Http\Controllers\ServicesController::class, 'serviceReassign'])->name('reassign_service');
-                Route::get('/services/edit/{id}',              [App\Http\Controllers\ServicesController::class, 'edit'])->name('edit_service');
-                Route::post('/services/update/',               [App\Http\Controllers\ServicesController::class, 'update'])->name('update_service');
+                Route::view('/tools-request', 	                    'admin.tools.requests')->name('tools_request');
+                Route::view('/tools-inventory', 	                'admin.tools.inventory')->name('tools_inventory');
+                Route::view('/rfq', 	                            'admin.rfq')->name('rfq');
+                Route::get('/services',                             [App\Http\Controllers\ServicesController::class, 'index'])->name('services');
+                Route::post('/services/store',                      [App\Http\Controllers\ServicesController::class, 'store'])->name('store_services');
+                Route::get('/services/delete/{id}',                 [App\Http\Controllers\ServicesController::class, 'delete'])->name('delete_service');
+                Route::get('/services/deactivate/{id}',             [App\Http\Controllers\ServicesController::class, 'deactivate'])->name('deactivate_service');
+                Route::get('/services/reinstate/{id}',              [App\Http\Controllers\ServicesController::class, 'reinstate'])->name('reinstate_service');
+                Route::get('/services/details/{id}',                [App\Http\Controllers\ServicesController::class, 'serviceDetails'])->name('service_details');
+                Route::get('/services/reassign/{id}',               [App\Http\Controllers\ServicesController::class, 'serviceReassign'])->name('reassign_service');
+                Route::post('/services/reassign/category',          [App\Http\Controllers\ServicesController::class, 'serviceCategoryReassign'])->name('reassign_service_category');
+                Route::get('/services/edit/{id}',                   [App\Http\Controllers\ServicesController::class, 'edit'])->name('edit_service');
+                Route::post('/services/update/',                    [App\Http\Controllers\ServicesController::class, 'update'])->name('update_service');
 
-                Route::view('/category/add', 	                'admin.services.add_category')->name('add_category');
-                Route::view('/category/edit', 	                'admin.services.edit_category')->name('edit_category');
-                Route::view('/category/list', 	                'admin.services.list_category')->name('list_category');
-                Route::view('/category/review', 	            'admin.services.review_category')->name('review_category');
+                Route::get('/category/add',                         [App\Http\Controllers\CategoryController::class, 'create'])->name('add_category');
+                Route::post('/category/store',                      [App\Http\Controllers\CategoryController::class, 'store'])->name('store_category');
+                Route::get('/category/list',                        [App\Http\Controllers\CategoryController::class, 'index'])->name('list_category');
+                Route::get('/category/delete/{id}',                 [App\Http\Controllers\CategoryController::class, 'delete'])->name('delete_category');
+                Route::get('/category/deactivate/{id}',             [App\Http\Controllers\CategoryController::class, 'deactivate'])->name('deactivate_category');
+                Route::get('/category/reinstate/{id}',              [App\Http\Controllers\CategoryController::class, 'reinstate'])->name('reinstate_category');
+                Route::get('/category/details/{id}',                [App\Http\Controllers\CategoryController::class, 'categoryDetails'])->name('category_details');
+                Route::get('/category/edit/{id}',                   [App\Http\Controllers\CategoryController::class, 'edit'])->name('edit_category');
+                Route::put('/category/update/{id}',                 [App\Http\Controllers\CategoryController::class, 'update'])->name('update_category');
 
-                Route::view('/payments/disbursed', 	            'admin.payments.disbursed')->name('disbursed_payments');
-                Route::view('/payments/received', 	            'admin.payments.received')->name('received_payments');
+                Route::view('/category/review', 	                'admin.services.review_category')->name('review_category');
 
-                Route::view('/ratings/category', 	            'admin.ratings.category')->name('category_ratings');
-                Route::view('/ratings/job', 	                'admin.ratings.job')->name('job_ratings');
-                Route::view('/location-request', 	            'admin.location_request')->name('location_request');
-                Route::view('/payment-gateway/add', 	        'admin.payment_gateways.add')->name('add_payment_gateway');
-                Route::view('/payment-gateway/edit', 	        'admin.payment_gateways.edit')->name('edit_payment_gateway');
-                Route::view('/payment-gateway/list', 	        'admin.payment_gateways.list')->name('list_payment_gateway');
+                Route::view('/payments/disbursed', 	                'admin.payments.disbursed')->name('disbursed_payments');
+                Route::view('/payments/received', 	                'admin.payments.received')->name('received_payments');
+
+                Route::view('/ratings/category', 	                'admin.ratings.category')->name('category_ratings');
+                Route::view('/ratings/job', 	                    'admin.ratings.job')->name('job_ratings');
+                Route::view('/location-request', 	                'admin.location_request')->name('location_request');
+                Route::view('/payment-gateway/add', 	            'admin.payment_gateways.add')->name('add_payment_gateway');
+                Route::view('/payment-gateway/edit', 	            'admin.payment_gateways.edit')->name('edit_payment_gateway');
+                Route::view('/payment-gateway/list', 	            'admin.payment_gateways.list')->name('list_payment_gateway');
                 
             });
         });

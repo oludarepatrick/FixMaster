@@ -58,6 +58,9 @@ class Kernel extends HttpKernel
         'superAdminRole' => [
             \App\Http\Middleware\SuperAdminRole::class,
         ],
+        'clientRole' => [
+            \App\Http\Middleware\ClientRole::class,
+        ],
     ];
 
     /**

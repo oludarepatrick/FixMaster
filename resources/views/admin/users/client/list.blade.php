@@ -44,66 +44,36 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="tx-color-03 tx-center">1</td>
-                  <td class="tx-medium">Haruna Ahmadu</td>
-                  <td class="tx-medium">akhmadharuna@gmail.com</td>
-                  <td class="tx-medium">07034776388</td>
-                  <td class="text-medium text-success">Active</td>
-                  <td class="text-medium text-center">6</td>
-                  <td class="text-medium">May 15th 2020</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_client') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                      <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
+                @foreach($clients as $client)
+                  <tr>
+                    <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                    <td class="tx-medium">{{ $client->fullName->name }}</td>
+                    <td class="tx-medium">{{ $client->email }}</td>
+                    <td class="tx-medium">{{ $client->client->phone_number }}</td>
+                    @if($client->is_active == '1') 
+                      <td class="text-medium text-success">Active</td>
+                    @else 
+                      <td class="text-medium text-danger">Inactive</td>
+                    @endif
+                    <td class="text-medium text-center">{{ $client->requests()->count() }}</td>
+                    <td class="text-medium">{{ Carbon\Carbon::parse($client->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
+                    <td class=" text-center">
+                      <div class="dropdown-file">
+                        <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                        <a href="{{ route('admin.summary_client', $client->client->id) }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
+                        @if($client->is_active == '1')
+                          <a href="{{ route('admin.deactivate_client', $client->client->id) }}" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
+                        @else
+                          <a href="{{ route('admin.reinstate_client', $client->client->id) }}" class="dropdown-item details text-success"><i class="fas fa-undo"></i> Reinstate</a>
+                        @endif
+                        <a href="{{ route('admin.delete_client', $client->client->id) }}" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="tx-color-03 tx-center">2</td>
-                  <td class="tx-medium">Esuruoso Favour</td>
-                  <td class="tx-medium">fesuruoso@gmail.com</td>
-                  <td class="tx-medium">08034516890</td>
-                  <td class="text-medium text-success">Active</td>
-                  <td class="text-medium text-center">10</td>
-                  <td class="text-medium">May 15th 2020</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_client') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                      <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              
-                <tr>
-                  <td class="tx-color-03 tx-center">3</td>
-                  <td class="tx-medium">Oluyemi Ayotunde</td>
-                  <td class="tx-medium">ayotundeoluyemi99@gmail.com	</td>
-                  <td class="tx-medium">08034516890</td>
-                  <td class="text-medium text-danger">Inactive</td>
-                  <td class="text-medium text-center">3</td>
-                  <td class="text-medium">May 15th 2020</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_client') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                      <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-
+                    </td>
+                  </tr>
+                @endforeach
+               
               </tbody>
             </table>
           </div><!-- table-responsive -->
