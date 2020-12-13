@@ -10,7 +10,7 @@
                 {{-- <img src="{{ asset('assets/images/default-male-avatar.png') }}" class="avatar float-md-left avatar-medium rounded-circle shadow mr-md-4" alt=""> --}}
 
                 @if(!empty($client->avatar))
-                    <img src="{{ asset('assets/client_avatars/'.$client->avatar) }}" class="avatar float-md-left avatar-medium rounded-circle shadow mr-md-4" alt="{{ $user->fullName->name }}" />
+                    <img src="{{ asset('assets/client-avatars/'.$client->avatar) }}" class="avatar float-md-left avatar-medium rounded-circle shadow mr-md-4" alt="{{ $user->fullName->name }}" />
                 @else
                     @if($client->gender == 'Male')
                         <img src="{{ asset('assets/images/default-male-avatar.png') }}" alt="Default male profile avatar" class="avatar float-md-left avatar-medium rounded-circle shadow mr-md-4" />
@@ -228,9 +228,9 @@
                         <div class="row mt-4">
                             <div class="col-lg-4">
                                 <div class="form-group position-relative">
-                                    <label>Old password :</label>
+                                    <label>Current Password :</label>
                                     <i data-feather="key" class="fea icon-sm icons"></i>
-                                    <input type="password" class="form-control pl-5 @error('current_password') is-invalid @enderror" placeholder="Old password" id="current_password" name="current_password">
+                                    <input type="password" class="form-control pl-5 @error('current_password') is-invalid @enderror" placeholder="Current Password" id="current_password" name="current_password">
                                     @error('current_password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

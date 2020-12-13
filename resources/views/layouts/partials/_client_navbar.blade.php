@@ -146,7 +146,7 @@
                     </ul>
                 </li>
 
-                <li title="Logout"><a href="{{ route('login') }}" ><i class="uil uil-sign-out-alt" style="font-size: 20px" ></i></a></li>
+                <li title="Logout"><a href="{{ route('logout') }}" ><i class="uil uil-sign-out-alt" style="font-size: 20px" ></i></a></li>
 
             </ul><!--end navigation menu-->
         </div><!--end navigation-->

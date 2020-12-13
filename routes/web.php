@@ -74,8 +74,9 @@ Route::view('/why-home-fix', 		        'page.why_home_fix')->name('page.why_home
 Route::view('/join-us', 			        'page.careers')->name('page.careers');
 Route::view('/faq', 			            'page.faq')->name('page.faq');
 Route::view('/contact-us', 			        'page.contact')->name('page.contact');
-Route::view('/services', 			        'page.services')->name('page.services');
+// Route::view('/services', 			        'page.services')->name('page.services');
 Route::view('/service-details', 			'page.service_details')->name('page.services_details');
+Route::get('/services',                    [App\Http\Controllers\PageController::class, 'services'])->name('page.services');
 
 //Essential Routes
 Route::post('/lga-list',                    [App\Http\Controllers\EssentialsController::class, 'lgasList'])->name('lga_list');
@@ -88,10 +89,14 @@ Route::middleware(['clientRole'])->group(function() {
         Route::put('/settings/update-profile',            [App\Http\Controllers\ClientDashboardController::class, 'updateProfile'])->name('client.update_profile');
         Route::put('/settings/update-avatar',            [App\Http\Controllers\ClientDashboardController::class, 'updateAvatar'])->name('client.update_profile_avatar');
         Route::view('/messages', 	            'client.messages')->name('client.messages');
-        Route::view('/services', 	            'client.services')->name('client.services');
+        // Route::view('/services', 	            'client.services')->name('client.services');
         Route::view('/service/custom', 	        'client.service_custom')->name('client.service_custom');
-        Route::view('/services/quote', 	        'client.service_quote')->name('client.service_quote');
-        Route::view('/service-details', 		'client.service_details')->name('client.services_details');
+        // Route::view('/services/quote', 	        'client.service_quote')->name('client.service_quote');
+        Route::get('/services',                    [App\Http\Controllers\ClientDashboardController::class, 'services'])->name('client.services');
+        Route::get('/services/quote/{url}',                                     [App\Http\Controllers\ClientDashboardController::class, 'serviceQuote'])->name('client.service_quote');
+        Route::get('/services/details/{url}',                                     [App\Http\Controllers\ClientDashboardController::class, 'serviceDetails'])->name('client.services_details');
+        Route::post('/services/quote/store',                                     [App\Http\Controllers\ServiceRequestController::class, 'store'])->name('client.book_services');
+        // Route::view('/service-details', 		'client.service_details')->name('client.services_details');
         Route::view('/requests', 	            'client.requests')->name('client.requests');
         Route::view('/requests/details', 	    'client.request_details')->name('client.request_details');
         Route::view('/requests/invoice', 	    'client.request_invoice')->name('client.request_invoice');

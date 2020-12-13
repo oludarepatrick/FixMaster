@@ -41,12 +41,16 @@ class ClientDashboardController extends Controller
         $completedRequests = ServiceRequest::where('client_project_status', '3')->get()->count();
         $cancelledRequests = ServiceRequest::where('client_project_status', '4')->get()->count();
 
+        $popularRequests = Category::select('name', 'standard_fee', 'url', 'image')
+        ->take(10)->get()->random(3);
+
         $data  = [
             'user'              =>  $user,
             'client'            =>  $client,
             'totalRequests'     =>  $totalRequests,
             'completedRequests' =>  $completedRequests,
             'cancelledRequests' =>  $cancelledRequests,
+            'popularRequests'   =>  $popularRequests,
         ];
 
         return view('client.home', $data);
@@ -149,15 +153,14 @@ class ClientDashboardController extends Controller
             'name'              =>  $request->input('first_name').' '.$request->input('last_name'),
         ]);
 
+        $gender = Auth::user()->client->gender;
+        if($gender == 'Male'){
+            $gender = 'his';
+        }else{
+            $gender = 'her';
+        }
+
         if($updateUserRecord && $updateNameRecord ){
-
-            $gender = Auth::user()->client->gender;
-            if($gender == 'Male'){
-                $gender = 'his';
-            }else{
-                $gender = 'her';
-            }
-
             //Record crurrenlty logged in user activity
             $this->addRecord = new RecordActivityLogController();
             $id = Auth::id();
@@ -207,6 +210,127 @@ class ClientDashboardController extends Controller
     }
 
     public function updateAvatar(Request $request){
-        return $request;
+
+        //validate avatar upload;
+        $request->validate([
+            'avatar'      => 'required',
+        ]);
+
+        //Validate if an image file was selected 
+        if($request->hasFile('avatar')){
+            $image = $request->file('avatar');
+            $imageName = sha1(time()) .'.'.$image->getClientOriginalExtension();
+            $imagePath = public_path('assets/client-avatars').'/'.$imageName;
+
+            //Delete old image
+            if(\File::exists(public_path('assets/client-avatars/'.$request->input('old_avatar')))){
+                $done = \File::delete(public_path('assets/client-avatars/'.$request->input('old_avatar')));
+                if($done){
+                    // echo 'File has been deleted';
+                }
+            }
+
+            //Move new image to `client-avatars` folder
+            Image::make($image->getRealPath())->resize(220, 220)->save($imagePath);
+        }else{
+            $imageName = $request->input('old_avatar');
+        }
+
+        //Update User record on `clients` table
+        $updateClientRecord = Client::where('user_id', '=', Auth::id())->update([
+            'avatar'          =>  $imageName,
+        ]);
+
+        $gender = Auth::user()->client->gender;
+        if($gender == 'Male'){
+            $gender = 'his';
+        }else{
+            $gender = 'her';
+        }
+
+        if($updateClientRecord ){
+            //Record crurrenlty logged in user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Profile';
+            $severity = 'Informational';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = Auth::user()->fullName->name.' updated '.$gender.' profile avatar';
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return redirect()->route('client.home')->with('success', 'Profile avatar was successfully updated.');
+
+        }else{
+            //Record Unauthorized user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Errors';
+            $severity = 'Error';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to update '.$gender.' profile avatar.';
+
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return back()->with('error', 'An error occurred while trying to update your profile avatar.');
+        }
+
     }
+
+    public function serviceQuote($url){
+
+        $urlExists = Category::select('id', 'service_id', 'name', 'standard_fee', 'urgent_fee', 'ooh_fee')
+        ->where('url', $url)->first();
+
+        if(!empty($urlExists)){
+
+            $data = [
+                'serviceQuote' =>  $urlExists,
+            ];
+
+            return view('client.service_quote', $data);
+        }else{
+            return back();
+        }
+
+    }
+
+    public function serviceDetails($url){
+
+        $urlExists = Category::where('url', $url)->first();
+
+        if(!empty($urlExists)){
+
+            $data = [
+                'service' =>  $urlExists,
+            ];
+
+            return view('client.service_details', $data);
+        }else{
+            return back();
+        }
+    }
+
+    public function services(){
+
+        $categories = Service::ActiveServices()->get();
+
+        $services = Service::select('id', 'name')
+        ->where('id', '!=', 1)
+        ->where('is_active', '1')
+        ->orderBy('name', 'ASC')
+        ->with(['categories'    =>  function($query){
+            return $query->select('name', 'url', 'image', 'service_id');
+        }])
+        ->has('categories')->get();
+
+        $data = [
+            'services'      =>  $services,
+            'categories'    =>  $categories,
+        ];
+
+        return view('client.services', $data);
+    }
+    
 }

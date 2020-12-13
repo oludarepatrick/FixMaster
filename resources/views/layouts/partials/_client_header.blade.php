@@ -108,7 +108,7 @@
                     </ul>
                 </li>
 
-                <li title="Logout"><a href="{{ route('login') }}" ><i class="uil uil-sign-out-alt" style="font-size: 20px" ></i></a></li>
+                <li title="Logout"><a href="{{ route('logout') }}" ><i class="uil uil-sign-out-alt" style="font-size: 20px" ></i></a></li>
 
             </ul><!--end navigation menu-->
         </div><!--end navigation-->
@@ -129,8 +129,8 @@
                         <div class="row align-items-center">
                             <div class="col-lg-2 col-md-3 text-md-left text-center">
                                 {{-- <img src="{{ asset('assets/images/default-male-avatar.png') }}" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt=""> --}}
-                                @if(!empty($user->client->avatar))
-                                    <img src="{{ asset('assets/client_avatars/'.$client->avatar) }}" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="{{ $user->fullName->name }}" />
+                                @if(!empty($user->client->avatar) && file_exists(public_path().'/assets/client-avatars/'.$user->client->avatar))
+                                    <img src="{{ asset('assets/client-avatars/'.$user->client->avatar) }}" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="{{ $user->fullName->name }}" />
                                 @else
                                     @if($user->client->gender == 'Male')
                                         <img src="{{ asset('assets/images/default-male-avatar.png') }}" alt="Default male profile avatar" class="avatar avatar-large rounded-circle shadow d-block mx-auto" />

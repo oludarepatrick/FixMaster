@@ -106,7 +106,7 @@
                     <img src="images/job/Circleci.svg" class="avatar avatar-ex-sm" alt="">
                     <div class="media-body content ml-3">
                         <h4 class="title mb-0">Generator</h4>
-                        <p class="text-muted mb-0"><span {{ route('client.services_details') }}">Amount:</span> ₦14,000</p>
+                        <p class="text-muted mb-0"><span>Amount:</span> ₦14,000</p>
                         <p class="mb-0"><a href="javascript:void(0)" style="color: #161c2d">CSE: <span class="text-muted">Godfrey Diwa</span></a></p>    
                         <p class="mb-0">Status: <span class="text-success">Completed</span></p>    
                     </div>
@@ -116,7 +116,7 @@
                     <img src="images/job/Codepen.svg" class="avatar avatar-ex-sm" alt="">
                     <div class="media-body content ml-3">
                         <h4 class="title mb-0">Security Equipment</h4>
-                        <p class="text-muted mb-0"><span {{ route('client.services_details') }}">Amount:</span> ₦48,740</p>
+                        <p class="text-muted mb-0"><span>Amount:</span> ₦48,740</p>
                         <p class="mb-0"><a href="javascript:void(0)" style="color: #161c2d">CSE: <span class="text-muted">Rilwan Bello</span></a></p>    
                         <p class="mb-0">Status: <span class="text-warning">Pending</span></p>    
 
@@ -127,7 +127,7 @@
                     <img src="images/job/Gitlab.svg" class="avatar avatar-ex-sm" alt="">
                     <div class="media-body content ml-3">
                         <h4 class="title mb-0">Furniture & Painting</h4>
-                        <p class="text-muted mb-0"><span {{ route('client.services_details') }}">Amount:</span> ₦22,500</p>
+                        <p class="text-muted mb-0"><span>Amount:</span> ₦22,500</p>
                         <p class="mb-0"><a href="javascript:void(0)" style="color: #161c2d">CSE: <span class="text-muted">Mayowa Olaoye</span></a></p>    
                         <p class="mb-0">Status: <span class="text-danger">Cancelled</span></p>    
 
@@ -139,82 +139,41 @@
 
     <h5 class="mt-4 mb-0">Popular Requests :</h5>
     <div class="row">
-        <div class="col-md-4 mt-4 pt-2">
-            <div class="card blog rounded border-0 shadow">
-                <div class="position-relative">
-                    <img src="{{ asset('assets/images/generato.jpg') }}" class="card-img-top rounded-top" alt="...">
-                <div class="overlay rounded-top bg-dark"></div>
-                </div>
-                <div class="card-body content">
-                    <h5><a href="javascript:void(0)" class="card-title title text-dark">Generator</a></h5>
-                    <div class="post-meta d-flex justify-content-between mt-3">
-                        {{-- <ul class="list-unstyled mb-0">
-                            <li class="list-inline-item mr-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="mdi mdi-heart-outline mr-1"></i>33</a></li>
-                            <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="mdi mdi-comment-outline mr-1"></i>08</a></li>
-                        </ul> --}}
-                        <a href="{{ route('client.services_details') }}" class="text-muted readmore">Request Service <i class="mdi mdi-chevron-right"></i></a>
-                    </div>
-                </div>
-                <div class="author">
-                    <small class="text-light date"><i class="mdi mdi-calendar"></i> Last 7 Days Request: 18</small><br>
-                    <small class="text-light date"><i class="mdi mdi-credit-card"></i> Basic Price: ₦4,000</small>
-
-                </div>
-            </div>
-        </div><!--end col-->
         
+        @foreach ($popularRequests as $popularRequest)
         <div class="col-md-4 mt-4 pt-2">
             <div class="card blog rounded border-0 shadow">
                 <div class="position-relative">
-                    <img src="{{ asset('assets/images/machineee.jpg') }}" class="card-img-top rounded-top" alt="...">
+                    @if(empty($popularRequest->image))
+                        <img src="{{ asset('assets/images/no-image-available.png') }}" alt="Image not available" class="card-img-top rounded-top">
+                    @else
+                        @if(file_exists(public_path().'/assets/category-images/'.$popularRequest->image))
+                            <img src="{{ asset('assets/category-images/'.$popularRequest->image) }}" alt="{{ $popularRequest->name }}" class="card-img-top rounded-top">
+                        @else
+                            <img src="{{ asset('assets/images/no-image-available.png') }}" alt="Image not available" class="card-img-top rounded-top">
+                        @endif
+                    @endif
                 <div class="overlay rounded-top bg-dark"></div>
                 </div>
                 <div class="card-body content">
-                    <h5><a href="javascript:void(0)" class="card-title title text-dark">Television</a></h5>
+                <h5><a href="javascript:void(0)" class="card-title title text-dark">{{ $popularRequest->name }}</a> <a href="{{ route('client.services_details', $popularRequest->url) }}" title="View {{ $popularRequest->name }} service details"> <i data-feather="info" class="text-primary"></i></a></h5>
                     <div class="post-meta d-flex justify-content-between mt-3">
                         {{-- <ul class="list-unstyled mb-0">
                             <li class="list-inline-item mr-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="mdi mdi-heart-outline mr-1"></i>33</a></li>
                             <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="mdi mdi-comment-outline mr-1"></i>08</a></li>
                         </ul> --}}
-                        <a href="{{ route('client.services_details') }}" class="text-muted readmore">Request Service <i class="mdi mdi-chevron-right"></i></a>
+                        <a href="{{ route('client.service_quote', $popularRequest->url) }}" class="text-muted readmore">Request Service <i class="mdi mdi-chevron-right"></i></a>
                     </div>
                 </div>
                 <div class="author">
-                    {{-- <small class="text-light user d-block"><i class="mdi mdi-account"></i> Calvin Carlo</small> --}}
-                    <small class="text-light date"><i class="mdi mdi-calendar"></i> Last 7 Days Request: 16</small><br>
-                    <small class="text-light date"><i class="mdi mdi-credit-card"></i> Basic Price: ₦7,500</small>
+                <small class="text-light date"><i class="mdi mdi-calendar"></i> Requests: {{ $popularRequest->requests()->count() }}</small><br>
+                <small class="text-light date"><i class="mdi mdi-credit-card"></i> Basic Price: ₦{{ number_format($popularRequest->standard_fee) }}</small>
 
                 </div>
             </div>
         </div><!--end col-->
-
-        <div class="col-md-4 mt-4 pt-2">
-            <div class="card blog rounded border-0 shadow">
-                <div class="position-relative">
-                    <img src="{{ asset('assets/images/inverter.jpg') }}" class="card-img-top rounded-top" alt="...">
-                <div class="overlay rounded-top bg-dark"></div>
-                </div>
-                <div class="card-body content">
-                    <h5><a href="javascript:void(0)" class="card-title title text-dark">inverter</a></h5>
-                    <div class="post-meta d-flex justify-content-between mt-3">
-                        {{-- <ul class="list-unstyled mb-0">
-                            <li class="list-inline-item mr-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="mdi mdi-heart-outline mr-1"></i>33</a></li>
-                            <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="mdi mdi-comment-outline mr-1"></i>08</a></li>
-                        </ul> --}}
-                        <a href="{{ route('client.services_details') }}" class="text-muted readmore">Request Service <i class="mdi mdi-chevron-right"></i></a>
-                    </div>
-                </div>
-                <div class="author">
-                    {{-- <small class="text-light user d-block"><i class="mdi mdi-account"></i> Calvin Carlo</small> --}}
-                    <small class="text-light date"><i class="mdi mdi-calendar"></i> Last 7 Days Request: 12</small><br>
-                    <small class="text-light date"><i class="mdi mdi-credit-card"></i> Basic Price: ₦3,200</small>
-                </div>
-            </div>
-        </div><!--end col-->
-
-        {{-- <div class="col-12 mt-4 pt-2">
-        <a href="{{ route('client.services') }}" class="btn btn-primary">See More <i class="mdi mdi-chevron-right"></i></a>
-        </div><!--end col--> --}}
+        @endforeach
+        
     </div><!--end row-->
 </div><!--end col-->
 @endsection

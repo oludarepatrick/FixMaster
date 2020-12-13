@@ -99,4 +99,13 @@ class EssentialsController extends Controller
         return response()->json($data);
 
     }
+
+    // This function will return  
+    // A random string of specified length 
+    public function randomStringGenerator($length_of_string) { 
+            
+        // sha1 the timstamps and returns substring 
+        // of specified length 
+        return strtoupper(substr(sha1(time()), 0, $length_of_string)); 
+    } 
 }

@@ -73,7 +73,7 @@ class CategoryController extends Controller
          //Validate if an image file was selected 
         if($request->hasFile('image')){
             $image = $request->file('image');
-            $imageName = ucwords($request->input('name')) .'.'.$image->getClientOriginalExtension();
+            $imageName = sha1(time()) .'.'.$image->getClientOriginalExtension();
             $imagePath = public_path('assets/category-images').'/'.$imageName;
 
         }
@@ -85,6 +85,8 @@ class CategoryController extends Controller
             'standard_fee'  =>  str_replace(",", "", $request->input('standard_fee')), 
             'urgent_fee'    =>  str_replace(",", "", $request->input('urgent_fee')), 
             'ooh_fee'       =>  str_replace(",", "", $request->input('ooh_fee')), 
+            'is_active'     =>  $request->input('is_active'),
+            'url'           =>  md5($request->input('name')),
             'description'   =>  $request->input('description'),
             'image'         =>  $imageName,
             'updated_at'    =>  null,
@@ -178,7 +180,7 @@ class CategoryController extends Controller
          //Validate if an image file was selected 
          if($request->hasFile('image')){
             $image = $request->file('image');
-            $imageName = ucwords($request->input('name')) .'.'.$image->getClientOriginalExtension();
+            $imageName = sha1(time()) .'.'.$image->getClientOriginalExtension();
             $imagePath = public_path('assets/category-images').'/'.$imageName;
 
             //Delete old image

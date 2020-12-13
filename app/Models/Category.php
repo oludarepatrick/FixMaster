@@ -11,7 +11,7 @@ class Category extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 'user_id', 'service_id', 'standard_fee', 'urgent_fee', 'ooh_fee', 'description', 'image', 'total_votes', 'rating', 'is_active', 'updated_at',
+        'name', 'user_id', 'service_id', 'standard_fee', 'urgent_fee', 'ooh_fee', 'description', 'url', 'image', 'total_votes', 'rating', 'is_active', 'updated_at',
     ];
 
     public function user()
