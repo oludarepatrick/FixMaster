@@ -2,7 +2,7 @@
 
 @component('mail::message')
 
-Hello, {{ $data['client_name'] }}
+Hello, {{ $data['clientName'] }}
 
 # Welcome to FixMaster!
 

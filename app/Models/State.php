@@ -32,4 +32,14 @@ class State extends Model
         return $this->hasMany(Client::class, 'state_id');
     }
 
+    public function cse()
+    {
+        return $this->hasOne(CSE::class, 'state_id');
+    }
+
+    public function cses()
+    {
+        return $this->hasMany(CSE::class, 'state_id');
+    }
+
 }

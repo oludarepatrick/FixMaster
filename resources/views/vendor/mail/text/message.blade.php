@@ -2,7 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-        <span><img src="https://fixmaster.com.ng/wp-content/uploads/2020/11/fix-master-logo-straight.png" width="90" alt=""></span><br>
+        <span><img src="https://fixmaster.com.ng/wp-content/uploads/2020/11/fix-master-logo-straight.png" width="100" alt="FixMaster Logo"></span><br>
             {{-- {{ config('app.name') }} --}}
         @endcomponent
     @endslot

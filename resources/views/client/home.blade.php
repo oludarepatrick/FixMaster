@@ -102,37 +102,35 @@
             <div class="col-md-6 mt-4 pt-2 pt-sm-0">
                 <h5>Recent Requests :</h5>
 
+                @foreach ($userServiceRequests as $userServiceRequest)
                 <div class="media key-feature align-items-center p-3 rounded shadow mt-4">
                     <img src="images/job/Circleci.svg" class="avatar avatar-ex-sm" alt="">
                     <div class="media-body content ml-3">
-                        <h4 class="title mb-0">Generator</h4>
-                        <p class="text-muted mb-0"><span>Amount:</span> ₦14,000</p>
-                        <p class="mb-0"><a href="javascript:void(0)" style="color: #161c2d">CSE: <span class="text-muted">Godfrey Diwa</span></a></p>    
-                        <p class="mb-0">Status: <span class="text-success">Completed</span></p>    
+                        <h4 class="title mb-0">{{ $userServiceRequest->service->name }}({{ $userServiceRequest->category->name }})</h4>
+                        <p class="text-muted mb-0"><span>Amount:</span> 
+                            @if(!empty($userServiceRequest->serviceRequestDetail->discount_service_fee))
+                                ₦{{ number_format($userServiceRequest->serviceRequestDetail->discount_service_fee) }}
+                                <sup style="font-size: 10px;" class="text-success">Discount</sup>
+                            @else
+                                ₦{{ number_format($userServiceRequest->serviceRequestDetail->initial_service_fee) }}
+                            @endif 
+                            ({{ $userServiceRequest->serviceRequestDetail->service_fee_name }})
+                        </p>
+                        <p class="mb-0"><a href="javascript:void(0)" style="color: #161c2d">CSE: <span class="text-muted">{{ $cseName->find($userServiceRequest->cse_id)->name ?? 'Not Assigned' }}</span></a></p>    
+                        <p class="mb-0">Status: 
+                            @if($userServiceRequest->client_project_status == 'Pending')
+                                <span class="text-warning">Pending</span>
+                            @elseif($userServiceRequest->client_project_status == 'Ongoing')
+                                <span class="text-info">Ongoing</span>
+                            @elseif($userServiceRequest->client_project_status == 'Completed')
+                                <span class="text-success">Completed</span>
+                            @elseif($userServiceRequest->client_project_status == 'Cancelled')
+                                <span class="text-danger">Cancelled</span>
+                            @endif
+                        </p>    
                     </div>
                 </div>
-
-                <div class="media key-feature align-items-center p-3 rounded shadow mt-4">
-                    <img src="images/job/Codepen.svg" class="avatar avatar-ex-sm" alt="">
-                    <div class="media-body content ml-3">
-                        <h4 class="title mb-0">Security Equipment</h4>
-                        <p class="text-muted mb-0"><span>Amount:</span> ₦48,740</p>
-                        <p class="mb-0"><a href="javascript:void(0)" style="color: #161c2d">CSE: <span class="text-muted">Rilwan Bello</span></a></p>    
-                        <p class="mb-0">Status: <span class="text-warning">Pending</span></p>    
-
-                    </div>
-                </div>
-
-                <div class="media key-feature align-items-center p-3 rounded shadow mt-4">
-                    <img src="images/job/Gitlab.svg" class="avatar avatar-ex-sm" alt="">
-                    <div class="media-body content ml-3">
-                        <h4 class="title mb-0">Furniture & Painting</h4>
-                        <p class="text-muted mb-0"><span>Amount:</span> ₦22,500</p>
-                        <p class="mb-0"><a href="javascript:void(0)" style="color: #161c2d">CSE: <span class="text-muted">Mayowa Olaoye</span></a></p>    
-                        <p class="mb-0">Status: <span class="text-danger">Cancelled</span></p>    
-
-                    </div>
-                </div>
+                @endforeach
             </div><!--end col-->
         </div><!--end row-->
     </div>

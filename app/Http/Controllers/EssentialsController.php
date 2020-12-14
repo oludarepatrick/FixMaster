@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
 
+use Auth;
 use App\Models\User;
 use App\Models\State;
 use App\Models\LocationAndBrowserInfo;
+use App\Models\ClientMessage;
+use App\Http\Controllers\MailController;
 
 class EssentialsController extends Controller
 {
@@ -108,4 +111,21 @@ class EssentialsController extends Controller
         // of specified length 
         return strtoupper(substr(sha1(time()), 0, $length_of_string)); 
     } 
+
+    public function successServiceRequestMessage($jobReference, $securityCode, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp){
+
+        $body = '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>'.$jobReference.'</p><p><strong>Service: </strong>'.$serviceName.'('.$categoryName.')</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦'.number_format($amount).'('.$serviceFeeName.')</p><p><strong>Date & Time:</strong> '.$timestamp.'</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>';
+
+        ClientMessage::create([
+            'sender_id'         =>  4, 
+            'recipient_id'      =>  Auth::id(), 
+            'subject'           =>  'Service Request('.$jobReference.')', 
+            'body'              =>  $body, 
+            'is_read'           =>  '0'
+        ]); 
+
+
+        
+
+    }
 }

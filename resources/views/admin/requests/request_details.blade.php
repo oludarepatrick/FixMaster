@@ -21,10 +21,13 @@
               <img src="{{ asset('assets/images/default-male-avatar.png') }}" class="avatar rounded-circle" alt="Male Avatar">
             </span>
             <div class="media-body mg-sm-l-20">
-              <h4 class="tx-18 tx-sm-20 mg-b-2">Femi Joseph</h4>
-              <p class="tx-13 tx-color-03 mg-b-0">08125456489</p>
+              <h4 class="tx-18 tx-sm-20 mg-b-2">{{ $requestDetail->user->fullName->name }}</h4>
+              <p class="tx-13 tx-color-03 mg-b-0">{{ $requestDetail->serviceRequestDetail->phone_number }}</p>
             </div>
           </div><!-- media -->
+        </div>
+        <div class="d-md-block">
+          <a href="{{ route('admin.requests') }}" class="btn btn-primary"><i data-feather="git-pull-request"></i> New Requests</a>
         </div>
       </div>
 
@@ -34,23 +37,31 @@
             <tbody>
               <tr>
                 <td class="tx-medium">Job Reference</td>
-                <td class="tx-color-03">REF-234094623496</td>
+                <td class="tx-color-03">{{ $requestDetail->job_reference }}</td>
               </tr>
               <tr>
                 <td class="tx-medium">Service Required</td>
-                <td class="tx-color-03">Mechanical (Generator)</td>
+                <td class="tx-color-03">{{ $requestDetail->service->name }} ({{ $requestDetail->category->name }})</td>
               </tr>
               <tr>
                 <td class="tx-medium">Scheduled Date & Time</td>
-                <td class="tx-color-03">May 15th 2020 at 11:30am</td>
+                <td class="tx-color-03">{{ $requestDetail->serviceRequestDetail->timestamp }}</td>
               </tr>
               <tr>
                 <td class="tx-medium">Service Charge</td>
-                <td class="tx-color-03">₦14,000 (Urgent Fee)</td>
+                <td class="tx-color-03">
+                  @if(!empty($requestDetail->serviceRequestDetail->discount_service_fee))
+                      ₦{{ number_format($requestDetail->serviceRequestDetail->discount_service_fee) }}
+                      <sup style="font-size: 10px;" class="text-success">Discount</sup>
+                  @else
+                      ₦{{ number_format($requestDetail->serviceRequestDetail->initial_service_fee) }}
+                  @endif 
+                  ({{ $requestDetail->serviceRequestDetail->service_fee_name }})
+                </td>
               </tr>
               <tr>
                 <td class="tx-medium">Security Code</td>
-                <td class="tx-color-03">SEC-02IW742BS83</td>
+                <td class="tx-color-03">{{ $requestDetail->security_code }}</td>
               </tr>
               <tr>
                 <td class="tx-medium">Payment Status</td>
@@ -58,67 +69,68 @@
               </tr>
               <tr>
                 <td class="tx-medium">L.G.A</td>
-                <td class="tx-color-03">Ibeju-Lekki</td>
+                <td class="tx-color-03">{{ $requestDetail->user->client->lga->name }}</td>
               </tr>
               <tr>
                 <td class="tx-medium">Town/City</td>
-                <td class="tx-color-03">Ibeju-Lekki</td>
+                <td class="tx-color-03">{{ $requestDetail->user->client->town }}</td>
               </tr>
               <tr>
                 <td class="tx-medium">Request Address</td>
-                <td class="tx-color-03">7, Abagbo Close, Victoria Island, Lagos, Nigeria</td>
+                <td class="tx-color-03">{{ $requestDetail->serviceRequestDetail->address }}</td>
               </tr>
               <tr>
                 <td class="tx-medium">Request Description</td>
-                <td class="tx-color-03">My generator just stopped working and it's refusing to come on. I need urgent repairs today.</td>
+                <td class="tx-color-03">{{ $requestDetail->serviceRequestDetail->description }}</td>
               </tr>
             </tbody>
           </table>
+
+          @if(!empty($requestDetail->serviceRequestDetail->media_file))
           <div class="divider-text">Media Files</div>
-
-          <div class="row">
-            <div class="pd-20 pd-lg-25 pd-xl-30">
-  
-              <div class="row row-xs">
-                <div class="col-6 col-sm-6 col-md-6 col-xl mg-t-10 mg-sm-t-0">
-                  <div class="card card-file">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a href="" class="dropdown-item download"><i data-feather="download"></i>View</a>
+            <div class="row">
+              <div class="pd-20 pd-lg-25 pd-xl-30">
+    
+                <div class="row row-xs">
+                  <div class="col-6 col-sm-6 col-md-6 col-xl mg-t-10 mg-sm-t-0">
+                    <div class="card card-file">
+                      <div class="dropdown-file">
+                        <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a href="" class="dropdown-item download"><i data-feather="download"></i>View</a>
+                        </div>
+                      </div><!-- dropdown -->
+                      <div class="card-file-thumb tx-indigo">
+                        <i class="far fa-file-image"></i>
                       </div>
-                    </div><!-- dropdown -->
-                    <div class="card-file-thumb tx-indigo">
-                      <i class="far fa-file-image"></i>
-                    </div>
-                    <div class="card-body">
-                      <h6><a href="" class="link-02">IMG_063037.jpg</a></h6>
-                      <span>4.1mb</span>
-                    </div>
-                  </div>
-                </div><!-- col -->
-                <div class="col-6 col-sm-6 col-md-6 col-xl mg-t-10 mg-xl-t-0">
-                  <div class="card card-file">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a href="" class="dropdown-item download"><i data-feather="download"></i>View</a>
+                      <div class="card-body">
+                      <h6><a href="" class="link-02">{{ $requestDetail->serviceRequestDetail->media_file }}</a></h6>
+                        {{-- <span>4.1mb</span> --}}
                       </div>
-                    </div><!-- dropdown -->
-                    <div class="card-file-thumb tx-primary">
-                      <i class="far fa-file-video"></i>
                     </div>
-                    <div class="card-body">
-                      <h6><a href="" class="link-02">VID_063037.mp4</a></h6>
-                      <span>12mb</span>
+                  </div><!-- col -->
+                  {{-- <div class="col-6 col-sm-6 col-md-6 col-xl mg-t-10 mg-xl-t-0">
+                    <div class="card card-file">
+                      <div class="dropdown-file">
+                        <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a href="" class="dropdown-item download"><i data-feather="download"></i>View</a>
+                        </div>
+                      </div><!-- dropdown -->
+                      <div class="card-file-thumb tx-primary">
+                        <i class="far fa-file-video"></i>
+                      </div>
+                      <div class="card-body">
+                        <h6><a href="" class="link-02">VID_063037.mp4</a></h6>
+                        <span>12mb</span>
+                      </div>
                     </div>
-                  </div>
-                </div><!-- col -->
-              </div><!-- row -->
-              
+                  </div> --}}
+                </div><!-- row -->
+                
+              </div>
             </div>
-          </div>
-
+          @endif
           <div class="divider-text">Assign CSE & Technician</div>
 
           <div class="form-row">

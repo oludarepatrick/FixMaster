@@ -33,6 +33,6 @@ class ClientRegistrationEmail extends Mailable
         // return $this->from(env('MAIL_USERNAME'), 'Al-Daar Marriage Service')->subject('Welcome to Al-Daar Marriage Service')->view('mail.email-confirmation-body', compact('data'));
         $token_url = 'http://localhost:8000/client-email-verify?token='.$this->data['email_verification_token'];
 
-        return $this->from('xanderxapex@gmail.com', 'FixMaster - We Fix, You Relax!')->subject('Welcome to FixMaster!')->markdown('mail.client_registered', compact('data', 'token_url'));
+        return $this->from('test@ninthbinary.com', 'FixMaster - Welcome to FixMaster!')->subject('Welcome to FixMaster!')->markdown('mail.client_registered', compact('data', 'token_url'));
     }
 }

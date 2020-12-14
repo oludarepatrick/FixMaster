@@ -35,7 +35,7 @@
                 </div>
                 <div class="media-body">
                   <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold tx-nowrap mg-b-5 mg-md-b-8">Total Requests</h6>
-                  <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">4</h4>
+                <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">{{ $serviceRequests->count() }}</h4>
                 </div>
               </div>
               
@@ -51,83 +51,38 @@
                   <th>Phone Number</th>
                   <th class="text-center">Amount</th>
                   <th>Status</th>
-                  <th class="text-center">Date</th>
+                  <th>Scheduled Date</th>
                   <th class=" text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="tx-color-03 tx-center">1</td>
-                  <td class="tx-medium">REF-234094623496</td>
-                  <td class="tx-medium">Femi Joseph</td>
-                  <td class="tx-medium">08125456489</td>
-                  <td class="text-medium text-center">₦14,000</td>
-                  <td class="text-medium text-success">Paid</td>
-                  <td class="text-medium">May 15th 2020 at 11:30am</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.request_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
+                @foreach ($serviceRequests as $serviceRequest)
+                  <tr>
+                  <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                  <td class="tx-medium">{{ $serviceRequest->job_reference }}</td>
+                    <td class="tx-medium">{{ $serviceRequest->user->fullName->name }}</td>
+                    <td class="tx-medium">{{ $serviceRequest->serviceRequestDetail->phone_number }}</td>
+                    <td class="text-medium text-center">
+                      @if(!empty($serviceRequest->serviceRequestDetail->discount_service_fee))
+                          ₦{{ number_format($serviceRequest->serviceRequestDetail->discount_service_fee) }}
+                          <span style="font-size: 10px;" class="text-success">Discount</span>
+                      @else
+                          ₦{{ number_format($serviceRequest->serviceRequestDetail->initial_service_fee) }}
+                      @endif
+                    </td>
+                    <td class="text-medium text-success">Paid</td>
+                    <td class="text-medium">{{ $serviceRequest->serviceRequestDetail->timestamp ?? '' }}</td>
+                    <td class=" text-center">
+                      <div class="dropdown-file">
+                        <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                        <a href="{{ route('admin.request_details', $serviceRequest->id) }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="tx-color-03 tx-center">2</td>
-                  <td class="tx-medium">REF-094009623412</td>
-                  <td class="tx-medium">Derrick Nnamdi</td>
-                  <td class="tx-medium">09038652973</td>
-                  <td class="text-medium text-center">₦25,000</td>
-                  <td class="text-medium text-success">Paid</td>
-                  <td class="text-medium">May 12th 2020 at 8:26pm</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a href="{{ route('admin.request_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="tx-color-03 tx-center">3</td>
-                  <td class="tx-medium">REF-237290223123</td>
-                  <td class="tx-medium">William Olukayode</td>
-                  <td class="tx-medium">07052983091</td>
-                  <td class="text-medium text-center">₦12,800</td>
-                  <td class="text-medium text-warning">Pending</td>
-                  <td class="text-medium">May 11th 2020 at 09:12am</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a href="{{ route('admin.request_details') }}"class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="tx-color-03 tx-center">4</td>
-                  <td class="tx-medium">REF-234094623496</td>
-                  <td class="tx-medium">Mobolaji Adetoun</td>
-                  <td class="tx-medium">08037628192</td>
-                  <td class="text-medium text-center">₦6,500</td>
-                  <td class="text-medium text-success">Paid</td>
-                  <td class="text-medium">May 11th 2020 at 8:19am</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a href="{{ route('admin.request_details') }}"class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-
+                    </td>
+                  </tr>
+                @endforeach
+                
               </tbody>
             </table>
           </div><!-- table-responsive -->

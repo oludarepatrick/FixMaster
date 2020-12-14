@@ -96,9 +96,11 @@ Route::middleware(['clientRole'])->group(function() {
         Route::get('/services/quote/{url}',                                     [App\Http\Controllers\ClientDashboardController::class, 'serviceQuote'])->name('client.service_quote');
         Route::get('/services/details/{url}',                                     [App\Http\Controllers\ClientDashboardController::class, 'serviceDetails'])->name('client.services_details');
         Route::post('/services/quote/store',                                     [App\Http\Controllers\ServiceRequestController::class, 'store'])->name('client.book_services');
-        // Route::view('/service-details', 		'client.service_details')->name('client.services_details');
-        Route::view('/requests', 	            'client.requests')->name('client.requests');
-        Route::view('/requests/details', 	    'client.request_details')->name('client.request_details');
+        Route::get('/requests',                    [App\Http\Controllers\ClientRequestController::class, 'index'])->name('client.requests');
+        Route::get('/requests/details/{ref}',                    [App\Http\Controllers\ClientRequestController::class, 'requestDetails'])->name('client.request_details');
+
+        // Route::view('/requests', 	            'client.requests')->name('client.requests');
+        // Route::view('/requests/details', 	    'client.request_details')->name('client.request_details');
         Route::view('/requests/invoice', 	    'client.request_invoice')->name('client.request_invoice');
         Route::view('/payments', 	            'client.payments')->name('client.payments');
         Route::view('/wallet', 	                'client.wallet')->name('client.wallet');
@@ -154,8 +156,10 @@ Route::prefix('technician')->group(function () {
                 Route::post('/activity-log/sorting',                [App\Http\Controllers\ActivityLogController::class, 'sortActivityLog'])->name('activity_log_sorting_users');
                 Route::get('/activity-log/details/{id}',            [App\Http\Controllers\ActivityLogController::class, 'activityLogDetails'])->name('activity_log_details');
 
-                Route::view('/requests', 	                        'admin.requests.requests')->name('requests');
-                Route::view('/requests/details/new', 	            'admin.requests.request_details')->name('request_details');
+                Route::get('/requests',                    [App\Http\Controllers\AdminRequestController::class, 'index'])->name('requests');
+                Route::get('/requests/details/new/{ref}',                    [App\Http\Controllers\AdminRequestController::class, 'requestDetails'])->name('request_details');
+                // Route::view('/requests', 	                        'admin.requests.requests')->name('requests');
+                // Route::view('/requests/details/new', 	            'admin.requests.request_details')->name('request_details');
                 Route::view('/requests/details/ongoing', 	        'admin.requests.request_ongoing_details')->name('request_ongoing_details');
                 Route::view('/requests/details/completed', 	        'admin.requests.request_completed_details')->name('request_completed_details');
                 Route::view('/requests/ongoing', 	                'admin.requests.requests_ongoing')->name('requests_ongoing');

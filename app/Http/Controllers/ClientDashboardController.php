@@ -37,20 +37,26 @@ class ClientDashboardController extends Controller
 
         $totalRequests = $user->requests()->count();
 
+        $userServiceRequests = Auth::user()->requests()->orderBy('created_at', 'DESC')->take(3)->get();
+
+        $cseName = Name::get();
+
         //client_project_status 1 =>Pending, 2 =>Ongoing, 3 =>Completed, 4 =>Cancelled
-        $completedRequests = ServiceRequest::where('client_project_status', '3')->get()->count();
-        $cancelledRequests = ServiceRequest::where('client_project_status', '4')->get()->count();
+        $completedRequests = ServiceRequest::where('client_project_status', 'Completed')->get()->count();
+        $cancelledRequests = ServiceRequest::where('client_project_status', 'Cancelled')->get()->count();
 
         $popularRequests = Category::select('name', 'standard_fee', 'url', 'image')
         ->take(10)->get()->random(3);
 
         $data  = [
-            'user'              =>  $user,
-            'client'            =>  $client,
-            'totalRequests'     =>  $totalRequests,
-            'completedRequests' =>  $completedRequests,
-            'cancelledRequests' =>  $cancelledRequests,
-            'popularRequests'   =>  $popularRequests,
+            'user'                  =>  $user,
+            'client'                =>  $client,
+            'totalRequests'         =>  $totalRequests,
+            'completedRequests'     =>  $completedRequests,
+            'cancelledRequests'     =>  $cancelledRequests,
+            'popularRequests'       =>  $popularRequests,
+            'userServiceRequests'   =>  $userServiceRequests,
+            'cseName'               =>  $cseName,
         ];
 
         return view('client.home', $data);
@@ -145,7 +151,8 @@ class ClientDashboardController extends Controller
             'middle_name'       =>  $request->input('middle_name'),
             'last_name'         =>  $request->input('last_name'),
             'phone_number'      =>  $request->input('phone_number'),
-            'town'              =>  $request->input('phone_number'),
+            'town'              =>  $request->input('town'),
+            'full_address'      =>  $request->input('full_address'),
         ]);
 
         //Update User record on `names` table

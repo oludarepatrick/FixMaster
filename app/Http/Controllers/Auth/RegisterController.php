@@ -261,11 +261,24 @@ class RegisterController extends Controller
         }
 
         if($user != null){
+
+            MailController::newClientDiscountMail($user->email, $user->fullName->name);
+            
             $user->is_email_verified = '1';
             $user->email_verified_at = \Carbon\Carbon::now();
             $user->is_active = '1';
 
             $user->save();
+
+            $body = '<h1>Congratulations! You have just earned a 5% discount on your first job booking</h1><p>We are very excited you joined the most compelling community of FixMaster satisfied customers! As you already know, excellent quality service, rewards, and savings have always been a vital part of FixMaster\'s success.</p><p> Having said so, we constantly cater to our customers\' best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>For registering with FixMaster, you have been rewarded with a discount on your first job booking which entitles you to a 5% discount off your booking fee.</p><p><strong>PLEASE NOTE THAT THIS DISCOUNT IS ONLY APPLICABLE FOR YOUR FIRST JOB BOOKING</strong></p><p>Should you require further assistance, please do not hesitate to contact us immediately on <strong>08132863878</strong>. We are here to serve you; 24-hours, 7 days a week.</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>';
+
+            ClientMessage::create([
+                'sender_id'         =>  4, 
+                'recipient_id'      =>  $user->id, 
+                'subject'           =>  'Congratulations! You have earned a discount', 
+                'body'              =>  $body, 
+                'is_read'           =>  '0'
+            ]); 
 
             //Record crurrenlty logged in user activity
             $this->addRecord = new RecordActivityLogController();

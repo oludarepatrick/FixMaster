@@ -19,33 +19,38 @@
                 <div class="row" id="pills-tab" role="tablist">
                     <ul class="nav nav-pills bg-white nav-justified flex-column mb-0" id="pills-tab" role="tablist">
                         <li class="nav-item bg-light rounded-md">
-                            <a class="nav-link rounded-md" id="dashboard" data-toggle="pill" href="#dash-board" role="tab" aria-controls="dash-board" aria-selected="false">
+                            <a class="nav-link rounded-md @if(old('service_fee') == $serviceQuote->standard_fee) active @endif"  id="dashboard" data-toggle="pill" href="#dash-board" role="tab" aria-controls="dash-board" aria-selected="false">
                                 <div class="p-3 text-left">
                                 <h5 class="title">Standard: ₦{{ number_format($serviceQuote->standard_fee) }}</h5>
                                     <p class="text-muted tab-para mb-0">Your job will be evaluated by a CSE and technician within a maximum period of 8 hours.</p>
-                                    <input type="radio" id="service-fee-radio" name="service_fee" value="{{ $serviceQuote->standard_fee }}" class="custom-control-input service-fee">
+                                    <input type="radio" id="service-fee-radio" name="service_fee" value="{{ $serviceQuote->standard_fee }}" class="custom-control-input service-fee" @if(old('service_fee') == $serviceQuote->standard_fee) checked @endif>
+
+                                    <input type="radio" id="service-fee-radio" name="service_fee_name" value="Standard" class="custom-control-input service-fee-name" @if(old('service_fee') == $serviceQuote->standard_fee) checked @endif>
 
                                 </div>
                             </a><!--end nav link-->
                         </li><!--end nav item-->
                         
                         <li class="nav-item bg-light rounded-md mt-4">
-                            <a class="nav-link rounded-md urgent" id="timeline" data-toggle="pill" href="#time-line" role="tab" aria-controls="time-line" aria-selected="false">
+                            <a class="nav-link rounded-md urgent @if(old('service_fee') == $serviceQuote->urgent_fee) active @endif" id="timeline" data-toggle="pill" href="#time-line" role="tab" aria-controls="time-line" aria-selected="false">
                                 <div class="p-3 text-left">
                                 <h5 class="title">Urgent - ₦{{ number_format($serviceQuote->urgent_fee) }}</h5>
                                     <p class="text-muted tab-para mb-0">Your job will be evaluated by a CSE and technician within a maximum period of 2 hours</p>
-                                    <input type="radio" id="service-fee-radio" name="service_fee" value="{{ $serviceQuote->urgent_fee }}" class="custom-control-input service-fee">
+                                    <input type="radio" id="service-fee-radio" name="service_fee" value="{{ $serviceQuote->urgent_fee }}" class="custom-control-input service-fee" @if(old('service_fee') == $serviceQuote->urgent_fee) checked @endif>
 
+                                    <input type="radio" id="service-fee-radio" name="service_fee_name" value="Urgent" class="custom-control-input service-fee-name" @if(old('service_fee') == $serviceQuote->urgent_fee) checked @endif>
                                 </div>
                             </a><!--end nav link-->
                         </li><!--end nav item-->
                         
                         <li class="nav-item bg-light rounded-md mt-4">
-                            <a class="nav-link rounded-md" id="paymentmanagement" data-toggle="pill" href="#payment-management" role="tab" aria-controls="payment-management" aria-selected="false">
+                            <a class="nav-link rounded-md @if(old('service_fee') == $serviceQuote->ooh_fee) active @endif" id="paymentmanagement" data-toggle="pill" href="#payment-management" role="tab" aria-controls="payment-management" aria-selected="false">
                                 <div class="p-3 text-left">
                                 <h5 class="title">Out of Hours - ₦{{ number_format($serviceQuote->ooh_fee) }}</h5>
                                     <p class="text-muted tab-para mb-0">Our normal working Hours is 7AM to 7PM. A CSE and technician will evaluate your job within a maximum period of 2 hours</p>
-                                    <input type="radio" id="service-fee-radio" name="service_fee" value="{{ $serviceQuote->ooh_fee }}" class="custom-control-input service-fee">
+                                    <input type="radio" id="service-fee-radio" name="service_fee" value="{{ $serviceQuote->ooh_fee }}" class="custom-control-input service-fee" @if(old('service_fee') == $serviceQuote->ooh_fee) checked @endif>
+
+                                    <input type="radio" id="service-fee-radio" name="service_fee_name" value="Out of Hours" class="custom-control-input service-fee-name" @if(old('service_fee') == $serviceQuote->ooh_fee) checked @endif>
 
                                 </div>
                             </a><!--end nav link-->
@@ -82,8 +87,9 @@
                     </div><!--end col-->
                     <div class="col-md-6">
                         <div class="form-group position-relative">
-                            <label>Upload media for evaluation <span class="text-danger">(Optional)</span> :</label>
-                            <input type="file" class="form-control-file btn btn-primary btn-sm" id="fileupload" name="media_file">
+                            <label>Upload file for evaluation <span class="text-danger">(Optional)</span> :</label>
+                            <input type="file" class="form-control-file btn btn-primary btn-sm" id="fileupload" name="media_file" accept="image/*,.txt,.doc,.docx,.pdf">
+                            <small style="font-size: 10px;" class="text-muted">File must not be more than 2MB</small>
                         </div>                                                                               
                     </div><!--end col-->
 
@@ -102,7 +108,7 @@
                         <div class="form-group position-relative d-none display-phone">
                             <label>Your Phone no. :<span class="text-danger">*</span></label>
                             <i data-feather="phone" class="fea icon-sm icons"></i>
-                            <input name="alternate_phone_number" id="alternate_phone_number" type="tel" class="form-control pl-5 @error('alternate_phone_number') is-invalid @enderror" placeholder="Your Phone No. :" maxlength="11" value="{{ old('alternate_phone_number') }}">
+                            <input name="alternate_phone_number" id="alternate_phone_number" type="tel" class="form-control pl-5 @error('alternate_phone_number') is-invalid @enderror" placeholder="Your Phone No. :" maxlength="11" value="{{ old('alternate_phone_number') }}" autocomplete="off">
                             @error('alternate_phone_number')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -115,19 +121,19 @@
                         <label>Address:<span class="text-danger">*</span></label>
 
                         <div class="custom-control custom-checkbox form-group position-relative">
-                            <input type="radio" id="customRadio3" name="address" class="custom-control-input">
+                            <input type="radio" id="customRadio3" name="address" class="custom-control-input" value="yes">
                             <label class="custom-control-label" for="customRadio3">Use my saved Address</label>
                         </div>
                     
                         <div class="custom-control custom-checkbox form-group position-relative">
-                            <input type="radio" id="customRadio4" name="address" class="custom-control-input">
+                            <input type="radio" id="customRadio4" name="address" class="custom-control-input" value="no">
                             <label class="custom-control-label" for="customRadio4">No, I have another Address</label>
                         </div>
 
                         <div class="form-group position-relative d-none display-address">
                             <label>Address</label>
                             <i data-feather="map-pin" class="fea icon-sm icons"></i>
-                            <textarea name="alternate_address" id="alternate_address" rows="4" class="form-control pl-5" placeholder="Address of where the service is required">{{ old('alternate_address') }}</textarea>
+                            <textarea name="alternate_address" id="alternate_address" rows="4" class="form-control pl-5 @error('alternate_address') is-invalid @enderror"" placeholder="Address of where the service is required">{{ old('alternate_address') }}</textarea>
                             @error('alternate_address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -143,21 +149,21 @@
                             
                         <div class="col-md-4 form-group">
                             <div class="custom-control custom-checkbox form-group position-relative">
-                                <input type="radio" id="customRadio5" name="payment_method" class="custom-control-input" value="wallet" >
+                                <input type="radio" id="customRadio5" name="payment_method" class="custom-control-input" value="Wallet" @if(old('payment_method') == 'Wallet') checked @endif>
                                 <label class="custom-control-label" for="customRadio5">E-Wallet</label>
                             </div>
                         </div>
 
                         <div class="col-md-4 form-group">
                             <div class="custom-control custom-checkbox form-group position-relative">
-                                <input type="radio" id="customRadio6" name="payment_method" class="custom-control-input" value="online">
+                                <input type="radio" id="customRadio6" name="payment_method" class="custom-control-input" value="Online" @if(old('payment_method') == 'Online') checked @endif>
                                 <label class="custom-control-label" for="customRadio6">Pay Online</label>
                             </div>
                         </div>
                         
                         <div class="col-md-4 form-group">
                             <div class="custom-control custom-checkbox form-group position-relative">
-                                <input type="radio" id="customRadio7" name="payment_method" class="custom-control-input popup-modal" data-target="modal" href="#offline-payment-modal" value="offline">
+                                <input type="radio" id="customRadio7" name="payment_method" class="custom-control-input popup-modal" data-target="modal" href="#offline-payment-modal" value="Offline" @if(old('payment_method') == 'Offline') checked @endif>
                                 <label class="custom-control-label" for="customRadio7">Pay Offline</label>
                             </div>
                         </div>
@@ -220,6 +226,7 @@
             // console.log($(this).find('.service-fee').val());
 
             $(this).find('.service-fee').prop('checked', true);
+            $(this).find('.service-fee-name').prop('checked', true);
 
         });
 
