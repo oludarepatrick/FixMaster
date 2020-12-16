@@ -9,7 +9,7 @@ class Profession extends Model
 {
     use HasFactory;
 
-    // public $table = "professions";
+    public $table = "professions";
 
     public $timestamps = false;
 

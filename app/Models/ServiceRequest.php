@@ -16,7 +16,7 @@ class ServiceRequest extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'admin_id', 'cse_id', 'technician_id', 'service_id', 'category_id', 'client_project_status',
+        'user_id', 'admin_id', 'cse_id', 'technician_id', 'service_id', 'category_id', 'job_reference', 'security_code', 'client_project_status',
     ];
 
     public function user()
@@ -29,24 +29,59 @@ class ServiceRequest extends Model
         return $this->hasMany(User::class, 'user_id')->withDefault();
     }
 
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'admin_id')->withDefault();
+    }
+
+    public function admins()
+    {
+        return $this->hasMany(Admin::class, 'admin_id')->withDefault();
+    }
+
+    public function cse()
+    {
+        return $this->hasOne(CSE::class, 'user_id', 'cse_id')->withDefault();
+    }
+
+    public function cses()
+    {
+        return $this->hasMany(CSE::class, 'cse_id')->withDefault();
+    }
+
+    public function technician()
+    {
+        return $this->belongsTo(CSE::class, 'cse_id')->withDefault();
+    }
+
+    public function technicians()
+    {
+        return $this->hasMany(CSE::class, 'cse_id')->withDefault();
+    }
+
     public function service()
     {
-        return $this->belongsTo(Service::class, 'service_id')->withDefault();
+        return $this->belongsTo(Service::class, 'service_id');
     }
 
     public function services()
     {
-        return $this->belongsToMany(Service::class, 'service_id')->withDefault();
+        return $this->belongsToMany(Service::class, 'service_id');
     }
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id')->withDefault();
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_id')->withDefault();
+        return $this->belongsToMany(Category::class, 'category_id');
+    }
+
+    public function serviceRequestDetail()
+    {
+        return $this->hasOne(ServiceRequestDetail::class, 'service_request_id');
     }
     
 }

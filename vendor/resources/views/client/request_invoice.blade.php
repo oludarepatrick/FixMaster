@@ -11,7 +11,7 @@
                             <div class="invoice-top pb-4 border-bottom">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" class="l-dark" style="margin-top: -38px !important;" height="140" alt="FixMaster logo">
+                                        <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" class="l-dark" style="margin-top: -38px !important;" height="140" alt="FixMaster Logo">
 
                                         <div class="logo-invoice mb-2">Fix<span class="text-primary">Master</span></div>
                                     <a href="{{ route('page.home') }}" class="text-primary h6"><i data-feather="link" class="fea icon-sm text-muted mr-2"></i>www.homefix.ng</a>

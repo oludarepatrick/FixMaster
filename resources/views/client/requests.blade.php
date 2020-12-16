@@ -2,7 +2,7 @@
 @section('title', 'Requests')
 @section('content')
 <div class="col-lg-8 col-12">
-    <h5 class="mb-0">Service Request Overview</h5>
+    <h5 class="mb-0 mt-4">Service Request Overview</h5>
     <div class="table-responsive mt-4 bg-white rounded shadow">
         <div class="row mt-1 mb-1 ml-1 mr-1">
                 <div class="col-md-4">
@@ -78,83 +78,69 @@
             <thead>
                 <tr>
                     <th class="py-3">#</th>
-                    <th class="py-3">Service</th>
+                    <th class="py-3">Service Ref.</th>
                     <th class="py-3">CSE</th>
-                    <th class="py-3">Date</th>
+                    <th class="py-3">Scheduled Date</th>
                     <th class="py-3">Amount</th>
+                    <th class="py-3">Fee Type</th>
                     <th class="py-3">Status</th>
                     <th class="py-3">Action</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Generator</td>
-                    <td>Andrew Nwankwo</td>
-                    <td>15/05/2020</td>
-                    <td class="font-weight-bold">₦14,000</td>
-                    <td class="text-warning">Pending</td>
-                    <td>
-                        <div class="btn-group dropdown-primary mr-2 mt-2">
-                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action
-                            </button>
-                            <div class="dropdown-menu">
-                                <a href="{{ route('client.request_details') }}" class="dropdown-item text-primary"><i data-feather="clipboard" class="fea icon-sm"></i> View Details</a>
-                                <a href="{{ route('client.request_details') }}" class="dropdown-item text-info"><i data-feather="edit" class="fea icon-sm"></i> Edit Request</a>
-                                <a href="{{ route('client.request_invoice') }}" class="dropdown-item text-success"><i data-feather="file-text" class="fea icon-sm"></i> View Invoice</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item text-danger cancel_request"><i data-feather="x" class="fea icon-sm"></i> Cancel Request</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                @foreach ($userServiceRequests as $userServiceRequest)
+                {{-- {{ dd($userServiceRequest->serviceRequestDetail->timestamp) }} --}}
+                    <tr>
+                        <td class="text-center">{{ ++$i }}</td>
+                        <td>{{ $userServiceRequest->job_reference }}</td>
+                        <td>{{ $createdBy->find($userServiceRequest->cse_id)->name ?? 'Not Assigned' }}</td>
+                        <td>{{ $userServiceRequest->serviceRequestDetail->timestamp ?? '' }}</td>
+                        <td class="font-weight-bold text-center">
+                            @if(!empty($userServiceRequest->serviceRequestDetail->discount_service_fee))
+                                ₦{{ number_format($userServiceRequest->serviceRequestDetail->discount_service_fee) }}
+                                <sup style="font-size: 10px;" class="text-success">Discount</sup>
+                            @else
+                                ₦{{ number_format($userServiceRequest->serviceRequestDetail->initial_service_fee) }}
+                            @endif
+                        </td>
+                        @if($userServiceRequest->client_project_status == 'Pending')
+                            <td class="text-warning">Pending</td>
+                        @elseif($userServiceRequest->client_project_status == 'Ongoing')
+                            <td class="text-info">Ongoing</td>
+                        @elseif($userServiceRequest->client_project_status == 'Completed')
+                            <td class="text-success">Completed</td>
+                        @elseif($userServiceRequest->client_project_status == 'Cancelled')
+                            <td class="text-danger">Cancelled</td>
+                        @endif
+                        <td>{{ $userServiceRequest->serviceRequestDetail->service_fee_name }}</td>
+                        <td>
+                            
+                            <div class="btn-group dropdown-primary mr-2 mt-2">
+                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Action
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a href="{{ route('client.request_details', $userServiceRequest->id) }}" class="dropdown-item text-primary"><i data-feather="clipboard" class="fea icon-sm"></i> View Details</a>
+                                    @if($userServiceRequest->client_project_status == 'Pending')
+                                        <a href="#" class="dropdown-item text-info"><i data-feather="edit" class="fea icon-sm"></i> Edit Request</a>
+                                    @endif
+                                    <a href="{{ route('client.request_invoice') }}" class="dropdown-item text-success"><i data-feather="file-text" class="fea icon-sm"></i> View Invoice</a>
+                                    @if($userServiceRequest->client_project_status != 'Completed')
+                                        <div class="dropdown-divider"></div>
+                                        @if($userServiceRequest->client_project_status != 'Cancelled')
+                                            <a href="javascript:void(0)" class="dropdown-item text-danger cancel_request"><i data-feather="x" class="fea icon-sm"></i> Cancel Request</a>
+                                        @else
+                                            <a href="javascript:void(0)" class="dropdown-item text-success cancel_request"><i data-feather="corner-up-left" class="fea icon-sm"></i> Reinstate Request</a>
+                                        @endif
+                                    @endif
 
-                <tr>
-                    <td>2</td>
-                    <td>Security Equipment</td>
-                    <td>Bidemi George</td>
-                    <td>12/03/2020</td>
-                    <td class="font-weight-bold">₦48,740</td>
-                    <td class="text-success">Completed</td>
-                    <td>
-                        <div class="btn-group dropdown-primary mr-2 mt-2">
-                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action
-                            </button>
-                            <div class="dropdown-menu">
-                                <a href="{{ route('client.request_details') }}" class="dropdown-item text-primary"><i data-feather="clipboard" class="fea icon-sm"></i> View Details</a>
-                                <a href="{{ route('client.request_invoice') }}" class="dropdown-item text-success"><i data-feather="file-text" class="fea icon-sm"></i> View Invoice</a>
-                                {{-- <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item text-danger"><i data-feather="trash-2" class="fea icon-sm"></i> Delete</a> --}}
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>3</td>
-                    <td>Furniture & Painting</td>
-                    <td>Taofeek Adedokun</td>
-                    <td>8/03/2020</td>
-                    <td class="font-weight-bold">₦22,500</td>
-                    <td class="text-danger">Cancelled</td>
-                    <td>
-                        <div class="btn-group dropdown-primary mr-2 mt-2">
-                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action
-                            </button>
-                            <div class="dropdown-menu">
-                                <a href="{{ route('client.request_details') }}" class="dropdown-item text-primary"><i data-feather="clipboard" class="fea icon-sm"></i> View Details</a>
-                                <a href="#" class="dropdown-item text-success"><i data-feather="corner-right-up" class="fea icon-sm"></i> Reactivate</a>
-                                {{-- <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item text-danger"><i data-feather="trash-2" class="fea icon-sm"></i> Delete</a> --}}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-               
+                        </td>
+                    </tr>
+                @endforeach
+                
             </tbody>
         </table>
     </div>

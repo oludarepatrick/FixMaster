@@ -218,8 +218,8 @@
           },
           // return the result
           success: function(result) {
-              $('#modal-body').html('');
               $('#modal-body').modal("show");
+              $('#modal-body').html('');
               $('#modal-body').html(result).show();
           },
           complete: function() {

@@ -1,5 +1,6 @@
 <!-- START CSE SIDEBAR MENU -->
-@if(Route::currentRouteNamed('cse.home', 'cse.requests', 'cse.requests_ongoing', 'cse.requests_completed', 'cse.requests_cancelled', 'cse.request_details', 'cse.request_ongoing_details', 'cse.request_completed_details', 'cse.payments', 'cse.messages', 'cse.messages_sent', 'cse.view_profile', 'cse.edit_profile', 'cse.technicians', 'cse.technicians_profile', 'cse.location_request'))
+@if($user->designation === '[CSE_ROLE]')
+
 <aside class="aside aside-fixed" id="sidebarMenu">
   <div class="aside-header">
       <a href="{{ route('cse.home')}}" class="aside-logo">
@@ -25,7 +26,7 @@
       </div>
       <div class="aside-loggedin-user">
         <a href="#loggedinMenu" class="d-flex align-items-center justify-content-between mg-b-2" data-toggle="collapse">
-          <h6 class="tx-semibold mg-b-0">Godfrey Diwa</h6>
+          <h6 class="tx-semibold mg-b-0">{{ $user->fullName->name }}</h6>
           <i data-feather="chevron-down"></i>
         </a>
         {{-- <p class="tx-color-03 tx-12 mg-b-0">Ludwig Enterprise (CSE)</p> --}}
@@ -88,7 +89,8 @@
 <!-- END CSE SIDEBAR MENU -->
 
 <!-- START TECHINICIAN SIDEBAR MENU -->
-@if(Route::currentRouteNamed('technician.home', 'technician.requests', 'technician.request_details', 'technician.payments', 'technician.messages', 'technician.messages_sent', 'technician.view_profile', 'technician.edit_profile', 'technician.location_request'))
+@if($user->designation === '[TECHNICIAN_ROLE]')
+
 <aside class="aside aside-fixed" id="sidebarMenu">
   <div class="aside-header">
       <a href="{{ route('technician.home')}}" class="aside-logo">
@@ -113,7 +115,7 @@
       </div>
       <div class="aside-loggedin-user">
         <a href="#loggedinMenu" class="d-flex align-items-center justify-content-between mg-b-2" data-toggle="collapse">
-          <h6 class="tx-semibold mg-b-0">Andrew Nwankwo</h6>
+          <h6 class="tx-semibold mg-b-0">{{ $user->fullName->name }}</h6>
           <i data-feather="chevron-down"></i>
         </a>
         {{-- <p class="tx-color-03 tx-12 mg-b-0">Ludwig Enterprise (TECHNICIAN)</p> --}}
@@ -155,11 +157,8 @@
 </aside>
 @endif
 <!-- END TECHINICIAN SIDEBAR MENU -->
-{{-- {{ dd($user->adminPermissions) }} --}}
 
 <!-- START ADMIN SIDEBAR MENU -->
-{{-- @if(Route::currentRouteNamed('admin.home', 'admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details', 'admin.payments', 'admin.messages', 'admin.messages_sent', 'admin.view_profile', 'admin.edit_profile', 'admin.technicians', 'admin.technicians_profile', 'admin.add_admin', 'admin.list_admin', 'admin.summary_admin', 'admin.edit_admin', 'admin.activity_log_admin', 'admin.add_cse', 'admin.list_cse', 'admin.summary_cse', 'admin.edit_cse', 'admin.activity_log_cse', 'admin.list_client', 'admin.summary_client', 'admin.utility_reset_password', 'admin.utility_project_status', 'admin.utility_verify_payment', 'admin.add_technician', 'admin.list_technician', 'admin.summary_technician', 'admin.edit_technician', 'admin.activity_log_technician', 'admin.add_franchise', 'admin.edit_franchise', 'admin.list_franchise', 'admin.tools_request', 'admin.tools_inventory', 'admin.rfq', 'admin.services', 'admin.add_category', 'admin.edit_category', 'admin.list_category', 'admin.review_category', 'admin.disbursed_payments', 'admin.received_payments', 'admin.category_ratings', 'admin.job_ratings', 'admin.location_request', 'admin.add_payment_gateway', 'admin.list_payment_gateway', 'admin.edit_payment_gateway')) --}}
-{{-- {{ dd($user) }} --}}
 @if($user->designation === '[SUPER_ADMIN_ROLE]' || $user->designation === '[ADMIN_ROLE]')
 <aside class="aside aside-fixed" id="sidebarMenu">
   <div class="aside-header">

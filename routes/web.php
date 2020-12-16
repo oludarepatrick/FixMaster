@@ -51,12 +51,18 @@ Route::get('details', function () {
    
 });
 
-// Route::get('/login',                        'Auth\LoginController@index')->name('login');
-Route::view('/register', 			        'auth.register')->name('register');
-Route::get('/login',                       [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('login');
-// Route::post('/register',                'Auth\RegisterController@userRegistration')->name('register');
-// Route::get('/email-verify',             'Auth\RegisterController@verifyUserEmail')->name('verify.user_email');
+Route::get('/email', function () {
+    return new ClientRegistrationEmail();
+});
+
+//Client registraion routes
+Route::get('/register',                    [App\Http\Controllers\Auth\RegisterController::class, 'index'])->name('register');
+Route::post('/register',                   [App\Http\Controllers\Auth\RegisterController::class, 'registerClient'])->name('client.register');
+Route::get('/client-email-verify',         [App\Http\Controllers\Auth\RegisterController::class, 'verifyClientEmail'])->name('client.verify_email');
+
+//Users login, verification, logout and dashboard routes
 Route::get('/home',                         [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/login',                        [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('login');
 Route::post('/verify-credentials',          [App\Http\Controllers\Auth\LoginController::class, 'verifyCredentials'])->name('verify_credentials');
 Route::get('/logout',                       [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
@@ -68,25 +74,39 @@ Route::view('/why-home-fix', 		        'page.why_home_fix')->name('page.why_home
 Route::view('/join-us', 			        'page.careers')->name('page.careers');
 Route::view('/faq', 			            'page.faq')->name('page.faq');
 Route::view('/contact-us', 			        'page.contact')->name('page.contact');
-Route::view('/services', 			        'page.services')->name('page.services');
+// Route::view('/services', 			        'page.services')->name('page.services');
 Route::view('/service-details', 			'page.service_details')->name('page.services_details');
-// Route::view('/login-client', 			            'page.login')->name('page.login');
+Route::get('/services',                    [App\Http\Controllers\PageController::class, 'services'])->name('page.services');
 
-Route::prefix('client')->group(function () {
-    Route::view('/', 			            'client.home')->name('client.home');
-    Route::view('/settings', 	            'client.settings')->name('client.settings');
-    Route::view('/messages', 	            'client.messages')->name('client.messages');
-    Route::view('/services', 	            'client.services')->name('client.services');
-    Route::view('/service/custom', 	        'client.service_custom')->name('client.service_custom');
-    Route::view('/services/quote', 	        'client.service_quote')->name('client.service_quote');
-    Route::view('/service-details', 		'client.service_details')->name('client.services_details');
-    Route::view('/requests', 	            'client.requests')->name('client.requests');
-    Route::view('/requests/details', 	    'client.request_details')->name('client.request_details');
-    Route::view('/requests/invoice', 	    'client.request_invoice')->name('client.request_invoice');
-    Route::view('/payments', 	            'client.payments')->name('client.payments');
-    Route::view('/wallet', 	                'client.wallet')->name('client.wallet');
-    Route::view('/technician', 	            'client.technician_profile')->name('client.technician_profile');
+//Essential Routes
+Route::post('/lga-list',                    [App\Http\Controllers\EssentialsController::class, 'lgasList'])->name('lga_list');
 
+Route::middleware(['clientRole'])->group(function() {
+    Route::prefix('client')->group(function () {
+        Route::get('/',                                     [App\Http\Controllers\ClientDashboardController::class, 'index'])->name('client.home');
+        Route::get('/settings',                                     [App\Http\Controllers\ClientDashboardController::class, 'settings'])->name('client.settings');
+        Route::put('/settings/update-passsword',             [App\Http\Controllers\ClientDashboardController::class, 'updatePassword'])->name('client.update_profile_password');
+        Route::put('/settings/update-profile',            [App\Http\Controllers\ClientDashboardController::class, 'updateProfile'])->name('client.update_profile');
+        Route::put('/settings/update-avatar',            [App\Http\Controllers\ClientDashboardController::class, 'updateAvatar'])->name('client.update_profile_avatar');
+        Route::view('/messages', 	            'client.messages')->name('client.messages');
+        // Route::view('/services', 	            'client.services')->name('client.services');
+        Route::view('/service/custom', 	        'client.service_custom')->name('client.service_custom');
+        // Route::view('/services/quote', 	        'client.service_quote')->name('client.service_quote');
+        Route::get('/services',                    [App\Http\Controllers\ClientDashboardController::class, 'services'])->name('client.services');
+        Route::get('/services/quote/{url}',                                     [App\Http\Controllers\ClientDashboardController::class, 'serviceQuote'])->name('client.service_quote');
+        Route::get('/services/details/{url}',                                     [App\Http\Controllers\ClientDashboardController::class, 'serviceDetails'])->name('client.services_details');
+        Route::post('/services/quote/store',                                     [App\Http\Controllers\ServiceRequestController::class, 'store'])->name('client.book_services');
+        Route::get('/requests',                    [App\Http\Controllers\ClientRequestController::class, 'index'])->name('client.requests');
+        Route::get('/requests/details/{ref}',                    [App\Http\Controllers\ClientRequestController::class, 'requestDetails'])->name('client.request_details');
+
+        // Route::view('/requests', 	            'client.requests')->name('client.requests');
+        // Route::view('/requests/details', 	    'client.request_details')->name('client.request_details');
+        Route::view('/requests/invoice', 	    'client.request_invoice')->name('client.request_invoice');
+        Route::view('/payments', 	            'client.payments')->name('client.payments');
+        Route::view('/wallet', 	                'client.wallet')->name('client.wallet');
+        Route::view('/technician', 	            'client.technician_profile')->name('client.technician_profile');
+
+    });
 });
 
 Route::prefix('cse')->group(function () {
@@ -136,8 +156,10 @@ Route::prefix('technician')->group(function () {
                 Route::post('/activity-log/sorting',                [App\Http\Controllers\ActivityLogController::class, 'sortActivityLog'])->name('activity_log_sorting_users');
                 Route::get('/activity-log/details/{id}',            [App\Http\Controllers\ActivityLogController::class, 'activityLogDetails'])->name('activity_log_details');
 
-                Route::view('/requests', 	                        'admin.requests.requests')->name('requests');
-                Route::view('/requests/details/new', 	            'admin.requests.request_details')->name('request_details');
+                Route::get('/requests',                    [App\Http\Controllers\AdminRequestController::class, 'index'])->name('requests');
+                Route::get('/requests/details/new/{ref}',                    [App\Http\Controllers\AdminRequestController::class, 'requestDetails'])->name('request_details');
+                // Route::view('/requests', 	                        'admin.requests.requests')->name('requests');
+                // Route::view('/requests/details/new', 	            'admin.requests.request_details')->name('request_details');
                 Route::view('/requests/details/ongoing', 	        'admin.requests.request_ongoing_details')->name('request_ongoing_details');
                 Route::view('/requests/details/completed', 	        'admin.requests.request_completed_details')->name('request_completed_details');
                 Route::view('/requests/ongoing', 	                'admin.requests.requests_ongoing')->name('requests_ongoing');

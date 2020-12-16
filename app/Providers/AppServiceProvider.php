@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Determine designation of logged in user
+        //Get details from in `users` table to serve as relation base table
         view()->composer('layouts.partials.*', function($view){
 
             $view->with('user', Auth::user());

@@ -123,6 +123,31 @@ class User extends Authenticatable
         return $this->hasMany(ServiceRequest::class);
     }
 
+    public function sentMessage()
+    {
+        return $this->hasOne(ClientMessage::class, 'sender_id');
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(ClientMessage::class, 'sender_id');
+    }
+
+    public function receivedMessage()
+    {
+        return $this->hasOne(ClientMessage::class, 'recipient_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(ClientMessage::class, 'recipient_id');
+    }
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
+
     public function scopeActiveAdmin($query, $args){
         return $query->where('id', $args)
         ->select('id', 'email')

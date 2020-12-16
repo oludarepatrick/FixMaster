@@ -81,6 +81,14 @@
         <script src="{{ asset('assets/client/js/sweetalert2.min.js') }}"></script>
 
         <script>
+            //Prevent characters or string asides number in ohone number input field 
+            $("#number, #phone_number").on("keypress keyup blur", function(event) {
+                $(this).val($(this).val().replace(/[^\d].+/, ""));
+                if ((event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                }
+            });
+
             function displayMessage(message, type){
           
               const Toast = swal.mixin({
@@ -103,6 +111,7 @@
             }
           </script>
         @yield('scripts')
+        @stack('scripts')
        
     </body>
 </html>

@@ -42,4 +42,14 @@ class Admin extends Model
         return $this->hasOne(Name::class, 'user_id');
     }
 
+    public function request()
+    {
+        return $this->hasOne(ServiceRequest::class);
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(ServiceRequest::class);
+    }
+
 }

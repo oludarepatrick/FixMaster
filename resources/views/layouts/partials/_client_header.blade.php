@@ -49,9 +49,9 @@
         <!-- Logo container-->
         <div>
         <a class="logo" href="{{ route('client.home') }}">
-            <img src="{{ asset('assets/images/home-fix-logo-new.png') }}" style="margin-top: -90px !important; margin-bottom: -38px !important;" class="l-light" height="250" alt="FixMaster logo">
+            <img src="{{ asset('assets/images/home-fix-logo-new.png') }}" style="margin-top: -90px !important; margin-bottom: -38px !important;" class="l-light" height="250" alt="FixMaster Logo">
 
-            <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -40px !important; margin-bottom: -38px !important; margin-left: 50px !important"  class="l-dark" height="70" alt="FixMaster logo">
+            <img src="{{ asset('assets/images/home-fix-logo-colored.png') }}" style="margin-top: -40px !important; margin-bottom: -38px !important; margin-left: 50px !important"  class="l-dark" height="70" alt="FixMaster Logo">
         </a>
         </div>                 
         
@@ -108,7 +108,7 @@
                     </ul>
                 </li>
 
-                <li title="Logout"><a href="{{ route('login') }}" ><i class="uil uil-sign-out-alt" style="font-size: 20px" ></i></a></li>
+                <li title="Logout"><a href="{{ route('logout') }}" ><i class="uil uil-sign-out-alt" style="font-size: 20px" ></i></a></li>
 
             </ul><!--end navigation menu-->
         </div><!--end navigation-->
@@ -128,14 +128,23 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-lg-2 col-md-3 text-md-left text-center">
-                                <img src="{{ asset('assets/images/default-male-avatar.png') }}" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
+                                {{-- <img src="{{ asset('assets/images/default-male-avatar.png') }}" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt=""> --}}
+                                @if(!empty($user->client->avatar) && file_exists(public_path().'/assets/client-avatars/'.$user->client->avatar))
+                                    <img src="{{ asset('assets/client-avatars/'.$user->client->avatar) }}" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="{{ $user->fullName->name }}" />
+                                @else
+                                    @if($user->client->gender == 'Male')
+                                        <img src="{{ asset('assets/images/default-male-avatar.png') }}" alt="Default male profile avatar" class="avatar avatar-large rounded-circle shadow d-block mx-auto" />
+                                    @else
+                                        <img src="{{ asset('assets/images/default-female-avatar.png') }}" alt="Default female profile avatar" class="avatar avatar-large rounded-circle shadow d-block mx-auto" />
+                                    @endif
+                                @endif
                             </div><!--end col-->
 
                             <div class="col-lg-10 col-md-9">
                                 <div class="row align-items-end">
                                     <div class="col-md-7 text-md-left text-center mt-4 mt-sm-0">
-                                        <h3 class="title mb-0">Femi Joseph</h3>
-                                        <small class="text-muted h6 mr-2">Accountant</small>
+                                    <h3 class="title mb-0">{{ $user->fullName->name }}</h3>
+                                    <small class="text-muted h6 mr-2">{{ $user->client->profession->name ?? 'Profession/Career' }}</small>
                                         {{-- <ul class="list-inline mb-0 mt-3">
                                             <li class="list-inline-item mr-2"><a href="javascript:void(0)" class="text-muted" title="Instagram"><i data-feather="instagram" class="fea icon-sm mr-2"></i>Femi_joseph</a></li>
                                             <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted" title="Linkedin"><i data-feather="linkedin" class="fea icon-sm mr-2"></i>Femi Joseph</a></li>

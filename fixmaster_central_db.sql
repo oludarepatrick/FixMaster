@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Dec 06, 2020 at 11:45 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.4.0
+-- Host: localhost
+-- Generation Time: Dec 14, 2020 at 10:09 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,9 +28,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `activity_logs`
 --
 
-DROP TABLE IF EXISTS `activity_logs`;
-CREATE TABLE IF NOT EXISTS `activity_logs` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `activity_logs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` enum('Payment','Request','Others','Login','Logout','Profile','Errors','Unauthorized') COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -38,10 +37,8 @@ CREATE TABLE IF NOT EXISTS `activity_logs` (
   `action_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `controller_action_path` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `activity_logs`
@@ -72,7 +69,80 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 (22, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\CategoryController@update', 'http://localhost:8000/admin/category/update/5', 'NinthBinary Developer updated Computer Service Category', '2020-12-06 23:30:37'),
 (23, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\CategoryController@update', 'http://localhost:8000/admin/category/update/5', 'NinthBinary Developer updated Computer Service Category', '2020-12-06 23:31:23'),
 (24, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\CategoryController@update', 'http://localhost:8000/admin/category/update/5', 'NinthBinary Developer updated Computer Service Category', '2020-12-06 23:33:12'),
-(25, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 06:21:52(hrs:min:ss).', '2020-12-06 23:43:28');
+(25, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 06:21:52(hrs:min:ss).', '2020-12-06 23:43:28'),
+(26, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-08 18:22:29'),
+(27, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\ServicesController@deactivate', 'http://localhost:8000/admin/services/deactivate/7', 'NinthBinary Developer deactivated Developer Testing service', '2020-12-08 18:29:57'),
+(28, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\ServicesController@delete', 'http://localhost:8000/admin/services/delete/7', 'NinthBinary Developer deleted Developer Testing service', '2020-12-08 18:54:46'),
+(29, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\ServicesController@delete', 'http://localhost:8000/admin/services/delete/10', 'NinthBinary Developer deleted Test Test service', '2020-12-08 18:55:10'),
+(30, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\ServicesController@store', 'http://localhost:8000/admin/services/store', 'NinthBinary Developer created Developer Test Service', '2020-12-08 18:55:27'),
+(31, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 02:40:37(hrs:min:ss).', '2020-12-08 21:03:06'),
+(32, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-09 19:22:53'),
+(33, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminClientController@reinstate', 'http://localhost:8000/admin/users/client/reinstate/9', 'NinthBinary Developer reinstated Debola Williams\'s profile', '2020-12-09 20:14:11'),
+(34, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminClientController@delete', 'http://localhost:8000/admin/users/client/delete/9', 'NinthBinary Developer deleted Debola Williams\'s profile', '2020-12-09 20:14:34'),
+(35, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminClientController@deactivate', 'http://localhost:8000/admin/users/client/deactivate/9', 'NinthBinary Developer deactivated Debola Williams\'s profile', '2020-12-09 20:16:18'),
+(36, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminClientController@reinstate', 'http://localhost:8000/admin/users/client/reinstate/9', 'NinthBinary Developer reinstated Debola Williams\'s profile', '2020-12-09 20:16:25'),
+(45, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'http://localhost:8000/register', 'Adekola Adefarasin(anthonyjoboy2016@gmail.com) account was registered successfully.', '2020-12-11 13:43:08'),
+(46, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adefarasin successsfully verified anthonyjoboy2016@gmail.com with 642d9e56a634a1093fbf51353c149dea92e1289e E-Mail verification token', '2020-12-11 13:45:23'),
+(47, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-11 13:46:13'),
+(48, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:54:45(hrs:min:ss).', '2020-12-11 14:40:57'),
+(49, 11, '127.0.0.1', 'Login', 'Warning', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adefarasin was trying to re-verify anthonyjoboy2016@gmail.com with an expired E-Mail verification token(642d9e56a634a1093fbf51353c149dea92e1289e)', '2020-12-11 14:41:10'),
+(50, 11, '127.0.0.1', 'Login', 'Warning', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adefarasin attempted to login with a deactivated account E-Mail(adekola.adefarasin@gmail.com).', '2020-12-11 23:32:16'),
+(51, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adefarasin logged in.', '2020-12-11 23:42:42'),
+(52, 11, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminProfileController@updatePassword', 'http://localhost:8000/client/settings/update-passsword', 'Adekola Adefarasin changed profile password', '2020-12-12 01:33:52'),
+(53, 11, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@update', 'http://localhost:8000/client/settings/update-profile', 'Adekola Adeleke updated Adekola Adeleke\'s profile', '2020-12-12 02:20:51'),
+(54, 11, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@update', 'http://localhost:8000/client/settings/update-profile', 'Adekola Adeleke updated his profile', '2020-12-12 02:28:33'),
+(55, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-12 15:58:59'),
+(56, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\CategoryController@update', 'http://localhost:8000/admin/category/update/1', 'NinthBinary Developer updated Computer Service Category', '2020-12-12 16:04:17'),
+(57, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\CategoryController@store', 'http://localhost:8000/admin/category/store', 'NinthBinary Developer created Bath-Tubs, Pipes, Kitchen Sink Service Category', '2020-12-12 16:39:36'),
+(58, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\CategoryController@store', 'http://localhost:8000/admin/category/store', 'NinthBinary Developer created Dish & Washing Machine Service Category', '2020-12-12 16:45:16'),
+(59, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\CategoryController@store', 'http://localhost:8000/admin/category/store', 'NinthBinary Developer created Drainage, Shower, Soak-Away Service Category', '2020-12-12 18:00:47'),
+(60, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 02:57:30(hrs:min:ss).', '2020-12-12 18:56:29'),
+(61, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2020-12-12 18:56:40'),
+(62, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2020-12-13 02:21:47'),
+(63, 11, '127.0.0.1', 'Errors', 'Error', 'App\\Http\\Controllers\\ClientDashboardController@updateAvatar', 'http://localhost:8000/client/settings/update-avatar', 'An error occurred while Adekola Adeleke was trying to update his profile avatar.', '2020-12-13 02:26:01'),
+(64, 11, '127.0.0.1', 'Errors', 'Error', 'App\\Http\\Controllers\\ClientDashboardController@updateAvatar', 'http://localhost:8000/client/settings/update-avatar', 'An error occurred while Adekola Adeleke was trying to update his profile avatar.', '2020-12-13 02:26:19'),
+(65, 11, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateAvatar', 'http://localhost:8000/client/settings/update-avatar', 'Adekola Adeleke updated his profile avatar', '2020-12-13 02:35:18'),
+(66, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 00:38:08(hrs:min:ss).', '2020-12-13 02:59:55'),
+(67, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2020-12-13 03:00:46'),
+(68, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2020-12-13 05:01:22'),
+(69, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 00:41:29(hrs:min:ss).', '2020-12-13 05:42:51'),
+(70, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2020-12-13 23:13:15'),
+(71, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 02:39:20(hrs:min:ss).', '2020-12-14 01:52:35'),
+(72, 11, '127.0.0.1', 'Login', 'Warning', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke attempted to login with an unverified E-Mail (adekola.adeleke@gmail.com).', '2020-12-14 01:53:51'),
+(73, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adeleke successsfully verified adekola.adeleke@gmail.com with E-Mail verification token(642d9e56a634a1093fbf51353c149dea92e1289e)', '2020-12-14 01:54:48'),
+(74, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2020-12-14 02:28:52'),
+(75, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2020-12-14 08:56:34'),
+(76, 11, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'http://localhost:8000/client/settings/update-profile', 'Adekola Adeleke updated his profile', '2020-12-14 11:10:40'),
+(77, 11, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'http://localhost:8000/client/settings/update-profile', 'Adekola Adeleke updated his profile', '2020-12-14 11:13:42'),
+(78, 11, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'http://localhost:8000/client/settings/update-profile', 'Adekola Adeleke updated his profile', '2020-12-14 11:16:14'),
+(79, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 02:41:26(hrs:min:ss).', '2020-12-14 11:38:00'),
+(80, 11, '127.0.0.1', 'Login', 'Warning', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke attempted to login with an unverified E-Mail (anthonyjoboy2016@gmail.com).', '2020-12-14 11:39:26'),
+(81, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adeleke successsfully verified anthonyjoboy2016@gmail.com with E-Mail verification token(642d9e56a634a1093fbf51353c149dea92e1289e)', '2020-12-14 11:39:54'),
+(82, 11, '127.0.0.1', 'Login', 'Warning', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke attempted to login with an unverified E-Mail (anthonyjoboy2016@gmail.com).', '2020-12-14 11:45:10'),
+(83, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adeleke successsfully verified anthonyjoboy2016@gmail.com with E-Mail verification token(642d9e56a634a1093fbf51353c149dea92e1289e)', '2020-12-14 11:45:39'),
+(84, 11, '127.0.0.1', 'Login', 'Warning', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adeleke was trying to re-verify anthonyjoboy2016@gmail.com with an expired E-Mail verification token(642d9e56a634a1093fbf51353c149dea92e1289e)', '2020-12-14 11:48:54'),
+(85, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adeleke successsfully verified anthonyjoboy2016@gmail.com with E-Mail verification token(642d9e56a634a1093fbf51353c149dea92e1289e)', '2020-12-14 12:05:44'),
+(86, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adeleke successsfully verified anthonyjoboy2016@gmail.com with E-Mail verification token(642d9e56a634a1093fbf51353c149dea92e1289e)', '2020-12-14 12:09:40'),
+(87, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adeleke successsfully verified anthonyjoboy2016@gmail.com with E-Mail verification token(642d9e56a634a1093fbf51353c149dea92e1289e)', '2020-12-14 12:38:19'),
+(88, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adeleke successsfully verified anthonyjoboy2016@gmail.com with E-Mail verification token(642d9e56a634a1093fbf51353c149dea92e1289e)', '2020-12-14 12:43:44'),
+(89, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adeleke successsfully verified anthonyjoboy2016@gmail.com with E-Mail verification token(642d9e56a634a1093fbf51353c149dea92e1289e)', '2020-12-14 12:49:10'),
+(90, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adeleke successsfully verified anthonyjoboy2016@gmail.com with E-Mail verification token(642d9e56a634a1093fbf51353c149dea92e1289e)', '2020-12-14 12:54:30'),
+(91, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@verifyClientEmail', 'http://localhost:8000/client-email-verify?token=642d9e56a634a1093fbf51353c149dea92e1289e', 'Adekola Adeleke successsfully verified anthonyjoboy2016@gmail.com with E-Mail verification token(642d9e56a634a1093fbf51353c149dea92e1289e)', '2020-12-14 13:06:25'),
+(92, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2020-12-14 13:10:56'),
+(93, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ServiceRequestController@store', 'http://localhost:8000/client/services/quote/store', 'Adekola Adeleke requested Computer & Laptops service', '2020-12-14 13:16:45'),
+(94, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ServiceRequestController@store', 'http://localhost:8000/client/services/quote/store', 'Adekola Adeleke requested Computer & Laptops service', '2020-12-14 13:40:14'),
+(95, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ServiceRequestController@store', 'http://localhost:8000/client/services/quote/store', 'Adekola Adeleke requested Bath-Tubs, Pipes, Kitchen Sink service', '2020-12-14 13:48:35'),
+(96, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 01:18:05(hrs:min:ss).', '2020-12-14 14:29:01'),
+(97, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-14 14:29:12'),
+(98, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:47:32(hrs:min:ss).', '2020-12-14 15:16:44'),
+(99, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2020-12-14 15:17:07'),
+(100, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ServiceRequestController@store', 'http://localhost:8000/client/services/quote/store', 'Adekola Adeleke requested Dish & Washing Machine service', '2020-12-14 16:23:19'),
+(101, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ServiceRequestController@store', 'http://localhost:8000/client/services/quote/store', 'Adekola Adeleke requested Dish & Washing Machine service', '2020-12-14 16:37:05'),
+(102, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 04:38:16(hrs:min:ss).', '2020-12-14 19:55:23'),
+(103, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-14 19:55:38'),
+(104, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:55:08(hrs:min:ss).', '2020-12-14 20:50:46'),
+(105, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2020-12-14 20:51:18'),
+(106, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 00:17:43(hrs:min:ss).', '2020-12-14 21:09:01');
 
 -- --------------------------------------------------------
 
@@ -80,31 +150,26 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 -- Table structure for table `admins`
 --
 
-DROP TABLE IF EXISTS `admins`;
-CREATE TABLE IF NOT EXISTS `admins` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admins` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_by` bigint(20) NOT NULL,
   `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `middle_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `designation` enum('SUPER_ADMIN_ROLE','ADMIN_ROLE') COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `admins_phone_number_unique` (`phone_number`),
-  UNIQUE KEY `user_id` (`user_id`),
-  KEY `created_by` (`created_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `designation` enum('SUPER_ADMIN_ROLE','ADMIN_ROLE') COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `admins`
 --
 
 INSERT INTO `admins` (`id`, `user_id`, `created_by`, `first_name`, `middle_name`, `last_name`, `phone_number`, `designation`) VALUES
-(1, 4, 1, 'David', NULL, 'Akinsola', '08034516890', 'ADMIN_ROLE'),
-(2, 5, 1, 'Obuchi', NULL, 'Omotosho', '09032394639', 'ADMIN_ROLE'),
-(3, 6, 2, 'Isaac', 'Israel', 'John', '08032459283', 'ADMIN_ROLE'),
-(6, 7, 1, 'Emmanuel', 'Gbenga', 'Godfrey', '09066982545', 'ADMIN_ROLE');
+(1, 5, 1, 'David', NULL, 'Akinsola', '08034516890', 'ADMIN_ROLE'),
+(2, 6, 1, 'Obuchi', NULL, 'Omotosho', '09032394639', 'ADMIN_ROLE'),
+(3, 7, 2, 'Isaac', 'Israel', 'John', '08032459283', 'ADMIN_ROLE'),
+(6, 8, 1, 'Emmanuel', 'Gbenga', 'Godfrey', '09066982545', 'ADMIN_ROLE');
 
 -- --------------------------------------------------------
 
@@ -112,9 +177,8 @@ INSERT INTO `admins` (`id`, `user_id`, `created_by`, `first_name`, `middle_name`
 -- Table structure for table `admin_permissions`
 --
 
-DROP TABLE IF EXISTS `admin_permissions`;
-CREATE TABLE IF NOT EXISTS `admin_permissions` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admin_permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `administrators` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `clients` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
@@ -129,10 +193,8 @@ CREATE TABLE IF NOT EXISTS `admin_permissions` (
   `tools` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `utilities` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `admin_permissions_user_id_unique` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `admin_permissions`
@@ -141,10 +203,52 @@ CREATE TABLE IF NOT EXISTS `admin_permissions` (
 INSERT INTO `admin_permissions` (`id`, `user_id`, `administrators`, `clients`, `cses`, `location_request`, `payments`, `ratings`, `requests`, `rfqs`, `service_categories`, `technicians`, `tools`, `utilities`, `created_at`, `updated_at`) VALUES
 (1, 1, '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', NULL, NULL),
 (2, 3, '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', NULL, NULL),
-(3, 4, '0', '1', '1', '1', '0', '1', '1', '1', '1', '1', '1', '0', NULL, '2020-12-03 19:42:58'),
-(4, 5, '0', '0', '1', '1', '0', '1', '1', '1', '0', '1', '1', '0', '2020-11-30 22:35:09', '2020-12-03 19:41:55'),
-(5, 6, '0', '0', '0', '1', '0', '1', '1', '1', '0', '0', '1', '0', '2020-12-03 19:35:45', '2020-12-04 05:49:25'),
-(8, 7, '0', '0', '0', '1', '0', '1', '1', '1', '0', '1', '1', '0', '2020-12-04 06:03:06', '2020-12-06 15:21:49');
+(3, 5, '0', '1', '1', '1', '0', '1', '1', '1', '1', '1', '1', '0', NULL, NULL),
+(4, 6, '0', '0', '1', '1', '0', '1', '1', '1', '0', '1', '1', '0', '2020-11-30 22:35:09', NULL),
+(5, 7, '0', '0', '0', '1', '0', '1', '1', '1', '0', '0', '1', '0', '2020-12-03 19:35:45', NULL),
+(8, 8, '0', '0', '0', '1', '0', '1', '1', '1', '0', '1', '1', '0', '2020-12-04 06:03:06', NULL),
+(9, 4, '0', '0', '0', '1', '0', '1', '1', '1', '0', '1', '1', '0', '2020-12-04 06:03:06', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banks`
+--
+
+CREATE TABLE `banks` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `code` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `banks`
+--
+
+INSERT INTO `banks` (`id`, `name`, `code`) VALUES
+(1, 'Access Bank', '044'),
+(2, 'Citibank', '023'),
+(3, 'Diamond Bank', '063'),
+(4, 'Dynamic Standard Bank', ' '),
+(5, 'Ecobank Nigeria', '050'),
+(6, 'Fidelity Bank Nigeria', '070'),
+(7, 'First Bank of Nigeria', '011'),
+(8, 'First City Monument Bank', '214'),
+(9, 'Guaranty Trust Bank', '058'),
+(10, 'Heritage Bank Plc', '030'),
+(11, 'Jaiz Bank', '301'),
+(12, 'Keystone Bank Limited', '082'),
+(13, 'Providus Bank Plc', '101'),
+(14, 'Polaris Bank', '076'),
+(15, 'Stanbic IBTC Bank Nigeria Limited', '221'),
+(16, 'Standard Chartered Bank', '068'),
+(17, 'Sterling Bank', '232'),
+(18, 'Suntrust Bank Nigeria Limited', '100'),
+(19, 'Union Bank of Nigeria', '032'),
+(20, 'United Bank for Africa', '033'),
+(21, 'Unity Bank Plc', '215'),
+(22, 'Wema Bank', '035'),
+(23, 'Zenith Bank', '057');
 
 -- --------------------------------------------------------
 
@@ -152,9 +256,8 @@ INSERT INTO `admin_permissions` (`id`, `user_id`, `administrators`, `clients`, `
 -- Table structure for table `categories`
 --
 
-DROP TABLE IF EXISTS `categories`;
-CREATE TABLE IF NOT EXISTS `categories` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `service_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -162,32 +265,25 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `urgent_fee` int(20) UNSIGNED NOT NULL,
   `ooh_fee` int(20) UNSIGNED NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_votes` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
   `rating` float UNSIGNED NOT NULL DEFAULT 0,
   `is_active` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `categories_name_unique` (`name`),
-  KEY `service_id` (`service_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `user_id`, `service_id`, `name`, `standard_fee`, `urgent_fee`, `ooh_fee`, `description`, `image`, `total_votes`, `rating`, `is_active`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Test Category 4', 0, 0, 0, '', '', 0, 0, '1', NULL, '2020-12-05 10:21:40', NULL),
-(2, 1, 7, 'Test Category 1', 0, 0, 0, 'TEst description', '', 0, 0, '1', NULL, '2020-12-05 10:21:40', NULL),
-(3, 1, 7, 'Test Category 2', 0, 0, 0, 'TEst description 2', '', 0, 0, '1', NULL, '2020-12-05 10:21:40', NULL),
-(4, 1, 7, 'Test Category 3', 0, 0, 0, 'TEst description 3', '', 0, 0, '1', NULL, '2020-12-05 10:21:40', NULL),
-(5, 1, 1, 'Computer', 2500, 3500, 4500, 'With FixMaster you don\'t have to run to the repair shop every time your PC ends up with a fault, we have a host of tech support we provide. Maybe you need to upgrade your operating system, or install new software, protect against viruses. We do all that!', 'Computer.jpg', 0, 0, '1', NULL, '2020-12-06 19:39:53', '2020-12-06 22:33:12'),
-(9, 1, 1, 'Wechat', 4250, 5000, 5500, 'dsfbkjsdbf sdfobsdfjb ks fsjd fkjsdf bsdf', 'Wechat.jpg', 0, 0, '1', NULL, '2020-12-06 20:10:01', NULL),
-(10, 1, 10, 'Sakjbfkjsbaf', 34, 56, 78, 'sdflkbsnflksbdfs', 'Sakjbfkjsbaf.jpg', 0, 0, '1', '2020-12-06 20:48:23', '2020-12-06 20:44:31', NULL),
-(11, 1, 10, 'Pidsfbisdb', 23, 45, 67, 'sdknflsdbf sfkjdsfsd', 'Pidsfbisdb.jpg', 0, 0, '0', NULL, '2020-12-06 20:46:09', NULL);
+INSERT INTO `categories` (`id`, `user_id`, `service_id`, `name`, `standard_fee`, `urgent_fee`, `ooh_fee`, `description`, `url`, `image`, `total_votes`, `rating`, `is_active`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 11, 'Computer & Laptops', 2500, 3500, 4700, 'With FixMaster you don\'t have to run to the repair shop every time your PC ends up with a fault, we have a host of tech support we provide. Maybe you need to upgrade your operating system, or install new software, protect against viruses. We do all that!', '181900dad960beccb34f53c4e0ff4647', '181900dad960beccb34f53c4e0ff4647.jpg', 0, 0, '1', NULL, '2020-12-06 19:39:53', '2020-12-12 15:04:17'),
+(2, 1, 3, 'Bath-Tubs, Pipes, Kitchen Sink', 2800, 3300, 4500, 'We can fix all plumbing job types. Fix it right with an expert plumber. You Can Count On! All works are carried out promptly.', '12dcc349ebab89a201331db44c68e17e', '12dcc349ebab89a201331db44c68e17e.jpg', 0, 0, '1', NULL, '2020-12-12 15:39:36', NULL),
+(3, 1, 5, 'Dish & Washing Machine', 1500, 2500, 3500, 'If you\'ve got a leaky fridge, a rattling dryer, a barely cooling HVAC, a stove that no longer sizzles or a clogged dishwasher, we\'ve got you covered.', 'ef9712cb50851495c67ab9c3ab40a6ce', 'ef9712cb50851495c67ab9c3ab40a6ce.jpg', 0, 0, '1', NULL, '2020-12-12 15:45:16', NULL),
+(4, 1, 3, 'Drainage, Shower, Soak-Away', 3000, 3500, 4000, 'We can fix all plumbing job types. Fix it right with an expert plumber. You Can Count On! All works are carried out promptly.', '5c01c0c3800c3fb2cc7076528d4535d3', '5c01c0c3800c3fb2cc7076528d4535d3.jpg', 0, 0, '1', NULL, '2020-12-12 17:00:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -195,27 +291,60 @@ INSERT INTO `categories` (`id`, `user_id`, `service_id`, `name`, `standard_fee`,
 -- Table structure for table `clients`
 --
 
-DROP TABLE IF EXISTS `clients`;
-CREATE TABLE IF NOT EXISTS `clients` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `clients` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `state_id` tinyint(4) UNSIGNED DEFAULT NULL,
   `lga_id` int(11) UNSIGNED DEFAULT NULL,
-  `town_id` tinyint(4) UNSIGNED DEFAULT NULL,
+  `profession_id` int(11) UNSIGNED DEFAULT NULL,
+  `town` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `middle_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `occupation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` enum('Male','Female') COLLATE utf8mb4_unicode_ci NOT NULL,
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `full_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `clients_phone_number_unique` (`phone_number`),
-  KEY `user_id` (`user_id`,`state_id`,`lga_id`,`town_id`),
-  KEY `state_id` (`state_id`),
-  KEY `lga_id` (`lga_id`)
+  `discounted` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `clients`
+--
+
+INSERT INTO `clients` (`id`, `user_id`, `state_id`, `lga_id`, `profession_id`, `town`, `first_name`, `middle_name`, `last_name`, `phone_number`, `gender`, `avatar`, `full_address`, `discounted`) VALUES
+(1, 9, 25, 369, 1, 'Okota', 'Wisdom', NULL, 'Amana', '09082354902', 'Male', NULL, 'Sango Ota, Lagos.', '0'),
+(2, 10, 25, 365, 18, 'Ibeju-Lekki', 'Debola', NULL, 'Williams', '08167836902', 'Male', NULL, 'Funsho williams street, Ibeju Lekki, Lagos.', '0'),
+(31, 11, 25, 359, 1, 'Falomo', 'Adekola', NULL, 'Adeleke', '08034516844', 'Male', '0c9ac4cada39ba68e97fc6c0a0807458d1385048.jpg', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client_messages`
+--
+
+CREATE TABLE `client_messages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `sender_id` bigint(20) UNSIGNED NOT NULL,
+  `recipient_id` bigint(20) UNSIGNED NOT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_read` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `client_messages`
+--
+
+INSERT INTO `client_messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `is_read`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 4, 11, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Adekola Adefarasin,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=“/faq” target=“_blank”> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2020-12-11 12:43:02', '2020-12-11 12:43:02'),
+(2, 4, 11, 'Congratulations! You have earned a discount', '<h1>Congratulations! You have just earned a 5% discount on your first job booking</h1><p>We are very excited you joined the most compelling community of FixMaster satisfied customers! As you already know, excellent quality service, rewards, and savings have always been a vital part of FixMaster\'s success.</p><p> Having said so, we constantly cater to our customers\' best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>For registering with FixMaster, you have been rewarded with a discount on your first job booking which entitles you to a 5% discount off your booking fee.</p><p><strong>PLEASE NOTE THAT THIS DISCOUNT IS ONLY APPLICABLE FOR YOUR FIRST JOB BOOKING</strong></p><p>Should you require further assistance, please do not hesitate to contact us immediately on <strong>08132863878</strong>. We are here to serve you; 24-hours, 7 days a week.</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-14 12:06:25', '2020-12-14 12:06:25'),
+(4, 4, 11, 'Service Request(JOB-66EB5A26)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>JOB-66EB5A26</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,325(Urgent)</p><p><strong>Date & Time:</strong> December 15th 2020, 5:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-14 12:39:55', '2020-12-14 12:39:55'),
+(5, 4, 11, 'Service Request(JOB-330CB862)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>JOB-330CB862</p><p><strong>Service: </strong>Plumbing(Bath-Tubs, Pipes, Kitchen Sink)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,300(Urgent)</p><p><strong>Date & Time:</strong> December 14th 2020, 4:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-14 12:48:20', '2020-12-14 12:48:20'),
+(6, 4, 11, 'Service Request(REF-27D2F0BE)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-27D2F0BE</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,500(Urgent)</p><p><strong>Date & Time:</strong> December 15th 2020, 11:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-14 15:36:58', '2020-12-14 15:36:58');
 
 -- --------------------------------------------------------
 
@@ -223,18 +352,19 @@ CREATE TABLE IF NOT EXISTS `clients` (
 -- Table structure for table `cses`
 --
 
-DROP TABLE IF EXISTS `cses`;
-CREATE TABLE IF NOT EXISTS `cses` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `franchise_id` bigint(20) UNSIGNED DEFAULT NULL,
   `state_id` tinyint(4) UNSIGNED DEFAULT NULL,
   `lga_id` int(11) UNSIGNED DEFAULT NULL,
-  `town_id` tinyint(4) UNSIGNED DEFAULT NULL,
-  `bank_id` tinyint(20) UNSIGNED NOT NULL,
+  `town` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bank_id` int(11) UNSIGNED NOT NULL,
+  `tag_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `middle_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` enum('Male','Female') COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `other_phone_number` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `account_number` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -242,15 +372,16 @@ CREATE TABLE IF NOT EXISTS `cses` (
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `full_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `cses_phone_number_unique` (`phone_number`),
-  UNIQUE KEY `cses_other_phone_number_unique` (`other_phone_number`),
-  UNIQUE KEY `cses_account_number_unique` (`account_number`),
-  KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`town_id`,`bank_id`),
-  KEY `lga_id` (`lga_id`),
-  KEY `state_id` (`state_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cses`
+--
+
+INSERT INTO `cses` (`id`, `user_id`, `franchise_id`, `state_id`, `lga_id`, `town`, `bank_id`, `tag_id`, `first_name`, `middle_name`, `last_name`, `gender`, `phone_number`, `other_phone_number`, `account_number`, `rating`, `avatar`, `full_address`, `created_at`, `updated_at`) VALUES
+(1, 12, NULL, 25, 359, 'Victoria Island', 23, 'CSE-23804223', 'Godrey', 'Jamal', 'Diwa', 'Male', '07066812090', NULL, '0903728292', '0.0', NULL, '2 Chevron Drive, Lekki Penninsula II 12825, Lekki', NULL, NULL),
+(2, 13, NULL, 25, 371, 'Lawanson', 1, 'CSE-09320093', 'Benedict', 'Mayowa', 'Olaoye', 'Male', '08126378290', NULL, '0167982579', '0.0', NULL, '18C, Orelope Street, Lawanson-Surulere, Lagos State.', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -258,17 +389,14 @@ CREATE TABLE IF NOT EXISTS `cses` (
 -- Table structure for table `failed_jobs`
 --
 
-DROP TABLE IF EXISTS `failed_jobs`;
-CREATE TABLE IF NOT EXISTS `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`) USING HASH
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -277,14 +405,11 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 -- Table structure for table `lgas`
 --
 
-DROP TABLE IF EXISTS `lgas`;
-CREATE TABLE IF NOT EXISTS `lgas` (
-  `id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `lgas` (
+  `id` int(4) UNSIGNED NOT NULL,
   `state_id` tinyint(4) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `state_id` (`state_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=775 DEFAULT CHARSET=utf8;
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `lgas`
@@ -1068,16 +1193,50 @@ INSERT INTO `lgas` (`id`, `state_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `location_and_browser_infos`
+--
+
+CREATE TABLE `location_and_browser_infos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `ip` varchar(45) DEFAULT NULL,
+  `country_name` varchar(191) DEFAULT NULL,
+  `country_code` char(5) DEFAULT NULL,
+  `region_code` char(5) DEFAULT NULL,
+  `region_name` varchar(191) DEFAULT NULL,
+  `city_name` varchar(191) DEFAULT NULL,
+  `zip_code` varchar(20) DEFAULT NULL,
+  `iso_code` varchar(20) DEFAULT NULL,
+  `postal_code` varchar(20) DEFAULT NULL,
+  `latitude` varchar(20) DEFAULT NULL,
+  `longitude` varchar(20) DEFAULT NULL,
+  `metro_code` varchar(20) DEFAULT NULL,
+  `area_code` char(5) DEFAULT NULL,
+  `browser_name` varchar(50) DEFAULT NULL,
+  `browser_version` varchar(50) DEFAULT NULL,
+  `device_operating_system` varchar(50) DEFAULT NULL,
+  `device_operating_system_version` varchar(50) DEFAULT NULL,
+  `languages` varchar(191) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `location_and_browser_infos`
+--
+
+INSERT INTO `location_and_browser_infos` (`id`, `user_id`, `ip`, `country_name`, `country_code`, `region_code`, `region_name`, `city_name`, `zip_code`, `iso_code`, `postal_code`, `latitude`, `longitude`, `metro_code`, `area_code`, `browser_name`, `browser_version`, `device_operating_system`, `device_operating_system_version`, `languages`) VALUES
+(29, 11, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
-DROP TABLE IF EXISTS `migrations`;
-CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `batch` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -1098,7 +1257,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2020_11_27_011458_create_admin_permissions_table', 7),
 (13, '2020_12_05_054058_create_services_table', 8),
 (14, '2020_12_05_060826_create_categories_table', 9),
-(15, '2020_12_05_115934_create_requests_table', 10);
+(15, '2020_12_05_115934_create_requests_table', 10),
+(16, '2020_12_11_072328_create_client_messages_table', 11),
+(17, '2020_12_12_002425_create_wallets_table', 12),
+(18, '2020_12_13_043103_create_service_request_details_table', 13);
 
 -- --------------------------------------------------------
 
@@ -1106,16 +1268,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- Table structure for table `names`
 --
 
-DROP TABLE IF EXISTS `names`;
-CREATE TABLE IF NOT EXISTS `names` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `names` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `names`
@@ -1124,11 +1283,19 @@ CREATE TABLE IF NOT EXISTS `names` (
 INSERT INTO `names` (`id`, `user_id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 1, 'NinthBinary Developer', NULL, '2020-12-05 06:22:06'),
 (2, 3, 'Charles Famoriyo', NULL, NULL),
-(3, 4, 'David Akinsola', '2020-11-30 06:26:42', '2020-12-03 22:07:32'),
-(6, 5, 'Obuchi Omotosho', '2020-11-30 22:35:09', '2020-12-03 19:41:55'),
-(7, 6, 'Isaac John', '2020-12-03 19:35:45', '2020-12-04 05:49:25'),
-(8, 2, 'Unknown Intruder', NULL, NULL),
-(11, 7, 'Emmanuel Godfrey', '2020-12-04 06:03:06', '2020-12-06 15:21:49');
+(3, 5, 'David Akinsola', '2020-11-30 06:26:42', '2020-12-03 22:07:32'),
+(4, 6, 'Obuchi Omotosho', '2020-11-30 22:35:09', '2020-12-03 19:41:55'),
+(5, 7, 'Isaac John', '2020-12-03 19:35:45', '2020-12-04 05:49:25'),
+(6, 2, 'Unknown Intruder', NULL, NULL),
+(7, 8, 'Emmanuel Godfrey', '2020-12-04 06:03:06', '2020-12-06 15:21:49'),
+(8, 9, 'Wisdom Amana', NULL, NULL),
+(9, 10, 'Debola Williams', NULL, NULL),
+(10, 4, 'FixMaster', NULL, NULL),
+(11, 11, 'Adekola Adeleke', '2020-12-11 12:43:02', '2020-12-14 10:16:14'),
+(12, 12, 'Godfrey Diwa', '2020-12-11 12:43:02', '2020-12-14 10:16:14'),
+(13, 13, 'Benedict Olaoye', NULL, NULL),
+(14, 14, 'Andrew Nwankwo', NULL, NULL),
+(15, 15, 'Taofeek Adedokun', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1136,37 +1303,91 @@ INSERT INTO `names` (`id`, `user_id`, `name`, `created_at`, `updated_at`) VALUES
 -- Table structure for table `password_resets`
 --
 
-DROP TABLE IF EXISTS `password_resets`;
-CREATE TABLE IF NOT EXISTS `password_resets` (
+CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  KEY `password_resets_email_index` (`email`(250))
+  `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `requests`
+-- Table structure for table `professions`
 --
 
-DROP TABLE IF EXISTS `requests`;
-CREATE TABLE IF NOT EXISTS `requests` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `admin_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `cse_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `technician_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `service_id` bigint(20) UNSIGNED NOT NULL,
-  `category_id` bigint(20) UNSIGNED NOT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`,`admin_id`,`cse_id`,`technician_id`,`service_id`,`category_id`),
-  KEY `category_id` (`category_id`),
-  KEY `service_id` (`service_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `professions` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(191) NOT NULL,
+  `description` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `professions`
+--
+
+INSERT INTO `professions` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'Accountant ', 'A person that works with the money and accounts of a company.', '2020-12-09 17:38:04', NULL),
+(2, 'Actor/Actress', 'A person that acts in a play or a movie', '2020-12-09 17:38:04', NULL),
+(3, 'Architect', 'A person that designs building and houses.', '2020-12-09 17:42:55', NULL),
+(4, 'Astronomer', 'A person who studies the stars and the universe', '2020-12-09 17:42:55', NULL),
+(5, 'Author', 'They write books or novels.', '2020-12-09 17:42:55', NULL),
+(6, 'Baker', 'They make bread and cakes and normally work in a bakery.', '2020-12-09 17:42:55', NULL),
+(7, 'Bricklayer', 'A person that helps to build houses using bricks.', '2020-12-09 17:42:55', NULL),
+(8, 'Bus Driver', 'A person that drives buses', '2020-12-09 17:42:55', NULL),
+(9, 'Butcher', 'A person that works with meat. They cut the meat and sell it in their shop.', '2020-12-09 17:42:55', NULL),
+(10, 'Carpenter', 'A person that makes things from wood including houses and furniture.', '2020-12-09 17:42:55', NULL),
+(11, 'Chef/Cook', 'A person that prepared food for others, often in a restaurant or café.', '2020-12-09 17:42:55', NULL),
+(12, 'Cleaner', 'A person that cleans/tidies an area or place (such as in an office)', '2020-12-09 17:42:55', NULL),
+(13, 'Dentist', 'A person that can fix problems you have with your teeth.', '2020-12-09 17:47:53', NULL),
+(14, 'Designer', 'A person who has the job of designing things.', '2020-12-09 17:47:53', NULL),
+(15, 'Doctor', 'A person you go to see when you are ill or have some type of health problem.', '2020-12-09 17:47:53', NULL),
+(16, 'Dustman/Refuse Collector', 'A person that collects trash/rubbish from bins in the street.', '2020-12-09 17:47:53', NULL),
+(17, 'Electrician', 'A person that works with electric circuits.', '2020-12-09 17:47:53', NULL),
+(18, 'Engineer', 'A person who develops solutions to technical problems. They sometimes design, build, or maintain engines, machines, structures or public works.', '2020-12-09 17:47:53', NULL),
+(19, 'Factory Worker', 'A person that works in a factory.', '2020-12-09 17:47:53', NULL),
+(20, 'Farmer', 'A person that works on a farm, usually with animals.', '2020-12-09 17:47:53', NULL),
+(21, 'Fireman/Fire Fighter', 'A person that puts out fires.', '2020-12-09 17:47:53', NULL),
+(22, 'Fisherman', 'A person that catches fish', '2020-12-09 17:47:53', NULL),
+(23, 'Florist', 'A person that works with flowers.', '2020-12-09 17:51:40', NULL),
+(24, 'Gardener', 'A person that keeps gardens clean and tidy. They take care of the plants in the garden.', '2020-12-09 17:51:40', NULL),
+(25, 'Hairdresser', 'Tthey cut your hair or give it a new style.', '2020-12-09 17:51:40', NULL),
+(26, 'Journalist', 'A person that makes new reports in writing or through television.', '2020-12-09 17:51:40', NULL),
+(27, 'Judge', 'A qualified person that decides cases in a law court.', '2020-12-09 17:51:40', NULL),
+(28, 'Lawyer', 'A person that defends people in court and gives legal advice.', '2020-12-09 17:51:40', NULL),
+(29, 'Lecturer', 'A person that gives lectures, usually in a university.', '2020-12-09 17:51:40', NULL),
+(30, 'Librarian', 'A person that works in a library.', '2020-12-09 17:51:40', NULL),
+(31, 'Lifeguard', 'A person that saves lives where people swim (at a beach or swimming pool).', '2020-12-09 17:51:40', NULL),
+(32, 'Mechanic', 'A person that repairs machines, especially car motors.', '2020-12-09 17:51:40', NULL),
+(33, 'Model', 'A (usually attractive) person that works in fashion, modeling clothes and accessories.', '2020-12-09 17:59:24', NULL),
+(34, 'Newsreader', 'A person that reads the news, normally on television.', '2020-12-09 17:59:24', NULL),
+(35, 'Nurse', 'A person trained to help a doctor look after the sick or injured.', '2020-12-09 17:59:24', NULL),
+(36, 'Optician', 'A person that checks your eyes and try and correct any problems with your sight.', '2020-12-09 17:59:24', NULL),
+(37, 'Painter', 'A person that paints pictures or the interior and exterior of buildings.', '2020-12-09 17:59:24', NULL),
+(38, 'Pharmacist', 'A qualified person that works with and dispenses medicine.', '2020-12-09 17:59:24', NULL),
+(39, 'Photographer ', 'A person that takes photos.', '2020-12-09 17:59:24', NULL),
+(40, 'Pilot', 'A person who flies a plane.', '2020-12-09 17:59:24', NULL),
+(41, 'Plumber', 'A person that repairs your water systems or pipes.', '2020-12-09 17:59:24', NULL),
+(42, 'Politician', 'A person who works in politics.', '2020-12-09 17:59:24', NULL),
+(43, 'Policeman/Policewoman ', 'A member of the police force. They (try and) prevent crime.', '2020-12-09 18:03:11', NULL),
+(44, 'Postman', 'A person that delivers mail to your house.', '2020-12-09 18:03:11', NULL),
+(45, 'Real Estate Agent', 'A person that makes money from selling land for development.', '2020-12-09 18:03:11', NULL),
+(46, 'Receptionist', 'A person that is at the reception (entrance) of a company.', '2020-12-09 18:03:11', NULL),
+(47, 'Scientist', 'A person that works in the science industry. They do many experiments.', '2020-12-09 18:03:11', NULL),
+(48, 'Secretary', 'A person employed in an office who types letters, keeps records etc.', '2020-12-09 18:03:11', NULL),
+(49, 'Shop Assistant ', 'A person that works in a shop or store selling products.', '2020-12-09 18:03:11', NULL),
+(50, 'Soldier', 'A person who works for the army.', '2020-12-09 18:03:11', NULL),
+(51, 'Tailor', 'A person that makes clothes for others, many times producing exclusive items of clothing.', '2020-12-09 18:03:11', NULL),
+(52, 'Taxi Driver ', 'A person who drives a taxi.', '2020-12-09 18:03:11', NULL),
+(53, 'Teacher', 'A person that passes knowledge to students, usually at school.', '2020-12-09 18:06:02', NULL),
+(54, 'Translator', 'A person that translates from one language to another.', '2020-12-09 18:06:02', NULL),
+(55, 'Traffic Warden', 'A person that patrols areas to check that people do not park in the wrong place.', '2020-12-09 18:06:02', NULL),
+(56, 'Travel Agent ', 'A person that organises and sells holidays and flights for others.', '2020-12-09 18:06:02', NULL),
+(57, 'Veterinary Doctor (Vet)', 'A qualified person that looks after sick animals.', '2020-12-09 18:06:02', NULL),
+(58, 'Waiter/Waitress', 'A person that works in a food outlet, looking after customers and serving food.', '2020-12-09 18:06:02', NULL),
+(59, 'Window Cleaner', 'A person that cleans windows, normally the windows of big buildings.', '2020-12-09 18:06:02', NULL),
+(60, 'Others', 'Other professions not listed.', '2020-12-10 09:48:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -1174,33 +1395,95 @@ CREATE TABLE IF NOT EXISTS `requests` (
 -- Table structure for table `services`
 --
 
-DROP TABLE IF EXISTS `services`;
-CREATE TABLE IF NOT EXISTS `services` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `services` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `services_name_unique` (`name`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `services`
 --
 
 INSERT INTO `services` (`id`, `user_id`, `name`, `is_active`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Electronics', '1', NULL, '2020-12-05 09:07:03', NULL),
-(2, 1, 'Electricals', '1', NULL, '2020-12-05 09:15:38', '2020-12-06 05:02:47'),
+(1, 1, 'Uncategorized', '0', NULL, '2019-12-31 23:00:00', '2020-12-08 18:38:47'),
+(2, 1, 'Electricals', '1', NULL, '2020-12-05 09:15:38', '2020-12-08 20:12:15'),
 (3, 1, 'Plumbing', '1', NULL, '2020-12-05 09:16:30', NULL),
 (4, 1, 'Refrigeration', '1', NULL, '2020-12-05 09:18:11', '2020-12-05 10:32:26'),
 (5, 1, 'Household Appliances', '1', NULL, '2020-12-05 09:19:11', NULL),
 (6, 1, 'Locks & Security', '1', NULL, '2020-12-05 09:20:35', NULL),
-(7, 1, 'Developer Testing', '1', NULL, '2020-12-05 14:10:03', '2020-12-06 15:22:57'),
-(10, 1, 'Test Test', '1', NULL, '2020-12-06 20:42:17', NULL);
+(11, 1, 'Electronics', '1', NULL, '2020-12-05 09:07:03', '2020-12-08 18:37:20'),
+(12, 1, 'Gadgets', '1', NULL, '2020-12-08 17:55:27', '2020-12-12 18:51:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service_requests`
+--
+
+CREATE TABLE `service_requests` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `admin_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `cse_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `technician_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `service_id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `job_reference` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `security_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `client_project_status` enum('Pending','Ongoing','Completed','Cancelled') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `service_requests`
+--
+
+INSERT INTO `service_requests` (`id`, `user_id`, `admin_id`, `cse_id`, `technician_id`, `service_id`, `category_id`, `job_reference`, `security_code`, `client_project_status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 11, NULL, NULL, NULL, 11, 1, 'REF-66EB5A26', 'SEC-27AEC73E', 'Pending', NULL, '2020-12-14 12:39:55', NULL),
+(2, 10, NULL, NULL, NULL, 3, 2, 'REF-330CB862', 'SEC-88AC1B19', 'Pending', NULL, '2020-12-14 12:48:20', NULL),
+(5, 11, NULL, NULL, NULL, 5, 3, 'REF-27D2F0BE', 'SEC-35FA9E28', 'Pending', NULL, '2020-12-14 15:36:58', '2020-12-14 15:36:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service_request_details`
+--
+
+CREATE TABLE `service_request_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `service_request_id` bigint(20) UNSIGNED NOT NULL,
+  `state_id` tinyint(4) UNSIGNED NOT NULL,
+  `lga_id` int(11) UNSIGNED NOT NULL,
+  `town` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `initial_service_fee` int(20) UNSIGNED NOT NULL,
+  `discount_service_fee` int(20) UNSIGNED DEFAULT NULL,
+  `service_fee_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `timestamp` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `media_file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `service_request_details`
+--
+
+INSERT INTO `service_request_details` (`id`, `service_request_id`, `state_id`, `lga_id`, `town`, `initial_service_fee`, `discount_service_fee`, `service_fee_name`, `phone_number`, `address`, `description`, `timestamp`, `media_file`, `payment_method`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 25, 359, 'Falomo', 3500, 3325, 'Urgent', '08034516844', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'My pc no longer comes on even when plugged into a power source.', 'December 14th 2020, 12:00:00pm', '66eb5a26f7f961fca75c73ba0a65e4110a5dc9af.jpg', 'Online', NULL, '2020-12-14 12:39:55', '2020-12-14 12:39:55'),
+(2, 2, 25, 359, 'Falomo', 3300, NULL, 'Urgent', '08167836902', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'Hello FixMaster, my kitchen pipe broke and water is spilling everywhere, kindly send someone over...it\'s of utmost urgency. Thanks', 'December 15th 2020, 10:00:00am', NULL, 'Online', NULL, '2020-12-14 12:48:20', '2020-12-14 12:48:20'),
+(3, 5, 25, 359, 'Falomo', 2500, NULL, 'Standard', '08034516844', '127B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'My dishwasher broke, and its spilling water everywhere. Please send someone, ASAP!', 'December 15th 2020, 11:00:00am', NULL, 'Online', NULL, '2020-12-14 15:36:58', '2020-12-14 15:36:58');
 
 -- --------------------------------------------------------
 
@@ -1208,12 +1491,10 @@ INSERT INTO `services` (`id`, `user_id`, `name`, `is_active`, `deleted_at`, `cre
 -- Table structure for table `states`
 --
 
-DROP TABLE IF EXISTS `states`;
-CREATE TABLE IF NOT EXISTS `states` (
-  `id` tinyint(4) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+CREATE TABLE `states` (
+  `id` tinyint(4) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `states`
@@ -1264,18 +1545,14 @@ INSERT INTO `states` (`id`, `name`) VALUES
 -- Table structure for table `super_admins`
 --
 
-DROP TABLE IF EXISTS `super_admins`;
-CREATE TABLE IF NOT EXISTS `super_admins` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `super_admins` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `middle_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `super_admins_phone_number_unique` (`phone_number`),
-  UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `super_admins`
@@ -1291,18 +1568,19 @@ INSERT INTO `super_admins` (`id`, `user_id`, `first_name`, `middle_name`, `last_
 -- Table structure for table `technicians`
 --
 
-DROP TABLE IF EXISTS `technicians`;
-CREATE TABLE IF NOT EXISTS `technicians` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `technicians` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `franchise_id` bigint(20) UNSIGNED DEFAULT NULL,
   `state_id` tinyint(4) UNSIGNED DEFAULT NULL,
   `lga_id` int(11) UNSIGNED DEFAULT NULL,
-  `town_id` tinyint(4) UNSIGNED DEFAULT NULL,
-  `bank_id` tinyint(4) UNSIGNED NOT NULL,
+  `town` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bank_id` int(11) UNSIGNED NOT NULL,
+  `tag_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `middle_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` enum('Male','Female') COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `other_phone_number` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `account_number` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1310,15 +1588,16 @@ CREATE TABLE IF NOT EXISTS `technicians` (
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `full_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `technicians_phone_number_unique` (`phone_number`),
-  UNIQUE KEY `technicians_other_phone_number_unique` (`other_phone_number`),
-  UNIQUE KEY `technicians_account_number_unique` (`account_number`),
-  KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`town_id`,`bank_id`),
-  KEY `lga_id` (`lga_id`),
-  KEY `state_id` (`state_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `technicians`
+--
+
+INSERT INTO `technicians` (`id`, `user_id`, `franchise_id`, `state_id`, `lga_id`, `town`, `bank_id`, `tag_id`, `first_name`, `middle_name`, `last_name`, `gender`, `phone_number`, `other_phone_number`, `account_number`, `rating`, `avatar`, `full_address`, `created_at`, `updated_at`) VALUES
+(1, 14, NULL, 25, 362, 'Alausa', 5, 'TECH-23973', 'Andrew', 'Stephen', 'Nwankwo', 'Male', '09037827367', NULL, '0723872901', '0.0', NULL, 'Badejo Close, off Shoprite, Alausa-Ikeja, Lagos. Nigeria.', NULL, NULL),
+(2, 15, NULL, 25, 360, 'Ibeju-Lekki', 16, 'TECH-08435', 'Taofeek', 'Kazeem', 'Adedokun', 'Male', '08124763892', NULL, '0123653289', '0.0', NULL, 'Camsican Drive, Ibeju Lekki, Lagos State.', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1326,39 +1605,400 @@ CREATE TABLE IF NOT EXISTS `technicians` (
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `email_verification_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `is_email_verified` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_email_verified` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `designation` enum('[SUPER_ADMIN_ROLE]','[ADMIN_ROLE]','[CSE_ROLE]','[TECHNICIAN_ROLE]','[SUPPLIER_ROLE]','[TRAINEE_ROLE]','[USER_ROLE]','[INTRUDER_ROLE]') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `designation` enum('[SUPER_ADMIN_ROLE]','[ADMIN_ROLE]','[CSE_ROLE]','[TECHNICIAN_ROLE]','[SUPPLIER_ROLE]','[TRAINEE_ROLE]','[CLIENT_ROLE]','[INTRUDER_ROLE]') COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL,
   `login_count` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
   `current_sign_in` timestamp NULL DEFAULT NULL,
   `last_sign_in` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_token`, `is_email_verified`, `password`, `remember_token`, `designation`, `is_active`, `login_count`, `current_sign_in`, `last_sign_in`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', 50, '2020-12-06 16:21:36', '2020-12-06 15:15:40', NULL, '2019-12-31 23:29:26', NULL),
-(2, '', NULL, NULL, '1', '', NULL, '[INTRUDER_ROLE]', '0', 0, NULL, NULL, NULL, NULL, NULL),
+(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', 56, '2020-12-14 18:55:38', '2020-12-14 13:29:12', NULL, '2019-12-31 23:29:26', '2020-12-14 18:55:38'),
+(2, '', NULL, NULL, '0', '', NULL, '[INTRUDER_ROLE]', '0', 0, NULL, NULL, NULL, NULL, NULL),
 (3, 'charles.famoriyo@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', 3, '2020-12-03 19:34:43', '2020-11-30 21:34:14', NULL, '2020-11-30 06:26:42', NULL),
-(4, 'david.akinsola@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[ADMIN_ROLE]', '1', 3, '2020-12-04 05:21:38', '2020-12-03 20:26:57', NULL, '2020-11-30 06:26:42', NULL),
-(5, 'obuchi.omotosho@gmail.com', '2020-11-30 22:35:09', '565a2eab0940daa4c00ea83bc9cf1ce582dd2a7c', '1', '$2y$10$03LiG5ipILzRThbbNX1A8O4cxFlnZIgLLHqhwuUPKbaRbwnhvTp6K', NULL, '[ADMIN_ROLE]', '1', 1, '2020-12-04 05:22:16', '2020-12-04 03:05:04', NULL, '2020-11-30 22:35:09', NULL),
-(6, 'isaac.john@yahoo.com', '2020-12-03 19:35:45', '4fdda0314bf174ad785199f195a77adf8b10b7cd', '1', '$2y$10$pdUsx4/hazrwHDGbuMoUBuA5V/d88BSoE7UgTbfwe0tHlajWZgMem', NULL, '[ADMIN_ROLE]', '1', 0, NULL, NULL, NULL, '2020-12-03 19:35:45', NULL),
-(7, 'godfrey.emmanuel@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[ADMIN_ROLE]', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', '2020-12-06 15:21:49');
+(4, 'info@fixmaster.com.ng', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', 0, NULL, NULL, NULL, NULL, NULL),
+(5, 'david.akinsola@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[ADMIN_ROLE]', '1', 3, '2020-12-04 05:21:38', '2020-12-03 20:26:57', NULL, '2020-11-30 06:26:42', NULL),
+(6, 'obuchi.omotosho@gmail.com', '2020-11-30 22:35:09', '565a2eab0940daa4c00ea83bc9cf1ce582dd2a7c', '1', '$2y$10$03LiG5ipILzRThbbNX1A8O4cxFlnZIgLLHqhwuUPKbaRbwnhvTp6K', NULL, '[ADMIN_ROLE]', '1', 1, '2020-12-04 05:22:16', '2020-12-04 03:05:04', NULL, '2020-11-30 22:35:09', NULL),
+(7, 'isaac.john@yahoo.com', '2020-12-03 19:35:45', '4fdda0314bf174ad785199f195a77adf8b10b7cd', '1', '$2y$10$pdUsx4/hazrwHDGbuMoUBuA5V/d88BSoE7UgTbfwe0tHlajWZgMem', NULL, '[ADMIN_ROLE]', '1', 0, NULL, NULL, NULL, '2020-12-03 19:35:45', NULL),
+(8, 'godfrey.emmanuel@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[ADMIN_ROLE]', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
+(9, 'wisdom.amana@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
+(10, 'debo.williams@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
+(11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', 11, '2020-12-14 19:51:18', '2020-12-14 14:17:07', NULL, '2020-12-11 12:43:02', '2020-12-14 19:51:18'),
+(12, 'hostdiwa@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
+(13, 'mayowabenedict@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
+(14, 'andrew.nwankwo@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
+(15, 'taofeek.adedokun@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wallets`
+--
+
+CREATE TABLE `wallets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `wallet_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `balance` bigint(20) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `wallets`
+--
+
+INSERT INTO `wallets` (`id`, `user_id`, `wallet_id`, `balance`, `created_at`, `updated_at`) VALUES
+(1, 11, 'WAL-23782382', 0, NULL, NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `activity_logs`
+--
+ALTER TABLE `activity_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `admins_phone_number_unique` (`phone_number`),
+  ADD UNIQUE KEY `user_id` (`user_id`),
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Indexes for table `admin_permissions`
+--
+ALTER TABLE `admin_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `admin_permissions_user_id_unique` (`user_id`);
+
+--
+-- Indexes for table `banks`
+--
+ALTER TABLE `banks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `categories_name_unique` (`name`),
+  ADD UNIQUE KEY `url` (`url`),
+  ADD KEY `service_id` (`service_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `clients`
+--
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `clients_phone_number_unique` (`phone_number`),
+  ADD KEY `user_id` (`user_id`,`state_id`,`lga_id`,`town`),
+  ADD KEY `state_id` (`state_id`),
+  ADD KEY `lga_id` (`lga_id`),
+  ADD KEY `profession_id` (`profession_id`);
+
+--
+-- Indexes for table `client_messages`
+--
+ALTER TABLE `client_messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `client_messages_ibfk_1` (`sender_id`),
+  ADD KEY `client_messages_ibfk_2` (`recipient_id`);
+
+--
+-- Indexes for table `cses`
+--
+ALTER TABLE `cses`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cses_phone_number_unique` (`phone_number`),
+  ADD UNIQUE KEY `tag_id` (`tag_id`),
+  ADD UNIQUE KEY `cses_other_phone_number_unique` (`other_phone_number`),
+  ADD UNIQUE KEY `cses_account_number_unique` (`account_number`),
+  ADD KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`town`,`bank_id`),
+  ADD KEY `lga_id` (`lga_id`),
+  ADD KEY `state_id` (`state_id`),
+  ADD KEY `bank_id` (`bank_id`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`) USING HASH;
+
+--
+-- Indexes for table `lgas`
+--
+ALTER TABLE `lgas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `state_id` (`state_id`);
+
+--
+-- Indexes for table `location_and_browser_infos`
+--
+ALTER TABLE `location_and_browser_infos`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`),
+  ADD UNIQUE KEY `user_id_2` (`user_id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `names`
+--
+ALTER TABLE `names`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`(250));
+
+--
+-- Indexes for table `professions`
+--
+ALTER TABLE `professions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `services_name_unique` (`name`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `service_requests`
+--
+ALTER TABLE `service_requests`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `security_code` (`security_code`),
+  ADD UNIQUE KEY `job_reference` (`job_reference`),
+  ADD KEY `user_id` (`user_id`,`admin_id`,`cse_id`,`technician_id`,`service_id`,`category_id`),
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `service_id` (`service_id`),
+  ADD KEY `admin_id` (`admin_id`),
+  ADD KEY `technician_id` (`technician_id`),
+  ADD KEY `cse_id` (`cse_id`);
+
+--
+-- Indexes for table `service_request_details`
+--
+ALTER TABLE `service_request_details`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `service_request_id` (`service_request_id`),
+  ADD KEY `state_id` (`state_id`),
+  ADD KEY `lga_id` (`lga_id`);
+
+--
+-- Indexes for table `states`
+--
+ALTER TABLE `states`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `super_admins`
+--
+ALTER TABLE `super_admins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `super_admins_phone_number_unique` (`phone_number`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `technicians`
+--
+ALTER TABLE `technicians`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `technicians_phone_number_unique` (`phone_number`),
+  ADD UNIQUE KEY `tag_id` (`tag_id`),
+  ADD UNIQUE KEY `technicians_other_phone_number_unique` (`other_phone_number`),
+  ADD UNIQUE KEY `technicians_account_number_unique` (`account_number`),
+  ADD KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`town`,`bank_id`),
+  ADD KEY `lga_id` (`lga_id`),
+  ADD KEY `state_id` (`state_id`),
+  ADD KEY `bank_id` (`bank_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indexes for table `wallets`
+--
+ALTER TABLE `wallets`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `wallets_user_id_unique` (`user_id`),
+  ADD UNIQUE KEY `wallets_wallet_id_unique` (`wallet_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `activity_logs`
+--
+ALTER TABLE `activity_logs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+
+--
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `admin_permissions`
+--
+ALTER TABLE `admin_permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `banks`
+--
+ALTER TABLE `banks`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `client_messages`
+--
+ALTER TABLE `client_messages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `cses`
+--
+ALTER TABLE `cses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `lgas`
+--
+ALTER TABLE `lgas`
+  MODIFY `id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=775;
+
+--
+-- AUTO_INCREMENT for table `location_and_browser_infos`
+--
+ALTER TABLE `location_and_browser_infos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `names`
+--
+ALTER TABLE `names`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `professions`
+--
+ALTER TABLE `professions`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `service_requests`
+--
+ALTER TABLE `service_requests`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `service_request_details`
+--
+ALTER TABLE `service_request_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `states`
+--
+ALTER TABLE `states`
+  MODIFY `id` tinyint(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `super_admins`
+--
+ALTER TABLE `super_admins`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `technicians`
+--
+ALTER TABLE `technicians`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `wallets`
+--
+ALTER TABLE `wallets`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -1393,17 +2033,26 @@ ALTER TABLE `categories`
 -- Constraints for table `clients`
 --
 ALTER TABLE `clients`
-  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `clients_ibfk_3` FOREIGN KEY (`lga_id`) REFERENCES `lgas` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `clients_ibfk_3` FOREIGN KEY (`lga_id`) REFERENCES `lgas` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `clients_ibfk_4` FOREIGN KEY (`profession_id`) REFERENCES `professions` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `client_messages`
+--
+ALTER TABLE `client_messages`
+  ADD CONSTRAINT `client_messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `client_messages_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `cses`
 --
 ALTER TABLE `cses`
-  ADD CONSTRAINT `cses_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cses_ibfk_2` FOREIGN KEY (`lga_id`) REFERENCES `lgas` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `cses_ibfk_3` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `cses_ibfk_3` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `cses_ibfk_4` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `cses_ibfk_5` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `lgas`
@@ -1412,24 +2061,41 @@ ALTER TABLE `lgas`
   ADD CONSTRAINT `lgas_ibfk_1` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Constraints for table `location_and_browser_infos`
+--
+ALTER TABLE `location_and_browser_infos`
+  ADD CONSTRAINT `location_and_browser_infos_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `names`
 --
 ALTER TABLE `names`
   ADD CONSTRAINT `names_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `requests`
---
-ALTER TABLE `requests`
-  ADD CONSTRAINT `requests_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `requests_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `requests_ibfk_3` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
 -- Constraints for table `services`
 --
 ALTER TABLE `services`
   ADD CONSTRAINT `services_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `service_requests`
+--
+ALTER TABLE `service_requests`
+  ADD CONSTRAINT `service_requests_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `service_requests_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `service_requests_ibfk_3` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `service_requests_ibfk_4` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `service_requests_ibfk_5` FOREIGN KEY (`technician_id`) REFERENCES `technicians` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `service_requests_ibfk_6` FOREIGN KEY (`cse_id`) REFERENCES `cses` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `service_request_details`
+--
+ALTER TABLE `service_request_details`
+  ADD CONSTRAINT `service_request_details_ibfk_1` FOREIGN KEY (`service_request_id`) REFERENCES `service_requests` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `service_request_details_ibfk_2` FOREIGN KEY (`lga_id`) REFERENCES `lgas` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `service_request_details_ibfk_3` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `super_admins`
@@ -1443,7 +2109,14 @@ ALTER TABLE `super_admins`
 ALTER TABLE `technicians`
   ADD CONSTRAINT `technicians_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `technicians_ibfk_2` FOREIGN KEY (`lga_id`) REFERENCES `lgas` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `technicians_ibfk_3` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `technicians_ibfk_3` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `technicians_ibfk_4` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `wallets`
+--
+ALTER TABLE `wallets`
+  ADD CONSTRAINT `wallets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
