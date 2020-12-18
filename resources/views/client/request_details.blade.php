@@ -38,7 +38,7 @@
                         <div class="col-md-5">
                             {{-- <img src="{{ asset('assets/images/default-male-avatar.png') }}" class="img-fluid" alt=""> --}}
                             @if(!empty($requestDetail->cse->avatar) && file_exists(public_path().'/assets/cse-technician-images/'.$requestDetail->cse->avatar))
-                                <img src="{{ asset('assets/cse-technician-images/'.$requestDetail->cse->avatar) }}" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="" />
+                                <img src="{{ asset('assets/cse-technician-images/'.$requestDetail->cse->avatar) }}" class="img-fluid" alt="" />
                             @else
                                 @if($requestDetail->cse->gender == 'Male')
                                     <img src="{{ asset('assets/images/default-male-avatar.png') }}" alt="Default male profile avatar" class="avatar avatar-large rounded-circle shadow d-block mx-auto" />

@@ -22,7 +22,7 @@ class ClientRole
         $designation = Auth::user()->designation;
 
         if($designation != '[CLIENT_ROLE]'){
-            return \redirect('/');
+            return \back();
         }
 
         return $next($request);

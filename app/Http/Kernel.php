@@ -53,14 +53,25 @@ class Kernel extends HttpKernel
         // ],
         'adminRole' => [
             \App\Http\Middleware\AdminRole::class,
-            
         ],
+        
         'superAdminRole' => [
             \App\Http\Middleware\SuperAdminRole::class,
         ],
+        
         'clientRole' => [
             \App\Http\Middleware\ClientRole::class,
         ],
+        
+        'cseRole' => [
+            \App\Http\Middleware\CSERole::class,
+        ],
+
+        'technicianRole' => [
+            \App\Http\Middleware\TechnicianRole::class,
+        ],
+
+        
     ];
 
     /**

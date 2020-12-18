@@ -19,10 +19,10 @@ class AdminRole
      */
     public function handle(Request $request, Closure $next)
     {
-        $designation = Auth::user()->designation;
+        $isAdmin = Auth::user()->is_admin;
 
-        if($designation != '[ADMIN_ROLE]'){
-            return \redirect('/');
+        if($isAdmin != '1'){
+            return \back();
         }
 
         return $next($request);
