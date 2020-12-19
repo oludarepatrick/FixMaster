@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Edit CSE Account')
+@section('title', 'Edit '. $cse->fullName->name.'\'s Account')
 @include('layouts.partials._messages')
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/dashboard/assets/css/bootstrap-multiselect.css') }}">
@@ -15,183 +15,247 @@
               <li class="breadcrumb-item active" aria-current="page">Edit CSE</li>
             </ol>
           </nav>
-          <h4 class="mg-b-0 tx-spacing--1">Edit Godfrey Diwa's  Account</h4>
+        <h4 class="mg-b-0 tx-spacing--1">Edit {{ $cse->fullName->name }}'s  Account</h4>
+        </div>
+        <div class="d-md-block">
+          <a href="{{ route('admin.list_cse') }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a>
         </div>
       </div>
-      <form>
-      <div class="row row-xs">
-        <div class="col-md-12">
-          <div class="form-row">
+      <form method="POST" action="{{ route('admin.update_cse', $cse->cse->user_id) }}" enctype="multipart/form-data">
+        @csrf @method('PUT')
+        <div class="row row-xs">
+          <div class="col-md-12">
+            <div class="form-row">
               <div class="form-group col-md-4">
                   <label for="first_name">First Name</label>
-                  <input type="text" class="form-control" id="first_name" value="Godfrey" placeholder="First Name">
+                  <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name" name="first_name" value="{{ old('first_name') ?? $cse->cse->first_name }}" placeholder="First Name" autocomplete="off">
+                  @error('first_name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
               </div>
               <div class="form-group col-md-4">
                   <label for="middle_name">Middle Name</label>
-                  <input type="text" class="form-control" id="middle_name" value="Alfred" placeholder="Middle Name">
+                  <input type="text" class="form-control" id="middle_name" name="middle_name" value="{{ old('middle_name') ?? $cse->cse->middle_name }}" autocomplete="off" placeholder="Middle Name">
               </div>
               <div class="form-group col-md-4">
                   <label for="last_name">Last Name</label>
-                  <input type="text" class="form-control" id="last_name" value="Diwa" placeholder="Last Name">
-              </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label for="inputEmail4">Email</label>
-              <input type="email" class="form-control" id="inputEmail4" value="hostdiwa@gmail.com" placeholder="Email">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="phone_number">Phone Number</label>
-              <input type="text" class="form-control" id="phone_number" value="08054242309" placeholder="Phone Number">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="phone_number">Other Phone Number</label>
-              <input type="text" class="form-control" id="phone_number" placeholder="Phone Number">
-            </div>
-          </div>
-          <div class="form-row">
-            {{-- <div class="form-group col-md-3">
-              <label>Franchise</label>
-              <select class="custom-select">
-                <option >Select...</option>
-                <option selected value="1">Franchise 1</option>
-                <option value="2">Franchise 2</option>
-                <option value="2">Franchise 2</option>
-              </select>
-            </div> --}}
-            <div class="form-group col-md-4">
-              <label>Status</label>
-              <select class="custom-select">
-                <option >Select...</option>
-                <option selected value="1">Active</option>
-                <option value="2">Inactive</option>
-              </select>
-            </div>
-            <div class="form-group col-md-4">
-              <label>Profile Avatar</label>
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFile">
-                <label class="custom-file-label" for="customFile">Upload Profile Avatar</label>
+                  <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name" name="last_name" value="{{ old('last_name') ?? $cse->cse->last_name }}" autocomplete="off" placeholder="Last Name">
+                  @error('last_name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
               </div>
             </div>
-            <div class="form-group col-md-4">
-              <label>Service Category</label>
-              <select class=" selectpicker" id="service_categor"  multiple data-live-search="true">
-                <optgroup label="Communication">
-                <option selected value="1">Mobile Phone</option>
-              </optgroup>
-              <optgroup label="Mechanical">
-                <option value="2">Generator</option>
-                <option value="2">Pump</option>
-                {{-- <option data-divider="true"></option> --}}
-                </optgroup>
-                <optgroup label="Locks & Security">
-                <option selected value="2">Door</option>
-                <option value="2">Security Equipment</option>
-                <option selected value="2">Windows</option>
-              </optgroup>
-              </select>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="E-Mail" name="email" id="email" value="{{ old('email') ?? $cse->email }}" required autocomplete="off">
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              <div class="form-group col-md-3">
+                <label for="phone_number">Phone Number</label>
+                <input type="tel" class="form-control @error('phone_number') is-invalid @enderror" placeholder="Phone Number" name="phone_number" id="phone_number" value="{{ old('phone_number') ?? $cse->cse->phone_number }}" maxlength="11" required autocomplete="off">
+                @error('phone_number')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              <div class="form-group col-md-3">
+                <label for="other_phone_number">Other Phone Number</label>
+                <input type="tel" class="form-control @error('other_phone_number') is-invalid @enderror" placeholder="Other Phone Number" name="other_phone_number" id="other_phone_number" value="{{ old('other_phone_number') ?? $cse->cse->other_phone_number }}" maxlength="11" autocomplete="off">
+                @error('other_phone_number')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              <div class="form-group col-md-3">
+                <label for="gender">Gender</label>
+                <select class="form-control @error('gender') is-invalid @enderror" name="gender" id="gender" required>
+                    <option selected value="">Select...</option>
+                    <option value="Male" {{ old('gender') == 'Male' ? 'selected' : ''}} @if($cse->cse->gender == 'Male') selected @endif>Male</option>
+                    <option value="Female" {{ old('gender') == 'Female' ? 'selected' : ''}} @if($cse->cse->gender == 'Female') selected @endif>Female</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="form-row">
             
-            <div class="form-group col-md-6">
-              <label>Bank Name</label>
-              <select id="bank_name" name="bank_name" class="custom-select bank_name">
-                <option selected>Select...</option>
-                <option value="044">Access Bank</option>
-                <option value="401">ASO Savings and Loans</option>
-                <option value="023">CitiBank</option>
-                <option value="551">Covenant Microfinance Bank</option>
-                <option value="063">Diamond Bank</option>
-                <option selected value="050">Ecobank Plc</option>
-                <option value="084">Enterprise Bank</option>
-                <option value="070">Fidelity Bank</option>
-                <option value="318">Fidelity Mobile</option>
-                <option value="011">First Bank of Nigeria</option>
-                <option value="214">First City Monument Bank</option>
-                <option value="601">FSDH Merchant Bank</option>
-                <option value="058">GTBank Plc</option>
-                <option value="030">Heritage</option>
-                <option value="301">JAIZ Bank</option>
-                <option value="082">Keystone Bank</option>
-                <option value="526">Parallex Microfinance Bank</option>
-                <option value="101">Providus Bank</option>
-                <option value="076">Skye Bank</option>
-                <option value="221">Stanbic IBTC Bank</option>
-                <option value="068">Standard Chartered Bank</option>
-                <option value="232">Sterling Bank</option>
-                <option value="100">SunTrust Bank</option>
-                <option value="032">Union Bank</option>
-                <option value="033">United Bank for Africa</option>
-                <option value="215">Unity Bank</option>
-                <option value="035">Wema Bank</option>
-                <option value="057">Zenith Bank</option>
-              </select>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label>Profile Avatar</label>
+                <div class="custom-file">
+                  <input type="file" accept="image/*" class="custom-file-input @error('avatar') is-invalid @enderror" name="avatar" id="avatar">
+                  <label class="custom-file-label" id="image-name" for="image">Upload New Profile Avatar</label>
+                  <input type="hidden" id="old_avatar" name="old_avatar" value="{{ $cse->cse->avatar }}">
+                  <small>{{ substr($cse->cse->avatar, 0, 20) }}...jpg</small>
+                  @error('avatar')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label>Service Category</label>
+                <select class="selectpicker @error('cse_category') is-invalid @enderror" id="cse_category" name="cse_category[]"  multiple="multiple" data-live-search="true">
+                  @foreach ($services as $service)
+                    <optgroup label="{{ $service->name }}">
+                      @foreach($service->categories as $item)
+                        <option value="{{ $item->id }}" {{ old('cse_category') == $item->id ? 'selected' : ''}} @foreach($cseCategories as $cseCategory) @if($item->id == $cseCategory->category_id) selected @endif @endforeach>{{ $item->name }}</option>
+                      @endforeach
+                    </optgroup>
+                  @endforeach
+                </select>
+                @error('cse_category')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              <div class="form-group col-md-3">
+                <label>Bank Name</label>
+                <select id="bank_id" name="bank_id" class="custom-select bank_id @error('bank_id') is-invalid @enderror">
+                    <option selected value="">Select...</option>
+                    @foreach($banks as $bank)
+                      <option value="{{ $bank->id }}" {{ old('bank_id') == $bank->id ? 'selected' : ''}} @if($bank->id == $cse->cse->bank_id) selected @endif>{{ $bank->name }}</option>
+                    @endforeach
+                </select>
+                @error('bank_id')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
+              <div class="form-group col-md-3">
+                  <label for="account_number">Account Number</label>
+                  <input type="tel" class="form-control @error('account_number') is-invalid @enderror" id="account_number" name="account_number" placeholder="Account Number" maxlength="10"  autocomplete="off" value="{{ old('account_number') ?? $cse->cse->account_number }}">
+                  @error('account_number')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
             </div>
-            <div class="form-group col-md-6">
-                <label for="first_name">Account Number</label>
-                <input type="text" class="form-control" id="first_name" value="0123456789" placeholder="Account Number">
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label>State</label>
+                <select class="form-control @error('state_id') is-invalid @enderror" name="state_id" id="state_id">
+                  <option selected value="">Select...</option>
+                  @foreach($states as $state)
+                      <option value="{{ $state->id }}" {{ old('state_id') == $state->id ? 'selected' : ''}} @if($state->id == $cse->cse->state_id) selected @endif>{{ $state->name }}</option>
+                  @endforeach
+                </select>
+                @error('state_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+
+              <div class="form-group col-md-4">
+                <label>L.G.A</label>
+                <select class="form-control @error('lga_id') is-invalid @enderror" name="lga_id" id="lga_id">
+                  <option selected value="{{ $cse->cse->lga_id }}">{{ $cse->cse->lga->name }}</option>
+                </select>
+                @error('lga_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+
+              <div class="form-group col-md-4">
+                <label>Town/City</label>
+                <input type="text" class="form-control @error('town') is-invalid @enderror" placeholder="e.g. CMS, Ikoyi, Egbeda" name="town" id="town" value="{{ old('town') ?? $cse->cse->town }}" required>
+                @error('town')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
             </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="inputAddress2">Full Address</label>
+                <textarea class="form-control @error('full_address') is-invalid @enderror" rows="3" name="full_address" id="full_address" placeholder="e.g. 284B, Ajose Adeogun Street, Victoria Island, Lagos, Nigeria.">{{ old('full_address') ?? $cse->cse->full_address }}</textarea>
+                @error('full_address')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Update Profile</button>
           </div>
-
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label>State</label>
-              <select class="custom-select" disabled>
-                <option>Select...</option>
-                <option selected value="1">Lagos</option>
-                <option value="2">Inactive</option>
-              </select>
-            </div>
-
-            <div class="form-group col-md-4">
-              <label>L.G.A</label>
-              <select class="custom-select">
-                <option>Select...</option>
-                <option value="1">Alimosho</option>
-                <option value="2">Kosofe</option>
-                <option selected value="2">Mushin</option>
-                <option value="2">Oshodi-Isolo</option>
-                <option value="2">Ojo</option>
-                <option value="2">Badagry</option>
-              </select>
-            </div>
-
-            <div class="form-group col-md-4">
-              <label>Town/City</label>
-              <select class="custom-select">
-                <option>Select...</option>
-                <option selected value="1">Abule Ijesha</option>
-                <option value="2">Bariga</option>
-                <option value="2">Coker</option>
-                <option value="2">Eti Osa</option>
-                <option value="2">Ibeju-Lekki</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label for="inputAddress2">Full Address</label>
-              <textarea rows="3" class="form-control" id="inputAddress2"></textarea>
-            </div>
-          </div>
-          
-          <button type="submit" class="btn btn-primary">Update</button>
         </div>
-      </div>
-    </form>
+      </form>
 
     </div>
 </div>
 
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('assets/dashboard/assets/js/bootstrap-multiselect.js') }}"></script>
+
 <script> 
 
-$('.selectpicker').selectpicker();
+  $('.selectpicker').selectpicker();
+
+  $(document).ready(function (){
+
+    
+
+    //Append the image name from file options to post cover field
+    $(document).ready(function(){
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            $('#image-name').text(fileName);
+        });
+
+        // let previousCoverPhoto = $('#old_avatar').val();
+        // $('#image-name').text(previousCoverPhoto);
+        
+    });
+
+    //Get list of L.G.A's in a particular state.
+    $('#state_id').on('change',function () {
+        let stateId = $('#state_id').find('option:selected').val();
+        let stateName = $('#state_id').find('option:selected').text();
+        
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF_TOKEN':$('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        $.ajax({
+            url: "{{ route('lga_list') }}",
+            method: "POST",
+            dataType: "JSON",
+            data: {state_id:stateId},
+            success: function(data){
+                if(data){
+
+                    $('#lga_id').html(data.lgaList);
+                }else{
+                    var message = 'Error occured while trying to get L.G.A`s in '+ stateName +' state';
+                    var type = 'error';
+                    displayMessage(message, type);
+                }
+            },
+        })  
+    });
+
+  });
 </script>
 
-@endsection
+@endpush
 @endsection

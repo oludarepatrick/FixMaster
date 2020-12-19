@@ -57,7 +57,7 @@ return array(
     'App\\Models\\CSE' => $baseDir . '/app/Models/CSE.php',
     'App\\Models\\Category' => $baseDir . '/app/Models/Category.php',
     'App\\Models\\Client' => $baseDir . '/app/Models/Client.php',
-    'App\\Models\\ClientMessage' => $baseDir . '/app/Models/ClientMessage.php',
+    'App\\Models\\Message' => $baseDir . '/app/Models/Message.php',
     'App\\Models\\Lga' => $baseDir . '/app/Models/Lga.php',
     'App\\Models\\LocationAndBrowserInfo' => $baseDir . '/app/Models/LocationAndBrowserInfo.php',
     'App\\Models\\Name' => $baseDir . '/app/Models/Name.php',

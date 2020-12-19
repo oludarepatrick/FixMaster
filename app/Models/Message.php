@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ClientMessage extends Model
+class Message extends Model
 {
     use HasFactory;
 
@@ -20,21 +20,21 @@ class ClientMessage extends Model
 
     public function userSentMessage()
     {
-        return $this->belongsTo(User::class, 'sender_id')->withDefault();
+        return $this->belongsTo(User::class, 'sender_id');
     }
 
     public function userSentMessages()
     {
-        return $this->hasMany(User::class, 'sender_id')->withDefault();
+        return $this->hasMany(User::class, 'sender_id');
     }
 
     public function userReceivedMessage()
     {
-        return $this->belongsTo(User::class, 'recipient_id')->withDefault();
+        return $this->belongsTo(User::class, 'recipient_id');
     }
 
     public function userReceivedMessages()
     {
-        return $this->hasMany(User::class, 'recipient_id')->withDefault();
+        return $this->hasMany(User::class, 'recipient_id');
     }
 }

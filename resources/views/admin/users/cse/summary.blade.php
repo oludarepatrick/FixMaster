@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Godfrey Diwa\'s Summary')
+@section('title', $cse->fullName->name.'\'s Summary')
 @include('layouts.partials._messages')
 @section('content')
 <div class="content-body">
@@ -10,7 +10,7 @@
           <ol class="breadcrumb breadcrumb-style1 mg-b-10">
           <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="{{ route('admin.list_cse') }}">CSE List</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Godfrey Diwa</li>
+          <li class="breadcrumb-item active" aria-current="page">{{ $cse->fullName->name }}</li>
           </ol>
         </nav>
       </div>
@@ -21,7 +21,7 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Total Requests</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end">
-            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">6</h5>
+          <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $totalRequests }}</h5>
           </div>
           
         </div>
@@ -30,7 +30,7 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Completed Requests</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end">
-            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">4</h5>
+          <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $completedRequests }}</h5>
           </div>
           
         </div>
@@ -39,7 +39,7 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cancelled Requests</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end">
-            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">2</h5>
+          <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $cancelledRequests }}</h5>
           </div>
         </div>
       </div>
@@ -60,24 +60,37 @@
         <div id="contactInformation" class="tab-pane show active pd-20 pd-xl-25">
           <div class="d-flex align-items-center justify-content-between mg-b-25">
             <h5 class="mg-b-0">Personal Details</h5>
-            <div class="d-flex">
-              <div class="avatar avatar-xl"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt=""></div>
-            </div>
+            
           </div>
 
           <div class="row row-sm">
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Firstname</label>
-              <p class="mg-b-0">Godfrey</p>
+              <p class="mg-b-0">{{ $cse->cse->first_name }}</p>
             </div><!-- col -->
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Middlename</label>
-              <p class="mg-b-0">Panshak</p>
+              <p class="mg-b-0">{{ $cse->cse->middle_name }}</p>
             </div><!-- col -->
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Lastname</label>
-              <p class="mg-b-0">Diwa</p>
+              <p class="mg-b-0">{{ $cse->cse->last_name }}</p>
             </div><!-- col -->
+
+            <div class="d-flex">
+              <div class="avatar avatar-xxl">
+                {{-- <img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt=""> --}}
+                @if(!empty($cse->cse->avatar) && file_exists(public_path().'/assets/cse-technician-images/'.$cse->cse->avatar))
+                    <img src="{{ asset('assets/cse-technician-images/'.$cse->cse->avatar) }}" class="rounded-circle" alt="" />
+                @else
+                    @if($cse->cse->gender == 'Male')
+                        <img src="{{ asset('assets/images/default-male-avatar.png') }}" alt="Default male profile avatar" class="avatar avatar-large rounded-circle shadow d-block mx-auto" />
+                    @else
+                        <img src="{{ asset('assets/images/default-female-avatar.png') }}" alt="Default female profile avatar" class="avatar avatar-large rounded-circle shadow d-block mx-auto" />
+                    @endif
+                @endif
+              </div>
+            </div>
           </div><!-- row -->
 
           <div class="row row-sm">
@@ -98,7 +111,7 @@
             </div> --}}
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">ID</label>
-              <p class="tx-primary tx-rubik mg-b-0">CSE-23804223</p>
+            <p class="tx-primary tx-rubik mg-b-0">{{ $cse->cse->tag_id }}</p>
             </div>
           </div>
 
@@ -107,34 +120,34 @@
           <div class="row row-sm">
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Phone Number</label>
-              <p class="tx-primary tx-rubik mg-b-0">08034516890</p>
+              <p class="tx-primary tx-rubik mg-b-0">{{ $cse->cse->phone_number }}</p>
             </div>
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Other Phone Number</label>
-              <p class="tx-primary tx-rubik mg-b-0"></p>
+              <p class="tx-primary tx-rubik mg-b-0">{{ $cse->cse->other_phone_number }}</p>
             </div>
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Email Address</label>
-              <p class="tx-primary mg-b-0">hostdiwa@gmail.com</p>
+              <p class="tx-primary mg-b-0">{{ $cse->email }}</p>
             </div>
           </div>
 
           <div class="row row-sm">
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">State</label>
-              <p class="mg-b-0">Lagos</p>
+              <p class="mg-b-0">{{ $cse->cse->state->name }}</p>
             </div>
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">L.G.A</label>
-              <p class="mg-b-0">Mushin</p>
+              <p class="mg-b-0">{{ $cse->cse->lga->name }}</p>
             </div>
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Town/City</label>
-              <p class="mg-b-0">Ibeju-Lekki</p>
+              <p class="mg-b-0">{{ $cse->cse->town }}</p>
             </div>
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Full Address</label>
-              <p class="mg-b-0">2 Chevron Drive, Lekki Penninsula II 12825, Lekki</p>
+              <p class="mg-b-0">{{ $cse->cse->full_address }}</p>
             </div>
           </div><!-- row -->
 
@@ -142,11 +155,11 @@
           <div class="row row-sm">
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Bank Name</label>
-              <p class="tx-primary mg-b-0">Ecobank Plc</p>
+              <p class="tx-primary mg-b-0">{{ $cse->cse->bank->name }}</p>
             </div>
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Account Number</label>
-              <p class="tx-primary tx-rubik mg-b-0">0123456789</p>
+              <p class="tx-primary tx-rubik mg-b-0">{{ $cse->cse->account_number }}</p>
             </div>
           </div>
           
@@ -156,19 +169,23 @@
               <tbody>
                 <tr>
                   <td class="tx-medium">Service Category</td>
-                  <td class="tx-color-03">Mobile Phone, Light Fittings, Wiring Repair, Computer</td>
+                  <td class="tx-color-03">@foreach ($categoryNames as $name) {{ $name }}<br> @endforeach</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Status</td>
-                  <td class="tx-color-03">Active</td>
+                  <td class="tx-color-03">@if($cse->is_active == '1') Active @else Inactive @endif</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Date Created</td>
-                  <td class="tx-color-03">May 15 2020</td>
+                  <td class="tx-color-03">{{ Carbon\Carbon::parse($cse->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }} ({{ $cse->created_at->diffForHumans() }})</td>
+                </tr>
+                <tr>
+                  <td class="tx-medium">Created By</td>
+                <td class="tx-color-03">{{ $createdBy->find($cse->cse->created_by)->name }}</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Requests Completed</td>
-                  <td class="tx-color-03">4</td>
+                  <td class="tx-color-03">{{ $cse->cse->requests()->where('client_project_status', 'Completed')->count() }}</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Payments Received</td>
@@ -176,15 +193,15 @@
                 </tr>
                 <tr>
                   <td class="tx-medium">Messages Sent</td>
-                  <td class="tx-color-03">12</td>
+                  <td class="tx-color-03">{{ $cse->sentMessages()->count() }}</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Login Count</td>
-                  <td class="tx-color-03">23</td>
+                  <td class="tx-color-03">@if(!empty($cse->login_count)) {{ $cse->login_count }} @else 0 @endif</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Last Seen</td>
-                  <td class="tx-color-03">2 Days ago</td>
+                  <td class="tx-color-03">@if(!empty($cse->last_sign_in)) {{ $cse->last_sign_in->diffForHumans() }} @else Never @endif</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Tools Requested</td>
@@ -214,7 +231,40 @@
                     </tr>
                   </thead>
                   <tbody>
+                    
+                    @foreach($cse->cse->requests as $request)
+                    {{-- {{ dd($request->technician->first_name.''$request->technician->first_name) }} --}}
                     <tr>
+                      <td class="tx-color-03 tx-center">1</td>
+                    <td class="tx-medium">{{ $request->job_reference }}</td>
+                      <td class="tx-medium">{{ $request->user->fullName->name }}</td>
+                      <td class="tx-medium">{{ $request->technician->first_name.' '.$request->technician->last_name }}</td>
+                    <td class="text-medium text-center">
+                      ₦{{ $request->serviceRequestDetail->initial_service_fee }}
+                    </td>
+                    @if($request->client_project_status == 'Pending')
+                        <td class="text-medium text-warning text-center">Pending</td>
+                    @elseif($request->client_project_status == 'Ongoing')
+                        <td class="text-medium text-info text-center">Ongoing</td>
+                    @elseif($request->client_project_status == 'Completed')
+                        <td class="text-medium text-success text-center">Completed</td>
+                    @elseif($request->client_project_status == 'Cancelled')
+                        <td class="text-medium text-danger text-center">Cancelled</td>
+                    @endif
+
+                      {{-- <td class="text-medium text-success text-center">Completed</td> --}}
+                      <td class="text-medium">May 15th 2020 at 11:30am</td>
+                      <td class=" text-center">
+                        <div class="dropdown-file">
+                          <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                          <a href="{{ route('cse.request_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    @endforeach
+                    {{-- <tr>
                       <td class="tx-color-03 tx-center">1</td>
                       <td class="tx-medium">REF-234094623496</td>
                       <td class="tx-medium">Femi Joseph</td>
@@ -248,7 +298,7 @@
                           </div>
                         </div>
                       </td>
-                    </tr>
+                    </tr> --}}
     
                   </tbody>
                 </table>

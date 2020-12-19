@@ -626,7 +626,7 @@ class ComposerStaticInit0258898968c5a94c6296c7b8653b99d8
         'App\\Models\\CSE' => __DIR__ . '/../..' . '/app/Models/CSE.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\Client' => __DIR__ . '/../..' . '/app/Models/Client.php',
-        'App\\Models\\ClientMessage' => __DIR__ . '/../..' . '/app/Models/ClientMessage.php',
+        'App\\Models\\Message' => __DIR__ . '/../..' . '/app/Models/Message.php',
         'App\\Models\\Lga' => __DIR__ . '/../..' . '/app/Models/Lga.php',
         'App\\Models\\LocationAndBrowserInfo' => __DIR__ . '/../..' . '/app/Models/LocationAndBrowserInfo.php',
         'App\\Models\\Name' => __DIR__ . '/../..' . '/app/Models/Name.php',

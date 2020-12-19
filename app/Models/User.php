@@ -125,27 +125,47 @@ class User extends Authenticatable
 
     public function sentMessage()
     {
-        return $this->hasOne(ClientMessage::class, 'sender_id');
+        return $this->hasOne(Message::class, 'sender_id');
     }
 
     public function sentMessages()
     {
-        return $this->hasMany(ClientMessage::class, 'sender_id');
+        return $this->hasMany(Message::class, 'sender_id');
     }
 
     public function receivedMessage()
     {
-        return $this->hasOne(ClientMessage::class, 'recipient_id');
+        return $this->hasOne(Message::class, 'recipient_id');
     }
 
     public function receivedMessages()
     {
-        return $this->hasMany(ClientMessage::class, 'recipient_id');
+        return $this->hasMany(Message::class, 'recipient_id');
     }
 
     public function wallet()
     {
         return $this->hasOne(Wallet::class);
+    }
+
+    public function cse()
+    {
+        return $this->hasOne(CSE::class);
+    }
+
+    public function cses()
+    {
+        return $this->hasMany(CSE::class);
+    }
+
+    public function csecategory()
+    {
+        return $this->hasOne(CSECategory::class, 'cse_id');
+    }
+
+    public function csecategories()
+    {
+        return $this->hasMany(CSECategory::class, 'cse_id');
     }
 
     public function scopeActiveAdmin($query, $args){
@@ -155,6 +175,12 @@ class User extends Authenticatable
             return $query->select('first_name', 'middle_name', 'last_name', 'designation', 'phone_number', 'user_id');
         }])
         ->with('adminPermissions');
+    }
+
+    public function scopeActiveCSE($query, $args){
+        return $query->where('id', $args)
+        ->select('id', 'email')
+        ->with(['cse', 'cseCategories']);
     }
 
     /** 

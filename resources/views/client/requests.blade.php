@@ -1,6 +1,8 @@
 @extends('layouts.client')
 @section('title', 'Requests')
 @section('content')
+@include('layouts.partials._messages')
+
 <div class="col-lg-8 col-12">
     <h5 class="mb-0 mt-4">Service Request Overview</h5>
     <div class="table-responsive mt-4 bg-white rounded shadow">

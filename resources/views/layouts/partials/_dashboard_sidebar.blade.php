@@ -21,7 +21,7 @@
         <div class="aside-alert-link">
         <a href="{{ route('cse.messages') }}" class="new" data-toggle="tooltip" title="You have 2 unread messages"><i data-feather="message-square"></i></a>
           {{-- <a href="" class="new" data-toggle="tooltip" title="You have 4 new notifications"><i data-feather="bell"></i></a> --}}
-          <a href="" data-toggle="tooltip" title="Sign out"><i data-feather="log-out"></i></a>
+          <a href="{{ route('logout') }}" data-toggle="tooltip" title="Sign out"><i data-feather="log-out"></i></a>
         </div>
       </div>
       <div class="aside-loggedin-user">
@@ -110,7 +110,7 @@
         <div class="aside-alert-link">
         <a href="{{ route('technician.messages') }}" class="new" data-toggle="tooltip" title="You have 2 unread messages"><i data-feather="message-square"></i></a>
           {{-- <a href="" class="new" data-toggle="tooltip" title="You have 4 new notifications"><i data-feather="bell"></i></a> --}}
-          <a href="" data-toggle="tooltip" title="Sign out"><i data-feather="log-out"></i></a>
+          <a href="{{ route('logout') }}" data-toggle="tooltip" title="Sign out"><i data-feather="log-out"></i></a>
         </div>
       </div>
       <div class="aside-loggedin-user">

@@ -1,7 +1,7 @@
 <div class="mg-t-10 mg-md-t-0">
     <div class="card">
         <div class="card-header pd-b-0 pd-t-20 bd-b-0">
-        <h6 class="tx-uppercase tx-spacing-1 tx-semibold tx-20 tx-color-02 mg-b-15"><strong>Admin Name:</strong> {{ $fullName }}</h6>
+        <h6 class="tx-uppercase tx-spacing-1 tx-semibold tx-20 tx-color-02 mg-b-15"><strong>Full Name:</strong> {{ $fullName }} <small class="form-text text-muted" >({{ $designation }})<small></h6>
         <h6 class="mg-b-0">Activity Type</h6>
         </div><!-- card-header -->
         <div class="card-body pd-y-10">

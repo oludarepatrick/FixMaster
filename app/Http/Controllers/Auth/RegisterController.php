@@ -20,7 +20,7 @@ use App\Models\State;
 use App\Models\Name;
 use App\Models\Client;
 use App\Models\Wallet;
-use App\Models\ClientMessage;
+use App\Models\Message;
 use App\Models\LocationAndBrowserInfo;
 
 
@@ -161,7 +161,7 @@ class RegisterController extends Controller
 
                 $body = '<p class="p1"><strong>Hello '.$clientName.',</strong></p><p class="p1"><strong>Welcome to Fix<span style="color: #E97D1F;">Master</span>! </strong>We&rsquo;re thrilled to see you <span class="s1">here</span>!</p><p class="p1">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class="p1">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class="p1">You can also find more of our guides in the <a href=“/faq” target=“_blank”> Frequently Asked Questions</a> section.</p><p class="p2">&nbsp;</p><p class="p1">Thanks,</p><p class="p1"><strong>FixMaster Management.</strong></p>';
 
-                ClientMessage::create([
+                Message::create([
                     'sender_id'         =>  4, 
                     'recipient_id'      =>  $createClientProfile->id, 
                     'subject'           =>  'Welcome to FixMaster!', 
@@ -272,7 +272,7 @@ class RegisterController extends Controller
 
             $body = '<h1>Congratulations! You have just earned a 5% discount on your first job booking</h1><p>We are very excited you joined the most compelling community of FixMaster satisfied customers! As you already know, excellent quality service, rewards, and savings have always been a vital part of FixMaster\'s success.</p><p> Having said so, we constantly cater to our customers\' best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>For registering with FixMaster, you have been rewarded with a discount on your first job booking which entitles you to a 5% discount off your booking fee.</p><p><strong>PLEASE NOTE THAT THIS DISCOUNT IS ONLY APPLICABLE FOR YOUR FIRST JOB BOOKING</strong></p><p>Should you require further assistance, please do not hesitate to contact us immediately on <strong>08132863878</strong>. We are here to serve you; 24-hours, 7 days a week.</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>';
 
-            ClientMessage::create([
+            Message::create([
                 'sender_id'         =>  4, 
                 'recipient_id'      =>  $user->id, 
                 'subject'           =>  'Congratulations! You have earned a discount', 

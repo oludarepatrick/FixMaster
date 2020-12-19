@@ -141,7 +141,7 @@
                                     <div class="form-group position-relative">
                                         <label>Town/City <span class="text-danger">*</span></label>
                                         <i data-feather="navigation" class="fea icon-sm icons"></i>
-                                        <input type="text" class="form-control pl-5 @error('town') is-invalid @enderror" placeholder="e.g. Ajah, Ikoyi" name="town" id="town" value="{{ old('town') }}" required>
+                                        <input type="text" class="form-control pl-5 @error('town') is-invalid @enderror" placeholder="e.g. CMS, Ikoyi, Egbeda" name="town" id="town" value="{{ old('town') }}" required>
                                         @error('town')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -243,11 +243,11 @@
 @push('scripts')
 <script>
     $(document).ready(function (){
+        //Get list of L.G.A's in a particular state.
         $('#state_id').on('change',function () {
             let stateId = $('#state_id').find('option:selected').val();
             let stateName = $('#state_id').find('option:selected').text();
             
-            // console.log(stateId, stateName); return;
             $.ajaxSetup({
                     headers: {
                         'X-CSRF_TOKEN':$('meta[name="csrf-token"]').attr('content')
@@ -263,10 +263,9 @@
 
                         $('#lga_id').html(data.lgaList);
                     }else{
-                        var message = 'Error occured while trying to get L.G.A`s in '+ categoryName +' category to '+ serviceName + ' service';
+                        var message = 'Error occured while trying to get L.G.A`s in '+ stateName +' state';
                         var type = 'error';
                         displayMessage(message, type);
-
                     }
                 },
             })  

@@ -81,7 +81,7 @@
                         </tr>
                         <tr>
                           <td class="tx-medium">Requests Supervised</td>
-                          <td class="tx-color-03">4</td>
+                        <td class="tx-color-03">{{ $admin->admin->requests()->count() }}</td>
                         </tr>
                         <tr>
                           <td class="tx-medium">Payments Disbursed</td>
@@ -89,7 +89,7 @@
                         </tr>
                         <tr>
                           <td class="tx-medium">Messages Sent</td>
-                          <td class="tx-color-03">12</td>
+                          <td class="tx-color-03">{{ $admin->sentMessages()->count() }}</td>
                         </tr>
                         <tr>
                           <td class="tx-medium">Login Count</td>

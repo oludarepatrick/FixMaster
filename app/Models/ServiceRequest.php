@@ -31,32 +31,32 @@ class ServiceRequest extends Model
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class, 'admin_id')->withDefault();
+        return $this->belongsTo(Admin::class, 'admin_id', 'user_id');
     }
 
     public function admins()
     {
-        return $this->hasMany(Admin::class, 'admin_id')->withDefault();
+        return $this->hasMany(Admin::class, 'admin_id', 'user_id');
     }
 
     public function cse()
     {
-        return $this->hasOne(CSE::class, 'user_id', 'cse_id')->withDefault();
+        return $this->hasOne(CSE::class, 'cse_id', 'user_id');
     }
 
     public function cses()
     {
-        return $this->hasMany(CSE::class, 'cse_id')->withDefault();
+        return $this->hasMany(CSE::class, 'cse_id', 'user_id');
     }
 
     public function technician()
     {
-        return $this->belongsTo(CSE::class, 'cse_id')->withDefault();
+        return $this->belongsTo(Technician::class, 'technician_id', 'user_id');
     }
 
     public function technicians()
     {
-        return $this->hasMany(CSE::class, 'cse_id')->withDefault();
+        return $this->hasMany(Technician::class, 'technician_id', 'user_id');
     }
 
     public function service()

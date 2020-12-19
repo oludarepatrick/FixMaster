@@ -20,15 +20,26 @@ class Name extends Model
 
     public function admin()
     {
-        return $this->hasOne(Admin::class);
+        return $this->belongsTo(Admin::class, 'user_id');
     }
 
     public function superAdmin()
     {
-        return $this->hasOne(SuperAdmin::class);
+        return $this->belongsTo(SuperAdmin::class, 'user_id');
     }
+
     public function client()
     {
-        return $this->hasOne(Client::class);
+        return $this->belongsTo(Client::class, 'user_id');
+    }
+
+    public function cse()
+    {
+        return $this->belongsTo(CSE::class, 'user_id');
+    }
+
+    public function technician()
+    {
+        return $this->belongsTo(CSE::class, 'user_id');
     }
 }

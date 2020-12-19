@@ -38,6 +38,7 @@
                   <th class="text-center">ID</th>
                   <th>E-Mail</th>
                   <th>Phone Number</th>
+                  <th>Gender</th>
                   <th>Status</th>
                   <th class="text-center">Requests Completed</th>
                   <th>Date Created</th>
@@ -45,74 +46,40 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ($cses as $cse)
+                @foreach ($cse->cses as $item)@endforeach
                 <tr>
-                  <td class="tx-color-03 tx-center">1</td>
-                  <td class="tx-medium">Godfrey Diwa</td>
-                  <td class="tx-medium text-center">CSE-23804223</td>
-                  <td class="tx-medium">hostdiwa@gmail.com</td>
-                  <td class="tx-medium">09069644983</td>
+                <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                <td class="tx-medium">{{ $cse->fullName->name }}</td>
+                <td class="tx-medium text-center">{{ $item->tag_id }}</td>
+                <td class="tx-medium">{{ $cse->email }}</td>
+                <td class="tx-medium">{{ $item->phone_number }}</td>
+                <td class="tx-medium">{{ $item->gender }}</td>
+                @if($cse->is_active == '1') 
                   <td class="text-medium text-success">Active</td>
-                  <td class="text-medium text-center">6</td>
-                  <td class="text-medium">May 15th 2020</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_cse') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="{{ route('admin.edit_cse') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                      {{-- <a href="{{ route('admin.activity_log_cse') }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a> --}}
-                        <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                        <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="tx-color-03 tx-center">2</td>
-                  <td class="tx-medium">Rilwan Bello</td>
-                  <td class="tx-medium text-center">CSE-90234233</td>
-                  <td class="tx-medium">angelanuoluwa@gmail.com</td>
-                  <td class="tx-medium">08034516890</td>
-                  <td class="text-medium text-success">Active</td>
-                  <td class="text-medium text-center">10</td>
-                  <td class="text-medium">May 15th 2020</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_cse') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="{{ route('admin.edit_cse') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                      {{-- <a href="{{ route('admin.activity_log_cse') }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a> --}}
-                      <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                        <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              
-                <tr>
-                  <td class="tx-color-03 tx-center">3</td>
-                  <td class="tx-medium">Mayowa Olaoye</td>
-                  <td class="tx-medium text-center">CSE-09320093</td>
-                  <td class="tx-medium">mayowabenedict@gmail.com</td>
-                  <td class="tx-medium">08034516890</td>
+                @else 
                   <td class="text-medium text-danger">Inactive</td>
-                  <td class="text-medium text-center">3</td>
-                  <td class="text-medium">May 15th 2020</td>
+                @endif
+                <td class="tx-medium text-center">{{ $cse->cse->requests()->where('client_project_status', 'Completed')->count() }}</td>
+
+                <td class="text-medium">{{ Carbon\Carbon::parse($cse->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                   <td class=" text-center">
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_cse') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="{{ route('admin.edit_cse') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                      {{-- <a href="{{ route('admin.activity_log_cse') }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a> --}}
-                        <a href="" class="dropdown-item details text-success"><i class="fas fa-undo"></i> Reinstate</a>
-                        <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
+                      <a href="{{ route('admin.summary_cse', $cse->id) }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
+                      <a href="{{ route('admin.edit_cse', $cse->id) }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
+                      @if($cse->is_active == '1')
+                        <a href="{{ route('admin.deactivate_cse', $cse->id) }}" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
+                      @else
+                        <a href="{{ route('admin.reinstate_cse', $cse->id) }}" class="dropdown-item details text-success"><i class="fas fa-undo"></i> Reinstate</a>
+                      @endif
+                      <a href="{{ route('admin.delete_cse', $cse->id) }}" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
                       </div>
                     </div>
                   </td>
                 </tr>
+                @endforeach
 
               </tbody>
             </table>

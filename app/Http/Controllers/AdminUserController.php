@@ -73,6 +73,7 @@ class AdminUserController extends Controller
             'password'                      =>   Hash::make($request->input('password')),
             'designation'                   =>   '[ADMIN_ROLE]',
             'is_active'                     =>   '1',
+            'is_admin'                      =>   '1',
         ]);
 
         //Create new User record on `admins` table

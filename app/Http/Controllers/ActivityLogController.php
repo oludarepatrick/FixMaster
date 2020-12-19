@@ -213,13 +213,32 @@ class ActivityLogController extends Controller
 
         $activityLogDetails = ActivityLog::where('id', $id)->first();
 
-        $fullName = User::where('id', $activityLogDetails->user_id)->first();
+        $user = User::where('id', $activityLogDetails->user_id)->first();
 
-        $fullName = $fullName->fullName->name;
+        $fullName = $user->fullName->name;
+
+        if($user->designation == '[SUPER_ADMIN_ROLE]'){
+            $designation = 'Super Admin';
+        }elseif($user->designation == '[ADMIN_ROLE]'){
+            $designation = 'Admin';
+        }elseif($user->designation == '[CSE_ROLE]'){
+            $designation = 'CSE';
+        }elseif($user->designation == '[TECHNICIAN_ROLE]'){
+            $designation = 'Technician';
+        }elseif($user->designation == '[CLIENT_ROLE]'){
+            $designation = 'Client';
+        }elseif($user->designation == '[SUPPLIER_ROLE]'){
+            $designation = 'Supplier';
+        }elseif($user->designation == '[TRAINEE_ROLE]'){
+            $designation = 'Trainee';
+        }else{
+            $designation = 'Intruder';
+        } 
 
         $data = [
             'activityLogDetails'    =>  $activityLogDetails,
             'fullName'              =>  $fullName,
+            'designation'           =>  $designation,
         ];
 
         return view('admin._activity_log_details', $data);

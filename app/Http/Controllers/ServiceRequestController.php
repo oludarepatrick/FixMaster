@@ -17,7 +17,7 @@ use App\Models\ServiceRequest;
 use App\Models\ServiceRequestDetail;
 use App\Models\Category;
 use App\Models\Service;
-use App\Models\ClientMessage;
+use App\Models\Message;
 
 
 class ServiceRequestController extends Controller

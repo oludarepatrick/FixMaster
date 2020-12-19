@@ -44,4 +44,14 @@ class Category extends Model
         return $this->hasMany(ServiceRequest::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(CSECategory::class, 'category_id');
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(CSECategory::class, 'category_id');
+    }
+
 }

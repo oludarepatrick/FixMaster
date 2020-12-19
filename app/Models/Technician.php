@@ -32,11 +32,16 @@ class Technician extends Model
 
     public function request()
     {
-        return $this->hasOne(ServiceRequest::class);
+        return $this->belongsTo(ServiceRequest::class, 'technician_id', 'user_id');
     }
 
     public function requests()
     {
-        return $this->hasMany(ServiceRequest::class);
+        return $this->hasMany(ServiceRequest::class, 'technician_id', 'user_id');
+    }
+
+    public function fullName()
+    {
+        return $this->hasOne(Name::class, 'user_id');
     }
 }

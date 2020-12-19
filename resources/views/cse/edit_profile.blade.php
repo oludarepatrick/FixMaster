@@ -40,6 +40,7 @@
                                 </div>
                             </div><!-- col -->
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">First Name</label>
@@ -57,14 +58,80 @@
                                 <label for="inputEmail4">Email</label>
                                 <input type="email" class="form-control" id="inputEmail4" value="david.adesanya@gmail.com">
                             </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputEmail4">Mobile Phone</label>
-                            <input type="tel" class="form-control" id="inputEmail4" maxlength="11" value="08054242309">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputEmail4">Work Phone</label>
-                            <input type="tel" class="form-control" id="inputEmail4" maxlength="11" value="08120933092">
-                          </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputEmail4">Phone Number</label>
+                              <input type="tel" class="form-control" id="phone_number" maxlength="11" value="08054242309">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputEmail4">Other Phone Number</label>
+                              <input type="tel" class="form-control" id="other_phone_number" maxlength="11" value="08120933092">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>Profile Avatar</label>
+                              <div class="custom-file">
+                                <input type="file" accept="image/*" class="custom-file-input @error('image') is-invalid @enderror" name="avatar" id="avatar">
+                                <label class="custom-file-label" id="image-name" for="image">Upload Profile Avatar</label>
+                                @error('avatar')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                                @enderror
+                              </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>Bank Name</label>
+                              <select id="bank_id" name="bank_id" class="custom-select bank_id @error('bank_id') is-invalid @enderror">
+                                  
+                              </select>
+                              @error('bank_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="account_number">Account Number</label>
+                                <input type="tel" class="form-control @error('account_number') is-invalid @enderror" id="account_number" name="account_number" placeholder="Account Number" maxlength="10"  autocomplete="off">
+                                @error('account_number')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>State</label>
+                              <select class="form-control @error('state_id') is-invalid @enderror" name="state_id" id="state_id">
+                                <option selected value="">Select...</option>
+                                
+                              </select>
+                              @error('state_id')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
+                            </div>
+              
+                            <div class="form-group col-md-4">
+                              <label>L.G.A</label>
+                              <select class="form-control @error('lga_id') is-invalid @enderror" name="lga_id" id="lga_id">
+                                <option selected value="">Select...</option>
+                              </select>
+                              @error('lga_id')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
+                            </div>
+              
+                            <div class="form-group col-md-4">
+                              <label>Town/City</label>
+                              <input type="text" class="form-control @error('town') is-invalid @enderror" placeholder="e.g. CMS, Ikoyi, Egbeda" name="town" id="town" value="{{ old('town') }}" required>
+                              @error('town')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
+                            </div>
                           {{-- <div class="form-group col-md-6">
                             <label class="d-block">Upload Company Logo</label>
                             <div class="custom-file">
@@ -73,17 +140,13 @@
                             </div>
                           </div> --}}
 
-                          <div class="form-group col-md-6">
-                            <label for="inputAddress2">Home Address</label>
+                          <div class="form-group col-md-12">
+                            <label for="inputAddress2">Full Address</label>
                             <textarea rows="3" class="form-control" id="inputAddress2"></textarea>
                           </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputAddress2">Work Address</label>
-                                <textarea rows="3" class="form-control" id="inputAddress2"></textarea>
-                            </div>
 
                         </div>
-    
+
                         <button type="submit" class="btn btn-primary">Update Profile</button>
                     </form>
                   </div>

@@ -44,12 +44,12 @@ class Admin extends Model
 
     public function request()
     {
-        return $this->hasOne(ServiceRequest::class);
+        return $this->belongsTo(ServiceRequest::class, 'admin_id', 'user_id');
     }
 
     public function requests()
     {
-        return $this->hasMany(ServiceRequest::class);
+        return $this->hasMany(ServiceRequest::class, 'admin_id', 'user_id');
     }
 
 }

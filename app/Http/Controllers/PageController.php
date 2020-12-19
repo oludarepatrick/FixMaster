@@ -17,7 +17,7 @@ class PageController extends Controller
         ->where('is_active', '1')
         ->orderBy('name', 'ASC')
         ->with(['categories'    =>  function($query){
-            return $query->select('name', 'url', 'image', 'service_id');
+            return $query->select('id', 'name', 'url', 'image', 'service_id');
         }])
         ->has('categories')->get();
 

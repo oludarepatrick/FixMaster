@@ -9,7 +9,7 @@ use Auth;
 use App\Models\User;
 use App\Models\State;
 use App\Models\LocationAndBrowserInfo;
-use App\Models\ClientMessage;
+use App\Models\Message;
 use App\Http\Controllers\MailController;
 
 class EssentialsController extends Controller
@@ -116,16 +116,25 @@ class EssentialsController extends Controller
 
         $body = '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>'.$jobReference.'</p><p><strong>Service: </strong>'.$serviceName.'('.$categoryName.')</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦'.number_format($amount).'('.$serviceFeeName.')</p><p><strong>Date & Time:</strong> '.$timestamp.'</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>';
 
-        ClientMessage::create([
+        Message::create([
             'sender_id'         =>  4, 
             'recipient_id'      =>  Auth::id(), 
             'subject'           =>  'Service Request('.$jobReference.')', 
             'body'              =>  $body, 
             'is_read'           =>  '0'
         ]); 
+    }
 
+    public function cseWelcomeMessage($cseName, $cseId, $email, $password){
 
-        
+        $body = '<h1>Welcome to FixMaster, '.$cseName.'!</h1><p>We are very excited you joined the most compelling community of FixMaster to satisfy customer\'s need.</p><p>As a <strong>Client Service Executive</strong>(CSE) you are expected to deliver excellent quality service which has always been a vital part of FixMaster\'s success.</p><p>Having said so, we constantly cater to our customer\'s best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>Remember to change your password to a more convenient one asides the one given to you by FixMaster Admin.</p><p><span style="text-decoration: underline;"><strong>Login Credentials</strong></span></p><p><strong>E-Mail</strong>: '.$email.'</p><p><strong>Password:</strong> '.$password.'</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>';
 
+        Message::create([
+            'sender_id'         =>  4, 
+            'recipient_id'      =>  $cseId, 
+            'subject'           =>  'Welcome to FixMaster!', 
+            'body'              =>  $body, 
+            'is_read'           =>  '0'
+        ]); 
     }
 }
