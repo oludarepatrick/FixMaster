@@ -61,8 +61,6 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::get('/users/cse/add',                      [App\Http\Controllers\AdminCSEController::class, 'create'])->name('add_cse');
                 Route::post('/users/cse/store',                   [App\Http\Controllers\AdminCSEController::class, 'store'])->name('store_cse');
                 Route::get('/users/cse/edit/{user}',              [App\Http\Controllers\AdminCSEController::class, 'edit'])->name('edit_cse');
-                // Route::view('/users/cse/summary', 	                'admin.users.cse.summary')->name('summary_cse');
-                // Route::view('/users/cse/activity-log', 	            'admin.users.cse.activity_log')->name('activity_log_cse');
                 Route::get('/users/cse/summary/{user}',           [App\Http\Controllers\AdminCSEController::class, 'show'])->name('summary_cse');
                 Route::put('/users/cse/update/{user}',            [App\Http\Controllers\AdminCSEController::class, 'update'])->name('update_cse');
                 Route::get('/users/cse/delete/{user}',            [App\Http\Controllers\AdminCSEController::class, 'delete'])->name('delete_cse');
@@ -76,18 +74,26 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::get('/users/client/deactivate/{user}',        [App\Http\Controllers\AdminClientController::class, 'deactivate'])->name('deactivate_client');
                 Route::get('/users/client/reinstate/{user}',         [App\Http\Controllers\AdminClientController::class, 'reinstate'])->name('reinstate_client');
                 Route::get('/users/client/summary/{user}',         [App\Http\Controllers\AdminClientController::class, 'summary'])->name('summary_client');
-                // Route::view('/users/client/summary', 	            'admin.users.client.summary')->name('summary_client');
+                Route::post('/users/client/activity-log/sorting',    [App\Http\Controllers\AdminClientController::class, 'sortActivityLog'])->name('activity_log_sorting_client');
 
                 Route::view('/users/utilities/reset-password', 	    'admin.utilities.reset_password')->name('utility_reset_password');
                 Route::view('/users/utilities/project-status', 	    'admin.utilities.project_status')->name('utility_project_status');
                 Route::view('/users/utilities/verify-payment', 	    'admin.utilities.verify_payment')->name('utility_verify_payment');
                 
-                
-                Route::view('/users/technician/add', 	            'admin.users.technician.add')->name('add_technician');
-                Route::view('/users/technician/edit', 	            'admin.users.technician.edit')->name('edit_technician');
-                Route::view('/users/technician/list', 	            'admin.users.technician.list')->name('list_technician');
-                Route::view('/users/technician/summary', 	        'admin.users.technician.summary')->name('summary_technician');
-                Route::view('/users/technician/activity-log', 	    'admin.users.technician.activity_log')->name('activity_log_technician');
+                Route::get('/users/technician',                          [App\Http\Controllers\AdminTechnicianController::class, 'index'])->name('list_technician');
+                Route::get('/users/technician/add',                      [App\Http\Controllers\AdminTechnicianController::class, 'create'])->name('add_technician');
+                Route::post('/users/technician/store',                   [App\Http\Controllers\AdminTechnicianController::class, 'store'])->name('store_technician');
+                Route::get('/users/technician/edit/{user}',              [App\Http\Controllers\AdminTechnicianController::class, 'edit'])->name('edit_technician');
+                Route::put('/users/technician/update/{user}',            [App\Http\Controllers\AdminTechnicianController::class, 'update'])->name('update_technician');
+                Route::get('/users/technician/summary/{user}',           [App\Http\Controllers\AdminTechnicianController::class, 'show'])->name('summary_technician');
+                Route::get('/users/technician/delete/{user}',            [App\Http\Controllers\AdminTechnicianController::class, 'delete'])->name('delete_technician');
+                Route::get('/users/technician/deactivate/{user}',        [App\Http\Controllers\AdminTechnicianController::class, 'deactivate'])->name('deactivate_technician');
+                Route::get('/users/technician/reinstate/{user}',         [App\Http\Controllers\AdminTechnicianController::class, 'reinstate'])->name('reinstate_technician');
+                Route::post('/users/technician/activity-log/sorting',    [App\Http\Controllers\AdminTechnicianController::class, 'sortActivityLog'])->name('activity_log_sorting_technician');
+                // Route::view('/users/technician/edit', 	            'admin.users.technician.edit')->name('edit_technician');
+                // Route::view('/users/technician/list', 	            'admin.users.technician.list')->name('list_technician');
+                // Route::view('/users/technician/summary', 	        'admin.users.technician.summary')->name('summary_technician');
+                // Route::view('/users/technician/activity-log', 	    'admin.users.technician.activity_log')->name('activity_log_technician');
 
                 Route::view('/franchise/add', 	                    'admin.franchise.add')->name('add_franchise');
                 Route::view('/franchise/edit', 	                    'admin.franchise.edit')->name('edit_franchise');

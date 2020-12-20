@@ -155,6 +155,10 @@ class AdminUserController extends Controller
     public function show($user){
         $userExists = User::findOrFail($user);
 
+        if($userExists->designation != '[ADMIN_ROLE]'){
+            return back();
+        }
+
         $admin = User::where('id', $user)->with('admins')->first();
         
         $createdBy = Name::get();
@@ -176,7 +180,15 @@ class AdminUserController extends Controller
     public function edit($user)
     {
         $userExists = User::findOrFail($user);
+
+        if($userExists->designation != '[ADMIN_ROLE]'){
+            return back();
+        }
         
+        if($userExists->designation != '[ADMIN_ROLE]'){
+            return back();
+        }
+
         $admin = User::ActiveAdmin($user)->first();
 
         $data = [
@@ -195,6 +207,10 @@ class AdminUserController extends Controller
     public function activityLog($user)
     {
         $userExists = User::findOrFail($user);
+        
+        if($userExists->designation != '[ADMIN_ROLE]'){
+            return back();
+        }
         
         $activityLogs = $userExists->activityLogs()->orderBy('created_at', 'DESC')->get();
 

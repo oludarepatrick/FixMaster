@@ -158,6 +158,7 @@ class User extends Authenticatable
         return $this->hasMany(CSE::class);
     }
 
+
     public function csecategory()
     {
         return $this->hasOne(CSECategory::class, 'cse_id');
@@ -166,6 +167,26 @@ class User extends Authenticatable
     public function csecategories()
     {
         return $this->hasMany(CSECategory::class, 'cse_id');
+    }
+
+    public function technician()
+    {
+        return $this->hasOne(Technician::class);
+    }
+
+    public function technicians()
+    {
+        return $this->hasMany(Technician::class);
+    }
+
+    public function technicianCategory()
+    {
+        return $this->hasOne(TechnicianCategory::class, 'technician_id');
+    }
+
+    public function technicianCategories()
+    {
+        return $this->hasMany(TechnicianCategory::class, 'technician_id');
     }
 
     public function scopeActiveAdmin($query, $args){
@@ -181,6 +202,12 @@ class User extends Authenticatable
         return $query->where('id', $args)
         ->select('id', 'email')
         ->with(['cse', 'cseCategories']);
+    }
+
+    public function scopeActiveTechnician($query, $args){
+        return $query->where('id', $args)
+        ->select('id', 'email')
+        ->with(['technician', 'technicianCategories']);
     }
 
     /** 

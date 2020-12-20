@@ -17,7 +17,7 @@ class Technician extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'franchise_id', 'state_id', 'lga_id', 'town', 'bank_id', 'tag_id', 'first_name', 'middle_name', 'last_name',  'gender', 'phone_number', 'other_phone_number', 'account_number', 'rating', 'avatar', 'full_address'
+        'user_id', 'created_by', 'franchise_id', 'state_id', 'lga_id', 'town', 'bank_id', 'tag_id', 'first_name', 'middle_name', 'last_name', 'gender', 'phone_number', 'other_phone_number', 'account_number', 'rating', 'avatar', 'full_address'
     ];
 
     public function user()
@@ -43,5 +43,20 @@ class Technician extends Model
     public function fullName()
     {
         return $this->hasOne(Name::class, 'user_id');
+    }
+
+    public function technicianCategory()
+    {
+        return $this->belongsTo(TechnicianCategory::class, 'technician_id');
+    }
+
+    public function technicianCategories()
+    {
+        return $this->hasMany(TechnicianCategory::class, 'technician_id');
+    }
+
+    public function lga()
+    {
+        return $this->belongsTo(Lga::class);
     }
 }

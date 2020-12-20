@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 19, 2020 at 07:10 AM
+-- Generation Time: Dec 20, 2020 at 06:20 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -196,7 +196,18 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 (157, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminCSEController@update', 'http://localhost:8000/admin/users/cse/update/12', 'NinthBinary Developer updated Godrey Diwa\'s profile', '2020-12-18 19:25:52'),
 (158, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminCSEController@update', 'http://localhost:8000/admin/users/cse/update/13', 'NinthBinary Developer updated Benedict Olaoye\'s profile', '2020-12-18 19:26:52'),
 (159, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminCSEController@update', 'http://localhost:8000/admin/users/cse/update/19', 'NinthBinary Developer updated Favour Nnamdi\'s profile', '2020-12-18 20:38:12'),
-(160, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-19 04:52:22');
+(160, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-19 04:52:22'),
+(161, 12, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Godrey Diwa logged in.', '2020-12-19 11:13:40'),
+(162, 12, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Godrey Diwa logged out with a session duration of 00:03:54(hrs:min:ss).', '2020-12-19 11:17:34'),
+(163, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-19 11:17:47'),
+(164, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-19 20:20:52'),
+(165, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminTechnicianController@store', 'http://localhost:8000/admin/users/technician/store', 'NinthBinary Developer created John Desmond\'s profile', '2020-12-19 22:26:29'),
+(166, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminTechnicianController@delete', 'http://localhost:8000/admin/users/technician/delete/23', 'NinthBinary Developer deleted John Desmond\'s profile', '2020-12-19 22:59:29'),
+(167, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminTechnicianController@reinstate', 'http://localhost:8000/admin/users/technician/reinstate/23', 'NinthBinary Developer reinstated John Desmond\'s profile', '2020-12-19 23:00:10'),
+(168, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminTechnicianController@update', 'http://localhost:8000/admin/users/technician/update/23', 'NinthBinary Developer updated John Desmond\'s profile', '2020-12-19 23:24:11'),
+(169, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminTechnicianController@update', 'http://localhost:8000/admin/users/technician/update/23', 'NinthBinary Developer updated John Desmond\'s profile', '2020-12-19 23:25:30'),
+(170, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminTechnicianController@update', 'http://localhost:8000/admin/users/technician/update/23', 'NinthBinary Developer updated John Desmond\'s profile', '2020-12-19 23:26:25'),
+(171, 1, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\AdminTechnicianController@update', 'http://localhost:8000/admin/users/technician/update/23', 'NinthBinary Developer updated John Desmond\'s profile', '2020-12-19 23:30:02');
 
 -- --------------------------------------------------------
 
@@ -1304,7 +1315,8 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 (6, 4, 11, 'Service Request(REF-27D2F0BE)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-27D2F0BE</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,500(Urgent)</p><p><strong>Date & Time:</strong> December 15th 2020, 11:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-14 15:36:58', '2020-12-14 15:36:58'),
 (7, 4, 11, 'Service Request(REF-1FC50FCC)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-1FC50FCC</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Urgent)</p><p><strong>Date & Time:</strong> December 16th 2020, 4:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-15 09:33:01', '2020-12-15 09:33:01'),
 (8, 4, 11, 'Service Request(REF-131D985E)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-131D985E</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦4,700(Out of Hours)</p><p><strong>Date & Time:</strong> December 16th 2020, 8:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-15 09:51:29', '2020-12-15 09:51:29'),
-(9, 4, 19, 'Welcome to FixMaster!', '<h1>Welcome to FixMaster, Favour Nnamdi!</h1><p>We are very excited you joined the most compelling community of FixMaster to satisfy customer\'s need.</p><p>As a <strong>Client Service Executive</strong>(CSE) you are expected to deliver excellent quality service which has always been a vital part of FixMaster\'s success.</p><p>Having said so, we constantly cater to our customer\'s best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>Remember to change your password to a more convenient one asides the one given to you by FixMaster Admin.</p><p><span style=\"text-decoration: underline;\"><strong>Login Credentials</strong></span></p><p><strong>E-Mail</strong>: nnamdi.favour@yahoo.com</p><p><strong>Password:</strong> admin12345</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-18 13:03:17', '2020-12-18 13:03:17');
+(9, 4, 19, 'Welcome to FixMaster!', '<h1>Welcome to FixMaster, Favour Nnamdi!</h1><p>We are very excited you joined the most compelling community of FixMaster to satisfy customer\'s need.</p><p>As a <strong>Client Service Executive</strong>(CSE) you are expected to deliver excellent quality service which has always been a vital part of FixMaster\'s success.</p><p>Having said so, we constantly cater to our customer\'s best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>Remember to change your password to a more convenient one asides the one given to you by FixMaster Admin.</p><p><span style=\"text-decoration: underline;\"><strong>Login Credentials</strong></span></p><p><strong>E-Mail</strong>: nnamdi.favour@yahoo.com</p><p><strong>Password:</strong> admin12345</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-18 13:03:17', '2020-12-18 13:03:17'),
+(10, 4, 23, 'Welcome to FixMaster!', '<h1>Welcome to FixMaster, John Desmond!</h1><p>We are very excited you joined the most compelling community of FixMaster to satisfy customer\'s need.</p><p>As a <strong>Technician</strong> you will be assigned to jobs and you are expected to deliver excellent quality service which has always been a vital part of FixMaster\'s success.</p><p>Having said so, we constantly cater to our customer\'s best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>Remember to change your password to a more convenient one asides the one given to you by FixMaster Admin.</p><p><span style=\"text-decoration: underline;\"><strong>Login Credentials</strong></span></p><p><strong>E-Mail</strong>: desmond.john@outlook.co.uk</p><p><strong>Password:</strong> admin12345</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-19 21:26:29', '2020-12-19 21:26:29');
 
 -- --------------------------------------------------------
 
@@ -1376,7 +1388,8 @@ INSERT INTO `names` (`id`, `user_id`, `name`, `created_at`, `updated_at`) VALUES
 (13, 13, 'Benedict Olaoye', NULL, '2020-12-18 18:26:52'),
 (14, 14, 'Andrew Nwankwo', NULL, NULL),
 (15, 15, 'Taofeek Adedokun', NULL, NULL),
-(17, 19, 'Favour Nnamdi', '2020-12-18 13:03:16', '2020-12-18 19:38:12');
+(17, 19, 'Favour Nnamdi', '2020-12-18 13:03:16', '2020-12-18 19:38:12'),
+(20, 23, 'John Desmond', '2020-12-19 21:26:29', '2020-12-19 22:30:02');
 
 -- --------------------------------------------------------
 
@@ -1656,14 +1669,14 @@ INSERT INTO `super_admins` (`id`, `user_id`, `first_name`, `middle_name`, `last_
 CREATE TABLE `technicians` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
+  `created_by` bigint(20) UNSIGNED NOT NULL,
   `franchise_id` bigint(20) UNSIGNED DEFAULT NULL,
   `state_id` tinyint(4) UNSIGNED DEFAULT NULL,
   `lga_id` int(11) UNSIGNED DEFAULT NULL,
-  `town` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bank_id` int(11) UNSIGNED NOT NULL,
+  `bank_id` int(11) UNSIGNED DEFAULT NULL,
   `tag_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `middle_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `middle_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `gender` enum('Male','Female') COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1671,6 +1684,7 @@ CREATE TABLE `technicians` (
   `account_number` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `rating` decimal(1,1) NOT NULL DEFAULT 0.0,
   `avatar` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `town` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `full_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1680,9 +1694,28 @@ CREATE TABLE `technicians` (
 -- Dumping data for table `technicians`
 --
 
-INSERT INTO `technicians` (`id`, `user_id`, `franchise_id`, `state_id`, `lga_id`, `town`, `bank_id`, `tag_id`, `first_name`, `middle_name`, `last_name`, `gender`, `phone_number`, `other_phone_number`, `account_number`, `rating`, `avatar`, `full_address`, `created_at`, `updated_at`) VALUES
-(1, 14, NULL, 25, 362, 'Alausa', 5, 'TECH-23973', 'Andrew', 'Stephen', 'Nwankwo', 'Male', '09037827367', NULL, '0723872901', '0.0', NULL, 'Badejo Close, off Shoprite, Alausa-Ikeja, Lagos. Nigeria.', NULL, NULL),
-(2, 15, NULL, 25, 360, 'Ibeju-Lekki', 16, 'TECH-08435', 'Taofeek', 'Kazeem', 'Adedokun', 'Male', '08124763892', NULL, '0123653289', '0.0', NULL, 'Camsican Drive, Ibeju Lekki, Lagos State.', NULL, NULL);
+INSERT INTO `technicians` (`id`, `user_id`, `created_by`, `franchise_id`, `state_id`, `lga_id`, `bank_id`, `tag_id`, `first_name`, `middle_name`, `last_name`, `gender`, `phone_number`, `other_phone_number`, `account_number`, `rating`, `avatar`, `town`, `full_address`, `created_at`, `updated_at`) VALUES
+(1, 14, 1, NULL, 25, 362, 5, 'TECH-23973', 'Andrew', 'Stephen', 'Nwankwo', 'Male', '09037827367', NULL, '0723872901', '0.0', NULL, 'Alausa', 'Badejo Close, off Shoprite, Alausa-Ikeja, Lagos. Nigeria.', NULL, NULL),
+(2, 15, 1, NULL, 25, 360, 16, 'TECH-08435', 'Taofeek', 'Kazeem', 'Adedokun', 'Male', '08124763892', NULL, '0123653289', '0.0', NULL, 'Ibeju-Lekki', 'Camsican Drive, Ibeju Lekki, Lagos State.', NULL, NULL),
+(5, 23, 1, NULL, 25, 365, NULL, 'TECH-C8D94326', 'John', NULL, 'Desmond', 'Male', '08124326723', NULL, NULL, '0.0', 'd149263a8101b55710e20b7c2336d153fff66445.jpg', 'Okin-Arin', '23, Hawley street, off Igbosere, Lagos Island.', '2020-12-19 21:26:29', '2020-12-19 22:30:02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `technician_category`
+--
+
+CREATE TABLE `technician_category` (
+  `technician_id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `technician_category`
+--
+
+INSERT INTO `technician_category` (`technician_id`, `category_id`) VALUES
+(5, 3);
 
 -- --------------------------------------------------------
 
@@ -1714,7 +1747,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_token`, `is_email_verified`, `password`, `remember_token`, `designation`, `is_active`, `is_admin`, `login_count`, `current_sign_in`, `last_sign_in`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 62, '2020-12-19 03:52:22', '2020-12-18 12:30:15', NULL, '2019-12-31 23:29:26', '2020-12-19 03:52:22'),
+(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 64, '2020-12-19 19:20:52', '2020-12-19 10:17:47', NULL, '2019-12-31 23:29:26', '2020-12-19 19:20:52'),
 (2, '', NULL, NULL, '0', '', NULL, '[INTRUDER_ROLE]', '0', '0', 0, NULL, NULL, NULL, NULL, NULL),
 (3, 'charles.famoriyo@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 3, '2020-12-03 19:34:43', '2020-11-30 21:34:14', NULL, '2020-11-30 06:26:42', NULL),
 (4, 'info@fixmaster.com.ng', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, NULL, NULL),
@@ -1725,11 +1758,12 @@ INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_tok
 (9, 'wisdom.amana@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (10, 'debo.williams@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 19, '2020-12-17 09:33:54', '2020-12-17 07:40:54', NULL, '2020-12-11 12:43:02', '2020-12-17 09:33:54'),
-(12, 'jamal.diwa@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', '0', 6, '2020-12-18 12:20:04', '2020-12-17 08:56:15', NULL, '2020-12-04 06:03:06', '2020-12-18 18:25:52'),
+(12, 'jamal.diwa@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', '0', 7, '2020-12-19 10:13:40', '2020-12-18 12:20:04', NULL, '2020-12-04 06:03:06', '2020-12-19 10:13:40'),
 (13, 'mayowabenedict@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', '2020-12-18 18:26:52'),
 (14, 'andrew.nwankwo@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 1, '2020-12-17 09:17:14', '2020-12-17 09:17:14', NULL, '2020-12-04 06:03:06', '2020-12-17 09:17:14'),
 (15, 'taofeek.adedokun@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
-(19, 'nnamdi.favour@yahoo.com', '2020-12-18 13:03:16', '3d08886310a72ef0fc0c208cd284fa79c9a82c50', '1', '$2y$10$Vo7etNylNWzJ3DMafi7kTuCfWe7qEkvPkJPGBYy6q4jJ26lnMKLG.', NULL, '[CSE_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-18 13:03:16', '2020-12-18 19:38:12');
+(19, 'nnamdi.favour@yahoo.com', '2020-12-18 13:03:16', '3d08886310a72ef0fc0c208cd284fa79c9a82c50', '1', '$2y$10$Vo7etNylNWzJ3DMafi7kTuCfWe7qEkvPkJPGBYy6q4jJ26lnMKLG.', NULL, '[CSE_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-18 13:03:16', '2020-12-18 19:38:12'),
+(23, 'desmond.john@outlook.co.uk', '2020-12-19 21:26:29', 'b6b463cdd2a85be2742d37f500dc10f4d67e8368', '1', '$2y$10$Rxe6TJzIiztAaOewBTr.pehGQrl/qoRbwia/OXQ8gOUVMV8yqAoP2', NULL, '[TECHNICIAN_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-19 21:26:29', '2020-12-19 22:30:02');
 
 -- --------------------------------------------------------
 
@@ -1751,7 +1785,8 @@ CREATE TABLE `wallets` (
 --
 
 INSERT INTO `wallets` (`id`, `user_id`, `wallet_id`, `balance`, `created_at`, `updated_at`) VALUES
-(1, 11, 'WAL-23782382', 0, NULL, NULL);
+(1, 11, 'WAL-23782382', 0, NULL, NULL),
+(2, 9, 'WAL-21780953', 45000, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -1939,10 +1974,11 @@ ALTER TABLE `technicians`
   ADD UNIQUE KEY `tag_id` (`tag_id`),
   ADD UNIQUE KEY `technicians_other_phone_number_unique` (`other_phone_number`),
   ADD UNIQUE KEY `technicians_account_number_unique` (`account_number`),
-  ADD KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`town`,`bank_id`),
   ADD KEY `lga_id` (`lga_id`),
   ADD KEY `state_id` (`state_id`),
-  ADD KEY `bank_id` (`bank_id`);
+  ADD KEY `bank_id` (`bank_id`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`bank_id`) USING BTREE;
 
 --
 -- Indexes for table `users`
@@ -1967,7 +2003,7 @@ ALTER TABLE `wallets`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
 
 --
 -- AUTO_INCREMENT for table `admins`
@@ -2027,7 +2063,7 @@ ALTER TABLE `location_and_browser_infos`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -2039,7 +2075,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `names`
 --
 ALTER TABLE `names`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `professions`
@@ -2081,19 +2117,19 @@ ALTER TABLE `super_admins`
 -- AUTO_INCREMENT for table `technicians`
 --
 ALTER TABLE `technicians`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `wallets`
 --
 ALTER TABLE `wallets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -2214,7 +2250,8 @@ ALTER TABLE `technicians`
   ADD CONSTRAINT `technicians_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `technicians_ibfk_2` FOREIGN KEY (`lga_id`) REFERENCES `lgas` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `technicians_ibfk_3` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `technicians_ibfk_4` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `technicians_ibfk_4` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `technicians_ibfk_5` FOREIGN KEY (`created_by`) REFERENCES `names` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `wallets`
