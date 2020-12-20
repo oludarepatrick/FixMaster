@@ -88,3 +88,7 @@ function scrollDown(){
     //          scrollTop: $(".down").offset().top
     //      }, 1000);
     //  });
+
+    $(document).ready(function () {
+
+    });

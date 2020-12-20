@@ -25,8 +25,14 @@ Route::middleware(['cseRole'])->group(function() {
         Route::view('/requests/cancelled', 	        'cse.requests_cancelled')->name('cse.requests_cancelled');
         Route::view('/technicians', 	            'cse.technicians')->name('cse.technicians');
         Route::view('/technicians/profile', 	    'cse.technicians_profile')->name('cse.technicians_profile');
-        Route::view('/profile', 	                'cse.view_profile')->name('cse.view_profile');
-        Route::view('/profile/edit', 	            'cse.edit_profile')->name('cse.edit_profile');
+        // Route::view('/profile', 	                'cse.view_profile')->name('cse.view_profile');
+  
+        Route::get('/profile/edit',                 [App\Http\Controllers\CSE\CSEProfileController::class, 'edit_profile'])->name('cse.view_profile');
+        Route::post('/profile/save',                [App\Http\Controllers\CSE\CSEProfileController::class, 'update_profile'])->name('cse.edit_profile');
+        Route::get('/change/password',              [App\Http\Controllers\CSE\CSEProfileController::class, 'change_password'])->name('cse.change_password');
+        Route::post('/password/upadte',             [App\Http\Controllers\CSE\CSEProfileController::class, 'update_password'])->name('cse.update_password');
+        // Route::view('/profile/edit', 	        'cse.edit_profile')->name('cse.edit_profile');
+
         Route::view('/payments', 	                'cse.payments')->name('cse.payments');
         Route::view('/messages', 	                'cse.messages')->name('cse.messages');
         Route::view('/messages/sent', 	            'cse.messages_sent')->name('cse.messages_sent');
