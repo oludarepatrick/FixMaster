@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL; 
 use Route;
@@ -10,10 +11,10 @@ use Auth;
 use Image;
 
 use App\Models\User;
-use App\Models\CSE;
+use App\Models\Technician;
 use App\Models\Category;
 
-use App\Models\CSECategory;
+use App\Models\TechnicianCategory;
 use App\Models\Service;
 use App\Models\ServiceRequest;
 use App\Models\Name;
@@ -24,7 +25,7 @@ use App\Models\ActivityLog;
 use App\Http\Controllers\RecordActivityLogController;
 use App\Http\Controllers\EssentialsController;
 
-class AdminCSEController extends Controller
+class AdminTechnicianController extends Controller
 {
     /**
      * This method will redirect users back to the login page if not properly authenticated
@@ -34,31 +35,32 @@ class AdminCSEController extends Controller
         $this->middleware('auth:web');
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(){
 
-        $cses = User::select('id', 'created_at', 'email', 'is_active')
-        ->with(['cses' => function($query){
+        $technicians = User::select('id', 'created_at', 'email', 'is_active')
+        ->with(['technicians' => function($query){
             return $query->select('tag_id', 'gender', 'phone_number', 'user_id');
         }])
         ->with(['fullName' => function($name){
             return $name->select(['name', 'user_id']);
         }])
-        ->where('users.designation', '[CSE_ROLE]')
-        // ->withTrashed()
+        ->where('users.designation', '[TECHNICIAN_ROLE]')
         ->orderBy('users.is_active', 'DESC')
         ->latest('users.created_at')
         ->get();
 
-        // return $cses;
-
-        // $createdBy = Name::get();
+        // return $technicians;
 
         $data = [
-            'cses'    =>  $cses,
-            // 'createdBy' =>  $createdBy,
+            'technicians'    =>  $technicians,
         ];
 
-        return view('admin.users.cse.list', $data)->with('i');
+        return view('admin.users.technician.list', $data)->with('i');
     }
 
     public function create(){
@@ -84,7 +86,7 @@ class AdminCSEController extends Controller
             'services'  =>  $services,
         ];
 
-        return view('admin.users.cse.add', $data);
+        return view('admin.users.technician.add', $data);
     }
 
     public function store(Request $request){
@@ -106,18 +108,18 @@ class AdminCSEController extends Controller
             'email_verification_token'      =>   sha1(time()),
             'is_email_verified'             =>   '1',
             'password'                      =>   Hash::make($request->input('password')),
-            'designation'                   =>   '[CSE_ROLE]',
+            'designation'                   =>   '[TECHNICIAN_ROLE]',
             'is_active'                     =>   $request->input('is_active'),
         ]);
 
-        //Create new User record on `cses` table
-        $createCSERecord = CSE::create([
+        //Create new User record on `technicians` table
+        $createTechnicianRecord = Technician::create([
             'user_id'               =>  $createUserRecord->id,
             'created_by'            =>  Auth::id(),
             'state_id'              =>  $request->input('state_id'),
             'lga_id'                =>  $request->input('lga_id'),
             'bank_id'               =>  $request->input('bank_id'),
-            'tag_id'                =>  'CSE-'.strtoupper(substr(md5(time()), 0, 8)),
+            'tag_id'                =>  'TECH-'.strtoupper(substr(md5(time()), 0, 8)),
             'first_name'            =>  $request->input('first_name'),
             'middle_name'           =>  $request->input('middle_name'),
             'last_name'             =>  $request->input('last_name'),
@@ -138,25 +140,25 @@ class AdminCSEController extends Controller
 
         $email = $request->input('email');
         $password = $request->input('password');
-        $cseName = $request->input('first_name').' '.$request->input('last_name');
-        $cseId = $createUserRecord->id;
+        $technicianName = $request->input('first_name').' '.$request->input('last_name');
+        $technicianId = $createUserRecord->id;
 
-        if($createUserRecord AND $createCSERecord AND $createNameRecord){
+        if($createUserRecord AND $createTechnicianRecord AND $createNameRecord){
 
-            //Create new User record on `cse_category` pivot table
-            $cseCategories = $request->input('cse_category');
+            //Create new User record on `technician_category` pivot table
+            $technicianCategories = $request->input('technician_category');
 
-            foreach($cseCategories as $cseCategory){
-                $createCategoriesRecord = CSECategory::create([
-                    'cse_id'        =>  $createCSERecord->id,
-                    'category_id'   =>  $cseCategory,
+            foreach($technicianCategories as $technicianCategory){
+                $createCategoriesRecord = TechnicianCategory::create([
+                    'technician_id' =>  $createTechnicianRecord->id,
+                    'category_id'   =>  $technicianCategory,
                 ]);
             }
 
             Image::make($image->getRealPath())->fit(300, 500)->save($imagePath);
 
-            $this->cseWelcomeMessage = new EssentialsController();
-            $this->cseWelcomeMessage->cseWelcomeMessage($cseName, $cseId, $email, $password);
+            $this->technicianWelcomeMessage = new EssentialsController();
+            $this->technicianWelcomeMessage->technicianWelcomeMessage($technicianName, $technicianId, $email, $password);
 
             //Record crurrenlty logged in user activity
             $this->addRecord = new RecordActivityLogController();
@@ -205,9 +207,9 @@ class AdminCSEController extends Controller
             'last_name'                 =>   'required',
             'email'                     =>   'required|email|unique:users,email', 
             'gender'                    =>   'required',
-            'cse_category'                    =>   'required',
-            'phone_number'              =>   'required|Numeric|unique:cses,phone_number,other_phone_number', 
-            // 'other_phone_number'        =>   'unique:cses,other_phone_number,phone_number', 
+            'technician_category'       =>   'required',
+            'phone_number'              =>   'required|Numeric|unique:technicians,phone_number,other_phone_number', 
+            // 'other_phone_number'        =>   'unique:technicians,other_phone_number,phone_number', 
             'password'                  =>   'required|min:8',
             'confirm_password'          =>   'required|same:password', 
             'avatar'                    =>   'required|mimes:jpg,png,jpeg,gif,svg|max:1014',
@@ -215,78 +217,6 @@ class AdminCSEController extends Controller
             'town'                      =>   'required',
             'full_address'              =>   'required',
         ]);
-    }
-
-    public function show($user){
-
-        $cse = User::findOrFail($user);
-
-        if($cse->designation != '[CSE_ROLE]'){
-            return back();
-        }
-      //client_project_status = Pending, Ongoing, Completed, Cancelled 
-        $completedRequests = $cse->cse->requests()->where('client_project_status', 'Completed')->count();
-        $cancelledRequests = $cse->cse->requests()->where('client_project_status', 'Cancelled')->count();
-        $totalRequests = $cse->cse->requests()->count();
-
-        $cseCategories = $cse->cse->cseCategories;
-        foreach($cseCategories as $cseCategory){
-            $categoryNames[] = Category::where('id', $cseCategory->category_id)->first()->name;
-        }
-        // return ServiceRequest::where('cse_id', $user)->get();
-
-        //  return $cse->cse->requests;
-
-        $activityLogs = $cse->activityLogs()->orderBy('created_at', 'DESC')->get();
-
-        $message = '';
-
-        $yearList = array();
-
-        $years = ActivityLog::orderBy('created_at', 'ASC')->pluck('created_at');
-
-        $years = json_decode($years);
-
-        if(!empty($years)){
-            foreach($years as $year){
-                $date = new \DateTime($year);
-
-                $yearNumber = $date->format('y');
-
-                $yearName = $date->format('Y');
-                
-                array_push($yearList, $yearName);
-            }
-        }
-
-        // return $activityLogs;
-
-        $years = array_unique($yearList);
-
-        // $data = [
-        //     'activityLogs'  =>  $activityLogs,
-        //     'fullName'      =>  $fullName,
-        //     'userId'        =>  $user,
-        //     'message'       =>  $message,
-        //     'years'         =>  $years,
-        // ];
-
-        $createdBy = Name::get();
-
-        $data = [
-            'cse'               =>  $cse,
-            'totalRequests'     =>  $totalRequests,
-            'completedRequests' =>  $completedRequests,
-            'cancelledRequests' =>  $cancelledRequests,
-            'createdBy'         =>  $createdBy,
-            'categoryNames'     =>  $categoryNames,
-            'activityLogs'      =>  $activityLogs,
-            'message'           =>  $message,
-            'years'             =>  $years,
-            'userId'            =>  $user,
-        ];
-
-        return view('admin.users.cse.summary', $data)->with('i');
     }
 
     /**
@@ -299,11 +229,11 @@ class AdminCSEController extends Controller
     {
         $userExists = User::findOrFail($user);
    
-        if($userExists->designation != '[CSE_ROLE]'){
+        if($userExists->designation != '[TECHNICIAN_ROLE]'){
             return back();
         }
 
-        $cse = User::ActiveCSE($user)->first();
+        $technician = User::ActiveTechnician($user)->first();
 
         $states = State::select('id', 'name')->orderBy('name', 'ASC')->get();
 
@@ -318,19 +248,19 @@ class AdminCSEController extends Controller
         }])
         ->has('categories')->get();
 
-        $cseCategories = CSE::where('user_id', $user)->first();
+        $technicianCategories = Technician::where('user_id', $user)->first();
         
-        $cseCategories = $cseCategories->cseCategories;
+        $technicianCategories = $technicianCategories->technicianCategories;
 
         $data = [
-            'cse'               =>  $cse,
-            'states'            =>  $states,
-            'banks'             =>  $banks,
-            'services'          =>  $services,
-            'cseCategories'     =>  $cseCategories,
+            'technician'                =>  $technician,
+            'states'                    =>  $states,
+            'banks'                     =>  $banks,
+            'services'                  =>  $services,
+            'technicianCategories'      =>  $technicianCategories,
         ];
 
-        return view('admin.users.cse.edit', $data);
+        return view('admin.users.technician.edit', $data);
     }
 
     /**
@@ -349,15 +279,15 @@ class AdminCSEController extends Controller
         //Validate user input fields
         $this->validateUpdateRequest($id);
 
-        //Get id from `cses` table 
-        $userId = $userExists->cse->id;
+        //Get id from `technicians` table 
+        $userId = $userExists->technician->id;
 
         //Get currently selected categories 
-        $cseCategories = $request->input('cse_category');
+        $technicianCategories = $request->input('technician_category');
 
-        if(!empty($cseCategories)){
-            foreach($cseCategories as $cseCategory){
-                CSECategory::where('cse_id', $userId)->delete();
+        if(!empty($technicianCategories)){
+            foreach($technicianCategories as $technicianCategory){
+                TechnicianCategory::where('technician_id', $userId)->delete();
             }
         }
 
@@ -386,8 +316,8 @@ class AdminCSEController extends Controller
             'email'             =>   $request->input('email'),
         ]);
 
-        //Update User record on `admins` table
-        $updateAdminRecord = CSE::where('id', '=', $userId)->update([
+        //Update User record on `technicians` table
+        $updateAdminRecord = Technician::where('id', '=', $userId)->update([
             'state_id'              =>  $request->input('state_id'),
             'lga_id'                =>  $request->input('lga_id'),
             'bank_id'               =>  $request->input('bank_id'),
@@ -410,11 +340,11 @@ class AdminCSEController extends Controller
 
         if($updateUserRecord && $updateNameRecord ){
 
-            //Create new User record on `cse_category` pivot table
-            foreach($cseCategories as $cseCategory){
-                $createCategoriesRecord = CSECategory::create([
-                    'cse_id'        =>  $userId,
-                    'category_id'   =>  $cseCategory,
+            //Create new User record on `technician_category` pivot table
+            foreach($technicianCategories as $technicianCategory){
+                $createCategoriesRecord = TechnicianCategory::create([
+                    'technician_id' =>  $userId,
+                    'category_id'   =>  $technicianCategory,
                 ]);
             }
 
@@ -428,7 +358,7 @@ class AdminCSEController extends Controller
             $message = Auth::user()->fullName->name.' updated '.$request->input('first_name').' '.$request->input('last_name').'\'s profile';
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 
-            return redirect()->route('admin.list_cse')->with('success', $request->input('first_name').' '.$request->input('last_name').'\'s profile was successfully updated.');
+            return redirect()->route('admin.list_technician')->with('success', $request->input('first_name').' '.$request->input('last_name').'\'s profile was successfully updated.');
 
         }else{
             //Record Unauthorized user activity
@@ -461,9 +391,9 @@ class AdminCSEController extends Controller
             'middle_name'               =>   '',
             'last_name'                 =>   'required',
             'email'                     =>   'required|email|unique:users,email,'.$id.',id', 
-            'phone_number'              =>   'required|Numeric|unique:cses,phone_number,'.$id.',user_id', 
+            'phone_number'              =>   'required|Numeric|unique:technicians,phone_number,'.$id.',user_id', 
             'gender'                    =>   'required',
-            'cse_category'              =>   'required',
+            'technician_category'       =>   'required',
             'account_number'            =>   '',
             'town'                      =>   'required',
             'full_address'              =>   'required',
@@ -494,7 +424,7 @@ class AdminCSEController extends Controller
             $message = Auth::user()->fullName->name.' deleted '.$userExists->fullName->name.'\'s profile';
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
             
-            return redirect()->route('admin.list_cse')->with('success', 'CSE Profile has been deleted.');
+            return redirect()->route('admin.list_technician')->with('success', 'Technician Profile has been deleted.');
             
         }else{
 
@@ -508,7 +438,7 @@ class AdminCSEController extends Controller
             $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to delete '.$userExists->fullName->name.'\'s Profile.';
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 
-            return back()->with('error', 'An error occurred while trying to delete CSE Profile.');
+            return back()->with('error', 'An error occurred while trying to delete Technician Profile.');
         } 
     }
 
@@ -531,7 +461,7 @@ class AdminCSEController extends Controller
             $message = Auth::user()->fullName->name.' deactivated '.$userExists->fullName->name.'\'s profile';
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 
-            return redirect()->route('admin.list_cse')->with('success', 'CSE Profile has been deactivated.');
+            return redirect()->route('admin.list_technician')->with('success', 'Technician Profile has been deactivated.');
             
         }else{
             //Record crurrenlty logged in user activity
@@ -544,7 +474,7 @@ class AdminCSEController extends Controller
             $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to deactivate '.$userExists->fullName->name.'\'s Profile.';
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 
-            return back()->with('error', 'An error occurred while trying to deactivate CSE Profile.');
+            return back()->with('error', 'An error occurred while trying to deactivate Technician Profile.');
         } 
     }
 
@@ -567,7 +497,7 @@ class AdminCSEController extends Controller
             $message = Auth::user()->fullName->name.' reinstated '.$userExists->fullName->name.'\'s profile';
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 
-            return redirect()->route('admin.list_cse')->with('success', 'CSE has been reinstated.');
+            return redirect()->route('admin.list_technician')->with('success', 'Technician has been reinstated.');
             
         }else{
             //Record crurrenlty logged in user activity
@@ -628,7 +558,7 @@ class AdminCSEController extends Controller
                     'message'       =>  $message,
                 ];
 
-                return view('admin.users.cse._activity_log_table', $data)->with('i');
+                return view('admin.users.technician._activity_log_table', $data)->with('i');
 
             }
 
@@ -656,7 +586,7 @@ class AdminCSEController extends Controller
                     'message'       =>  $message,
                 ];
 
-                return view('admin.users.cse._activity_log_table', $data)->with('i');
+                return view('admin.users.technician._activity_log_table', $data)->with('i');
 
             }
 
@@ -683,7 +613,7 @@ class AdminCSEController extends Controller
                     'message'       =>  $message,
                 ];
 
-                return view('admin.users.cse._activity_log_table', $data)->with('i');
+                return view('admin.users.technician._activity_log_table', $data)->with('i');
             }
 
             if($level === 'Level Four'){
@@ -712,7 +642,7 @@ class AdminCSEController extends Controller
                     'message'       =>  $message,
                 ];
 
-                return view('admin.users.cse._activity_log_table', $data)->with('i');
+                return view('admin.users.technician._activity_log_table', $data)->with('i');
             }
             
             if($level === 'Level Five'){
@@ -739,7 +669,7 @@ class AdminCSEController extends Controller
                     'message'       =>  $message,
                 ];
 
-                return view('admin.users.cse._activity_log_table', $data)->with('i');
+                return view('admin.users.technician._activity_log_table', $data)->with('i');
             }
 
         }

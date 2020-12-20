@@ -248,16 +248,16 @@
             let stateId = $('#state_id').find('option:selected').val();
             let stateName = $('#state_id').find('option:selected').text();
             
-            $.ajaxSetup({
-                    headers: {
-                        'X-CSRF_TOKEN':$('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+            // $.ajaxSetup({
+            //         headers: {
+            //             'X-CSRF_TOKEN':$('meta[name="csrf-token"]').attr('content')
+            //         }
+            //     });
             $.ajax({
                 url: "{{ route('lga_list') }}",
                 method: "POST",
                 dataType: "JSON",
-                data: {state_id:stateId},
+                data: {"_token": "{{ csrf_token() }}", "state_id":stateId},
                 success: function(data){
                     if(data){
 

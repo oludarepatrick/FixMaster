@@ -150,7 +150,7 @@
                 <select class="form-control @error('state_id') is-invalid @enderror" name="state_id" id="state_id">
                   <option selected value="">Select...</option>
                   @foreach($states as $state)
-                      <option value="{{ $state->id }}" {{ old('state_id') == $state->id ? 'selected' : ''}} @if($state->id == $cse->cse->state_id) selected @endif>{{ $state->name }}</option>
+                      <option value="{{ $state->id }}" @if($state->id == $cse->cse->state_id) selected @endif>{{ $state->name }}</option>
                   @endforeach
                 </select>
                 @error('state_id')

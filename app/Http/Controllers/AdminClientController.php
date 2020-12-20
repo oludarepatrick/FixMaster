@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Client;
 use App\Models\Name;
 use App\Models\ServiceRequest;
+use App\Models\ActivityLog;
 
 use App\Models\Service;
 use App\Models\Category;
@@ -41,8 +42,8 @@ class AdminClientController extends Controller
         ];
 
         return view('admin.users.client.list', $data)->with('i');
-       
     }
+
     /**
      * Display the specified resource.
      *
@@ -51,15 +52,45 @@ class AdminClientController extends Controller
      */
     public function summary($user){
 
-        $clientExists = Client::findOrFail($user);
+        $client = Client::findOrFail($user);
 
-        $client =  Client::where('id', $user)->first();
+        // $client =  Client::where('id', $user)->first();
         $user =  User::where('id', $client->user_id)->first();
-        $totalRequests = $user->requests()->count();
 
-        //client_project_status 1 =>Pending, 2 =>Ongoing, 3 =>Completed, 4 =>Cancelled
-        $completedRequests = ServiceRequest::where('client_project_status', '3')->get()->count();
-        $cancelledRequests = ServiceRequest::where('client_project_status', '4')->get()->count();
+        $userId = $user->id;
+
+        if($user->designation != '[CLIENT_ROLE]'){
+            return back();
+        }
+
+        $activityLogs = $user->activityLogs()->orderBy('created_at', 'DESC')->get();
+
+        $message = '';
+
+        $yearList = array();
+
+        $years = ActivityLog::orderBy('created_at', 'ASC')->pluck('created_at');
+
+        $years = json_decode($years);
+
+        if(!empty($years)){
+            foreach($years as $year){
+                $date = new \DateTime($year);
+
+                $yearNumber = $date->format('y');
+
+                $yearName = $date->format('Y');
+                
+                array_push($yearList, $yearName);
+            }
+        }
+
+        $years = array_unique($yearList);
+
+        //client_project_status = Pending, Ongoing, Completed, Cancelled 
+        $completedRequests = ServiceRequest::where('client_project_status', 'Completed')->get()->count();
+        $cancelledRequests = ServiceRequest::where('client_project_status', 'Cancelled')->get()->count();
+        $totalRequests = $user->requests()->count();
 
         $data = [
             'client'            =>  $client,
@@ -67,9 +98,13 @@ class AdminClientController extends Controller
             'totalRequests'     =>  $totalRequests,
             'completedRequests' =>  $completedRequests,
             'cancelledRequests' =>  $cancelledRequests,
+            'activityLogs'      =>  $activityLogs,
+            'userId'            =>  $userId,
+            'message'           =>  $message,
+            'years'             =>  $years,
         ];
 
-        return view('admin.users.client.summary', $data);
+        return view('admin.users.client.summary', $data)->with('i');
     }
      /**
      * Remove the specified resource from storage.
@@ -183,5 +218,165 @@ class AdminClientController extends Controller
 
             return back()->with('error', 'An error occurred while trying to reinstate Client Profile.');
         } 
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * This is an ajax call to sort a users Activity Log 
+     * present on change of Activity Type select dropdown
+     */
+    public function sortActivityLog(Request $request){
+        if($request->ajax()){
+
+            //Get User ID
+            $userId = $request->get('user');
+            //Get current activity sorting level
+            $level =  $request->get('sort_level');
+            //Get the activity sorting type
+            $type =  $request->get('type');
+            //Get activity log for a specific date
+            $specificDate =  $request->get('date');
+            //Get activity log for a specific year
+            $specificYear =  $request->get('year');
+            //Get activity log for a specific month
+            $specificMonth =  date('m', strtotime($request->get('month')));
+            //Get activity log for a specific month name
+             $specificMonthName =  $request->get('month');
+            //Get activity log for a date range
+            $dateFrom =  $request->get('date_from');
+            $dateTo =  $request->get('date_to');
+            //Verify if user exists on `users` table
+            $userExists = User::findOrFail($userId);
+        
+            if($level === 'Level One'){
+
+                $activityLogs = $userExists->activityLogs()
+                ->where('type', $type)
+                ->orderBy('created_at', 'DESC')->get();
+
+                $message = 'Showing Activity Log of "'.$type.'"';
+
+                $data = [
+                    'activityLogs'  =>  $activityLogs,
+                    'message'       =>  $message,
+                ];
+
+                return view('admin.users.client._activity_log_table', $data)->with('i');
+
+            }
+
+            if($level === 'Level Two'){
+
+                if(($type !== 'None') && !empty($specificDate)){
+                    $activityLogs = $userExists->activityLogs()
+                    ->where('type', $type)
+                    ->whereDate('created_at', $specificDate)
+                    ->orderBy('created_at', 'DESC')->get();
+
+                    $message = 'Showing Activity Log of "'.$type.'" activity type for '.\Carbon\Carbon::parse($specificDate, 'UTC')->isoFormat('LL');
+                }
+                
+                if(($type == 'None') && !empty($specificDate)){
+                    $activityLogs = $userExists->activityLogs()
+                    ->whereDate('created_at', $specificDate)
+                    ->orderBy('created_at', 'DESC')->get();
+
+                    $message = 'Showing Activity Log for '.\Carbon\Carbon::parse($specificDate, 'UTC')->isoFormat('LL');
+                }
+
+                $data = [
+                    'activityLogs'  =>  $activityLogs,
+                    'message'       =>  $message,
+                ];
+
+                return view('admin.users.client._activity_log_table', $data)->with('i');
+
+            }
+
+            if($level === 'Level Three'){
+                if(($type !== 'None') && !empty($specificYear)){
+                    $activityLogs = $userExists->activityLogs()
+                    ->where('type', $type)
+                    ->whereYear('created_at', $specificYear)
+                    ->orderBy('created_at', 'DESC')->get();
+
+                    $message = 'Showing Activity Log of "'.$type.'" activity type for year '.$specificYear;
+                }
+                
+                if(($type == 'None') && !empty($specificYear)){
+                    $activityLogs = $userExists->activityLogs()
+                    ->whereYear('created_at', $specificYear)
+                    ->orderBy('created_at', 'DESC')->get();
+
+                    $message = 'Showing Activity Log for year '.$specificYear;
+                }
+
+                $data = [
+                    'activityLogs'  =>  $activityLogs,
+                    'message'       =>  $message,
+                ];
+
+                return view('admin.users.client._activity_log_table', $data)->with('i');
+            }
+
+            if($level === 'Level Four'){
+                
+                if(($type !== 'None') && !empty($specificYear) && !empty($specificMonth)){
+                    $activityLogs = $userExists->activityLogs()
+                    ->where('type', $type)
+                    ->whereYear('created_at', $specificYear)
+                    ->whereMonth('created_at', $specificMonth)
+                    ->orderBy('created_at', 'DESC')->get();
+
+                    $message = 'Showing Activity Log of "'.$type.'" activity type for "'.$specificMonthName.'" in year '.$specificYear;
+                }
+                
+                if(($type == 'None') && !empty($specificYear) && !empty($specificMonth)){
+                    $activityLogs = $userExists->activityLogs()
+                    ->whereYear('created_at', $specificYear)
+                    ->whereMonth('created_at', $specificMonth)
+                    ->orderBy('created_at', 'DESC')->get();
+
+                    $message = 'Showing Activity Log for "'.$specificMonthName.'" in year '.$specificYear;
+                }
+
+                $data = [
+                    'activityLogs'  =>  $activityLogs,
+                    'message'       =>  $message,
+                ];
+
+                return view('admin.users.client._activity_log_table', $data)->with('i');
+            }
+            
+            if($level === 'Level Five'){
+
+                if(($type !== 'None') && !empty($dateFrom) && !empty($dateTo)){
+                    $activityLogs = $userExists->activityLogs()
+                    ->where('type', $type)
+                    ->whereBetween('created_at', [$dateFrom, $dateTo])
+                    ->orderBy('created_at', 'DESC')->get();
+
+                    $message = 'Showing Activity Log of "'.$type.'" activity type from "'.\Carbon\Carbon::parse($dateFrom, 'UTC')->isoFormat('LL').'" to "'.\Carbon\Carbon::parse($dateTo, 'UTC')->isoFormat('LL').'"';
+                }
+                
+                if(($type == 'None') && !empty($dateFrom) && !empty($dateTo)){
+                    $activityLogs = $userExists->activityLogs()
+                    ->whereBetween('created_at', [$dateFrom, $dateTo])
+                    ->orderBy('created_at', 'DESC')->get();
+
+                    $message = 'Showing Activity Log from "'.\Carbon\Carbon::parse($dateFrom, 'UTC')->isoFormat('LL').'" to "'.\Carbon\Carbon::parse($dateTo, 'UTC')->isoFormat('LL').'"';
+                }
+
+                $data = [
+                    'activityLogs'  =>  $activityLogs,
+                    'message'       =>  $message,
+                ];
+
+                return view('admin.users.client._activity_log_table', $data)->with('i');
+            }
+
+        }
     }
 }

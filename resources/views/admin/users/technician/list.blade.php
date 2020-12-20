@@ -28,135 +28,59 @@
             
           </div><!-- card-header -->
 
-          <div class="table-responsive">
-            <table class="table table-hover mg-b-0" id="basicExample">
-              <thead class="thead-primary">
-                <tr>
-                  <th class="text-center">#</th>
-                  <th>Full Name</th>
-                  <th class="text-center">ID</th>
-                  <th>E-Mail</th>
-                  <th class="text-center">Jobs Completed</th>
-                  <th>Status</th>
-                  <th class="text-center">Date Created</th>
-                  <th class=" text-center">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="tx-color-03 tx-center">1</td>
-                  <td class="tx-medium">Andrew Nwankwo</td>
-                  <td class="tx-medium text-center">TECH-2397329759</td>
-                  <td class="tx-medium">andrew.nwankwo@gmail.com</td>
-                  <td class="text-medium text-center">12</td>
-                  <td class="text-medium text-success">Active</td>
-                  <td class="text-medium">May 15th 2020</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_technician') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="{{ route('admin.edit_technician') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                      {{-- <a href="{{ route('admin.activity_log_technician') }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a> --}}
-                        <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                        <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+          <table class="table table-hover mg-b-0" id="basicExample">
+            <thead class="thead-primary">
+              <tr>
+                <th class="text-center">#</th>
+                <th>Full Name</th>
+                <th class="text-center">ID</th>
+                <th>E-Mail</th>
+                <th>Phone Number</th>
+                <th>Gender</th>
+                <th>Status</th>
+                <th class="text-center">Requests Completed</th>
+                <th>Date Created</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($technicians as $technician)
+              @foreach ($technician->technicians as $item)@endforeach
+              <tr>
+              <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+              <td class="tx-medium">{{ $technician->fullName->name }}</td>
+              <td class="tx-medium text-center">{{ $item->tag_id }}</td>
+              <td class="tx-medium">{{ $technician->email }}</td>
+              <td class="tx-medium">{{ $item->phone_number }}</td>
+              <td class="tx-medium">{{ $item->gender }}</td>
+              @if($technician->is_active == '1') 
+                <td class="text-medium text-success">Active</td>
+              @else 
+                <td class="text-medium text-danger">Inactive</td>
+              @endif
+              <td class="tx-medium text-center">{{ $technician->technician->requests()->where('client_project_status', 'Completed')->count() }}</td>
 
-                <tr>
-                  <td class="tx-color-03 tx-center">2</td>
-                  <td class="tx-medium">Taofeek Adedokun</td>
-                  <td class="tx-medium text-center">TECH-08435784394</td>
-                  <td class="tx-medium">taofeek.adedokun@gmail.com</td>
-                  <td class="text-medium text-center">9</td>
-                  <td class="text-medium text-success">Active</td>
-                  <td class="text-medium">May 12th 2020</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_technician') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="{{ route('admin.edit_technician') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                      {{-- <a href="{{ route('admin.activity_log_technician') }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a> --}}
-                        <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                        <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
+              <td class="text-medium">{{ Carbon\Carbon::parse($technician->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
+                <td class=" text-center">
+                  <div class="dropdown-file">
+                    <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                    <a href="{{ route('admin.summary_technician', $technician->id) }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
+                    <a href="{{ route('admin.edit_technician', $technician->id) }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
+                    @if($technician->is_active == '1')
+                      <a href="{{ route('admin.deactivate_technician', $technician->id) }}" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
+                    @else
+                      <a href="{{ route('admin.reinstate_technician', $technician->id) }}" class="dropdown-item details text-success"><i class="fas fa-undo"></i> Reinstate</a>
+                    @endif
+                    <a href="{{ route('admin.delete_technician', $technician->id) }}" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
                     </div>
-                  </td>
-                </tr>
+                  </div>
+                </td>
+              </tr>
+              @endforeach
 
-                <tr>
-                  <td class="tx-color-03 tx-center">3</td>
-                  <td class="tx-medium">Blessing Nnamdi</td>
-                  <td class="tx-medium text-center">TECH-237290223123</td>
-                  <td class="tx-medium">blessing.nnamdi@yahoo.com</td>
-                  <td class="text-medium text-center">8</td>
-                  <td class="text-medium text-success">Active</td>
-                  <td class="text-medium">May 11th 2020</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_technician') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="{{ route('admin.edit_technician') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                      {{-- <a href="{{ route('admin.activity_log_technician') }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a> --}}
-                        <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                        <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="tx-color-03 tx-center">4</td>
-                  <td class="tx-medium">Bidemi George</td>
-                  <td class="tx-medium text-center">TECH-234094623496</td>
-                  <td class="tx-medium">bidemi.george@yahoo.com</td>
-                  <td class="text-medium text-center">6</td>
-                  <td class="text-medium text-success">Active</td>
-                  <td class="text-medium">May 11th 2020</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_technician') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="{{ route('admin.edit_technician') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                      {{-- <a href="{{ route('admin.activity_log_technician') }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a> --}}
-                        <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                        <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="tx-color-03 tx-center">5</td>
-                  <td class="tx-medium">Isaac Johnson</td>
-                  <td class="tx-medium text-center">TECH-874214626696</td>
-                  <td class="tx-medium">isaac.johnson@outlook.co.uk</td>
-                  <td class="text-medium text-center">4</td>
-                  <td class="text-medium text-danger">Inactive</td>
-                  <td class="text-medium">May 11th 2020</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_technician') }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="{{ route('admin.edit_technician') }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                      {{-- <a href="{{ route('admin.activity_log_technician') }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a> --}}
-                        <a href="" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                        <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-
-                
-              </tbody>
-            </table>
-          </div><!-- table-responsive -->
+            </tbody>
+          </table>
         </div><!-- card -->
 
       </div><!-- col -->

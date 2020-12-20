@@ -137,4 +137,17 @@ class EssentialsController extends Controller
             'is_read'           =>  '0'
         ]); 
     }
+
+    public function technicianWelcomeMessage($technicianName, $technicianId, $email, $password){
+
+        $body = '<h1>Welcome to FixMaster, '.$technicianName.'!</h1><p>We are very excited you joined the most compelling community of FixMaster to satisfy customer\'s need.</p><p>As a <strong>Technician</strong> you will be assigned to jobs and you are expected to deliver excellent quality service which has always been a vital part of FixMaster\'s success.</p><p>Having said so, we constantly cater to our customer\'s best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>Remember to change your password to a more convenient one asides the one given to you by FixMaster Admin.</p><p><span style="text-decoration: underline;"><strong>Login Credentials</strong></span></p><p><strong>E-Mail</strong>: '.$email.'</p><p><strong>Password:</strong> '.$password.'</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>';
+
+        Message::create([
+            'sender_id'         =>  4, 
+            'recipient_id'      =>  $technicianId, 
+            'subject'           =>  'Welcome to FixMaster!', 
+            'body'              =>  $body, 
+            'is_read'           =>  '0'
+        ]); 
+    }
 }
