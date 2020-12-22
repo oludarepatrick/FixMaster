@@ -221,12 +221,14 @@ class AdminCSEController extends Controller
 
         $cse = User::findOrFail($user);
 
+        // return $cse->cse;
+        
         if($cse->designation != '[CSE_ROLE]'){
             return back();
         }
-      //client_project_status = Pending, Ongoing, Completed, Cancelled 
-        $completedRequests = $cse->cse->requests()->where('client_project_status', 'Completed')->count();
-        $cancelledRequests = $cse->cse->requests()->where('client_project_status', 'Cancelled')->count();
+      //service_request_status_id = Pending(1), Ongoing(4), Completed(3), Cancelled(2) 
+        $completedRequests = $cse->cse->requests()->where('service_request_status_id', '3')->count();
+        $cancelledRequests = $cse->cse->requests()->where('service_request_status_id', '2')->count();
         $totalRequests = $cse->cse->requests()->count();
 
         $cseCategories = $cse->cse->cseCategories;

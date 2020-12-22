@@ -13,6 +13,8 @@ use App\Http\Controllers\RecordActivityLogController;
 use Auth;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\CSE;
+use App\Models\Technician;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestDetail;
 use App\Models\Category;
@@ -31,8 +33,7 @@ class AdminRequestController extends Controller
 
     public function index(){
 
-        $serviceRequests = ServiceRequest::where('client_project_status', 'Pending')
-        ->orderBy('created_at', 'DESC')->get();
+        $serviceRequests = ServiceRequest::NewRequests()->get();
 
         $createdBy = Name::get();
 
@@ -47,13 +48,43 @@ class AdminRequestController extends Controller
     public function requestDetails($ref){
 
         $requestDetail = ServiceRequest::findOrFail($ref);
-        // return $requestDetail->cse;
+
+        $cses = User::select('id', 'created_at', 'email', 'is_active')
+        ->with(['cses' => function($query){
+            return $query->select('tag_id', 'gender', 'phone_number', 'user_id');
+        }])
+        ->with(['fullName' => function($name){
+            return $name->select(['name', 'user_id']);
+        }])
+        ->where('users.designation', '[CSE_ROLE]')
+        ->where('users.is_active', '1')
+        ->latest('users.created_at')
+        ->get();
+
+        $technicians = User::select('id', 'created_at', 'email', 'is_active')
+        ->with(['technicians' => function($query){
+            return $query->select('tag_id', 'gender', 'phone_number', 'user_id');
+        }])
+        ->with(['fullName' => function($name){
+            return $name->select(['name', 'user_id']);
+        }])
+        ->where('users.designation', '[TECHNICIAN_ROLE]')
+        ->where('users.is_active', '1')
+        ->latest('users.created_at')
+        ->get();
+
+        // return $technicians;
+
         $data = [
-            'requestDetail'   =>  $requestDetail,
+            'requestDetail' =>  $requestDetail,
+            'cses'          =>  $cses,
+            'technicians'   =>  $technicians,
         ];
 
         return view('admin.requests.request_details', $data);
+    }
 
+    public function assignCSETechnician(){
 
     }
 }

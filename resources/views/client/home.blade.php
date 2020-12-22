@@ -118,13 +118,13 @@
                         </p>
                         <p class="mb-0"><a href="javascript:void(0)" style="color: #161c2d">CSE: <span class="text-muted">{{ $cseName->find($userServiceRequest->cse_id)->name ?? 'Not Assigned' }}</span></a></p>    
                         <p class="mb-0">Status: 
-                            @if($userServiceRequest->client_project_status == 'Pending')
+                            @if($userServiceRequest->service_request_status_id == 'Pending')
                                 <span class="text-warning">Pending</span>
-                            @elseif($userServiceRequest->client_project_status == 'Ongoing')
+                            @elseif($userServiceRequest->service_request_status_id == 'Ongoing')
                                 <span class="text-info">Ongoing</span>
-                            @elseif($userServiceRequest->client_project_status == 'Completed')
+                            @elseif($userServiceRequest->service_request_status_id == 'Completed')
                                 <span class="text-success">Completed</span>
-                            @elseif($userServiceRequest->client_project_status == 'Cancelled')
+                            @elseif($userServiceRequest->service_request_status_id == 'Cancelled')
                                 <span class="text-danger">Cancelled</span>
                             @endif
                         </p>    

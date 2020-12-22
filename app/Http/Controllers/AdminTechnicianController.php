@@ -407,9 +407,9 @@ class AdminTechnicianController extends Controller
         if($technician->designation != '[TECHNICIAN_ROLE]'){
             return back();
         }
-      //client_project_status = Pending, Ongoing, Completed, Cancelled 
-        $completedRequests = $technician->technician->requests()->where('client_project_status', 'Completed')->count();
-        $cancelledRequests = $technician->technician->requests()->where('client_project_status', 'Cancelled')->count();
+      //service_request_status_id = Pending(1), Ongoing(4), Completed(3), Cancelled(2) 
+        $completedRequests = $technician->technician->requests()->where('service_request_status_id', '3')->count();
+        $cancelledRequests = $technician->technician->requests()->where('service_request_status_id', '2')->count();
         $totalRequests = $technician->technician->requests()->count();
 
         $technicianCategories = $technician->technician->technicianCategories;

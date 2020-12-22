@@ -136,11 +136,12 @@
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>CSE</label>
-              <select class="custom-select">
-                <option selected>Select...</option>
-                <option value="1">Godfrey Diwa(Mushin [Abule-Ijesha])</option>
-                <option value="2">Rilwan Bello(Alimosho [Egbeda])</option>
-                <option value="2">Mayowa Olaoye(Ojo [Iyana-Iba])</option>
+              <select class="custom-select selectpicker">
+                <option value="" selected>Select...</option>
+                @foreach ($cses as $cse)
+                @foreach ($cse->cses as $item)@endforeach
+                  <option value="{{ $cse->id }}" data-toggle="tooltip" data-placement="top" title="{{ $cse->cse->lga->name }} => {{ $item->town }}">{{ $cse->fullName->name }}</option>
+                @endforeach
               </select>
             </div>
             <div class="form-group col-md-4">
@@ -159,4 +160,26 @@
       </div>
     </div>
 </div>
+
+@section('scripts')
+    <script>
+      $('[data-toggle="tooltip"]').tooltip();
+      
+      $(function () {
+          $(document).tooltip({items:"select, option", position:{ my: "left top", at: "left bottom"}
+          }); 
+      });
+
+      $('.selectpicker').on('change', function () {
+        var title = $('option:selected').attr('title');
+
+        if (title != null && title != '') {
+          $('.selectpicker').attr('title', title);
+        }
+        else {
+          $('.selectpicker').attr('title', '');
+        }
+      });
+    </script>
+@endsection
 @endsection

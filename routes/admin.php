@@ -24,10 +24,9 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::post('/activity-log/sorting',                [App\Http\Controllers\ActivityLogController::class, 'sortActivityLog'])->name('activity_log_sorting_users');
                 Route::get('/activity-log/details/{id}',            [App\Http\Controllers\ActivityLogController::class, 'activityLogDetails'])->name('activity_log_details');
 
-                Route::get('/requests',                    [App\Http\Controllers\AdminRequestController::class, 'index'])->name('requests');
-                Route::get('/requests/details/new/{ref}',                    [App\Http\Controllers\AdminRequestController::class, 'requestDetails'])->name('request_details');
-                // Route::view('/requests', 	                        'admin.requests.requests')->name('requests');
-                // Route::view('/requests/details/new', 	            'admin.requests.request_details')->name('request_details');
+                Route::get('/requests',                             [App\Http\Controllers\AdminRequestController::class, 'index'])->name('requests');
+                Route::get('/requests/details/new/{ref}',           [App\Http\Controllers\AdminRequestController::class, 'requestDetails'])->name('request_details');
+                
                 Route::view('/requests/details/ongoing', 	        'admin.requests.request_ongoing_details')->name('request_ongoing_details');
                 Route::view('/requests/details/completed', 	        'admin.requests.request_completed_details')->name('request_completed_details');
                 Route::view('/requests/ongoing', 	                'admin.requests.requests_ongoing')->name('requests_ongoing');

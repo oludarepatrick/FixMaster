@@ -191,13 +191,13 @@
                             ₦{{ number_format($request->serviceRequestDetail->initial_service_fee) }}
                         @endif
                       </td>
-                      @if($request->client_project_status == 'Pending')
+                      @if($request->service_request_status_id == 'Pending')
                           <td class="text-medium text-warning text-center">Pending</td>
-                      @elseif($request->client_project_status == 'Ongoing')
+                      @elseif($request->service_request_status_id == 'Ongoing')
                           <td class="text-medium text-info text-center">Ongoing</td>
-                      @elseif($request->client_project_status == 'Completed')
+                      @elseif($request->service_request_status_id == 'Completed')
                           <td class="text-medium text-success text-center">Completed</td>
-                      @elseif($request->client_project_status == 'Cancelled')
+                      @elseif($request->service_request_status_id == 'Cancelled')
                           <td class="text-medium text-danger text-center">Cancelled</td>
                       @endif
                       <td class="text-medium">May 15th 2020 at 11:30am</td>

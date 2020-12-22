@@ -96,13 +96,13 @@
 
         <h5 class="mt-4">Status</h5>
         <ul class="list-unstyled">
-            @if($requestDetail->client_project_status == 'Pending')
+            @if($requestDetail->service_request_status_id == 'Pending')
                 <li class="text-warning"><i data-feather="arrow-right" class="fea icon-sm text-primary mr-2"></i>Pending</li>
-            @elseif($requestDetail->client_project_status == 'Ongoing')
+            @elseif($requestDetail->service_request_status_id == 'Ongoing')
                 <li class="text-info"><i data-feather="arrow-right" class="fea icon-sm text-primary mr-2"></i>Ongoing</li>
-            @elseif($requestDetail->client_project_status == 'Completed')
+            @elseif($requestDetail->service_request_status_id == 'Completed')
                 <li class="text-success"><i data-feather="arrow-right" class="fea icon-sm text-primary mr-2"></i>Completed</li>
-            @elseif($requestDetail->client_project_status == 'Cancelled')
+            @elseif($requestDetail->service_request_status_id == 'Cancelled')
                 <li class="text-danger"><i data-feather="arrow-right" class="fea icon-sm text-primary mr-2"></i>Cancelled</li>
             @endif
         </ul>
@@ -148,7 +148,7 @@
                                 <h5 class="card-title">Personal Details :</h5>
                                                                     
                                 <ul class="list-unstyled">
-                                <li class="h6"><i data-feather="activity" class="fea icon-sm text-warning mr-2"></i><span class="text-muted">Completed Jobs :</span> {{ $requestDetail->cse->requests()->where('client_project_status', 'Completed')->count() }}</li>
+                                <li class="h6"><i data-feather="activity" class="fea icon-sm text-warning mr-2"></i><span class="text-muted">Completed Jobs :</span> {{ $requestDetail->cse->requests()->where('service_request_status_id', 'Completed')->count() }}</li>
                                     {{-- <li class="h6"><i data-feather="gift" class="fea icon-sm text-warning mr-2"></i><span class="text-muted">D.O.B. :</span> 11th Jun, 1986</li> --}}
                                 <li class="h6"><i data-feather="map-pin" class="fea icon-sm text-warning mr-2"></i><span class="text-muted">State :</span> {{ $requestDetail->cse->state->name }}</li>
                                 <li class="h6"><i data-feather="map-pin" class="fea icon-sm text-warning mr-2"></i><span class="text-muted">Town/City :</span> {{ $requestDetail->cse->town }}</li>

@@ -65,12 +65,12 @@
                     <td class="text-medium text-center">
                       @if(!empty($serviceRequest->serviceRequestDetail->discount_service_fee))
                           ₦{{ number_format($serviceRequest->serviceRequestDetail->discount_service_fee) }}
-                          <span style="font-size: 10px;" class="text-success">Discount</span>
+                          <br><span style="font-size: 10px;" class="text-success">Discount</span>
                       @else
                           ₦{{ number_format($serviceRequest->serviceRequestDetail->initial_service_fee) }}
                       @endif
                     </td>
-                    <td class="text-medium text-success">Paid</td>
+                    <td class="text-medium text-warning">{{ $serviceRequest->serviceRequestStatus->name }}</td>
                     <td class="text-medium">{{ $serviceRequest->serviceRequestDetail->timestamp ?? '' }}</td>
                     <td class=" text-center">
                       <div class="dropdown-file">

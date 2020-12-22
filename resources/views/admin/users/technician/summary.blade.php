@@ -194,7 +194,7 @@
                 </tr>
                 <tr>
                   <td class="tx-medium">Requests Completed</td>
-                  <td class="tx-color-03">{{ $technician->technician->requests()->where('client_project_status', 'Completed')->count() }}</td>
+                  <td class="tx-color-03">{{ $technician->technician->requests()->where('service_request_status_id', 'Completed')->count() }}</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Payments Received</td>
@@ -264,13 +264,13 @@
                             ₦{{ number_format($request->serviceRequestDetail->initial_service_fee) }}
                         @endif
                       </td>
-                      @if($request->client_project_status == 'Pending')
+                      @if($request->service_request_status_id == 'Pending')
                           <td class="text-medium text-warning text-center">Pending</td>
-                      @elseif($request->client_project_status == 'Ongoing')
+                      @elseif($request->service_request_status_id == 'Ongoing')
                           <td class="text-medium text-info text-center">Ongoing</td>
-                      @elseif($request->client_project_status == 'Completed')
+                      @elseif($request->service_request_status_id == 'Completed')
                           <td class="text-medium text-success text-center">Completed</td>
-                      @elseif($request->client_project_status == 'Cancelled')
+                      @elseif($request->service_request_status_id == 'Cancelled')
                           <td class="text-medium text-danger text-center">Cancelled</td>
                       @endif
                       <td>{{ $request->serviceRequestDetail->service_fee_name }}</td>

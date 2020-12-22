@@ -32,4 +32,14 @@ class Lga extends Model
         return $this->hasMany(Client::class, 'state_id');
     }
 
+    public function cse()
+    {
+        return $this->hasOne(Client::class, 'lga_id');
+    }
+
+    public function cses()
+    {
+        return $this->hasMany(Client::class, 'lga_id');
+    }
+
 }

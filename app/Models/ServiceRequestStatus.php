@@ -23,4 +23,15 @@ class ServiceRequestStatus extends Model
     {
         return $this->hasMany(User::class, 'user_id')->withDefault();
     }
+
+    public function serviceRequest()
+    {
+        return $this->hasOne(ServiceRequest::class, 'service_request_status_id');
+    }
+
+    public function serviceRequests()
+    {
+        return $this->hasMany(ServiceRequest::class, 'service_request_status_id');
+    }
+
 }

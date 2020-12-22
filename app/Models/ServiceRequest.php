@@ -16,7 +16,7 @@ class ServiceRequest extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'admin_id', 'cse_id', 'technician_id', 'service_id', 'category_id', 'job_reference', 'security_code', 'client_project_status',
+        'user_id', 'admin_id', 'cse_id', 'technician_id', 'service_id', 'category_id', 'job_reference', 'security_code', 'service_request_status_id', 'total_amount',
     ];
 
     public function user()
@@ -41,12 +41,12 @@ class ServiceRequest extends Model
 
     public function cse()
     {
-        return $this->hasOne(CSE::class, 'cse_id', 'user_id');
+        return $this->hasOne(CSE::class, 'user_id', 'cse_id');
     }
 
     public function cses()
     {
-        return $this->hasMany(CSE::class, 'cse_id', 'user_id');
+        return $this->hasMany(CSE::class, 'user_id', 'cse_id');
     }
 
     public function technician()
@@ -83,5 +83,26 @@ class ServiceRequest extends Model
     {
         return $this->hasOne(ServiceRequestDetail::class, 'service_request_id');
     }
+
+    public function serviceRequestStatus()
+    {
+        return $this->hasOne(ServiceRequestStatus::class, 'id', 'service_request_status_id');
+    }
     
+    public function serviceRequestStatuses()
+    {
+        return $this->belongsToMany(ServiceRequestStatus::class, 'id', 'service_request_status_id');
+    }
+    
+     /** 
+     * Scope a query to only include active banches
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */    
+    //Function to return all active clients  
+    public function scopeNewRequests($query){
+        return $query->where('service_request_status_id', '1')
+        ->orderBy('created_at', 'DESC');
+    }
 }

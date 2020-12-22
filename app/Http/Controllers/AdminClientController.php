@@ -86,9 +86,9 @@ class AdminClientController extends Controller
 
         $years = array_unique($yearList);
 
-        //client_project_status = Pending, Ongoing, Completed, Cancelled 
-        $completedRequests = ServiceRequest::where('client_project_status', 'Completed')->get()->count();
-        $cancelledRequests = ServiceRequest::where('client_project_status', 'Cancelled')->get()->count();
+        //service_request_status_id = Pending, Ongoing, Completed, Cancelled 
+        $completedRequests = ServiceRequest::where('service_request_status_id', 'Completed')->get()->count();
+        $cancelledRequests = ServiceRequest::where('service_request_status_id', 'Cancelled')->get()->count();
         $totalRequests = $user->requests()->count();
 
         $data = [
