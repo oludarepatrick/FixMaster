@@ -47,20 +47,20 @@
               @foreach ($technicians as $technician)
               @foreach ($technician->technicians as $item)@endforeach
               <tr>
-              <td class="tx-color-03 tx-center">{{ ++$i }}</td>
-              <td class="tx-medium">{{ $technician->fullName->name }}</td>
-              <td class="tx-medium text-center">{{ $item->tag_id }}</td>
-              <td class="tx-medium">{{ $technician->email }}</td>
-              <td class="tx-medium">{{ $item->phone_number }}</td>
-              <td class="tx-medium">{{ $item->gender }}</td>
-              @if($technician->is_active == '1') 
-                <td class="text-medium text-success">Active</td>
-              @else 
-                <td class="text-medium text-danger">Inactive</td>
-              @endif
-              <td class="tx-medium text-center">{{ $technician->technician->requests()->where('client_project_status', 'Completed')->count() }}</td>
+                <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                <td class="tx-medium">{{ $technician->fullName->name }}</td>
+                <td class="tx-medium text-center">{{ $item->tag_id }}</td>
+                <td class="tx-medium">{{ $technician->email }}</td>
+                <td class="tx-medium">{{ $item->phone_number }}</td>
+                <td class="tx-medium">{{ $item->gender }}</td>
+                @if($technician->is_active == '1') 
+                  <td class="text-medium text-success">Active</td>
+                @else 
+                  <td class="text-medium text-danger">Inactive</td>
+                @endif
+                <td class="tx-medium text-center">{{ $technician->technician->requests()->where('client_project_status', 'Completed')->count() }}</td>
 
-              <td class="text-medium">{{ Carbon\Carbon::parse($technician->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
+                <td class="text-medium">{{ Carbon\Carbon::parse($technician->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                 <td class=" text-center">
                   <div class="dropdown-file">
                     <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>

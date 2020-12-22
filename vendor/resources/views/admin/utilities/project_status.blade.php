@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Project Status')
+@section('title', 'Service Request Status')
 @include('layouts.partials._messages')
 @section('content')
 <div class="content-body">
@@ -9,10 +9,10 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
             <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Project Status</li>
+              <li class="breadcrumb-item active" aria-current="page">Service Request Status</li>
             </ol>
           </nav>
-          <h4 class="mg-b-0 tx-spacing--1">Project Status</h4>
+          <h4 class="mg-b-0 tx-spacing--1">Service Request Status</h4>
         </div>
       </div>
 
@@ -25,8 +25,8 @@
             <div class="card mg-b-10">
               <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
                 <div>
-                  <h6 class="mg-b-5">Project Statuses as of {{ date('M, d Y') }}</h6>
-                  <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of all FixMaster Project Statuses created.</p>
+                  <h6 class="mg-b-5">Service Request Statuses as of {{ date('M, d Y') }}</h6>
+                  <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of all FixMaster Service Request Statuses created.</p>
                 </div>
                 
               </div><!-- card-header -->

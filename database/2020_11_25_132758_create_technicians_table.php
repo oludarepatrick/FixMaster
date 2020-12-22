@@ -19,7 +19,7 @@ class CreateTechniciansTable extends Migration
             $table->foreignId('franchise_id')->nullable();
             $table->foreignId('state_id');
             $table->foreignId('lga_id');
-            $table->foreignId('town_id');
+            // $table->foreignId('town_id');
             $table->foreignId('bank_id');
             $table->string('first_name');
             $table->string('middle_name');
@@ -29,6 +29,7 @@ class CreateTechniciansTable extends Migration
             $table->string('account_number', '10')->unique()->nullable();
             $table->decimal('rating', 1, 1)->default(0);
             $table->string('avatar')->nullable();
+            $table->string('town');
             $table->text('full_address');
             $table->timestamps();
         });

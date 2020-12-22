@@ -233,9 +233,12 @@ class AdminCSEController extends Controller
         foreach($cseCategories as $cseCategory){
             $categoryNames[] = Category::where('id', $cseCategory->category_id)->first()->name;
         }
-        // return ServiceRequest::where('cse_id', $user)->get();
-
-        //  return $cse->cse->requests;
+        
+        if(empty($categoryNames)){
+            $categoryNames = '';
+        }else{
+            $categoryNames = $categoryNames;
+        }
 
         $activityLogs = $cse->activityLogs()->orderBy('created_at', 'DESC')->get();
 
@@ -263,14 +266,6 @@ class AdminCSEController extends Controller
 
         $years = array_unique($yearList);
 
-        // $data = [
-        //     'activityLogs'  =>  $activityLogs,
-        //     'fullName'      =>  $fullName,
-        //     'userId'        =>  $user,
-        //     'message'       =>  $message,
-        //     'years'         =>  $years,
-        // ];
-
         $createdBy = Name::get();
 
         $data = [
@@ -284,6 +279,7 @@ class AdminCSEController extends Controller
             'message'           =>  $message,
             'years'             =>  $years,
             'userId'            =>  $user,
+            'totalFee'          =>  0,
         ];
 
         return view('admin.users.cse.summary', $data)->with('i');

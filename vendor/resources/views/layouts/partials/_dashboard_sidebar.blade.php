@@ -158,7 +158,7 @@
 {{-- {{ dd($user->adminPermissions) }} --}}
 
 <!-- START ADMIN SIDEBAR MENU -->
-{{-- @if(Route::currentRouteNamed('admin.home', 'admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details', 'admin.payments', 'admin.messages', 'admin.messages_sent', 'admin.view_profile', 'admin.edit_profile', 'admin.technicians', 'admin.technicians_profile', 'admin.add_admin', 'admin.list_admin', 'admin.summary_admin', 'admin.edit_admin', 'admin.activity_log_admin', 'admin.add_cse', 'admin.list_cse', 'admin.summary_cse', 'admin.edit_cse', 'admin.activity_log_cse', 'admin.list_client', 'admin.summary_client', 'admin.utility_reset_password', 'admin.utility_project_status', 'admin.utility_verify_payment', 'admin.add_technician', 'admin.list_technician', 'admin.summary_technician', 'admin.edit_technician', 'admin.activity_log_technician', 'admin.add_franchise', 'admin.edit_franchise', 'admin.list_franchise', 'admin.tools_request', 'admin.tools_inventory', 'admin.rfq', 'admin.services', 'admin.add_category', 'admin.edit_category', 'admin.list_category', 'admin.review_category', 'admin.disbursed_payments', 'admin.received_payments', 'admin.category_ratings', 'admin.job_ratings', 'admin.location_request', 'admin.add_payment_gateway', 'admin.list_payment_gateway', 'admin.edit_payment_gateway')) --}}
+{{-- @if(Route::currentRouteNamed('admin.home', 'admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details', 'admin.payments', 'admin.messages', 'admin.messages_sent', 'admin.view_profile', 'admin.edit_profile', 'admin.technicians', 'admin.technicians_profile', 'admin.add_admin', 'admin.list_admin', 'admin.summary_admin', 'admin.edit_admin', 'admin.activity_log_admin', 'admin.add_cse', 'admin.list_cse', 'admin.summary_cse', 'admin.edit_cse', 'admin.activity_log_cse', 'admin.list_client', 'admin.summary_client', 'admin.utility_reset_password', 'admin.utility_service_request_status', 'admin.utility_verify_payment', 'admin.add_technician', 'admin.list_technician', 'admin.summary_technician', 'admin.edit_technician', 'admin.activity_log_technician', 'admin.add_franchise', 'admin.edit_franchise', 'admin.list_franchise', 'admin.tools_request', 'admin.tools_inventory', 'admin.rfq', 'admin.services', 'admin.add_category', 'admin.edit_category', 'admin.list_category', 'admin.review_category', 'admin.disbursed_payments', 'admin.received_payments', 'admin.category_ratings', 'admin.job_ratings', 'admin.location_request', 'admin.add_payment_gateway', 'admin.list_payment_gateway', 'admin.edit_payment_gateway')) --}}
 {{-- {{ dd($user) }} --}}
 @if($user->designation === '[SUPER_ADMIN_ROLE]' || $user->designation === '[ADMIN_ROLE]')
 <aside class="aside aside-fixed" id="sidebarMenu">
@@ -301,10 +301,10 @@
      @endif
 
      @if($user->adminPermissions->utilities == 1)
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.utility_reset_password', 'admin.utility_project_status', 'admin.utility_verify_payment') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.utility_reset_password', 'admin.utility_service_request_status', 'admin.utility_verify_payment') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="sliders"></i> <span>Utilities</span></a>
         <ul>
-          <li class="{{ Route::currentRouteNamed('admin.utility_project_status') ? 'active' : '' }}"><a href="{{ route('admin.utility_project_status') }}">Project Status</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.utility_service_request_status') ? 'active' : '' }}"><a href="{{ route('admin.utility_service_request_status') }}">Service Request Status</a></li>
           <li><a href="#">Referral</a></li>
           <li class="{{ Route::currentRouteNamed('admin.utility_reset_password') ? 'active' : '' }}"><a href="{{ route('admin.utility_reset_password') }}">Reset Password</a></li>
           <li class="{{ Route::currentRouteNamed('admin.utility_verify_payment') ? 'active' : '' }}"><a href="{{ route('admin.utility_verify_payment') }}">Verify Payment</a></li>

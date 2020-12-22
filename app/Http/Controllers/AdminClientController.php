@@ -54,7 +54,6 @@ class AdminClientController extends Controller
 
         $client = Client::findOrFail($user);
 
-        // $client =  Client::where('id', $user)->first();
         $user =  User::where('id', $client->user_id)->first();
 
         $userId = $user->id;
@@ -102,6 +101,7 @@ class AdminClientController extends Controller
             'userId'            =>  $userId,
             'message'           =>  $message,
             'years'             =>  $years,
+            'totalFee'          =>  0,
         ];
 
         return view('admin.users.client.summary', $data)->with('i');
@@ -114,7 +114,11 @@ class AdminClientController extends Controller
      */
     public function delete($user)
     {
-        $userExists = User::findOrFail($user);
+        $client = Client::findOrFail($user);
+
+        $userExists =  User::where('id', $client->user_id)->first();
+
+        // $userExists = User::findOrFail($user);
 
         //Casted to SoftDelete
         $softDeleteUser = $userExists->delete();
@@ -150,9 +154,13 @@ class AdminClientController extends Controller
 
     public function deactivate($user)
     {
-        $userExists = User::findOrFail($user);
+        $client = Client::findOrFail($user);
 
-        $deactivateUser = User::where('id', $user)->update([
+        $userExists =  User::where('id', $client->user_id)->first();
+
+        // $userExists = User::findOrFail($user);
+
+        $deactivateUser = User::where('id', $userExists->id)->update([
             'is_active'    => '0',
         ]);
 
@@ -186,9 +194,13 @@ class AdminClientController extends Controller
 
     public function reinstate($user)
     {
-        $userExists = User::findOrFail($user);
+        $client = Client::findOrFail($user);
 
-        $reinstateUser = User::where('id', $user)->update([
+        $userExists =  User::where('id', $client->user_id)->first();
+
+        // $userExists = User::findOrFail($user);
+
+        $reinstateUser = User::where('id', $userExists->id)->update([
             'is_active'    => '1',
         ]);
 

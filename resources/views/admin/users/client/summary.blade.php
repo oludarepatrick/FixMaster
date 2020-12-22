@@ -14,6 +14,14 @@
           </ol>
         </nav>
       </div>
+
+      <div class="d-md-block">
+        <a href="{{ route('admin.list_client') }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a>
+        @if($user->is_active == 0)
+          <a href="{{ route('admin.reinstate_client', $user->id) }}" class="btn btn-success"><i class="fas fa-undo"></i> Reinstate</a>
+        @endif
+        <a href="{{ route('admin.delete_client', $user->id) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+      </div>
     </div>
 
     <div class="row row-xs">
@@ -163,29 +171,35 @@
                     </tr>
                   </thead>
                   <tbody>
-                    
                     @foreach($user->requests as $request)
-                    {{-- {{ dd($request->technician->first_name.''$request->technician->first_name) }} --}}
+                      @if(!empty($request->serviceRequestDetail->discount_service_fee))
+                        {{$totalFee += $request->serviceRequestDetail->discount_service_fee}}
+                      @else
+                        {{$totalFee += $request->serviceRequestDetail->initial_service_fee}}
+                      @endif
                     <tr>
-                    <td class="tx-color-03 tx-center">{{ ++$i }}</td>
-                    <td class="tx-medium">{{ $request->job_reference }}</td>
-                      <td class="tx-medium">{{ $request->user->fullName->name }}</td>
-                      {{-- <td class="tx-medium">{{ $request->technician->first_name.' '.$request->technician->last_name }}</td> --}}
-                      <td class="tx-medium">{{ $request->$otherUser->technician }}</td>
-                    <td class="text-medium text-center">
-                      ₦{{ $request->serviceRequestDetail->initial_service_fee }}
-                    </td>
-                    @if($request->client_project_status == 'Pending')
-                        <td class="text-medium text-warning text-center">Pending</td>
-                    @elseif($request->client_project_status == 'Ongoing')
-                        <td class="text-medium text-info text-center">Ongoing</td>
-                    @elseif($request->client_project_status == 'Completed')
-                        <td class="text-medium text-success text-center">Completed</td>
-                    @elseif($request->client_project_status == 'Cancelled')
-                        <td class="text-medium text-danger text-center">Cancelled</td>
-                    @endif
-
-                      {{-- <td class="text-medium text-success text-center">Completed</td> --}}
+                      <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                      <td class="tx-medium">{{ $request->job_reference }}</td>
+                        <td class="tx-medium">{{ $request->user->fullName->name ?? '' }}</td>
+                        <td class="tx-medium">{{ $request->technician->user->fullName->name ?? '' }}</td>
+                      <td class="tx-medium text-center">
+                        @if(!empty($request->serviceRequestDetail->discount_service_fee))
+                            ₦{{ number_format($request->serviceRequestDetail->discount_service_fee) }}
+                            <br>
+                            <small style="font-size: 10px;" class="text-success">Discount</small>
+                        @else
+                            ₦{{ number_format($request->serviceRequestDetail->initial_service_fee) }}
+                        @endif
+                      </td>
+                      @if($request->client_project_status == 'Pending')
+                          <td class="text-medium text-warning text-center">Pending</td>
+                      @elseif($request->client_project_status == 'Ongoing')
+                          <td class="text-medium text-info text-center">Ongoing</td>
+                      @elseif($request->client_project_status == 'Completed')
+                          <td class="text-medium text-success text-center">Completed</td>
+                      @elseif($request->client_project_status == 'Cancelled')
+                          <td class="text-medium text-danger text-center">Cancelled</td>
+                      @endif
                       <td class="text-medium">May 15th 2020 at 11:30am</td>
                       <td class=" text-center">
                         <div class="dropdown-file">
@@ -197,7 +211,12 @@
                       </td>
                     </tr>
                     @endforeach
-    
+                    <tr>
+                      <td class="text-center" colspan="4">Total</td>
+                      <td class="text-center tx-medium">₦{{ number_format($totalFee) }}</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
                   </tbody>
                 </table>
               </div><!-- table-responsive -->

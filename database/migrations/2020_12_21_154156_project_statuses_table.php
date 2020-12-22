@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServicesTable extends Migration
+class ProjectStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('project_statuses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->string('name')->unique();
-            $table->enum('is_active', ['0', '1'])->default(1);
-            // $table->enum('is_deleted', ['0', '1'])->default(0);
+            $table->enum('can_delete', ['0', '1'])->default(1);
             $table->softDeletes('deleted_at', 0);
             $table->timestamps();
         });
@@ -31,6 +30,6 @@ class CreateServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('project_statuses');
     }
 }

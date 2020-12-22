@@ -55,8 +55,18 @@ class Technician extends Model
         return $this->hasMany(TechnicianCategory::class, 'technician_id');
     }
 
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
+
     public function lga()
     {
         return $this->belongsTo(Lga::class);
+    }
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
     }
 }
