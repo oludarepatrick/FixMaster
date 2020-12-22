@@ -163,7 +163,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(CSECategory::class, 'cse_id');
     }
-
+    
     public function csecategories()
     {
         return $this->hasMany(CSECategory::class, 'cse_id');

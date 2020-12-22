@@ -37,6 +37,7 @@ class ComposerStaticInit0258898968c5a94c6296c7b8653b99d8
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
+        '577e8babc5e897de9cab73c9a71fdb59' => __DIR__ . '/../..' . '/app/Helper/helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -592,6 +593,7 @@ class ComposerStaticInit0258898968c5a94c6296c7b8653b99d8
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\CSE\\CSEProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/CSE/CSEProfileController.php',
         'App\\Http\\Controllers\\CategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/CategoryController.php',
         'App\\Http\\Controllers\\ClientDashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/ClientDashboardController.php',
         'App\\Http\\Controllers\\ClientRequestController' => __DIR__ . '/../..' . '/app/Http/Controllers/ClientRequestController.php',
