@@ -99,7 +99,7 @@
               <div class="card card-body">
                 <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Total Requests</h6>
                 <div class="d-flex d-lg-block d-xl-flex align-items-end">
-                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">25</h5>
+                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $totalRequests }}</h5>
                 </div>
                 
               </div>
@@ -108,7 +108,7 @@
               <div class="card card-body">
                 <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Completed Requests</h6>
                 <div class="d-flex d-lg-block d-xl-flex align-items-end">
-                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">20</h5>
+                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $totalCompletedRequests }}</h5>
                 </div>
               </div>
             </div>
@@ -116,7 +116,7 @@
               <div class="card card-body">
                 <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Ongoing Requests</h6>
                 <div class="d-flex d-lg-block d-xl-flex align-items-end">
-                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">3</h5>
+                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $totalOngoingRequests }}</h5>
                 </div>
               </div>
             </div>
@@ -124,7 +124,7 @@
               <div class="card card-body">
                 <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cancelled Requests</h6>
                 <div class="d-flex d-lg-block d-xl-flex align-items-end">
-                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">2</h5>
+                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $totalCancelledRequests }}</h5>
                 </div>
               </div>
             </div>
@@ -158,11 +158,11 @@
                       {{-- <span class="tx-10 tx-color-04">65</span> --}}
                     </div>
                     <div class="d-flex align-items-end justify-content-between mg-b-5">
-                      <h5 class="tx-normal tx-rubik lh-2 mg-b-0">3</h5>
+                      <h5 class="tx-normal tx-rubik lh-2 mg-b-0">{{ $totalAdmins }}</h5>
                       {{-- <h6 class="tx-normal tx-rubik tx-color-03 lh-2 mg-b-0">20,000</h6> --}}
                     </div>
                     <div class="progress ht-4 mg-b-0 op-5">
-                      <div class="progress-bar bg-teal wd-65p" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-teal wd-{{ $totalAdmins }}p" role="progressbar" aria-valuenow="{{ $totalAdmins }}" aria-valuemin="0" aria-valuemax="{{ $totalUsers }}"></div>
                     </div>
                   </div>
                   <div class="col-sm-6 col-lg-12 mg-t-30 mg-sm-t-0 mg-lg-t-30">
@@ -171,11 +171,11 @@
                       {{-- <span class="tx-10 tx-color-04">45% goal reached</span> --}}
                     </div>
                     <div class="d-flex justify-content-between mg-b-5">
-                      <h5 class="tx-normal tx-rubik mg-b-0">5</h5>
+                      <h5 class="tx-normal tx-rubik mg-b-0">{{ $totalCses }}</h5>
                       {{-- <h5 class="tx-normal tx-rubik tx-color-03 mg-b-0"><small>250,000</small></h5> --}}
                     </div>
                     <div class="progress ht-4 mg-b-0 op-5">
-                      <div class="progress-bar bg-orange wd-45p" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-orange wd-{{ $totalCses }}p" role="progressbar" aria-valuenow="{{ $totalCses }}" aria-valuemin="0" aria-valuemax="{{ $totalUsers }}"></div>
                     </div>
                   </div>
                   <div class="col-sm-6 col-lg-12 mg-t-30">
@@ -184,11 +184,11 @@
                       {{-- <span class="tx-10 tx-color-04">20% goal reached</span> --}}
                     </div>
                     <div class="d-flex justify-content-between mg-b-5">
-                      <h5 class="tx-normal tx-rubik mg-b-0">8</h5>
+                      <h5 class="tx-normal tx-rubik mg-b-0">{{ $totalTechnicians }}</h5>
                       {{-- <h5 class="tx-normal tx-rubik tx-color-03 mg-b-0"><small>85,000</small></h5> --}}
                     </div>
                     <div class="progress ht-4 mg-b-0 op-5">
-                      <div class="progress-bar bg-pink wd-20p" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-pink wd-{{ $totalTechnicians }}p" role="progressbar" aria-valuenow="{{ $totalTechnicians }}" aria-valuemin="0" aria-valuemax="{{ $totalUsers }}"></div>
                     </div>
                   </div>
                   <div class="col-sm-6 col-lg-12 mg-t-30">
@@ -197,11 +197,11 @@
                       {{-- <span class="tx-10 tx-color-04">85% goal reached</span> --}}
                     </div>
                     <div class="d-flex justify-content-between mg-b-5">
-                      <h5 class="tx-normal tx-rubik mg-b-0">28</h5>
+                      <h5 class="tx-normal tx-rubik mg-b-0">{{ $totalClients }}</h5>
                       {{-- <h5 class="tx-normal tx-rubik tx-color-03 mg-b-0"><small>30.50%</small></h5> --}}
                     </div>
                     <div class="progress ht-4 mg-b-0 op-5">
-                      <div class="progress-bar bg-primary wd-85p" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-primary wd-{{ $totalClients }}p" role="progressbar" aria-valuenow="{{ $totalClients }}" aria-valuemin="0" aria-valuemax="{{ $totalUsers }}"></div>
                     </div>
                   </div>
                 </div><!-- row -->
@@ -302,7 +302,7 @@
                 </div>
                 <div class="media-body">
                   <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold tx-nowrap mg-b-5 mg-md-b-8"> Recieved</h6>
-                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0">₦1,958,104</h4>
+                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0">₦{{ number_format($totalAmount) }}</h4>
                 </div>
               </div>
               <div class="media mg-t-20 mg-sm-t-0 mg-sm-l-15 mg-md-l-40">
@@ -311,7 +311,7 @@
                 </div>
                 <div class="media-body">
                   <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold mg-b-5 mg-md-b-8"> Disbursed</h6>
-                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0">₦234,769</h4>
+                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0">₦0</h4>
                 </div>
               </div>
               <div class="media mg-t-20 mg-sm-t-0 mg-sm-l-15 mg-md-l-40">
@@ -320,7 +320,7 @@
                 </div>
                 <div class="media-body">
                   <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold mg-b-5 mg-md-b-8">Profit/Loss</h6>
-                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0 text-success">₦1,608,469</h4>
+                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0 text-success">₦{{ number_format($totalAmount) }}</h4>
                 </div>
               </div>
             </div>
@@ -339,29 +339,15 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach($highestReturningJobs as $highestReturningJob)
                 <tr>
-                  <td class="text-center">1</td>
-                  <td class="text-right">REF-234094623496</td>
-                  <td class="text-right">Femi Joseph</td>
-                  <td class="tx-medium text-right">₦32,500</td>
-                  <td class="tx-color-03 tx-normal">May 15th 2020</td>
+                  <td class="text-center">{{ ++$i }}</td>
+                  <td class="text-right">{{ $highestReturningJob->job_reference }}</td>
+                  <td class="text-right">{{ $highestReturningJob->user->fullname->name }}</td>
+                  <td class="tx-medium text-right">₦{{ number_format($highestReturningJob->total_amount) }}</td>
+                  <td class="tx-color-03 tx-normal">{{ Carbon\Carbon::parse($highestReturningJob->created_at, 'UTC')->isoFormat('MMMM Do YYYY') }}</td>
                 </tr> 
-
-                <tr>
-                  <td class="text-center">2</td>
-                  <td class="text-right">REF-234094623496</td>
-                  <td class="text-right">Haruna Ahmadu</td>
-                  <td class="tx-medium text-right">₦30,000</td>
-                  <td class="tx-color-03 tx-normal">May 15th 2020</td>
-                </tr> 
-
-                <tr>
-                  <td class="text-center">3</td>
-                  <td class="text-right">REF-237290223123</td>
-                  <td class="text-right">Oluyemi Ayotunde</td>
-                  <td class="tx-medium text-right">₦28,800</td>
-                  <td class="tx-color-03 tx-normal">May 15th 2020</td>
-                </tr> 
+                @endforeach
               </tbody>
             </table>
           </div><!-- table-responsive -->

@@ -26,6 +26,7 @@ Route::middleware(['adminRole'])->group(function() {
 
                 Route::get('/requests',                             [App\Http\Controllers\AdminRequestController::class, 'index'])->name('requests');
                 Route::get('/requests/details/new/{ref}',           [App\Http\Controllers\AdminRequestController::class, 'requestDetails'])->name('request_details');
+                Route::post('/requests/assign-cse-technician/{id}',     [App\Http\Controllers\AdminRequestController::class, 'assignCSETechnician'])->name('assign_cse_technician');
                 
                 Route::view('/requests/details/ongoing', 	        'admin.requests.request_ongoing_details')->name('request_ongoing_details');
                 Route::view('/requests/details/completed', 	        'admin.requests.request_completed_details')->name('request_completed_details');

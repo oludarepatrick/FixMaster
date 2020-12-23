@@ -51,7 +51,7 @@ class AdminRequestController extends Controller
 
         $cses = User::select('id', 'created_at', 'email', 'is_active')
         ->with(['cses' => function($query){
-            return $query->select('tag_id', 'gender', 'phone_number', 'user_id');
+            return $query->select('tag_id', 'gender', 'phone_number', 'town', 'user_id');
         }])
         ->with(['fullName' => function($name){
             return $name->select(['name', 'user_id']);
@@ -63,7 +63,7 @@ class AdminRequestController extends Controller
 
         $technicians = User::select('id', 'created_at', 'email', 'is_active')
         ->with(['technicians' => function($query){
-            return $query->select('tag_id', 'gender', 'phone_number', 'user_id');
+            return $query->select('tag_id', 'gender', 'phone_number', 'town', 'user_id');
         }])
         ->with(['fullName' => function($name){
             return $name->select(['name', 'user_id']);
@@ -73,7 +73,7 @@ class AdminRequestController extends Controller
         ->latest('users.created_at')
         ->get();
 
-        // return $technicians;
+        // return $cses;
 
         $data = [
             'requestDetail' =>  $requestDetail,
@@ -84,7 +84,19 @@ class AdminRequestController extends Controller
         return view('admin.requests.request_details', $data);
     }
 
-    public function assignCSETechnician(){
+    public function assignCSETechnician(Request $request, $id){
+
+        $requestExists = ServiceRequest::findOrFail($id);
+
+        $request->validate([
+            'cse_id'            => 'required',
+            'technician_id'     => 'required',
+        ]);
+
+        $assignCSETechnician = ServiceRequest::where('id', $id)->update([
+
+        ]);
+        return $request;
 
     }
 }
