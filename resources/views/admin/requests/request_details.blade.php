@@ -133,53 +133,66 @@
           @endif
           <div class="divider-text">Assign CSE & Technician</div>
 
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label>CSE</label>
-              <select class="custom-select selectpicker">
-                <option value="" selected>Select...</option>
-                @foreach ($cses as $cse)
-                @foreach ($cse->cses as $item)@endforeach
-                  <option value="{{ $cse->id }}" data-toggle="tooltip" data-placement="top" title="{{ $cse->cse->lga->name }} => {{ $item->town }}">{{ $cse->fullName->name }}</option>
-                @endforeach
-              </select>
-            </div>
-            <div class="form-group col-md-4">
-              <label>Technician</label>
-              <select class="custom-select">
-                <option selected>Select...</option>
-                <option value="1">Andrew Nwankwo (Mushin [Abule-Ijesha])</option>
-                <option value="2">Taofeek Adedokun (Alimosho [Egbeda])</option>
-                <option value="2">Blessing Nnamdi (Ojo [Iyana-Iba])</option>
-              </select>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Assign</button>
+          <form method="POST" action="{{ route('admin.assign_cse_technician', $requestDetail->id) }}">
+            @csrf
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label>CSE</label>
+                <select class="custom-select" name="cse_id" id="cse_id" required>
+                  <option value="" selected>Select...</option>
+                  @foreach ($cses as $cse)
+                  @foreach ($cse->cses as $item)@endforeach
+                    <option value="{{ $cse->id }}" title="{{ $cse->cse->lga->name }} => {{ $item->town }}" data-email="{{ $cse->email }}" data-name="{{ $cse->fullName->name }}">{{ $cse->fullName->name }} ({{ $cse->cse->lga->name }} => {{ $item->town }})</option>
+                  @endforeach
+                </select>
+              </div>
 
+              <div class="form-group col-md-4">
+                <label>Technician</label>
+                <select class="custom-select" name="technician_id" id="technician_id" required>
+                  <option value="" selected>Select...</option>
+                  @foreach ($technicians as $technician)
+                  @foreach ($technician->technicians as $item)@endforeach
+                    <option value="{{ $technician->id }}" title="{{ $technician->technician->lga->name }} => {{ $item->town }}" data-email="{{ $technician->email }}" data-name="{{ $technician->fullName->name }}">{{ $technician->fullName->name }} ({{ $technician->technician->lga->name }} => {{ $item->town }})</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+
+            <input type="hidden" class="d-none" value="" name="cse_name" id="cse_name">
+            <input type="hidden" class="d-none" value="" name="cse_email" id="cse_email">
+            <input type="hidden" class="d-none" value="" name="technician_name" id="technician_name">
+            <input type="hidden" class="d-none" value="" name="technician_email" id="technician_email">
+
+            <button type="submit" class="btn btn-primary">Assign</button>
+        </form>
         </div>
       </div>
     </div>
 </div>
 
-@section('scripts')
+@push('scripts')
     <script>
-      $('[data-toggle="tooltip"]').tooltip();
       
-      $(function () {
-          $(document).tooltip({items:"select, option", position:{ my: "left top", at: "left bottom"}
-          }); 
-      });
+      $(document).ready(function(){
 
-      $('.selectpicker').on('change', function () {
-        var title = $('option:selected').attr('title');
+        $(document).on('change','#cse_id',function(){
+          let cseName = $(this).children("option:selected").data('name');
+          let cseEmail = $(this).children("option:selected").data('email');
 
-        if (title != null && title != '') {
-          $('.selectpicker').attr('title', title);
-        }
-        else {
-          $('.selectpicker').attr('title', '');
-        }
+          $('#cse_name').val(cseName);
+          $('#cse_email').val(cseEmail);
+        });
+
+        $(document).on('change','#technician_id',function(){
+          let technicianName = $(this).children("option:selected").data('name');
+          let technicianEmail = $(this).children("option:selected").data('email');
+
+          $('#technician_name').val(technicianName);
+          $('#technician_email').val(technicianEmail);
+        });
+
       });
     </script>
-@endsection
+@endpush
 @endsection

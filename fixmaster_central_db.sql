@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 22, 2020 at 02:46 PM
+-- Generation Time: Dec 24, 2020 at 05:05 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.4.0
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `activity_logs` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=222 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `activity_logs`
@@ -251,7 +251,17 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 (209, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2020-12-22 12:14:16'),
 (210, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 00:30:57(hrs:min:ss).', '2020-12-22 12:45:13'),
 (211, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-22 12:45:26'),
-(212, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 01:58:35(hrs:min:ss).', '2020-12-22 14:44:00');
+(212, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 01:58:35(hrs:min:ss).', '2020-12-22 14:44:00'),
+(213, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-22 20:22:36');
+INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, `action_url`, `controller_action_path`, `message`, `created_at`) VALUES
+(214, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 01:11:37(hrs:min:ss).', '2020-12-22 21:34:13'),
+(215, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-23 18:13:34'),
+(216, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 02:04:27(hrs:min:ss).', '2020-12-23 20:18:01'),
+(217, 5, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'David Akinsola logged in.', '2020-12-23 20:18:53'),
+(218, 5, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\AdminRequestController@assignCSETechnician', 'http://localhost:8000/admin/requests/assign-cse-technician/7', 'David Akinsola assigned Godrey Diwa(CSE) and Taofeek Adedokun  to REF-131D985E job', '2020-12-23 20:21:30'),
+(219, 5, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'David Akinsola logged out with a session duration of 01:27:16(hrs:min:ss).', '2020-12-23 21:46:09'),
+(220, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-24 05:41:00'),
+(221, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:22:54(hrs:min:ss).', '2020-12-24 06:03:54');
 
 -- --------------------------------------------------------
 
@@ -1396,7 +1406,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`),
   KEY `client_messages_ibfk_1` (`sender_id`),
   KEY `client_messages_ibfk_2` (`recipient_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `messages`
@@ -1411,7 +1421,8 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 (7, 4, 11, 'Service Request(REF-1FC50FCC)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-1FC50FCC</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Urgent)</p><p><strong>Date & Time:</strong> December 16th 2020, 4:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-15 09:33:01', '2020-12-15 09:33:01'),
 (8, 4, 11, 'Service Request(REF-131D985E)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-131D985E</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦4,700(Out of Hours)</p><p><strong>Date & Time:</strong> December 16th 2020, 8:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-15 09:51:29', '2020-12-15 09:51:29'),
 (9, 4, 19, 'Welcome to FixMaster!', '<h1>Welcome to FixMaster, Favour Nnamdi!</h1><p>We are very excited you joined the most compelling community of FixMaster to satisfy customer\'s need.</p><p>As a <strong>Client Service Executive</strong>(CSE) you are expected to deliver excellent quality service which has always been a vital part of FixMaster\'s success.</p><p>Having said so, we constantly cater to our customer\'s best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>Remember to change your password to a more convenient one asides the one given to you by FixMaster Admin.</p><p><span style=\"text-decoration: underline;\"><strong>Login Credentials</strong></span></p><p><strong>E-Mail</strong>: nnamdi.favour@yahoo.com</p><p><strong>Password:</strong> admin12345</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-18 13:03:17', '2020-12-18 13:03:17'),
-(10, 4, 23, 'Welcome to FixMaster!', '<h1>Welcome to FixMaster, John Desmond!</h1><p>We are very excited you joined the most compelling community of FixMaster to satisfy customer\'s need.</p><p>As a <strong>Technician</strong> you will be assigned to jobs and you are expected to deliver excellent quality service which has always been a vital part of FixMaster\'s success.</p><p>Having said so, we constantly cater to our customer\'s best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>Remember to change your password to a more convenient one asides the one given to you by FixMaster Admin.</p><p><span style=\"text-decoration: underline;\"><strong>Login Credentials</strong></span></p><p><strong>E-Mail</strong>: desmond.john@outlook.co.uk</p><p><strong>Password:</strong> admin12345</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-19 21:26:29', '2020-12-19 21:26:29');
+(10, 4, 23, 'Welcome to FixMaster!', '<h1>Welcome to FixMaster, John Desmond!</h1><p>We are very excited you joined the most compelling community of FixMaster to satisfy customer\'s need.</p><p>As a <strong>Technician</strong> you will be assigned to jobs and you are expected to deliver excellent quality service which has always been a vital part of FixMaster\'s success.</p><p>Having said so, we constantly cater to our customer\'s best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>Remember to change your password to a more convenient one asides the one given to you by FixMaster Admin.</p><p><span style=\"text-decoration: underline;\"><strong>Login Credentials</strong></span></p><p><strong>E-Mail</strong>: desmond.john@outlook.co.uk</p><p><strong>Password:</strong> admin12345</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-19 21:26:29', '2020-12-19 21:26:29'),
+(11, 4, 15, 'New Job(REF-131D985E) Assignment', '<p><strong>Taofeek Adedokun</strong>, you have been assigned to <strong>REF-131D985E</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>Godrey Diwa</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-23 19:21:30', '2020-12-23 19:21:30');
 
 -- --------------------------------------------------------
 
@@ -1425,7 +1436,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -1453,7 +1464,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (19, '2020_12_21_103226_create_tools_table', 14),
 (20, '2020_12_21_104814_create_tool_requests_table', 14),
 (21, '2020_12_21_121424_create_tool_request_batches_table', 14),
-(22, '2020_12_21_154156_project_statuses_table', 15);
+(22, '2020_12_21_154156_project_statuses_table', 15),
+(23, '2020_12_24_054610_create_service_request_progress_table', 16);
 
 -- --------------------------------------------------------
 
@@ -1665,11 +1677,11 @@ CREATE TABLE IF NOT EXISTS `service_requests` (
 --
 
 INSERT INTO `service_requests` (`id`, `user_id`, `admin_id`, `cse_id`, `technician_id`, `service_id`, `category_id`, `job_reference`, `security_code`, `service_request_status_id`, `total_amount`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 11, 5, 12, 14, 11, 1, 'REF-66EB5A26', 'SEC-27AEC73E', 1, 3325, NULL, '2020-12-14 12:39:55', NULL),
+(1, 11, NULL, NULL, NULL, 11, 1, 'REF-66EB5A26', 'SEC-27AEC73E', 1, 3325, NULL, '2020-12-14 12:39:55', NULL),
 (2, 10, NULL, NULL, NULL, 3, 2, 'REF-330CB862', 'SEC-88AC1B19', 1, 3300, NULL, '2020-12-14 12:48:20', NULL),
-(5, 11, NULL, NULL, NULL, 5, 3, 'REF-27D2F0BE', 'SEC-35FA9E28', 1, 2500, NULL, '2020-12-14 15:36:58', '2020-12-14 15:36:58'),
-(6, 9, 5, 12, 15, 3, 4, 'REF-1FC50FCC', 'SEC-EBC1D654', 1, 3500, NULL, '2020-12-15 09:33:01', '2020-12-15 09:33:01'),
-(7, 11, NULL, NULL, NULL, 11, 1, 'REF-131D985E', 'SEC-A62C515E', 1, 4700, NULL, '2020-12-15 09:51:29', '2020-12-15 09:51:29');
+(5, 11, NULL, NULL, NULL, 5, 3, 'REF-27D2F0BE', 'SEC-35FA9E28', 1, 2500, NULL, '2020-12-14 15:36:58', NULL),
+(6, 9, NULL, NULL, NULL, 3, 4, 'REF-1FC50FCC', 'SEC-EBC1D654', 1, 3500, NULL, '2020-12-15 09:33:01', NULL),
+(7, 11, NULL, NULL, NULL, 11, 1, 'REF-131D985E', 'SEC-A62C515E', 1, 4700, NULL, '2020-12-15 09:51:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -1716,6 +1728,26 @@ INSERT INTO `service_request_details` (`id`, `service_request_id`, `state_id`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `service_request_progress`
+--
+
+DROP TABLE IF EXISTS `service_request_progress`;
+CREATE TABLE IF NOT EXISTS `service_request_progress` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `service_request_id` bigint(20) UNSIGNED NOT NULL,
+  `service_request_status_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `service_request_progress_user_id_index` (`user_id`),
+  KEY `service_request_progress_service_request_id_index` (`service_request_id`),
+  KEY `service_request_progress_service_request_status_id_index` (`service_request_status_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `service_request_statuses`
 --
 
@@ -1732,7 +1764,7 @@ CREATE TABLE IF NOT EXISTS `service_request_statuses` (
   UNIQUE KEY `project_statuses_name_unique` (`name`),
   KEY `user_id` (`user_id`),
   KEY `user_id_2` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_request_statuses`
@@ -1743,7 +1775,8 @@ INSERT INTO `service_request_statuses` (`id`, `user_id`, `name`, `can_delete`, `
 (2, 1, 'Cancelled', '0', NULL, NULL, NULL),
 (3, 1, 'Completed', '0', NULL, NULL, NULL),
 (4, 1, 'Ongoing', '0', NULL, NULL, NULL),
-(5, 1, 'Enroute to Client\'s location', '1', NULL, '2020-12-21 16:00:14', NULL);
+(5, 1, 'Enroute to Client\'s location', '1', NULL, '2020-12-21 16:00:14', NULL),
+(7, 1, 'Performing diagnosis', '1', NULL, '2020-12-23 23:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -2002,11 +2035,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_token`, `is_email_verified`, `password`, `remember_token`, `designation`, `is_active`, `is_admin`, `login_count`, `current_sign_in`, `last_sign_in`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 73, '2020-12-22 11:45:25', '2020-12-22 10:58:22', NULL, '2019-12-31 23:29:26', '2020-12-22 11:45:26'),
+(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 76, '2020-12-24 04:41:00', '2020-12-23 17:13:34', NULL, '2019-12-31 23:29:26', '2020-12-24 04:41:00'),
 (2, '', NULL, NULL, '0', '', NULL, '[INTRUDER_ROLE]', '0', '0', 0, NULL, NULL, NULL, NULL, NULL),
 (3, 'charles.famoriyo@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 3, '2020-12-03 19:34:43', '2020-11-30 21:34:14', NULL, '2020-11-30 06:26:42', NULL),
 (4, 'info@fixmaster.com.ng', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, NULL, NULL),
-(5, 'david.akinsola@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[ADMIN_ROLE]', '1', '1', 3, '2020-12-04 05:21:38', '2020-12-03 20:26:57', NULL, '2020-11-30 06:26:42', NULL),
+(5, 'david.akinsola@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[ADMIN_ROLE]', '1', '1', 4, '2020-12-23 19:18:53', '2020-12-04 05:21:38', NULL, '2020-11-30 06:26:42', '2020-12-23 19:18:53'),
 (6, 'obuchi.omotosho@gmail.com', '2020-11-30 22:35:09', '565a2eab0940daa4c00ea83bc9cf1ce582dd2a7c', '1', '$2y$10$03LiG5ipILzRThbbNX1A8O4cxFlnZIgLLHqhwuUPKbaRbwnhvTp6K', NULL, '[ADMIN_ROLE]', '1', '1', 1, '2020-12-04 05:22:16', '2020-12-04 03:05:04', NULL, '2020-11-30 22:35:09', NULL),
 (7, 'isaac.john@yahoo.com', '2020-12-03 19:35:45', '4fdda0314bf174ad785199f195a77adf8b10b7cd', '1', '$2y$10$pdUsx4/hazrwHDGbuMoUBuA5V/d88BSoE7UgTbfwe0tHlajWZgMem', NULL, '[ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, '2020-12-03 19:35:45', NULL),
 (8, 'godfrey.emmanuel@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
@@ -2153,6 +2186,14 @@ ALTER TABLE `service_request_details`
   ADD CONSTRAINT `service_request_details_ibfk_1` FOREIGN KEY (`service_request_id`) REFERENCES `service_requests` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `service_request_details_ibfk_2` FOREIGN KEY (`lga_id`) REFERENCES `lgas` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `service_request_details_ibfk_3` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `service_request_progress`
+--
+ALTER TABLE `service_request_progress`
+  ADD CONSTRAINT `service_request_progress_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `service_request_progress_ibfk_2` FOREIGN KEY (`service_request_id`) REFERENCES `service_requests` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `service_request_progress_ibfk_3` FOREIGN KEY (`service_request_status_id`) REFERENCES `service_request_statuses` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `super_admins`

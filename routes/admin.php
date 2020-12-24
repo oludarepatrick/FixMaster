@@ -26,10 +26,16 @@ Route::middleware(['adminRole'])->group(function() {
 
                 Route::get('/requests',                             [App\Http\Controllers\AdminRequestController::class, 'index'])->name('requests');
                 Route::get('/requests/details/new/{ref}',           [App\Http\Controllers\AdminRequestController::class, 'requestDetails'])->name('request_details');
+                Route::post('/requests/assign-cse-technician/{id}',     [App\Http\Controllers\AdminRequestController::class, 'assignCSETechnician'])->name('assign_cse_technician');
+
+                Route::get('/requests/ongoing',                             [App\Http\Controllers\AdminRequestController::class, 'ongoingRequests'])->name('requests_ongoing');
+
+                Route::get('/requests/ongoing/completed/{id}',                             [App\Http\Controllers\AdminRequestController::class, 'markRequestAsCompleted'])->name('mark_request_as_completed');
+                // Route::view('/requests/ongoing', 	                'admin.requests.requests_ongoing')->name('requests_ongoing');
                 
                 Route::view('/requests/details/ongoing', 	        'admin.requests.request_ongoing_details')->name('request_ongoing_details');
                 Route::view('/requests/details/completed', 	        'admin.requests.request_completed_details')->name('request_completed_details');
-                Route::view('/requests/ongoing', 	                'admin.requests.requests_ongoing')->name('requests_ongoing');
+                
                 Route::view('/requests/completed', 	                'admin.requests.requests_completed')->name('requests_completed');
                 Route::view('/requests/cancelled', 	                'admin.requests.requests_cancelled')->name('requests_cancelled');
                 Route::view('/technicians', 	                    'admin.technicians')->name('technicians');
