@@ -79,4 +79,16 @@ class CSE extends Model
     {
         return $this->belongsTo(Bank::class, 'bank_id');
     }
+
+    /** 
+     * Scope a query to only include active banches
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */    
+    //Function to return all active clients  
+    public function scopeActiveCses($query){
+        return $query->where('service_request_status_id', '1')
+        ->orderBy('created_at', 'DESC');
+    }
 }

@@ -42,4 +42,13 @@ class State extends Model
         return $this->hasMany(CSE::class, 'state_id');
     }
 
+    public function technician()
+    {
+        return $this->hasOne(Technician::class, 'state_id');
+    }
+
+    public function technicians()
+    {
+        return $this->hasMany(Technician::class, 'state_id');
+    }
 }

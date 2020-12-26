@@ -14,6 +14,15 @@
           </ol>
         </nav>
       </div>
+
+      <div class="d-md-block">
+        <a href="{{ route('admin.list_technician') }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a>
+        <a href="{{ route('admin.edit_technician', $technician->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>
+        @if($technician->is_active == 0)
+          <a href="{{ route('admin.reinstate_technician', $technician->id) }}" class="btn btn-success"><i class="fas fa-undo"></i> Reinstate</a>
+        @endif
+        <a href="{{ route('admin.delete_technician', $technician->id) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+      </div>
     </div>
 
     <div class="row row-xs">
@@ -21,7 +30,7 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Total Requests</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end">
-            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">6</h5>
+          <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $totalRequests }}</h5>
           </div>
           
         </div>
@@ -30,7 +39,7 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Completed Requests</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end">
-            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">4</h5>
+          <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $completedRequests }}</h5>
           </div>
           
         </div>
@@ -39,7 +48,7 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cancelled Requests</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end">
-            <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">2</h5>
+          <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $cancelledRequests }}</h5>
           </div>
         </div>
       </div>
@@ -60,24 +69,37 @@
         <div id="contactInformation" class="tab-pane show active pd-20 pd-xl-25">
           <div class="d-flex align-items-center justify-content-between mg-b-25">
             <h5 class="mg-b-0">Personal Details</h5>
-            <div class="d-flex">
-              <div class="avatar avatar-xl"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt=""></div>
-            </div>
+            
           </div>
 
           <div class="row row-sm">
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Firstname</label>
-              <p class="mg-b-0">Andrew</p>
+              <p class="mg-b-0">{{ $technician->technician->first_name }}</p>
             </div><!-- col -->
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Middlename</label>
-              <p class="mg-b-0">Nkem</p>
+              <p class="mg-b-0">{{ $technician->technician->middle_name }}</p>
             </div><!-- col -->
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Lastname</label>
-              <p class="mg-b-0">Nwankwo</p>
+              <p class="mg-b-0">{{ $technician->technician->last_name }}</p>
             </div><!-- col -->
+
+            <div class="d-flex">
+              <div class="avatar avatar-xxl">
+                {{-- <img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt=""> --}}
+                @if(!empty($technician->avatar) && file_exists(public_path().'/assets/cse-technician-images/'.$technician->technician->avatar))
+                    <img src="{{ asset('assets/cse-technician-images/'.$technician->technician->avatar) }}" class="rounded-circle" alt="" />
+                @else
+                    @if($technician->technician->gender == 'Male')
+                        <img src="{{ asset('assets/images/default-male-avatar.png') }}" alt="Default male profile avatar" class="avatar avatar-large rounded-circle shadow d-block mx-auto" />
+                    @else
+                        <img src="{{ asset('assets/images/default-female-avatar.png') }}" alt="Default female profile avatar" class="avatar avatar-large rounded-circle shadow d-block mx-auto" />
+                    @endif
+                @endif
+              </div>
+            </div>
           </div><!-- row -->
 
           <div class="row row-sm">
@@ -98,7 +120,7 @@
             </div> --}}
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">ID</label>
-              <p class="tx-primary tx-rubik mg-b-0">TECH-2397329759</p>
+            <p class="tx-primary tx-rubik mg-b-0">{{ $technician->technician->tag_id }}</p>
             </div>
           </div>
 
@@ -107,34 +129,34 @@
           <div class="row row-sm">
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Phone Number</label>
-              <p class="tx-primary tx-rubik mg-b-0">08034516890</p>
+              <p class="tx-primary tx-rubik mg-b-0">{{ $technician->technician->phone_number }}</p>
             </div>
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Other Phone Number</label>
-              <p class="tx-primary tx-rubik mg-b-0"></p>
+              <p class="tx-primary tx-rubik mg-b-0">{{ $technician->technician->other_phone_number }}</p>
             </div>
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Email Address</label>
-              <p class="tx-primary mg-b-0">andrew.nwankwo@gmail.com</p>
+              <p class="tx-primary mg-b-0">{{ $technician->email }}</p>
             </div>
           </div>
 
           <div class="row row-sm">
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">State</label>
-              <p class="mg-b-0">Lagos</p>
+              <p class="mg-b-0">{{ $technician->technician->state->name ?? '' }}</p>
             </div>
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">L.G.A</label>
-              <p class="mg-b-0">Mushin</p>
+              <p class="mg-b-0">{{ $technician->technician->lga->name ?? '' }}</p>
             </div>
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Town/City</label>
-              <p class="mg-b-0">Ibeju-Lekki</p>
+              <p class="mg-b-0">{{ $technician->technician->town }}</p>
             </div>
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Full Address</label>
-              <p class="mg-b-0">2 Chevron Drive, Lekki Penninsula II 12825, Lekki</p>
+              <p class="mg-b-0">{{ $technician->technician->full_address }}</p>
             </div>
           </div><!-- row -->
 
@@ -142,11 +164,11 @@
           <div class="row row-sm">
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Bank Name</label>
-              <p class="tx-primary mg-b-0">Ecobank Plc</p>
+              <p class="tx-primary mg-b-0">{{ $technician->technician->bank->name ?? '' }}</p>
             </div>
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Account Number</label>
-              <p class="tx-primary tx-rubik mg-b-0">0123456789</p>
+              <p class="tx-primary tx-rubik mg-b-0">{{ $technician->technician->account_number }}</p>
             </div>
           </div>
           
@@ -156,19 +178,23 @@
               <tbody>
                 <tr>
                   <td class="tx-medium">Service Category</td>
-                  <td class="tx-color-03">Mobile Phone, Light Fittings, Wiring Repair, Computer</td>
+                  <td class="tx-color-03">@if(!empty($categoryNames)) @foreach ($categoryNames as $name) {{ $name }}<br> @endforeach @else Not Assigned @endif</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Status</td>
-                  <td class="tx-color-03">Active</td>
+                  <td class="tx-color-03">@if($technician->is_active == '1') Active @else Inactive @endif</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Date Created</td>
-                  <td class="tx-color-03">May 15 2020</td>
+                  <td class="tx-color-03">{{ Carbon\Carbon::parse($technician->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }} ({{ $technician->created_at->diffForHumans() }})</td>
+                </tr>
+                <tr>
+                  <td class="tx-medium">Created By</td>
+                <td class="tx-color-03">{{ $createdBy->find($technician->technician->created_by)->name }}</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Requests Completed</td>
-                  <td class="tx-color-03">4</td>
+                  <td class="tx-color-03">{{ $technician->technician->requests()->where('service_request_status_id', 'Completed')->count() }}</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Payments Received</td>
@@ -176,15 +202,15 @@
                 </tr>
                 <tr>
                   <td class="tx-medium">Messages Sent</td>
-                  <td class="tx-color-03">12</td>
+                  <td class="tx-color-03">{{ $technician->sentMessages()->count() }}</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Login Count</td>
-                  <td class="tx-color-03">23</td>
+                  <td class="tx-color-03">@if(!empty($technician->login_count)) {{ $technician->login_count }} @else 0 @endif</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Last Seen</td>
-                  <td class="tx-color-03">2 Days ago</td>
+                  <td class="tx-color-03">@if(!empty($technician->last_sign_in)) {{ $technician->last_sign_in->diffForHumans() }} @else Never @endif</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Tools Requested</td>
@@ -200,56 +226,73 @@
           {{-- <div class="d-flex align-items-center justify-content-between mg-b-30"> --}}
               <h6 class="tx-15 mg-b-0">Requests History</h6>
               <div class="table-responsive mt-4">
-                <table class="table table-hover mg-b-0" id="basicExample">
+                <table class="table table-hover mg-b-0" id="requestExample">
                   <thead class="thead-primary">
                     <tr>
                       <th class="text-center">#</th>
                       <th>Job Ref.</th>
                       <th>Client</th>
-                      <th>CSE</th>
+                      <th>Admin</th>
+                      <th>Technician</th>
                       <th class="text-center">Amount</th>
+                      <th class="text-center">Fee Type</th>
                       <th class="text-center">Status</th>
-                      <th class="text-center">Date</th>
-                      <th class=" text-center">Action</th>
+                      <th class="text-center">Scheduled Date</th>
+                      <th class="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                    
+                    @foreach($technician->technician->requests as $request)
+                    @if(!empty($request->serviceRequestDetail->discount_service_fee))
+                        {{$totalFee += $request->serviceRequestDetail->discount_service_fee}}
+                      @else
+                        {{$totalFee += $request->serviceRequestDetail->initial_service_fee}}
+                      @endif
                     <tr>
                       <td class="tx-color-03 tx-center">1</td>
-                      <td class="tx-medium">REF-234094623496</td>
-                      <td class="tx-medium">Femi Joseph</td>
-                      <td class="tx-medium">Rilwan Bello</td>
-                      <td class="text-medium text-center">₦14,000</td>
-                      <td class="text-medium text-success text-center">Completed</td>
-                      <td class="text-medium">May 15th 2020 at 11:30am</td>
+                      <td class="tx-medium">{{ $request->job_reference }}</td>
+                      <td class="tx-medium">{{ $request->user->fullName->name }}</td>
+                      <td class="tx-medium">{{ $request->admin->first_name.' '.$request->admin->last_name }}</td>
+                      <td class="tx-medium">{{ $request->technician->first_name.' '.$request->technician->last_name }}</td>
+                      <td class="tx-medium text-center">
+                        @if(!empty($request->serviceRequestDetail->discount_service_fee))
+                            ₦{{ number_format($request->serviceRequestDetail->discount_service_fee) }}
+                            <br>
+                            <small style="font-size: 10px;" class="text-success">Discount</small>
+                        @else
+                            ₦{{ number_format($request->serviceRequestDetail->initial_service_fee) }}
+                        @endif
+                      </td>
+                      @if($request->service_request_status_id == 'Pending')
+                          <td class="text-medium text-warning text-center">Pending</td>
+                      @elseif($request->service_request_status_id == 'Ongoing')
+                          <td class="text-medium text-info text-center">Ongoing</td>
+                      @elseif($request->service_request_status_id == 'Completed')
+                          <td class="text-medium text-success text-center">Completed</td>
+                      @elseif($request->service_request_status_id == 'Cancelled')
+                          <td class="text-medium text-danger text-center">Cancelled</td>
+                      @endif
+                      <td>{{ $request->serviceRequestDetail->service_fee_name }}</td>
+                      <td class="text-center">{{ $request->serviceRequestDetail->timestamp ?? '' }}</td>
                       <td class=" text-center">
                         <div class="dropdown-file">
                           <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                           <div class="dropdown-menu dropdown-menu-right">
-                          <a href="{{ route('cse.request_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
+                          <a href="{{ route('technician.request_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
                           </div>
                         </div>
                       </td>
                     </tr>
-    
+                    @endforeach
                     <tr>
-                      <td class="tx-color-03 tx-center">2</td>
-                      <td class="tx-medium">REF-094009623412</td>
-                      <td class="tx-medium">Mobolaji Adetoun</td>
-                      <td class="tx-medium">Godfrey Diwa</td>
-                      <td class="text-medium text-center">₦25,000</td>
-                      <td class="text-medium text-danger text-center">Cancelled</td>
-                      <td class="text-medium">May 12th 2020 at 8:26pm</td>
-                      <td class=" text-center">
-                        <div class="dropdown-file">
-                          <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                          <div class="dropdown-menu dropdown-menu-right">
-                            <a href="{{ route('cse.request_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
-                          </div>
-                        </div>
-                      </td>
+                      <td class="text-center" colspan="5">Total</td>
+                      <td class="text-center tx-medium">₦{{ number_format($totalFee) }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
                     </tr>
-    
                   </tbody>
                 </table>
               </div><!-- table-responsive -->
@@ -328,7 +371,7 @@
                         </div>
                     </div>
                   </div>
-                <table class="table table-hover mg-b-0" id="basicExample">
+                <table class="table table-hover mg-b-0" id="paymentExample">
                   <thead class="thead-primary">
                     <tr>
                       <th class="text-center">#</th>
@@ -376,17 +419,26 @@
 
         <div id="activityLog" class="tab-pane pd-20 pd-xl-25">
           {{-- <div class="d-flex align-items-center justify-content-between mg-b-30"> --}}
+
               <h6 class="tx-15 mg-b-0">Activity Log</h6>
               <div class="table-responsive mt-4">
                 <div class="row mt-1 mb-1 ml-1 mr-1">
+                <input value="{{ $userId }}" type="hidden" id="user_id">
+                <input value="{{ route("admin.activity_log_sorting_technician") }}" type="hidden" id="route">
+               
                   <div class="col-md-3">
                     <div class="form-group">
                         <label>Sort Type</label>
-                        <select class="custom-select">
-                            <option value="None">Select...</option>
-                            <option selected value="Date Range">Others</option>
-                            <option value="Date">Payments</option>
-                            <option value="Month">Requests</option>
+                        <select class="custom-select" id="activity_log_type">
+                            <option selected value="None">Select...</option>
+                              <option value="Errors">Errors</option>
+                              <option value="Login">Login</option>
+                              <option value="Logout">Logout</option>
+                              <option value="Others">Others</option>
+                              <option value="Payments">Payments</option>
+                              <option value="Profile">Profile</option>
+                              <option value="Requests">Requests</option>
+                              <option value="Unauthorized">Unauthorized</option>
                         </select>
                     </div>
                   </div><!--end col-->
@@ -395,10 +447,11 @@
                   <div class="col-md-3">
                       <div class="form-group">
                           <label>Sort Date</label>
-                          <select class="custom-select" id="request-sorting">
+                          <select class="custom-select" id="sort_by_range">
                               <option value="None">Select...</option>
                               <option value="Date">Date</option>
                               <option value="Month">Month</option>
+                              <option value="Year">Year</option>
                               <option value="Date Range">Date Range</option>
                           </select>
                       </div>
@@ -407,39 +460,39 @@
                   <div class="col-md-3 specific-date d-none">
                       <div class="form-group position-relative">
                           <label>Specify Date <span class="text-danger">*</span></label>
-                          <input name="name" id="name" type="date" class="form-control pl-5">
+                          <input name="name" id="specific_date" type="date" class="form-control pl-5">
                       </div>
                   </div>
       
                   <div class="col-md-3 sort-by-year d-none">
                       <div class="form-group position-relative">
                           <label>Specify Year <span class="text-danger">*</span></label>
-                          <select class="form-control custom-select" id="Sortbylist-Shop">
-                              <option>Select...</option>
-                              <option>2018</option>
-                              <option>2019</option>
-                              <option>2020</option>
+                          <select class="form-control custom-select" id="sort_by_year">
+                              <option value="">Select...</option>
+                              @foreach ($years as $year)
+                                <option value="{{ $year }}">{{ $year }}</option>
+                              @endforeach
                           </select>
                       </div>
                   </div>
       
-                  <div class="col-md-3 sort-by-year d-none">
+                  <div class="col-md-3 sort-by-year d-none" id="sort-by-month">
                       <div class="form-group position-relative">
                           <label>Specify Month <span class="text-danger">*</span></label>
-                          <select class="form-control custom-select" id="Sortbylist-Shop">
-                              <option>Select...</option>
-                              <option>January</option>
-                              <option>February</option>
-                              <option>March</option>
-                              <option>April</option>
-                              <option>May</option>
-                              <option>June</option>
-                              <option>July</option>
-                              <option>August</option>
-                              <option>September</option>
-                              <option>October</option>
-                              <option>November</option>
-                              <option>December</option>
+                          <select class="form-control custom-select" id="sort_by_month">
+                              <option value="">Select...</option>
+                              <option value="January">January</option>
+                              <option value="February">February</option>
+                              <option value="March">March</option>
+                              <option value="April">April</option>
+                              <option value="May">May</option>
+                              <option value="June">June</option>
+                              <option value="July">July</option>
+                              <option value="August">August</option>
+                              <option value="September">September</option>
+                              <option value="October">October</option>
+                              <option value="November">November</option>
+                              <option value="December">December</option>
                           </select>
                       </div>
                   </div>
@@ -447,54 +500,21 @@
                   <div class="col-md-3 date-range d-none">
                       <div class="form-group position-relative">
                           <label>From <span class="text-danger">*</span></label>
-                          <input name="name" id="name" type="date" class="form-control pl-5">
+                          <input name="name" id="date_from" type="date" class="form-control pl-5">
                       </div>
                   </div>
       
                   <div class="col-md-3 date-range d-none">
                       <div class="form-group position-relative">
                           <label>To <span class="text-danger">*</span></label>
-                          <input name="name" id="name" type="date" class="form-control pl-5">
+                          <input name="name" id="date_to" type="date" class="form-control pl-5">
                       </div>
                   </div>
                 </div>
     
-                <table class="table table-dashboard mg-b-0" id="basicExample">
-                  <thead>
-                    <tr>
-                      <th width="5%">#</th>
-                      <th width="20%">Date Created</th>
-                      <th width="75%">Message</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="tx-color-03">1</td>
-                      <td class="tx-medium">June 20th 2018, 7:15:29 am</td>
-                      <td class="tx-medium">Logged In successfully</td>
-                    </tr>
-    
-                    <tr>
-                      <td class="tx-color-03">2</td>
-                      <td class="tx-medium">June 18th 2018, 6:18:56 pm</td>
-                      <td class="tx-medium">Updated profile</td>
-                    </tr>
-    
-                    <tr>
-                      <td class="tx-color-03">3</td>
-                      <td class="tx-medium">June 18th 2018, 5:34:15 pm</td>
-                      <td class="tx-medium">Changed password</td>
-                    </tr>
-    
-                    <tr>
-                      <td class="tx-color-03">4</td>
-                      <td class="tx-medium">June 15th 2018, 5:34:15 pm</td>
-                      <td class="tx-medium">Logged Out</td>
-                    </tr>
-                  
-    
-                  </tbody>
-                </table>
+                <div id="sort_table">
+                  @include('admin.users.technician._activity_log_table')
+                </div>
               </div><!-- table-responsive -->
           {{-- </div> --}}
         </div><!-- tab-pane -->
@@ -503,4 +523,7 @@
     </div><!-- contact-content-body -->
 </div>
 
+@section('scripts')
+<script src="{{ asset('assets/dashboard/assets/js/technician-activity-log-sorting.js') }}"></script>
+@endsection
 @endsection

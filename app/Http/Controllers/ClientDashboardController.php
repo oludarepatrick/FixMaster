@@ -41,9 +41,9 @@ class ClientDashboardController extends Controller
 
         $cseName = Name::get();
 
-      //client_project_status = Pending, Ongoing, Completed, Cancelled 
-        $completedRequests = ServiceRequest::where('user_id', $user->id)->where('client_project_status', 'Completed')->get()->count();
-        $cancelledRequests = ServiceRequest::where('user_id', $user->id)->where('client_project_status', 'Cancelled')->get()->count();
+      //service_request_status_id = Pending, Ongoing, Completed, Cancelled 
+        $completedRequests = ServiceRequest::where('user_id', $user->id)->where('service_request_status_id', 'Completed')->get()->count();
+        $cancelledRequests = ServiceRequest::where('user_id', $user->id)->where('service_request_status_id', 'Cancelled')->get()->count();
 
         $popularRequests = Category::select('name', 'standard_fee', 'url', 'image')
         ->take(10)->get()->random(3);

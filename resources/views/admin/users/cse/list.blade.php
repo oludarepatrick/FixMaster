@@ -60,7 +60,7 @@
                 @else 
                   <td class="text-medium text-danger">Inactive</td>
                 @endif
-                <td class="tx-medium text-center">{{ $cse->cse->requests()->where('client_project_status', 'Completed')->count() }}</td>
+                <td class="tx-medium text-center">{{ $cse->cse->requests()->where('service_request_status_id', 'Completed')->count() }}</td>
 
                 <td class="text-medium">{{ Carbon\Carbon::parse($cse->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                   <td class=" text-center">

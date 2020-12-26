@@ -400,6 +400,74 @@ class AdminTechnicianController extends Controller
         ]);
     }
 
+    public function show($user){
+
+        $technician = User::findOrFail($user);
+
+        if($technician->designation != '[TECHNICIAN_ROLE]'){
+            return back();
+        }
+      //service_request_status_id = Pending(1), Ongoing(4), Completed(3), Cancelled(2) 
+        $completedRequests = $technician->technician->requests()->where('service_request_status_id', '3')->count();
+        $cancelledRequests = $technician->technician->requests()->where('service_request_status_id', '2')->count();
+        $totalRequests = $technician->technician->requests()->count();
+
+        $technicianCategories = $technician->technician->technicianCategories;
+        foreach($technicianCategories as $technicianCategory){
+            $categoryNames[] = Category::where('id', $technicianCategory->category_id)->first()->name;
+        }
+
+        if(empty($categoryNames)){
+            $categoryNames = '';
+        }else{
+            $categoryNames = $categoryNames;
+        }
+
+        $activityLogs = $technician->activityLogs()->orderBy('created_at', 'DESC')->get();
+
+        $message = '';
+
+        $yearList = array();
+
+        $years = ActivityLog::orderBy('created_at', 'ASC')->pluck('created_at');
+
+        $years = json_decode($years);
+
+        if(!empty($years)){
+            foreach($years as $year){
+                $date = new \DateTime($year);
+
+                $yearNumber = $date->format('y');
+
+                $yearName = $date->format('Y');
+                
+                array_push($yearList, $yearName);
+            }
+        }
+
+        // return $activityLogs;
+
+        $years = array_unique($yearList);
+
+        $createdBy = Name::get();
+
+        $data = [
+            'technician'        =>  $technician,
+            'totalRequests'     =>  $totalRequests,
+            'completedRequests' =>  $completedRequests,
+            'cancelledRequests' =>  $cancelledRequests,
+            'createdBy'         =>  $createdBy,
+            'categoryNames'     =>  $categoryNames,
+            'activityLogs'      =>  $activityLogs,
+            'message'           =>  $message,
+            'years'             =>  $years,
+            'userId'            =>  $user,
+            'totalFee'          =>  0,
+        ];
+
+        return view('admin.users.technician.summary', $data)->with('i');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

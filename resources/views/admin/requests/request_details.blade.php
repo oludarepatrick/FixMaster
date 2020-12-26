@@ -94,69 +94,107 @@
                 <div class="row row-xs">
                   <div class="col-6 col-sm-6 col-md-6 col-xl mg-t-10 mg-sm-t-0">
                     <div class="card card-file">
-                      <div class="dropdown-file">
-                        <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a href="" class="dropdown-item download"><i data-feather="download"></i>View</a>
+                      {{-- {{ dd(pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION)) }} --}}
+                      
+
+                      @if(pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'jpg' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'png' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'svg' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'gif' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'jpeg')
+                        @if(!empty($requestDetail->serviceRequestDetail->media_file) && file_exists(public_path().'/assets/service-request-files/'.$requestDetail->serviceRequestDetail->media_file))
+                          <img src="{{ asset('assets/service-request-files/'.$requestDetail->serviceRequestDetail->media_file ) }}" class="img-fit-cover" alt="Responsive image">
+                        @else
+                          <img src="{{ asset('assets/images/no-image-available.png') }}" class="img-fit-cover" alt="Responsive image">
+                        @endif
+                      @elseif(pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'doc' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'docx' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'pdf' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'txt' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'xls' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'csv')
+                        <div class="dropdown-file">
+                          <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a href="{{ $requestDetail->serviceRequestDetail->media_file }}" download class="dropdown-item download"><i data-feather="download"></i>Download</a>
+                          </div>
+                        </div><!-- dropdown -->
+                        <div class="card-file-thumb tx-indigo">
+                          <i class="far fa-file-word"></i>
                         </div>
-                      </div><!-- dropdown -->
-                      <div class="card-file-thumb tx-indigo">
-                        <i class="far fa-file-image"></i>
-                      </div>
-                      <div class="card-body">
-                      <h6><a href="" class="link-02">{{ $requestDetail->serviceRequestDetail->media_file }}</a></h6>
-                        {{-- <span>4.1mb</span> --}}
-                      </div>
+                        <div class="card-body">
+                        <h6><a href="{{ $requestDetail->serviceRequestDetail->media_file }}" download class="link-02">{{ $requestDetail->serviceRequestDetail->media_file }}</a></h6>
+                        </div> 
+
+                      @elseif(pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'mp4')
+                        @if(!empty($requestDetail->serviceRequestDetail->media_file) && file_exists(public_path().'/assets/service-request-files/'.$requestDetail->serviceRequestDetail->media_file))
+                          <video controls width="320" height="240" class="img-fit-cover">
+                            <source src="{{ asset('assets/service-request-files/'.$requestDetail->serviceRequestDetail->media_file ) }}" type="video/mp4">
+                          </video>
+                        @endif
+                      @endif
                     </div>
                   </div><!-- col -->
-                  {{-- <div class="col-6 col-sm-6 col-md-6 col-xl mg-t-10 mg-xl-t-0">
-                    <div class="card card-file">
-                      <div class="dropdown-file">
-                        <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a href="" class="dropdown-item download"><i data-feather="download"></i>View</a>
-                        </div>
-                      </div><!-- dropdown -->
-                      <div class="card-file-thumb tx-primary">
-                        <i class="far fa-file-video"></i>
-                      </div>
-                      <div class="card-body">
-                        <h6><a href="" class="link-02">VID_063037.mp4</a></h6>
-                        <span>12mb</span>
-                      </div>
-                    </div>
-                  </div> --}}
+                  
                 </div><!-- row -->
                 
               </div>
             </div>
           @endif
+          
           <div class="divider-text">Assign CSE & Technician</div>
 
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label>CSE</label>
-              <select class="custom-select">
-                <option selected>Select...</option>
-                <option value="1">Godfrey Diwa(Mushin [Abule-Ijesha])</option>
-                <option value="2">Rilwan Bello(Alimosho [Egbeda])</option>
-                <option value="2">Mayowa Olaoye(Ojo [Iyana-Iba])</option>
-              </select>
-            </div>
-            <div class="form-group col-md-4">
-              <label>Technician</label>
-              <select class="custom-select">
-                <option selected>Select...</option>
-                <option value="1">Andrew Nwankwo (Mushin [Abule-Ijesha])</option>
-                <option value="2">Taofeek Adedokun (Alimosho [Egbeda])</option>
-                <option value="2">Blessing Nnamdi (Ojo [Iyana-Iba])</option>
-              </select>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Assign</button>
+          <form method="POST" action="{{ route('admin.assign_cse_technician', $requestDetail->id) }}">
+            @csrf
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label>CSE</label>
+                <select class="custom-select" name="cse_id" id="cse_id" required>
+                  <option value="" selected>Select...</option>
+                  @foreach ($cses as $cse)
+                  @foreach ($cse->cses as $item)@endforeach
+                    <option value="{{ $cse->id }}" title="{{ $cse->cse->lga->name }} => {{ $item->town }}" data-email="{{ $cse->email }}" data-name="{{ $cse->fullName->name }}">{{ $cse->fullName->name }} ({{ $cse->cse->lga->name }} => {{ $item->town }})</option>
+                  @endforeach
+                </select>
+              </div>
 
+              <div class="form-group col-md-4">
+                <label>Technician</label>
+                <select class="custom-select" name="technician_id" id="technician_id" required>
+                  <option value="" selected>Select...</option>
+                  @foreach ($technicians as $technician)
+                  @foreach ($technician->technicians as $item)@endforeach
+                    <option value="{{ $technician->id }}" title="{{ $technician->technician->lga->name }} => {{ $item->town }}" data-email="{{ $technician->email }}" data-name="{{ $technician->fullName->name }}">{{ $technician->fullName->name }} ({{ $technician->technician->lga->name }} => {{ $item->town }})</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+
+            <input type="hidden" class="d-none" value="" name="cse_name" id="cse_name">
+            <input type="hidden" class="d-none" value="" name="cse_email" id="cse_email">
+            <input type="hidden" class="d-none" value="" name="technician_name" id="technician_name">
+            <input type="hidden" class="d-none" value="" name="technician_email" id="technician_email">
+
+            <button type="submit" class="btn btn-primary">Assign</button>
+        </form>
         </div>
       </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+      
+      $(document).ready(function(){
+
+        $(document).on('change','#cse_id',function(){
+          let cseName = $(this).children("option:selected").data('name');
+          let cseEmail = $(this).children("option:selected").data('email');
+
+          $('#cse_name').val(cseName);
+          $('#cse_email').val(cseEmail);
+        });
+
+        $(document).on('change','#technician_id',function(){
+          let technicianName = $(this).children("option:selected").data('name');
+          let technicianEmail = $(this).children("option:selected").data('email');
+
+          $('#technician_name').val(technicianName);
+          $('#technician_email').val(technicianEmail);
+        });
+
+      });
+    </script>
+@endpush
 @endsection

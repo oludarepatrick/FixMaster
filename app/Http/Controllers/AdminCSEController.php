@@ -221,21 +221,26 @@ class AdminCSEController extends Controller
 
         $cse = User::findOrFail($user);
 
+        // return $cse->cse;
+        
         if($cse->designation != '[CSE_ROLE]'){
             return back();
         }
-      //client_project_status = Pending, Ongoing, Completed, Cancelled 
-        $completedRequests = $cse->cse->requests()->where('client_project_status', 'Completed')->count();
-        $cancelledRequests = $cse->cse->requests()->where('client_project_status', 'Cancelled')->count();
+      //service_request_status_id = Pending(1), Ongoing(4), Completed(3), Cancelled(2) 
+        $completedRequests = $cse->cse->requests()->where('service_request_status_id', '3')->count();
+        $cancelledRequests = $cse->cse->requests()->where('service_request_status_id', '2')->count();
         $totalRequests = $cse->cse->requests()->count();
 
         $cseCategories = $cse->cse->cseCategories;
         foreach($cseCategories as $cseCategory){
             $categoryNames[] = Category::where('id', $cseCategory->category_id)->first()->name;
         }
-        // return ServiceRequest::where('cse_id', $user)->get();
-
-        //  return $cse->cse->requests;
+        
+        if(empty($categoryNames)){
+            $categoryNames = '';
+        }else{
+            $categoryNames = $categoryNames;
+        }
 
         $activityLogs = $cse->activityLogs()->orderBy('created_at', 'DESC')->get();
 
@@ -263,14 +268,6 @@ class AdminCSEController extends Controller
 
         $years = array_unique($yearList);
 
-        // $data = [
-        //     'activityLogs'  =>  $activityLogs,
-        //     'fullName'      =>  $fullName,
-        //     'userId'        =>  $user,
-        //     'message'       =>  $message,
-        //     'years'         =>  $years,
-        // ];
-
         $createdBy = Name::get();
 
         $data = [
@@ -284,6 +281,7 @@ class AdminCSEController extends Controller
             'message'           =>  $message,
             'years'             =>  $years,
             'userId'            =>  $user,
+            'totalFee'          =>  0,
         ];
 
         return view('admin.users.cse.summary', $data)->with('i');

@@ -14,6 +14,15 @@
           </ol>
         </nav>
       </div>
+
+      <div class="d-md-block">
+        <a href="{{ route('admin.list_cse') }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a>
+        <a href="{{ route('admin.edit_cse', $cse->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>
+        @if($cse->is_active == 0)
+          <a href="{{ route('admin.reinstate_cse', $cse->id) }}" class="btn btn-success"><i class="fas fa-undo"></i> Reinstate</a>
+        @endif
+        <a href="{{ route('admin.delete_cse', $cse->id) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+      </div>
     </div>
 
     <div class="row row-xs">
@@ -135,11 +144,11 @@
           <div class="row row-sm">
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">State</label>
-              <p class="mg-b-0">{{ $cse->cse->state->name }}</p>
+              <p class="mg-b-0">{{ $cse->cse->state->name ?? '' }}</p>
             </div>
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">L.G.A</label>
-              <p class="mg-b-0">{{ $cse->cse->lga->name }}</p>
+              <p class="mg-b-0">{{ $cse->cse->lga->name ?? '' }}</p>
             </div>
             <div class="col-6 col-sm mg-t-20">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Town/City</label>
@@ -155,7 +164,7 @@
           <div class="row row-sm">
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Bank Name</label>
-              <p class="tx-primary mg-b-0">{{ $cse->cse->bank->name }}</p>
+              <p class="tx-primary mg-b-0">{{ $cse->cse->bank->name ?? '' }}</p>
             </div>
             <div class="col-6 col-sm">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Account Number</label>
@@ -169,7 +178,7 @@
               <tbody>
                 <tr>
                   <td class="tx-medium">Service Category</td>
-                  <td class="tx-color-03">@foreach ($categoryNames as $name) {{ $name }}<br> @endforeach</td>
+                  <td class="tx-color-03">@if(!empty($categoryNames)) @foreach ($categoryNames as $name) {{ $name }}<br> @endforeach @else Not Assigned @endif</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Status</td>
@@ -185,7 +194,7 @@
                 </tr>
                 <tr>
                   <td class="tx-medium">Requests Completed</td>
-                  <td class="tx-color-03">{{ $cse->cse->requests()->where('client_project_status', 'Completed')->count() }}</td>
+                  <td class="tx-color-03">{{ $cse->cse->requests()->where('service_request_status_id', 'Completed')->count() }}</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Payments Received</td>
@@ -235,13 +244,18 @@
                   <tbody>
                     
                     @foreach($cse->cse->requests as $request)
+                    @if(!empty($request->serviceRequestDetail->discount_service_fee))
+                        {{$totalFee += $request->serviceRequestDetail->discount_service_fee}}
+                      @else
+                        {{$totalFee += $request->serviceRequestDetail->initial_service_fee}}
+                      @endif
                     <tr>
                       <td class="tx-color-03 tx-center">1</td>
                       <td class="tx-medium">{{ $request->job_reference }}</td>
                       <td class="tx-medium">{{ $request->user->fullName->name }}</td>
                       <td class="tx-medium">{{ $request->admin->first_name.' '.$request->admin->last_name }}</td>
                       <td class="tx-medium">{{ $request->technician->first_name.' '.$request->technician->last_name }}</td>
-                      <td class="text-medium text-center">
+                      <td class="tx-medium text-center">
                         @if(!empty($request->serviceRequestDetail->discount_service_fee))
                             ₦{{ number_format($request->serviceRequestDetail->discount_service_fee) }}
                             <br>
@@ -250,13 +264,13 @@
                             ₦{{ number_format($request->serviceRequestDetail->initial_service_fee) }}
                         @endif
                       </td>
-                      @if($request->client_project_status == 'Pending')
+                      @if($request->service_request_status_id == 'Pending')
                           <td class="text-medium text-warning text-center">Pending</td>
-                      @elseif($request->client_project_status == 'Ongoing')
+                      @elseif($request->service_request_status_id == 'Ongoing')
                           <td class="text-medium text-info text-center">Ongoing</td>
-                      @elseif($request->client_project_status == 'Completed')
+                      @elseif($request->service_request_status_id == 'Completed')
                           <td class="text-medium text-success text-center">Completed</td>
-                      @elseif($request->client_project_status == 'Cancelled')
+                      @elseif($request->service_request_status_id == 'Cancelled')
                           <td class="text-medium text-danger text-center">Cancelled</td>
                       @endif
                       <td>{{ $request->serviceRequestDetail->service_fee_name }}</td>
@@ -271,41 +285,13 @@
                       </td>
                     </tr>
                     @endforeach
-                    {{-- <tr>
-                      <td class="tx-color-03 tx-center">1</td>
-                      <td class="tx-medium">REF-234094623496</td>
-                      <td class="tx-medium">Femi Joseph</td>
-                      <td class="tx-medium">Andrew Nwankwo</td>
-                      <td class="text-medium text-center">₦14,000</td>
-                      <td class="text-medium text-success text-center">Completed</td>
-                      <td class="text-medium">May 15th 2020 at 11:30am</td>
-                      <td class=" text-center">
-                        <div class="dropdown-file">
-                          <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                          <div class="dropdown-menu dropdown-menu-right">
-                          <a href="{{ route('cse.request_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-    
                     <tr>
-                      <td class="tx-color-03 tx-center">2</td>
-                      <td class="tx-medium">REF-094009623412</td>
-                      <td class="tx-medium">Mobolaji Adetoun</td>
-                      <td class="tx-medium">Taofeek Adedokun</td>
-                      <td class="text-medium text-center">₦25,000</td>
-                      <td class="text-medium text-danger text-center">Cancelled</td>
-                      <td class="text-medium">May 12th 2020 at 8:26pm</td>
-                      <td class=" text-center">
-                        <div class="dropdown-file">
-                          <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                          <div class="dropdown-menu dropdown-menu-right">
-                            <a href="{{ route('cse.request_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr> --}}
+                      <td class="text-center" colspan="5">Total</td>
+                      <td class="text-center tx-medium">₦{{ number_format($totalFee) }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
     
                   </tbody>
                 </table>

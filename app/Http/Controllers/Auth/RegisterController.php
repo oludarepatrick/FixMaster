@@ -161,6 +161,7 @@ class RegisterController extends Controller
 
                 $body = '<p class="p1"><strong>Hello '.$clientName.',</strong></p><p class="p1"><strong>Welcome to Fix<span style="color: #E97D1F;">Master</span>! </strong>We&rsquo;re thrilled to see you <span class="s1">here</span>!</p><p class="p1">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class="p1">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class="p1">You can also find more of our guides in the <a href=“/faq” target=“_blank”> Frequently Asked Questions</a> section.</p><p class="p2">&nbsp;</p><p class="p1">Thanks,</p><p class="p1"><strong>FixMaster Management.</strong></p>';
 
+                
                 Message::create([
                     'sender_id'         =>  4, 
                     'recipient_id'      =>  $createClientProfile->id, 

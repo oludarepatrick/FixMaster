@@ -24,13 +24,18 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::post('/activity-log/sorting',                [App\Http\Controllers\ActivityLogController::class, 'sortActivityLog'])->name('activity_log_sorting_users');
                 Route::get('/activity-log/details/{id}',            [App\Http\Controllers\ActivityLogController::class, 'activityLogDetails'])->name('activity_log_details');
 
-                Route::get('/requests',                    [App\Http\Controllers\AdminRequestController::class, 'index'])->name('requests');
-                Route::get('/requests/details/new/{ref}',                    [App\Http\Controllers\AdminRequestController::class, 'requestDetails'])->name('request_details');
-                // Route::view('/requests', 	                        'admin.requests.requests')->name('requests');
-                // Route::view('/requests/details/new', 	            'admin.requests.request_details')->name('request_details');
-                Route::view('/requests/details/ongoing', 	        'admin.requests.request_ongoing_details')->name('request_ongoing_details');
+                Route::get('/requests',                             [App\Http\Controllers\AdminRequestController::class, 'index'])->name('requests');
+                Route::get('/requests/details/{ref}',           [App\Http\Controllers\AdminRequestController::class, 'requestDetails'])->name('request_details');
+                Route::post('/requests/assign-cse-technician/{id}',     [App\Http\Controllers\AdminRequestController::class, 'assignCSETechnician'])->name('assign_cse_technician');
+
+                Route::get('/requests/ongoing',                             [App\Http\Controllers\AdminRequestController::class, 'ongoingRequests'])->name('requests_ongoing');
+
+                Route::get('/requests/ongoing/details/{id}',           [App\Http\Controllers\AdminRequestController::class, 'ongoingRequestDetails'])->name('request_ongoing_details');
+
+                Route::get('/requests/ongoing/completed/{id}',                             [App\Http\Controllers\AdminRequestController::class, 'markRequestAsCompleted'])->name('mark_request_as_completed');
+                
                 Route::view('/requests/details/completed', 	        'admin.requests.request_completed_details')->name('request_completed_details');
-                Route::view('/requests/ongoing', 	                'admin.requests.requests_ongoing')->name('requests_ongoing');
+                
                 Route::view('/requests/completed', 	                'admin.requests.requests_completed')->name('requests_completed');
                 Route::view('/requests/cancelled', 	                'admin.requests.requests_cancelled')->name('requests_cancelled');
                 Route::view('/technicians', 	                    'admin.technicians')->name('technicians');
@@ -76,8 +81,14 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::get('/users/client/summary/{user}',         [App\Http\Controllers\AdminClientController::class, 'summary'])->name('summary_client');
                 Route::post('/users/client/activity-log/sorting',    [App\Http\Controllers\AdminClientController::class, 'sortActivityLog'])->name('activity_log_sorting_client');
 
+                Route::get('/utilities/service-request-status',                             [App\Http\Controllers\ServiceRequestStatusController::class, 'index'])->name('utility_service_request_status');
+                Route::post('/utilities/service-request-status/store',                      [App\Http\Controllers\ServiceRequestStatusController::class, 'store'])->name('store_service_request_status');
+                Route::get('/utilities/service-request-status/edit/{id}',                   [App\Http\Controllers\ServiceRequestStatusController::class, 'edit'])->name('edit_service_request_status');
+                Route::put('/utilities/service-request-status/update/{id}',                    [App\Http\Controllers\ServiceRequestStatusController::class, 'update'])->name('update_service_request_status');
+                Route::get('/utilities/service-request-status/delete/{id}',                 [App\Http\Controllers\ServiceRequestStatusController::class, 'delete'])->name('delete_service_request_status');
+
                 Route::view('/users/utilities/reset-password', 	    'admin.utilities.reset_password')->name('utility_reset_password');
-                Route::view('/users/utilities/project-status', 	    'admin.utilities.project_status')->name('utility_project_status');
+                // Route::view('/users/utilities/project-status', 	    'admin.utilities.project_status')->name('utility_service_request_status');
                 Route::view('/users/utilities/verify-payment', 	    'admin.utilities.verify_payment')->name('utility_verify_payment');
                 
                 Route::get('/users/technician',                          [App\Http\Controllers\AdminTechnicianController::class, 'index'])->name('list_technician');
@@ -90,18 +101,21 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::get('/users/technician/deactivate/{user}',        [App\Http\Controllers\AdminTechnicianController::class, 'deactivate'])->name('deactivate_technician');
                 Route::get('/users/technician/reinstate/{user}',         [App\Http\Controllers\AdminTechnicianController::class, 'reinstate'])->name('reinstate_technician');
                 Route::post('/users/technician/activity-log/sorting',    [App\Http\Controllers\AdminTechnicianController::class, 'sortActivityLog'])->name('activity_log_sorting_technician');
-                // Route::view('/users/technician/edit', 	            'admin.users.technician.edit')->name('edit_technician');
-                // Route::view('/users/technician/list', 	            'admin.users.technician.list')->name('list_technician');
-                // Route::view('/users/technician/summary', 	        'admin.users.technician.summary')->name('summary_technician');
-                // Route::view('/users/technician/activity-log', 	    'admin.users.technician.activity_log')->name('activity_log_technician');
 
                 Route::view('/franchise/add', 	                    'admin.franchise.add')->name('add_franchise');
                 Route::view('/franchise/edit', 	                    'admin.franchise.edit')->name('edit_franchise');
                 Route::view('/franchise/list', 	                    'admin.franchise.list')->name('list_franchise');
 
+                Route::get('/tools-inventory',                             [App\Http\Controllers\ToolsInventoryController::class, 'index'])->name('tools_inventory');
+                Route::post('/tools-inventory/store',                      [App\Http\Controllers\ToolsInventoryController::class, 'store'])->name('store_tools_inventory');
+                Route::get('/tools-inventory/edit/{id}',                   [App\Http\Controllers\ToolsInventoryController::class, 'edit'])->name('edit_tools_inventory');
+                Route::put('/tools-inventory/update/{id}',                    [App\Http\Controllers\ToolsInventoryController::class, 'update'])->name('update_tools_inventory');
+                Route::get('/tools-inventory/delete/{id}',                 [App\Http\Controllers\ToolsInventoryController::class, 'delete'])->name('delete_tools_inventory');
+
                 Route::view('/tools-request', 	                    'admin.tools.requests')->name('tools_request');
-                Route::view('/tools-inventory', 	                'admin.tools.inventory')->name('tools_inventory');
+                // Route::view('/tools-inventory', 	                'admin.tools.inventory')->name('tools_inventory');
                 Route::view('/rfq', 	                            'admin.rfq')->name('rfq');
+
                 Route::get('/services',                             [App\Http\Controllers\ServicesController::class, 'index'])->name('services');
                 Route::post('/services/store',                      [App\Http\Controllers\ServicesController::class, 'store'])->name('store_services');
                 Route::get('/services/delete/{id}',                 [App\Http\Controllers\ServicesController::class, 'delete'])->name('delete_service');

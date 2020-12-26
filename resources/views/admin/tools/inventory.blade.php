@@ -39,62 +39,34 @@
                       <th class="text-center">#</th>
                       <th>Name</th>
                       <th class="text-center">Quantity</th>
+                      <th class="text-center">Available</th>
                       <th class="text-center">Requests</th>
-                      <th>Date Created</th>
+                      <th class="text-center">Created By</th>
+                      <th class="text-center">Date Created</th>
                       <th class="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach($toolsInventories as $toolsInventory)
                     <tr>
-                      <td class="tx-color-03 tx-center">1</td>
-                      <td class="tx-medium">Ladder</td>
-                      <td class="tx-medium text-center">2</td>
-                      <td class="text-medium text-center">4</td>
-                      <td class="text-medium">May 15th 2020</td>
+                      <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                      <td class="tx-medium">{{ $toolsInventory->name }}</td>
+                      <td class="tx-medium text-center">{{ $toolsInventory->quantity }}</td>
+                      <td class="tx-medium text-center text-@if($toolsInventory->available > 0)success @elseif($toolsInventory->available < 1)danger @endif">{{ $toolsInventory->available }}</td>
+                      <td class="tx-medium text-center">0</td>
+                      <td class="text-center">{{ $toolsInventory->user->fullName->name }}</td>
+                      <td class="text-center">{{ Carbon\Carbon::parse($toolsInventory->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                       <td class=" text-center">
                         <div class="dropdown-file">
                           <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                           <div class="dropdown-menu dropdown-menu-right">
-                          <a href="#editInventory" data-toggle="modal" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                            <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
+                          <a href="#editInventory" id="edit-inventory" data-toggle="modal" class="dropdown-item details text-info" data-url="{{ route('admin.edit_tools_inventory', $toolsInventory->id) }}" data-tool-name="{{ $toolsInventory->name }}" data-id="{{ $toolsInventory->id }}"><i class="far fa-edit"></i> Edit</a>
+                          <a href="{{ route('admin.delete_tools_inventory', $toolsInventory->id) }}" class="dropdown-item details text-danger" title="Delete {{ $toolsInventory->name}}"><i class="fas fa-trash"></i> Delete</a>
                           </div>
                         </div>
                       </td>
                     </tr>
-
-                    <tr>
-                      <td class="tx-color-03 tx-center">2</td>
-                      <td class="tx-medium">Shears</td>
-                      <td class="tx-medium text-center">1</td>
-                      <td class="text-medium text-center">0</td>
-                      <td class="text-medium">May 15th 2020</td>
-                      <td class=" text-center">
-                        <div class="dropdown-file">
-                          <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                          <div class="dropdown-menu dropdown-menu-right">
-                          <a href="#editInventory" data-toggle="modal" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                            <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td class="tx-color-03 tx-center">3</td>
-                      <td class="tx-medium">Hose</td>
-                      <td class="tx-medium text-center">1</td>
-                      <td class="text-medium text-center">3</td>
-                      <td class="text-medium">May 15th 2020</td>
-                      <td class=" text-center">
-                        <div class="dropdown-file">
-                          <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                          <div class="dropdown-menu dropdown-menu-right">
-                          <a href="#editInventory" data-toggle="modal" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                            <a href="" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
+                    @endforeach
 
                   </tbody>
                 </table>
@@ -116,19 +88,31 @@
           <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </a>
-          <h5 class="mg-b-2"><strong>Add New Tool</strong></h5>
-          <div class="form-row mt-4">
-            <div class="form-group col-md-9">
-                <label for="inputEmail4">Name</label>
-                <input type="text" class="form-control" id="inputEmail4" placeholder="Name">
+          <form method="POST" action="{{ route('admin.store_tools_inventory') }}">
+            @csrf
+            <h5 class="mg-b-2"><strong>Add New Tool</strong></h5>
+            <div class="form-row mt-4">
+              <div class="form-group col-md-9">
+                  <label for="Name">Name</label>
+                  <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Name" value="{{ old('name') }}" autocomplete="off" required>
+                  @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+              </div>
+              <div class="form-group col-md-3">
+                  <label for="quantity">Quantity</label>
+                  <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity') }}" placeholder="Quantity" required>
+                  @error('quantity')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+              </div>
+              <button type="submit" class="btn btn-primary">Create</button>
             </div>
-            <div class="form-group col-md-3">
-              <label for="inputEmail4">Quantity</label>
-              <input type="number" class="form-control" id="inputEmail4" placeholder="Quantity">
-          </div>
-          <button type="submit" class="btn btn-primary">Create</button>
-
-        </div>
+          </form>
         </div><!-- modal-body -->
       </div><!-- modal-content -->
     </div><!-- modal-dialog -->
@@ -143,18 +127,10 @@
           <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </a>
-          <h5 class="mg-b-2"><strong>Editing Ladder</strong></h5>
-          <div class="form-row mt-4">
-            <div class="form-group col-md-9">
-                <label for="inputEmail4">Name</label>
-                <input type="text" class="form-control" id="inputEmail4" value="Ladder">
-            </div>
-            <div class="form-group col-md-3">
-              <label for="inputEmail4">Quantity</label>
-              <input type="number" class="form-control" id="inputEmail4" value="2">
+          <div class="modal-body" id="modal-edit-body">
+              <!-- Modal displays here -->
+              <div id="spinner-icon"></div>
           </div>
-          <button type="submit" class="btn btn-primary">Update</button>
-
         </div>
         </div><!-- modal-body -->
       </div><!-- modal-content -->
@@ -162,35 +138,45 @@
 </div><!-- modal -->
 
 
-  @section('scripts')
+@push('scripts')
 <script>
-    $(document).ready(function() {
-
-        $('#request-sorting').on('change', function (){        
-                let option = $("#request-sorting").find("option:selected").val();
-
-                if(option === 'None'){
-                    $('.specific-date, .sort-by-year, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Date'){
-                    $('.specific-date').removeClass('d-none');
-                    $('.sort-by-year, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Month'){
-                    $('.sort-by-year').removeClass('d-none');
-                    $('.specific-date, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Date Range'){
-                    $('.date-range').removeClass('d-none');
-                    $('.specific-date, .sort-by-year').addClass('d-none');
-                }
-        });
+  $(document).ready(function() {
+    $(document).on('click', '#edit-inventory', function(event) {
+      event.preventDefault();
+      let route = $(this).attr('data-url');
+      let toolName = $(this).attr('data-tool-name');
+      
+      $.ajax({
+          url: route,
+          beforeSend: function() {
+            $("#spinner-icon").html('<div class="d-flex justify-content-center mt-4 mb-4"><span class="loadingspinner"></span></div>');
+          },
+          // return the result
+          success: function(result) {
+              $('#modal-edit-body').modal("show");
+              $('#modal-edit-body').html('');
+              $('#modal-edit-body').html(result).show();
+          },
+          complete: function() {
+              $("#spinner-icon").hide();
+          },
+          error: function(jqXHR, testStatus, error) {
+              var message = error+ ' occured while trying to retireve '+ toolName +' Tool details.';
+              var type = 'error';
+              displayMessage(message, type);
+              $("#spinner-icon").hide();
+          },
+          timeout: 8000
+      })
     });
-   
+
+
+    $('.close').click(function (){
+      $(".modal-backdrop").remove();
+    });
+
+  });
 </script>
-@endsection
+@endpush
 
 @endsection

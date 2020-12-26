@@ -118,7 +118,7 @@ class ServiceRequestController extends Controller
             'category_id'           =>  $request->input('category_id'), 
             'job_reference'         =>  'REF-'.$this->randomStringGenerator->randomStringGenerator(8),
             'security_code'         =>  'SEC-'.strtoupper(substr(md5(time()), 0, 8)),
-            'client_project_status' =>  'Pending',
+            'service_request_status_id' =>  'Pending',
         ]);
 
         $createServiceRequestDetail = ServiceRequestDetail::create([

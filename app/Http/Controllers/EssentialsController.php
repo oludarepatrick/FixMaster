@@ -150,4 +150,29 @@ class EssentialsController extends Controller
             'is_read'           =>  '0'
         ]); 
     }
+
+    public function assignCseMessage($cseName, $cseId, $jobReference){
+        $body = '<p><strong>Hello '.$cseName.'</strong>, you have been assigned to <strong>'.$jobReference.'</strong> job. Kindly proceed to critically reviewing the client\'s request.</p><br /><p>Thanks,<br />FixMaster Management</p>';
+
+        Message::create([
+            'sender_id'         =>  4, 
+            'recipient_id'      =>  $cseId, 
+            'subject'           =>  'New Job('.$jobReference.') Assignment', 
+            'body'              =>  $body, 
+            'is_read'           =>  '0'
+        ]); 
+    }
+
+    public function assignTechnicianMessage($technicianName, $technicianId, $cseName, $jobReference){
+
+    $body = '<p><strong>'.$technicianName.'</strong>, you have been assigned to <strong>'.$jobReference.'</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>'.$cseName.'</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>';
+
+        Message::create([
+            'sender_id'         =>  4, 
+            'recipient_id'      =>  $technicianId, 
+            'subject'           =>  'New Job('.$jobReference.') Assignment', 
+            'body'              =>  $body, 
+            'is_read'           =>  '0'
+        ]); 
+    }
 }

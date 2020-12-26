@@ -172,7 +172,7 @@ Auth::routes();
                 Route::view('/users/client/summary', 	        'admin.users.client.summary')->name('summary_client');
 
                 Route::view('/users/utilities/reset-password', 	'admin.utilities.reset_password')->name('utility_reset_password');
-                Route::view('/users/utilities/project-status', 	'admin.utilities.project_status')->name('utility_project_status');
+                Route::view('/users/utilities/project-status', 	'admin.utilities.project_status')->name('utility_service_request_status');
                 Route::view('/users/utilities/verify-payment', 	'admin.utilities.verify_payment')->name('utility_verify_payment');
                 
                 

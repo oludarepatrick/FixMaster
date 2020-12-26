@@ -29,11 +29,11 @@ class Bank extends Model
 
     public function technician()
     {
-        return $this->hasOne(CSE::class, 'bank_id');
+        return $this->hasOne(Technician::class, 'bank_id');
     }
 
     public function technicians()
     {
-        return $this->hasMany(CSE::class, 'bank_id');
+        return $this->hasMany(Technician::class, 'bank_id');
     }
 }

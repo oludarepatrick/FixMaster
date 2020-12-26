@@ -189,6 +189,26 @@ class User extends Authenticatable
         return $this->hasMany(TechnicianCategory::class, 'technician_id');
     }
 
+    public function toolInventoryAuthor()
+    {
+        return $this->hasOne(ToolsInventory::class, 'created_by');
+    }
+
+    public function toolInventoryAuthors()
+    {
+        return $this->hasMany(ToolsInventory::class, 'created_by');
+    }
+
+    public function serviceRequestProgress()
+    {
+        return $this->hasOne(ServiceRequestProgress::class, 'user_id');
+    }
+    
+    public function serviceRequestProgreses()
+    {
+        return $this->hasMany(ServiceRequestProgress::class, 'user_id');
+    }
+
     public function scopeActiveAdmin($query, $args){
         return $query->where('id', $args)
         ->select('id', 'email')

@@ -106,13 +106,13 @@
                                 ₦{{ number_format($userServiceRequest->serviceRequestDetail->initial_service_fee) }}
                             @endif
                         </td>
-                        @if($userServiceRequest->client_project_status == 'Pending')
+                        @if($userServiceRequest->serviceRequestStatus->name == 'Pending')
                             <td class="text-warning">Pending</td>
-                        @elseif($userServiceRequest->client_project_status == 'Ongoing')
+                        @elseif($userServiceRequest->serviceRequestStatus->name == 'Ongoing')
                             <td class="text-info">Ongoing</td>
-                        @elseif($userServiceRequest->client_project_status == 'Completed')
+                        @elseif($userServiceRequest->serviceRequestStatus->name == 'Completed')
                             <td class="text-success">Completed</td>
-                        @elseif($userServiceRequest->client_project_status == 'Cancelled')
+                        @elseif($userServiceRequest->serviceRequestStatus->name == 'Cancelled')
                             <td class="text-danger">Cancelled</td>
                         @endif
                         <td>{{ $userServiceRequest->serviceRequestDetail->service_fee_name }}</td>
@@ -124,13 +124,13 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <a href="{{ route('client.request_details', $userServiceRequest->id) }}" class="dropdown-item text-primary"><i data-feather="clipboard" class="fea icon-sm"></i> View Details</a>
-                                    @if($userServiceRequest->client_project_status == 'Pending')
+                                    @if($userServiceRequest->service_request_status_id == 'Pending')
                                         <a href="#" class="dropdown-item text-info"><i data-feather="edit" class="fea icon-sm"></i> Edit Request</a>
                                     @endif
                                     <a href="{{ route('client.request_invoice') }}" class="dropdown-item text-success"><i data-feather="file-text" class="fea icon-sm"></i> View Invoice</a>
-                                    @if($userServiceRequest->client_project_status != 'Completed')
+                                    @if($userServiceRequest->service_request_status_id != 'Completed')
                                         <div class="dropdown-divider"></div>
-                                        @if($userServiceRequest->client_project_status != 'Cancelled')
+                                        @if($userServiceRequest->service_request_status_id != 'Cancelled')
                                             <a href="javascript:void(0)" class="dropdown-item text-danger cancel_request"><i data-feather="x" class="fea icon-sm"></i> Cancel Request</a>
                                         @else
                                             <a href="javascript:void(0)" class="dropdown-item text-success cancel_request"><i data-feather="corner-up-left" class="fea icon-sm"></i> Reinstate Request</a>
