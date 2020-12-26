@@ -45,6 +45,11 @@ class CSE extends Model
         return $this->belongsTo(State::class, 'state_id');
     }
 
+    public function lga()
+    {
+        return $this->belongsTo(Lga::class, 'lga_id');
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
@@ -68,11 +73,6 @@ class CSE extends Model
     public function fullName()
     {
         return $this->hasOne(Name::class, 'created_by');
-    }
-
-    public function lga()
-    {
-        return $this->belongsTo(Lga::class);
     }
 
     public function bank()
