@@ -15,15 +15,15 @@
               <li class="breadcrumb-item active" aria-current="page">Ongoing Request Details</li>
             </ol>
           </nav>
-          <h4 class="mg-b-0 tx-spacing--1">Job: REF-234094623496</h4><hr>
+          <h4 class="mg-b-0 tx-spacing--1">Job: {{ $requestDetail->job_reference }}</h4><hr>
           <div class="media align-items-center">
             <span class="tx-color-03 d-none d-sm-block">
               {{-- <i data-feather="credit-card" class="wd-60 ht-60"></i> --}}
               <img src="{{ asset('assets/images/default-male-avatar.png') }}" class="avatar rounded-circle" alt="Male Avatar">
             </span>
             <div class="media-body mg-sm-l-20">
-              <h4 class="tx-18 tx-sm-20 mg-b-2">Femi Joseph</h4>
-              <p class="tx-13 tx-color-03 mg-b-0">08125456489</p>
+              <h4 class="tx-18 tx-sm-20 mg-b-2">{{ $requestDetail->user->fullName->name }}</h4>
+              <p class="tx-13 tx-color-03 mg-b-0">{{ $requestDetail->serviceRequestDetail->phone_number }}</p>
             </div>
           </div><!-- media -->
         </div>
@@ -45,6 +45,7 @@
                 
               </ul>
               <div class="tab-content bd bd-gray-300 bd-t-0 pd-20" id="myTabContent3">
+
                 <div class="tab-pane fade show active" id="media3" role="tabpanel" aria-labelledby="media-tab3">
                   <h6>JOB Progress</h6>
 
@@ -53,29 +54,20 @@
                       <thead class="">
                         <tr>
                           <th class="text-center">#</th>
+                          <th>Author</th>
                           <th>Status</th>
                           <th class="text-center">Timestamp</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td class="tx-color-03 tx-center">1</td>
-                          <td class="tx-medium">On route to Client's house</td>
-                          <td class="text-medium tx-center">May 15th 2020 at 11:30am</td>
-                        </tr>
-
-                        <tr>
-                          <td class="tx-color-03 tx-center">2</td>
-                          <td class="tx-medium">Perfoming diagnosis</td>
-                          <td class="text-medium tx-center">May 15th 2020 at 12:48pm</td>
-                        </tr>
-
-                        <tr>
-                          <td class="tx-color-03 tx-center">3</td>
-                          <td class="tx-medium">Job completed</td>
-                          <td class="text-medium tx-center">May 15th 2020 at 3:17pm</td>
-                        </tr>
-        
+                        @foreach ($serviceRequestProgreses as $progress)
+                          <tr>
+                            <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                            <td class="tx-medium">{{ $progress->user->fullName->name }}</td>
+                            <td class="tx-medium text-success">{{ $progress->serviceRequestStatus->name }}</td>
+                            <td class="text-center">{{ Carbon\Carbon::parse($progress->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
+                          </tr>
+                        @endforeach
                       </tbody>
                     </table>
                   </div><!-- table-responsive -->
@@ -187,14 +179,17 @@
                           <div class="form-row mt-4">
                             <div class="form-group col-md-8">
                               {{-- <label for="inputEmail4">Status Options</label/> --}}
-                              <select class="form-control custom-select" id="Sortbylist-Shop">
-                                <option>Select...</option>
-                                <option>On route to Client's house</option>
-                                <option>Perfoming diagnosis</option>
-                                <option>Awaiting equipments/tools from Supplier</option>
-                                <option>Perfoming repairs</option>
-                                <option>Job completed</option>
+                              <select class="form-control custom-select @error('service_request_status_id') is-invalid @enderror" name="service_request_status_id" required>
+                                <option value="" selected>Select...</option>
+                                @foreach($serviceRequestStatuses as $status)
+                                  <option value="{{ $status->id }}" {{ old('service_request_status_id') == $status->id ? 'selected' : ''}}>{{ $status->name }}</option>
+                                @endforeach
                             </select>
+                            @error('service_request_status_id')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
                             </div>
                           </div>
                         </section>
@@ -383,35 +378,53 @@
                         <tbody>
                           <tr>
                             <td class="tx-medium">Job Reference</td>
-                            <td class="tx-color-03">REF-234094623496</td>
+                            <td class="tx-color-03">{{ $requestDetail->job_reference }}</td>
                           </tr>
                           <tr>
                             <td class="tx-medium">Service Required</td>
-                            <td class="tx-color-03">Mechanical (Generator)</td>
+                            <td class="tx-color-03">{{ $requestDetail->service->name }} ({{ $requestDetail->category->name }})</td>
                           </tr>
                           <tr>
                             <td class="tx-medium">Scheduled Date & Time</td>
-                            <td class="tx-color-03">May 15th 2020 at 11:30am</td>
+                            <td class="tx-color-03">{{ $requestDetail->serviceRequestDetail->timestamp }}</td>
                           </tr>
                           <tr>
                             <td class="tx-medium">Initial Service Charge</td>
-                            <td class="tx-color-03">₦14,000 (Urgent Fee)</td>
+                            <td class="tx-color-03">
+                              @if(!empty($requestDetail->serviceRequestDetail->discount_service_fee))
+                                  ₦{{ number_format($requestDetail->serviceRequestDetail->discount_service_fee) }}
+                                  <sup style="font-size: 10px;" class="text-success">Discount</sup>
+                              @else
+                                  ₦{{ number_format($requestDetail->serviceRequestDetail->initial_service_fee) }}
+                              @endif 
+                              ({{ $requestDetail->serviceRequestDetail->service_fee_name }})
+                            </td>
                           </tr>
                           <tr>
                             <td class="tx-medium">Current Service Charge</td>
-                            <td class="tx-color-03">₦14,000 (Urgent Fee)</td>
-                          </tr>
-                          <tr>
-                            <td class="tx-medium">CSE Assigned</td>
-                            <td class="tx-color-03">Godfrey Diwa</td>
-                          </tr>
-                          <tr>
-                            <td class="tx-medium">Technician Assigned</td>
-                            <td class="tx-color-03">Andrew Nwankwo</td>
+                            <td class="tx-color-03">
+                              @if(!empty($requestDetail->total_amount))
+                                  ₦{{ number_format($requestDetail->total_amount) }}
+                              @else
+                                  ₦0
+                              @endif 
+                            </td>
                           </tr>
                           <tr>
                             <td class="tx-medium">Security Code</td>
-                            <td class="tx-color-03">SEC-02IW742BS83</td>
+                            <td class="tx-color-03">{{ $requestDetail->security_code }}</td>
+                          </tr>
+                          <tr>
+                            <td class="tx-medium">Supervised By</td>
+                            <td class="tx-color-03">@if(!empty($requestDetail->admin)) {{ $requestDetail->admin->first_name.' '.$requestDetail->admin->last_name }} @endif</td>
+                          </tr>
+                          <tr>
+                            <td class="tx-medium">CSE Assigned</td>
+                            <td class="tx-color-03">@if(!empty($requestDetail->cse)) {{ $requestDetail->cse->first_name.' '.$requestDetail->cse->last_name }} @endif</td>
+                          </tr>
+                          <tr>
+                            <td class="tx-medium">Technician Assigned</td>
+                            <td class="tx-color-03">@if(!empty($requestDetail->technician)) {{ $requestDetail->technician->first_name.' '.$requestDetail->technician->last_name }} @endif</td>
                           </tr>
                           <tr>
                             <td class="tx-medium">Payment Status</td>
@@ -419,74 +432,72 @@
                           </tr>
                           <tr>
                             <td class="tx-medium">L.G.A</td>
-                            <td class="tx-color-03">Ibeju-Lekki</td>
+                            <td class="tx-color-03">{{ $requestDetail->user->client->lga->name }}</td>
                           </tr>
                           <tr>
                             <td class="tx-medium">Town/City</td>
-                            <td class="tx-color-03">Ibeju-Lekki</td>
+                            <td class="tx-color-03">{{ $requestDetail->user->client->town }}</td>
                           </tr>
                           <tr>
                             <td class="tx-medium">Request Address</td>
-                            <td class="tx-color-03">7, Abagbo Close, Victoria Island, Lagos, Nigeria</td>
+                            <td class="tx-color-03">{{ $requestDetail->serviceRequestDetail->address }}</td>
                           </tr>
                           <tr>
                             <td class="tx-medium">Request Description</td>
-                            <td class="tx-color-03">My generator just stopped working and it's refusing to come on. I need urgent repairs today.</td>
+                            <td class="tx-color-03">{{ $requestDetail->serviceRequestDetail->description }}</td>
                           </tr>
                         </tbody>
                       </table>
-                      <div class="divider-text">Media Files</div>
-            
-                      <div class="row">
-                        <div class="pd-20 pd-lg-25 pd-xl-30">
-              
-                          <div class="row row-xs">
-                            <div class="col-6 col-sm-6 col-md-6 col-xl mg-t-10 mg-sm-t-0">
-                              <div class="card card-file">
-                                <div class="dropdown-file">
-                                  <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                                  <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="" class="dropdown-item download"><i data-feather="download"></i>View</a>
-                                  </div>
-                                </div><!-- dropdown -->
-                                <div class="card-file-thumb tx-indigo">
-                                  <i class="far fa-file-image"></i>
-                                </div>
-                                <div class="card-body">
-                                  <h6><a href="" class="link-02">IMG_063037.jpg</a></h6>
-                                  <span>4.1mb</span>
-                                </div>
-                              </div>
-                            </div><!-- col -->
-                            <div class="col-6 col-sm-6 col-md-6 col-xl mg-t-10 mg-xl-t-0">
-                              <div class="card card-file">
-                                <div class="dropdown-file">
-                                  <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                                  <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="" class="dropdown-item download"><i data-feather="download"></i>View</a>
-                                  </div>
-                                </div><!-- dropdown -->
-                                <div class="card-file-thumb tx-primary">
-                                  <i class="far fa-file-video"></i>
-                                </div>
-                                <div class="card-body">
-                                  <h6><a href="" class="link-02">VID_063037.mp4</a></h6>
-                                  <span>12mb</span>
-                                </div>
-                              </div>
-                            </div><!-- col -->
-                          </div><!-- row -->
-                          
-                        </div>
-                      </div>
 
+                      @if(!empty($requestDetail->serviceRequestDetail->media_file))
+                      <div class="divider-text">Media Files</div>
+                        <div class="row">
+                          <div class="pd-20 pd-lg-25 pd-xl-30">
+                
+                            <div class="row row-xs">
+                              <div class="col-6 col-sm-6 col-md-6 col-xl mg-t-10 mg-sm-t-0">
+                                <div class="card card-file">
+                                  {{-- {{ dd(pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION)) }} --}}
+                                  
+
+                                  @if(pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'jpg' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'png' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'svg' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'gif' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'jpeg')
+                                    @if(!empty($requestDetail->serviceRequestDetail->media_file) && file_exists(public_path().'/assets/service-request-files/'.$requestDetail->serviceRequestDetail->media_file))
+                                      <img src="{{ asset('assets/service-request-files/'.$requestDetail->serviceRequestDetail->media_file ) }}" class="img-fit-cover" alt="Responsive image">
+                                    @else
+                                      <img src="{{ asset('assets/images/no-image-available.png') }}" class="img-fit-cover" alt="Responsive image">
+                                    @endif
+                                  @elseif(pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'doc' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'docx' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'pdf' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'txt' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'xls' || pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'csv')
+                                    <div class="dropdown-file">
+                                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                                      <div class="dropdown-menu dropdown-menu-right">
+                                        <a href="{{ $requestDetail->serviceRequestDetail->media_file }}" download class="dropdown-item download"><i data-feather="download"></i>Download</a>
+                                      </div>
+                                    </div><!-- dropdown -->
+                                    <div class="card-file-thumb tx-indigo">
+                                      <i class="far fa-file-word"></i>
+                                    </div>
+                                    <div class="card-body">
+                                    <h6><a href="{{ $requestDetail->serviceRequestDetail->media_file }}" download class="link-02">{{ $requestDetail->serviceRequestDetail->media_file }}</a></h6>
+                                    </div> 
+
+                                  @elseif(pathInfo($requestDetail->serviceRequestDetail->media_file, PATHINFO_EXTENSION) == 'mp4')
+                                    @if(!empty($requestDetail->serviceRequestDetail->media_file) && file_exists(public_path().'/assets/service-request-files/'.$requestDetail->serviceRequestDetail->media_file))
+                                      <video controls width="320" height="240" class="img-fit-cover">
+                                        <source src="{{ asset('assets/service-request-files/'.$requestDetail->serviceRequestDetail->media_file ) }}" type="video/mp4">
+                                      </video>
+                                    @endif
+                                  @endif
+                                </div>
+                              </div><!-- col -->
+                              
+                            </div><!-- row -->
+                            
+                          </div>
+                        </div>
+                      @endif
                     </div><!-- df-example -->
                   </div>
-
                 </div>
-
-                
-
               </div>
           </div>
         </div>

@@ -13,7 +13,7 @@ class CreateServiceRequestProgressTable extends Migration
      */
     public function up()
     {
-        Schema::create('service_request_progress', function (Blueprint $table) {
+        Schema::create('service_request_progresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->index();
             $table->foreignId('service_request_id')->index();
@@ -29,6 +29,6 @@ class CreateServiceRequestProgressTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_request_progress');
+        Schema::dropIfExists('service_request_progresses');
     }
 }

@@ -57,9 +57,15 @@
               </thead>
               <tbody>
                 @foreach ($serviceRequests as $serviceRequest)
-                  <tr>
-                  <td class="tx-color-03 tx-center">{{ ++$i }}</td>
-                  <td class="tx-medium">{{ $serviceRequest->job_reference }}</td>
+                  <tr 
+                    @if((\Carbon\Carbon::now() > Carbon\Carbon::parse($serviceRequest->serviceRequestDetail->timestamp, 'UTC')) || (\Carbon\Carbon::now() == Carbon\Carbon::parse($serviceRequest->serviceRequestDetail->timestamp, 'UTC')))
+                      class="table-danger"
+                    @elseif(\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($serviceRequest->serviceRequestDetail->timestamp, 'UTC')) == 1)
+                      class="table-warning"
+                    @endif
+                  >
+                    <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                    <td class="tx-medium">{{ $serviceRequest->job_reference }}</td>
                     <td class="tx-medium">{{ $serviceRequest->user->fullName->name }}</td>
                     <td class="tx-medium">{{ $serviceRequest->serviceRequestDetail->phone_number }}</td>
                     <td class="text-medium text-center">
@@ -70,7 +76,7 @@
                           ₦{{ number_format($serviceRequest->serviceRequestDetail->initial_service_fee) }}
                       @endif
                     </td>
-                    <td class="text-medium text-warning">{{ $serviceRequest->serviceRequestStatus->name }}</td>
+                    <td class="text-medium text-success">{{ $serviceRequest->serviceRequestStatus->name }}</td>
                     <td class="text-medium">{{ $serviceRequest->serviceRequestDetail->timestamp ?? '' }}</td>
                     <td class=" text-center">
                       <div class="dropdown-file">

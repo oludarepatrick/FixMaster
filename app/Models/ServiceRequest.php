@@ -93,6 +93,16 @@ class ServiceRequest extends Model
     {
         return $this->belongsToMany(ServiceRequestStatus::class, 'id', 'service_request_status_id');
     }
+
+    public function serviceRequestProgress()
+    {
+        return $this->hasOne(ServiceRequestProgress::class, 'service_request_id');
+    }
+    
+    public function serviceRequestProgreses()
+    {
+        return $this->hasMany(ServiceRequestProgress::class, 'service_request_id');
+    }
     
      /** 
      * Scope a query to only include active banches

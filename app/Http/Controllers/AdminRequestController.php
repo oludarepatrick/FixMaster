@@ -17,6 +17,8 @@ use App\Models\CSE;
 use App\Models\Technician;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestDetail;
+use App\Models\ServiceRequestProgress;
+use App\Models\ServiceRequestStatus;
 use App\Models\Category;
 use App\Models\Service;
 use App\Models\Name;
@@ -112,12 +114,23 @@ class AdminRequestController extends Controller
             'service_request_status_id' =>  '4',
         ]);
 
-        if($assignCSETechnician){
+        //Create record in `service_request_progress` table
+        $recordServiceProgress = ServiceRequestProgress::create([
+            'user_id'                       =>  Auth::id(), 
+            'service_request_id'            =>  $id, 
+            'service_request_status_id'     =>  '4',
+        ]);
+
+        if($assignCSETechnician AND $recordServiceProgress){
 
             //Notify CSE and Technician with messages
             $this->assignMessage = new EssentialsController();
             $this->assignMessage->assignCseMessage($cseName, $cseId, $jobReference);
             $this->assignMessage->assignTechnicianMessage($technicianName, $technicianId, $cseName, $jobReference);
+
+            /*
+            * Code to send email goes here...
+            */
 
             //Record crurrenlty logged in user activity
             $this->addRecord = new RecordActivityLogController();
@@ -166,6 +179,24 @@ class AdminRequestController extends Controller
         return view('admin.requests.requests_ongoing', $data)->with('i');
     }
 
+    public function ongoingRequestDetails($id){
+
+        $requestDetail = ServiceRequest::findOrFail($id);
+
+        $serviceRequestProgreses =  $requestDetail->serviceRequestProgreses;
+
+        $serviceRequestStatuses = ServiceRequestStatus::RequestUpdateStatuses()->get();
+
+        // return $serviceRequestStatuses;
+        $data = [
+            'requestDetail' =>  $requestDetail,
+            'serviceRequestProgreses'   =>  $serviceRequestProgreses,
+            'serviceRequestStatuses'    =>  $serviceRequestStatuses,
+        ];
+
+        return view('admin.requests.request_ongoing_details', $data)->with('i');
+    }
+
     public function markRequestAsCompleted($id){
 
         $requestExists = ServiceRequest::findOrFail($id);
@@ -180,8 +211,14 @@ class AdminRequestController extends Controller
             'service_request_status_id' =>  '3',
         ]);
 
-        if($markAsCompleted){
+        //Create record in `service_request_progress` table
+        $recordServiceProgress = ServiceRequestProgress::create([
+            'user_id'                       =>  Auth::id(), 
+            'service_request_id'            =>  $id, 
+            'service_request_status_id'     =>  '4',
+        ]);
 
+        if($markAsCompleted AND $recordServiceProgress){
 
             //Record crurrenlty logged in user activity
             $this->addRecord = new RecordActivityLogController();

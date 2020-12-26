@@ -32,6 +32,6 @@ class ServiceRequestDetail extends Model
 
     public function serviceRequest()
     {
-        return $this->belongsTo(ServiceRequest::class, 'service_id');
+        return $this->belongsTo(ServiceRequest::class, 'service_request_id');
     }
 }
