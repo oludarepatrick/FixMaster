@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 26, 2020 at 04:04 AM
+-- Generation Time: Dec 27, 2020 at 06:51 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -262,7 +262,8 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 (222, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-25 22:12:07'),
 (223, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 02:10:38(hrs:min:ss).', '2020-12-26 00:22:45'),
 (224, 6, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Obuchi Omotosho logged in.', '2020-12-26 00:22:58'),
-(225, 6, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\AdminRequestController@assignCSETechnician', 'http://localhost:8000/admin/requests/assign-cse-technician/1', 'Obuchi Omotosho assigned Favour Nnamdi(CSE) and Taofeek Adedokun  to REF-66EB5A26 job', '2020-12-26 00:23:19');
+(225, 6, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\AdminRequestController@assignCSETechnician', 'http://localhost:8000/admin/requests/assign-cse-technician/1', 'Obuchi Omotosho assigned Favour Nnamdi(CSE) and Taofeek Adedokun  to REF-66EB5A26 job', '2020-12-26 00:23:19'),
+(226, 6, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Obuchi Omotosho logged out with a session duration of 02:41:34(hrs:min:ss).', '2020-12-26 03:04:32');
 
 -- --------------------------------------------------------
 
@@ -2296,7 +2297,7 @@ ALTER TABLE `wallets`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
 
 --
 -- AUTO_INCREMENT for table `admins`
