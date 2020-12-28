@@ -8,6 +8,7 @@ use Jenssegers\Agent\Agent;
 use Auth;
 use App\Models\User;
 use App\Models\State;
+use App\Models\ToolsInventory;
 use App\Models\LocationAndBrowserInfo;
 use App\Models\Message;
 use App\Http\Controllers\MailController;
@@ -103,6 +104,18 @@ class EssentialsController extends Controller
 
     }
 
+    public function getAvailableToolQuantity(Request $request){
+        if($request->ajax()){
+            $toolId = $request->get('tool_id');
+
+            $toolExists = ToolsInventory::findOrFail($toolId);
+
+            $availableQuantity =  $toolExists->available;
+
+            return $availableQuantity;
+        }
+    }
+
     // This function will return  
     // A random string of specified length 
     public function randomStringGenerator($length_of_string) { 
@@ -165,7 +178,7 @@ class EssentialsController extends Controller
 
     public function assignTechnicianMessage($technicianName, $technicianId, $cseName, $jobReference){
 
-    $body = '<p><strong>'.$technicianName.'</strong>, you have been assigned to <strong>'.$jobReference.'</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>'.$cseName.'</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>';
+        $body = '<p><strong>'.$technicianName.'</strong>, you have been assigned to <strong>'.$jobReference.'</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>'.$cseName.'</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>';
 
         Message::create([
             'sender_id'         =>  4, 

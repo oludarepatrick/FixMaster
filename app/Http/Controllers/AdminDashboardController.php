@@ -36,7 +36,7 @@ class AdminDashboardController extends Controller
         $totalCompletedRequests = ServiceRequest::where('service_request_status_id', '3')->get()->count();
 
         //Get total Ongoing requests
-        $totalOngoingRequests = ServiceRequest::where('service_request_status_id', '4')->get()->count();
+        $totalOngoingRequests = ServiceRequest::where('service_request_status_id', '>', '3')->get()->count();
 
         //Get Total Admins
         $totalAdmins = Admin::get()->count();
