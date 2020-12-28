@@ -31,52 +31,107 @@
                 <div class="tab-pane fade show active" id="description3" role="tabpanel" aria-labelledby="description-tab3">
                   <h6>UPDATE PROFILE</h6>
                   <div class="card-body pd-20 pd-lg-25">
-                    <form>
-                        <div class="d-sm-flex float-left">
+                    <form action="{{route('technician.updateProfile')}}" method="post" role="form" enctype="multipart/form-data">
+                      {{ csrf_field() }} 
+                      <div class="d-sm-flex float-left">
                             <div class="mg-sm-r-30">
                                 <div class="pos-relative d-inline-block mg-b-20">
-                                    <a href="#"><div class="avatar avatar-xxl"><span class="avatar-initial rounded-circle bg-gray-700 tx-normal"><i class="icon ion-md-person"></i></span></div></a>
-                                    {{-- <a href="" class="contact-edit-photo"><i data-feather="edit-2"></i></a> --}}
+                                  <a href="#">
+                                    <div class="avatar avatar-xxl">
+                                      <div class="user-img">
+                                        <img class="rounded-circle wh-150p img-fluid image profile_image_preview" src="{{!empty($avatar) ? asset('assets/cse-technician-images/'.$avatar) : asset('assets/images/no-image-available.png')}}" alt="user-image">
+                                      </div>                                      
+                                    </div>
+                                  </a>
                                 </div>
                             </div><!-- col -->
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">First Name</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="Andrew">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Middle Name</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="Chinazo">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Last Name</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="Nwankwo">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4" value="andrew.nwankwo@gmail.com">
-                            </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputEmail4">Mobile Phone</label>
-                            <input type="tel" class="form-control" id="inputEmail4" maxlength="11" value="08054242309">
+                          <div class="form-group col-md-3">
+                            <label for="inputEmail4">First Name</label>
+                            <input type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" id="first_name" value="{{ $firstName }}">
+                            @error('first_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
+                        </div>
+                        <div class="form-group col-md-3">
+                          <label for="inputEmail4">Middle Name</label>
+                          <input type="text" class="form-control" id="middle_name" name="middle_name" value="{{ $middleName }}">
+                          @error('first_name')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                      </div>
+                            <!-- Last Name -->
+                            <div class="form-group col-md-3">
+                              <label for="inputEmail4">Last Name</label>
+                              <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name" name="last_name" value="{{ $lastName }}">
+                              @error('last_name')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
                           </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputEmail4">Work Phone</label>
-                            <input type="tel" class="form-control" id="inputEmail4" maxlength="11" value="08120933092">
+                          {{-- gender --}}
+                          <div class="form-group col-md-3">
+                            <label>Gender</label>
+                            <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" required>
+                              <option value="">Choose....</option>
+                              <option value="Male" {{ $gender == 'Male' ? 'selected' : ''}}>Male</option>
+                              <option value="Female" {{ $gender == 'Female' ? 'selected' : ''}}>Female</option>                                                         
+                           </select> 
                           </div>
-                          {{-- <div class="form-group col-md-6">
-                            <label class="d-block">Upload Company Logo</label>
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="customFile">
-                              <label class="custom-file-label" for="customFile">Company Logo</label>
-                            </div>
-                          </div> --}}
+                            <!-- Email -->
+                            <div class="form-group col-md-3">
+                              <label for="inputEmail4">Email</label>
+                              <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ $email }}">
+                              @error('email')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
+                          </div>
+                          <!-- Phone Number -->
+                          <div class="form-group col-md-3">
+                            <label for="inputEmail4">Phone Number</label>
+                            <input type="tel" class="form-control @error('phone_number') is-invalid @enderror" id="phone_number" name="phone_number" maxlength="11" value="{{ old('phone_number')?? $phoneNumber }}">
+                            @error('phone_number')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
+                          </div>
+                          <!-- Other Phone Number -->
+                          <div class="form-group col-md-3">
+                            <label for="inputEmail4">Other Phone Number</label>
+                            <input type="tel" class="form-control" id="other_phone_number" maxlength="11" maxlength="11" value="{{ old('other_phone_number')?? $otherPhoneNumber }}">
+                          </div>
 
-                          <div class="form-group col-md-6">
-                            <label for="inputAddress2">Home Address</label>
-                            <textarea rows="3" class="form-control" id="inputAddress2"></textarea>
-                          </div>
+                              <!-- Profile Avatar -->
+                              <div class="form-group col-md-3">
+                                <label>Profile Avatar</label>
+                                <div class="custom-file">
+                                  <input type="file" accept="image/*" class="custom-file-input @error('image') is-invalid @enderror" name="profile_avater" id="profile_image">
+                                  <label class="custom-file-label" id="imagelabel" for="profile_image">Upload Profile Avatar</label>
+                                 
+                                  @error('image')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                                  @enderror
+                                </div>
+  
+                              </div>
+
+
+                            <!-- Full Address -->
+                            <div class="form-group col-md-6">
+                              <label for="inputAddress2">Full Address</label> 
+                              <textarea rows="3" class="form-control" id="inputAddress2" name="full_address">{{ old('full_address')?? $fullAddress }}</textarea>
+                            </div>
                             <div class="form-group col-md-6">
                                 <label for="inputAddress2">Work Address</label>
                                 <textarea rows="3" class="form-control" id="inputAddress2"></textarea>
@@ -93,21 +148,37 @@
                   <h6>CHANGE PASSWORD</h6>
                   <p class="mg-b-0 text-danger">In order to change your password, you need to provide the current password.</p>
                   <div class="card-body pd-20 pd-lg-25">
-                    <form>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Current Password</label>
-                                <input type="password" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">New Password</label>
-                                <input type="password" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Confirm Password</label>
-                                <input type="password" class="form-control" id="inputEmail4">
-                            </div>
+                    <form action="{{route('technician.updatePassword')}}" method="post">
+                      {{ csrf_field() }}
+                      <div class="form-row">
+                        <div class="form-group col-md-4">
+                          <label for="current_password">Current Password</label>
+                          <input type="password" class="form-control @error('current_password') is-invalid @enderror" id="current_password" name="current_password">
+                          @error('current_password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
+                          </div>
+                        <div class="form-group col-md-4">
+                          <label for="new_password">New Password</label>
+                          <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="new_password" name="new_password">
+                          @error('new_password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
                         </div>
+                        <div class="form-group col-md-4">
+                          <label for="new_confirm_password">Confirm Password</label>
+                          <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="new_confirm_password" name="new_confirm_password">
+                          @error('new_confirm_password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
+                        </div>
+                    </div>
 
                         <button type="submit" class="btn btn-primary">Update Password</button>
                     </form>
@@ -119,4 +190,61 @@
       </div>
     </div>
 </div>
+@endsection
+
+
+@section('scripts')
+<script>
+  (function($){
+    "use scrict";
+    $(document).ready(function(){
+    
+      $(document).on('change','#profile_image', function(){
+        readURL(this);
+      })
+
+      reader.readAsDataURL(input.files[0]);
+
+      function readURL(input){
+        if(input.files && input.files[0]){
+          var reader = new FileReader();
+          var res = isImage(input.files[0].name);
+
+          if(res==false){
+            var msg = 'Image should be png/PNG, jpg/JPG & jpeg/JPG';
+            Snackbar.show({text: msg, pos: 'bottom-right',backgroundColor:'#d32f2f', actionTextColor:'#fff' });
+            return false;
+          }
+
+          reader.onload = function(e){
+            $('.profile_image_preview').attr('src', e.target.result);
+            $("imagelabel").text((input.files[0].name));
+          }
+
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      function getExtension(filename) {
+          var parts = filename.split('.');
+          return parts[parts.length - 1];
+      }  
+
+      function isImage(filename) {
+          var ext = getExtension(filename);
+          switch (ext.toLowerCase()) {
+          case 'jpg':
+          case 'jpeg':
+          case 'png':
+          case 'gif':
+              return true;
+          }
+          return false;
+      }
+
+    })
+
+ })(jQuery);
+
+</script>
 @endsection

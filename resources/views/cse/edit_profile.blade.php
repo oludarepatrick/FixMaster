@@ -39,7 +39,7 @@
                                     <a href="#">
                                     <div class="avatar avatar-xxl">
                                       <div class="user-img">
-                                        <img class="rounded-circle wh-150p img-fluid image profile_image_preview" src="{{!empty(Auth::check()) ? asset('assets/cse-technician-images/'.$avatar) : asset('assets/admin/img/noimage.jpg')}}" alt="user-image">
+                                        <img class="rounded-circle wh-150p img-fluid image profile_image_preview" src="{{!empty($avatar) ? asset('assets/cse-technician-images/'.$avatar) : asset('assets/admin/img/noimage.jpg')}}" alt="user-image">
                                       </div>
                                       
                                       </div></a>
@@ -187,7 +187,7 @@
                               <input type="text" class="form-control @error('town') is-invalid @enderror" placeholder="e.g. CMS, Ikoyi, Egbeda" name="town" id="town" value="{{ old('town')?? $town }}" required>
                               
                             </div>
-
+                            {{-- gender --}}
                             <div class="form-group col-md-3">
                               <label>Gender</label>
                               <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" required>

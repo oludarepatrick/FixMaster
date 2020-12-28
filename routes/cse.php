@@ -31,8 +31,8 @@ Route::middleware(['cseRole'])->group(function() {
         Route::get('/profile/edit',                 [App\Http\Controllers\CSE\CSEProfileController::class, 'edit_profile'])->name('cse.edit_profile');
         Route::post('/profile/update',              [App\Http\Controllers\CSE\CSEProfileController::class, 'update_profile'])->name('cse.updateProfile');
         Route::post('/profile/updatePassword',      [App\Http\Controllers\CSE\CSEProfileController::class, 'updatePassword'])->name('cse.updatePassword');
-        Route::get('/change/password',              [App\Http\Controllers\CSE\CSEProfileController::class, 'change_password'])->name('cse.change_password');
         Route::post('/password/upadte',             [App\Http\Controllers\CSE\CSEProfileController::class, 'update_password'])->name('cse.update_password');
+        Route::get('/view-profile',                 [App\Http\Controllers\CSE\CSEProfileController::class, 'view_profile' ])->name('cse.view_profile');
         // Route::view('/profile/edit', 	        'cse.edit_profile')->name('cse.edit_profile');
 
         Route::view('/payments', 	                'cse.payments')->name('cse.payments');
