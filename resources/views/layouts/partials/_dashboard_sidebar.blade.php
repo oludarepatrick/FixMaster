@@ -301,10 +301,10 @@
      @endif
 
      @if($user->adminPermissions->utilities == 1)
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.utility_reset_password', 'admin.utility_service_request_status', 'admin.utility_verify_payment') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.utility_reset_password', 'admin.utility_project_status', 'admin.utility_verify_payment') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="sliders"></i> <span>Utilities</span></a>
         <ul>
-          <li class="{{ Route::currentRouteNamed('admin.utility_service_request_status') ? 'active' : '' }}"><a href="{{ route('admin.utility_service_request_status') }}">Service Request Status</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.utility_project_status') ? 'active' : '' }}"><a href="{{ route('admin.utility_project_status') }}">Project Status</a></li>
           <li><a href="#">Referral</a></li>
           <li class="{{ Route::currentRouteNamed('admin.utility_reset_password') ? 'active' : '' }}"><a href="{{ route('admin.utility_reset_password') }}">Reset Password</a></li>
           <li class="{{ Route::currentRouteNamed('admin.utility_verify_payment') ? 'active' : '' }}"><a href="{{ route('admin.utility_verify_payment') }}">Verify Payment</a></li>

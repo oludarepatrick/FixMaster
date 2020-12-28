@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\CSE;
+namespace App\Http\Controllers\Technician;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Bank;
-use App\Models\State;
-use App\Models\Lga;
-use App\Models\CSE;
 use Illuminate\Validation\Rule;
 use Auth;
 use Session;
@@ -16,10 +12,11 @@ use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL; 
 use App\Models\ActivityLog;
+use App\Models\Technician;
 use App\Http\Controllers\ActivityLogController;
 use Route;
 
-class CSEProfileController extends Controller
+class TechnicianProfileController extends Controller
 {
 
     public function __construct() {
@@ -29,63 +26,44 @@ class CSEProfileController extends Controller
     //call the profile page with credentials
     public function edit_profile(Request $request)
     {
-        // $user_dat=\Auth::user();
 
         $user_data = User::where('id', Auth::id())
                     ->select('id', 'email')
-                    ->with(['cse' => function($query){ 	 
+                    ->with(['technician' => function($query){ 	 
                         return $query->select('first_name', 'middle_name', 'last_name', 'gender', 'phone_number', 'other_phone_number', 'avatar', 'account_number', 'bank_id', 'state_id', 'lga_id', 'user_id', 'town', 'full_address');
                     }])
-                    ->first();        
-        $state_data = State::where('id', $user_data->cse->state_id)
-                        ->select('name')
-                        ->first();
-        $lga_data =   Lga::where('id', $user_data->cse->lga_id)
-                        ->select('name')
-                        ->first();
+                    ->first(); 
 
         $data = [
-            'firstName'         =>  $user_data->cse->first_name,
-            'middleName'        =>  $user_data->cse->middle_name,
-            'lastName'          =>  $user_data->cse->last_name,
-            'gender'            =>  $user_data->cse->gender,
+            'firstName'         =>  $user_data->technician->first_name,
+            'middleName'        =>  $user_data->technician->middle_name,
+            'lastName'          =>  $user_data->technician->last_name,
+            'gender'            =>  $user_data->technician->gender,
             'email'             =>  $user_data->email,
-            'phoneNumber'       =>  $user_data->cse->phone_number,
-            'otherPhoneNumber'  =>  $user_data->cse->other_phone_number,
-            'avatar'            =>  $user_data->cse->avatar,
-            'accountNumber'     =>  $user_data->cse->account_number,
-            'fullAddress'       =>  $user_data->cse->full_address, 
-            'town'              =>  $user_data->cse->town,
-            'bankName'          =>  $user_data->cse->bank->name,
-            'stateName'         =>  $state_data->name,
-            'allStates'         =>  State::all(),
-            'allBanks'          =>  Bank::all(),
-            'allLgas'           =>  Lga::all(),
+            'phoneNumber'       =>  $user_data->technician->phone_number,
+            'otherPhoneNumber'  =>  $user_data->technician->other_phone_number,
+            'avatar'            =>  $user_data->technician->avatar,
+            'accountNumber'     =>  $user_data->technician->account_number,
+            'fullAddress'       =>  $user_data->technician->full_address, 
+            'town'              =>  $user_data->technician->town,
+            'bankName'          =>  $user_data->technician->bank->name,
             'title'             =>  'profile',
         ];
-        // get the selected bank_id
-        $bank_selected  = Bank::find($user_data->cse->bank->id);
-        $state_selected = State::find($user_data->cse->state->id);
-        $Lga_selected   = Lga::find($user_data->cse->lga->id);
-        // echo '<pre>';
-        // echo json_encode($user_data->cse);
-        // echo '</pre>';
-
-    	return view('cse.edit_profile', compact('bank_selected', 'state_selected', 'Lga_selected')+$data);
+    	return view('technician.edit_profile',$data);
     }
 
     public function update_profile(Request $request)
     {
         $user_data = User::where('id', Auth::id())
         ->select('id', 'email')
-        ->with(['cse' => function($query){ 	 
+        ->with(['technician' => function($query){ 	 
             return $query->select('first_name', 'middle_name', 'last_name', 'gender', 'phone_number', 'other_phone_number', 'avatar', 'account_number', 'bank_id', 'state_id', 'lga_id', 'user_id', 'town', 'full_address');
         }])
         ->first(); 
-        $cse = CSE::where('user_id', $user_data->cse->user_id)->first();
+        $technician = Technician::where('user_id', $user_data->technician->user_id)->first();
 
         $img = $request->file('profile_avater');
-        $allowedExts = array('jpg', 'png', 'jpeg');
+        $allowedExts = array('jpg', 'png', 'PNG', 'jpeg');
 
         $validatedData = $request->validate([            
             'first_name'  => 'required|max:255',
@@ -103,11 +81,6 @@ class CSEProfileController extends Controller
                     }
                 },
             ],
-            'bank_id'   => 'required|max:255',
-            'account_number'   => 'required|max:255', 
-            'state_id'   => 'required|max:255',
-            'lga_id'   => 'required|max:255',
-            'town'   => 'required|max:255', 
             'full_address'   => 'required|max:255',
             'gender'   => 'required',
 
@@ -117,27 +90,22 @@ class CSEProfileController extends Controller
           $user_data->save();         
 
         // if there is user_id update
-        if ($user_data->cse->user_id) {
+        if ($user_data->technician->user_id) {
             //cse table                         
-            $cse->first_name = $request->first_name;
-            $cse->middle_name = $request->middle_name;
-            $cse->last_name = $request->last_name;     
-            $cse->gender = $request->gender;      
-            $cse->phone_number = $request->phone_number;
-            $cse->other_phone_number = $request->other_phone_number;  
+            $technician->first_name = $request->first_name;
+            $technician->middle_name = $request->middle_name;
+            $technician->last_name = $request->last_name;     
+            $technician->gender = $request->gender;      
+            $technician->phone_number = $request->phone_number;
+            $technician->other_phone_number = $request->other_phone_number;  
             if($request->hasFile('profile_avater')){
-                @unlink('assets/cse-technician-images/'.$cse->profile_avater);
+                @unlink('assets/cse-technician-images/'.$technician->profile_avater);
                 $filename = uniqid() . '.' . $img->getClientOriginalExtension();
                 $img->move('assets/cse-technician-images/', $filename);
-                $cse->avatar = $filename;
-            }
-            $cse->bank_id = $request->bank_id;                      
-            $cse->account_number = $request->account_number;                      
-            $cse->state_id = $request->state_id;                      
-            $cse->lga_id = $request->lga_id;                      
-            $cse->town = $request->town;                       
-            $cse->full_address = $request->full_address;
-            $cse->save();
+                $technician->avatar = $filename;
+            }                      
+            $technician->full_address = $request->full_address;
+            $technician->save();
         } 
         
         Session::flash('success', 'Profile updated successfully!');
@@ -190,28 +158,28 @@ class CSEProfileController extends Controller
     public function view_profile(Request $request){
         $user_data = User::where('id', Auth::id())
             ->select('id', 'email')
-            ->with(['cse' => function($query){ 	 
+            ->with(['technician' => function($query){ 	 
                 return $query->select('first_name', 'middle_name', 'last_name', 'gender', 'phone_number', 'other_phone_number', 'avatar', 'account_number', 'bank_id', 'state_id', 'lga_id', 'user_id', 'town', 'full_address');
             }])
             ->first(); 
 
         $data = [
-            'firstName'         =>  $user_data->cse->first_name,
-            'middleName'        =>  $user_data->cse->middle_name,
-            'lastName'          =>  $user_data->cse->last_name,
-            'gender'            =>  $user_data->cse->gender,
+            'firstName'         =>  $user_data->technician->first_name,
+            'middleName'        =>  $user_data->technician->middle_name,
+            'lastName'          =>  $user_data->technician->last_name,
+            'gender'            =>  $user_data->technician->gender,
             'email'             =>  $user_data->email,
-            'phoneNumber'       =>  $user_data->cse->phone_number,
-            'otherPhoneNumber'  =>  $user_data->cse->other_phone_number,
-            'avatar'            =>  $user_data->cse->avatar,
-            'accountNumber'     =>  $user_data->cse->account_number,
-            'fullAddress'       =>  $user_data->cse->full_address, 
-            'town'              =>  $user_data->cse->town,
-            'bankName'          =>  $user_data->cse->bank->name,
-            'stateName'         =>  $user_data->cse->state->name,
+            'phoneNumber'       =>  $user_data->technician->phone_number,
+            'otherPhoneNumber'  =>  $user_data->technician->other_phone_number,
+            'avatar'            =>  $user_data->technician->avatar,
+            'accountNumber'     =>  $user_data->technician->account_number,
+            'fullAddress'       =>  $user_data->technician->full_address, 
+            'town'              =>  $user_data->technician->town,
+            'bankName'          =>  $user_data->technician->bank->name,
+            'stateName'         =>  $user_data->technician->state->name,
             'title'             =>  'profile',
         ];
-    	return view('cse.view_profile', $data);
+    	return view('technician.view_profile', $data);
     }
 
     /**

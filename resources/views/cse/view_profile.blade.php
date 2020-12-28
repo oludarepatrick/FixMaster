@@ -29,15 +29,15 @@
               <div class="row">
                 <div class="col-6 col-sm">
                   <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Firstname</label>
-                  <p class="mg-b-0">David</p>
+                  <p class="mg-b-0">{{ $firstName }}</p>
                 </div><!-- col -->
                 <div class="col-6 col-sm">
                   <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Middlename</label>
-                  <p class="mg-b-0">Shina</p>
+                  <p class="mg-b-0">{{ $middleName }}</p>
                 </div><!-- col -->
                 <div class="col-sm mg-t-20 mg-sm-t-0">
                   <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Lastname</label>
-                  <p class="mg-b-0">Adesanya</p>
+                  <p class="mg-b-0">{{ $lastName }}</p>
                 </div><!-- col -->
               </div><!-- row -->
 
@@ -46,15 +46,15 @@
               <div class="row row-sm">
                 <div class="col-6 col-sm-4">
                   <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Email Address</label>
-                  <p class="tx-primary mg-b-0">david.adesanya@gmail.com</p>
+                  <p class="tx-primary mg-b-0">{{ $email }}</p>
                 </div>
                 <div class="col-6 col-sm-4">
                   <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Mobile Phone</label>
-                  <p class="tx-primary tx-rubik mg-b-0">(+234) 805 4242 309</p>
+                  <p class="tx-primary tx-rubik mg-b-0">{{$phoneNumber}}</p>
                 </div>
                 <div class="col-6 col-sm-4 mg-t-20 mg-sm-t-0">
                   <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Work Phone</label>
-                  <p class="tx-primary tx-rubik mg-b-0">(+234) 812 0933 092</p>
+                  <p class="tx-primary tx-rubik mg-b-0">{{$otherPhoneNumber }}</p>
                 </div>
                 <div class="col-sm-4 mg-t-20 mg-sm-t-30">
                   <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Company</label>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="col-sm-6 mg-t-20 mg-sm-t-30">
                   <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Home Address</label>
-                  <p class="mg-b-0">2 Chevron Drive, Lekki Penninsula II 12825, Lekki</p>
+                  <p class="mg-b-0">{{ $fullAddress }}</p>
                 </div>
                 <div class="col-sm-6 mg-t-20 mg-sm-t-30">
                   <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Work Address</label>
