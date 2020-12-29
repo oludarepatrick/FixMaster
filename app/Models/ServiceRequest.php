@@ -113,6 +113,16 @@ class ServiceRequest extends Model
     {
         return $this->hasMany(RFQ::class, 'service_request_id');
     }
+
+    public function toolRequest()
+    {
+        return $this->hasOne(ToolsRequest::class, 'service_request_id');
+    }
+
+    public function toolRequests()
+    {
+        return $this->hasMany(ToolsRequest::class, 'service_request_id');
+    }
     
      /** 
      * Scope a query to only include active banches

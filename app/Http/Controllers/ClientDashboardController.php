@@ -58,7 +58,7 @@ class ClientDashboardController extends Controller
             'userServiceRequests'   =>  $userServiceRequests,
             'cseName'               =>  $cseName,
         ];
-
+        
         return view('client.home', $data);
     }
 

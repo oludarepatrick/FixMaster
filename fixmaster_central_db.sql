@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 28, 2020 at 11:23 PM
+-- Generation Time: Dec 29, 2020 at 03:25 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.4.0
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `activity_logs` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `activity_logs`
@@ -274,7 +274,16 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 (232, 5, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\AdminRequestController@updateOngoingProgress', 'http://localhost:8000/admin/requests/ongoing/update', 'David Akinsola updated REF-66EB5A26 job.', '2020-12-28 16:58:54'),
 (233, 5, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'David Akinsola logged out with a session duration of 13:21:33(hrs:min:ss).', '2020-12-28 17:37:18'),
 (234, 6, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Obuchi Omotosho logged in.', '2020-12-28 18:59:44'),
-(235, 6, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Obuchi Omotosho logged out with a session duration of 04:22:29(hrs:min:ss).', '2020-12-28 23:22:13');
+(235, 6, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Obuchi Omotosho logged out with a session duration of 04:22:29(hrs:min:ss).', '2020-12-28 23:22:13'),
+(236, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2020-12-29 10:48:00'),
+(237, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\ToolsInventoryController@store', 'http://localhost:8000/admin/tools-inventory/store', 'NinthBinary Developer added Demo Tool to Tools Inventory', '2020-12-29 12:48:36'),
+(238, 1, '127.0.0.1', 'Errors', 'Error', 'App\\Http\\Controllers\\ToolsRequestController@approveRequest', 'http://localhost:8000/admin/tools-request/approve/1', 'An error occurred when NinthBinary Developer was trying to approve Tools request with Bacth number: TRF-C85BEA04.', '2020-12-29 15:01:11'),
+(239, 1, '127.0.0.1', 'Errors', 'Error', 'App\\Http\\Controllers\\ToolsRequestController@approveRequest', 'http://localhost:8000/admin/tools-request/approve/1', 'An error occurred when NinthBinary Developer was trying to approve Tools request with Bacth number: TRF-C85BEA04.', '2020-12-29 15:02:30'),
+(240, 1, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ToolsRequestController@approveRequest', 'http://localhost:8000/admin/tools-request/approve/1', 'NinthBinary Developer approved Tools request with Bacth number: TRF-C85BEA04.', '2020-12-29 15:06:08'),
+(241, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\ServiceRequestStatusController@store', 'http://localhost:8000/admin/utilities/service-request-status/store', 'NinthBinary Developer created \"Demo23\" Service Request Status', '2020-12-29 15:14:19'),
+(242, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\ServiceRequestStatusController@update', 'http://localhost:8000/admin/utilities/service-request-status/update/7', 'NinthBinary Developer renamed Demo23 service request status to Demo23', '2020-12-29 15:14:28'),
+(243, 1, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\ServiceRequestStatusController@delete', 'http://localhost:8000/admin/utilities/service-request-status/delete/7', 'NinthBinary Developer deleted Demo23fddf service request status.', '2020-12-29 15:14:34'),
+(244, 1, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ToolsRequestController@returnToolsRequested', 'http://localhost:8000/admin/tools-request/return/1', 'NinthBinary Developer marked Tools request with Bacth number: TRF-C85BEA04 as returned.', '2020-12-29 15:21:47');
 
 -- --------------------------------------------------------
 
@@ -1419,7 +1428,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`),
   KEY `client_messages_ibfk_1` (`sender_id`),
   KEY `client_messages_ibfk_2` (`recipient_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `messages`
@@ -1438,7 +1447,9 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 (11, 4, 19, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Hello Favour Nnamdi</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to critically reviewing the client\'s request.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-25 23:23:19', '2020-12-25 23:23:19'),
 (12, 4, 15, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Taofeek Adedokun</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>Favour Nnamdi</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-25 23:23:19', '2020-12-25 23:23:19'),
 (13, 4, 12, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Hello Godrey Diwa</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to critically reviewing the client\'s request.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-27 16:20:17', '2020-12-27 16:20:17'),
-(14, 4, 15, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Taofeek Adedokun</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>Godrey Diwa</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-27 16:20:17', '2020-12-27 16:20:17');
+(14, 4, 15, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Taofeek Adedokun</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>Godrey Diwa</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-27 16:20:17', '2020-12-27 16:20:17'),
+(15, 4, 5, 'Tool Request Approval for Job(REF-66EB5A26)', '<p>Hello <strong>David Akinsola</strong>, your Tool request(<strong>TRF-C85BEA04</strong>) for Job(<strong>REF-66EB5A26</strong>) has been approved.&nbsp;</p><p>&nbsp;</p><div><div>Thanks,</div><div>FixMaster Management</div></div>', '0', NULL, '2020-12-29 14:03:21', '2020-12-29 14:03:21'),
+(16, 4, 5, 'Tool Request Approval for Job(REF-66EB5A26)', '<p>Hello <strong>David Akinsola</strong>, your Tool request(<strong>TRF-C85BEA04</strong>) for Job(<strong>REF-66EB5A26</strong>) has been approved.&nbsp;</p><p>&nbsp;</p><div><div>Thanks,</div><div>FixMaster Management</div></div>', '0', NULL, '2020-12-29 14:06:08', '2020-12-29 14:06:08');
 
 -- --------------------------------------------------------
 
@@ -1655,7 +1666,7 @@ CREATE TABLE IF NOT EXISTS `rfqs` (
 --
 
 INSERT INTO `rfqs` (`id`, `issued_by`, `client_id`, `service_request_id`, `batch_number`, `invoice_number`, `status`, `accepted`, `total_amount`, `created_at`, `updated_at`) VALUES
-(9, 5, 11, 1, 'RFQ-C85BEA04', NULL, '0', NULL, NULL, '2020-12-28 15:58:54', NULL);
+(1, 5, 11, 1, 'RFQ-C85BEA04', NULL, '0', NULL, NULL, '2020-12-28 15:58:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -1680,8 +1691,8 @@ CREATE TABLE IF NOT EXISTS `rfq_batches` (
 --
 
 INSERT INTO `rfq_batches` (`id`, `rfq_id`, `component_name`, `model_number`, `quantity`, `amount`) VALUES
-(5, 9, 'Power cable', 'PC-234234', 1, NULL),
-(6, 9, '8GB RAM', 'RM-3242', 2, NULL);
+(1, 1, 'Power cable', 'PC-234234', 1, NULL),
+(2, 1, '8GB RAM', 'RM-3242', 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -1847,8 +1858,8 @@ CREATE TABLE IF NOT EXISTS `service_request_progresses` (
 --
 
 INSERT INTO `service_request_progresses` (`id`, `user_id`, `service_request_id`, `service_request_status_id`, `created_at`, `updated_at`) VALUES
-(2, 6, 1, 4, '2020-12-27 16:20:17', '2020-12-27 16:20:17'),
-(3, 5, 1, 5, '2020-12-28 15:58:54', '2020-12-28 15:58:54');
+(1, 6, 1, 4, '2020-12-27 16:20:17', '2020-12-27 16:20:17'),
+(2, 5, 1, 5, '2020-12-28 15:58:54', '2020-12-28 15:58:54');
 
 -- --------------------------------------------------------
 
@@ -2056,16 +2067,17 @@ CREATE TABLE IF NOT EXISTS `tool_inventories` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tool_inventories`
 --
 
 INSERT INTO `tool_inventories` (`id`, `user_id`, `name`, `quantity`, `available`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Ladder', 4, 3, NULL, '2020-12-20 23:00:00', '2020-12-28 15:58:54'),
-(2, 3, 'Water Hose', 2, 2, NULL, '2020-12-20 23:00:00', '2020-12-21 14:38:48'),
-(3, 1, 'Star Screw Driver', 7, 6, NULL, '2020-12-21 12:44:41', '2020-12-28 15:58:54');
+(1, 1, 'Ladder', 4, 4, NULL, '2020-12-20 23:00:00', '2020-12-29 14:21:47'),
+(2, 3, 'Water Hose', 2, 2, NULL, '2020-12-20 23:00:00', NULL),
+(3, 1, 'Star Screw Driver', 7, 7, NULL, '2020-12-21 12:44:41', '2020-12-29 14:21:47'),
+(4, 1, 'Demo Tool', 3, 3, NULL, '2020-12-29 11:48:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -2081,6 +2093,7 @@ CREATE TABLE IF NOT EXISTS `tool_requests` (
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
   `batch_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` enum('Pending','Approved','Declined') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
+  `is_returned` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -2088,14 +2101,14 @@ CREATE TABLE IF NOT EXISTS `tool_requests` (
   KEY `tool_requests_batch_id` (`batch_number`),
   KEY `service_request_id` (`service_request_id`),
   KEY `tool_requests_ibfk_4` (`approved_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tool_requests`
 --
 
-INSERT INTO `tool_requests` (`id`, `requested_by`, `approved_by`, `service_request_id`, `batch_number`, `status`, `created_at`, `updated_at`) VALUES
-(4, 5, NULL, 1, 'TRF-C85BEA04', 'Pending', '2020-12-28 15:58:54', NULL);
+INSERT INTO `tool_requests` (`id`, `requested_by`, `approved_by`, `service_request_id`, `batch_number`, `status`, `is_returned`, `created_at`, `updated_at`) VALUES
+(1, 5, 1, 1, 'TRF-C85BEA04', 'Approved', '1', '2020-12-28 15:58:54', '2020-12-29 14:21:47');
 
 -- --------------------------------------------------------
 
@@ -2119,8 +2132,8 @@ CREATE TABLE IF NOT EXISTS `tool_request_batches` (
 --
 
 INSERT INTO `tool_request_batches` (`id`, `tool_request_id`, `tool_id`, `quantity`) VALUES
-(1, 4, 3, 1),
-(2, 4, 1, 1);
+(1, 1, 3, 2),
+(2, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2155,7 +2168,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_token`, `is_email_verified`, `password`, `remember_token`, `designation`, `is_active`, `is_admin`, `login_count`, `current_sign_in`, `last_sign_in`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 78, '2020-12-27 21:08:09', '2020-12-25 21:12:07', NULL, '2019-12-31 23:29:26', '2020-12-27 21:08:09'),
+(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 79, '2020-12-29 09:48:00', '2020-12-27 21:08:09', NULL, '2019-12-31 23:29:26', '2020-12-29 09:48:00'),
 (2, '', NULL, NULL, '0', '', NULL, '[INTRUDER_ROLE]', '0', '0', 0, NULL, NULL, NULL, NULL, NULL),
 (3, 'charles.famoriyo@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 3, '2020-12-03 19:34:43', '2020-11-30 21:34:14', NULL, '2020-11-30 06:26:42', NULL),
 (4, 'info@fixmaster.com.ng', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, NULL, NULL),

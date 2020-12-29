@@ -84,7 +84,7 @@
                         </div>
                       </div>
 
-                      <button type="submit" class="btn btn-warning"> Update Profile</button>
+                      <button type="submit" class="btn btn-primary"> Update Profile</button>
                   </form>
                   </div>
                 </div>

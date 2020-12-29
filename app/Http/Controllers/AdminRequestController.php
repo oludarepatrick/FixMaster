@@ -319,9 +319,6 @@ class AdminRequestController extends Controller
                     'tool_id'           =>  $request->tool_id[$item], 
                     'quantity'          =>  $request->tool_quantity[$item],
                 ]);
-
-                //Reduce available quantity for a particulat tool on `tool_inventories`  table
-                ToolsInventory::where('id', $request->tool_id[$item])->decrement('available', $request->tool_quantity[$item]);
             }
 
         }

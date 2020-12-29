@@ -53,7 +53,7 @@
                       <td class="tx-medium">{{ $toolsInventory->name }}</td>
                       <td class="tx-medium text-center">{{ $toolsInventory->quantity }}</td>
                       <td class="tx-medium text-center text-@if($toolsInventory->available > 0)success @elseif($toolsInventory->available < 1)danger @endif">{{ $toolsInventory->available }}</td>
-                      <td class="tx-medium text-center">0</td>
+                      <td class="tx-medium text-center">{{ $toolsInventory->toolRequestBatches()->count() }}</td>
                       <td class="text-center">{{ $toolsInventory->user->fullName->name }}</td>
                       <td class="text-center">{{ Carbon\Carbon::parse($toolsInventory->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                       <td class=" text-center">

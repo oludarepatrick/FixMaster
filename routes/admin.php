@@ -25,16 +25,12 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::get('/activity-log/details/{id}',            [App\Http\Controllers\ActivityLogController::class, 'activityLogDetails'])->name('activity_log_details');
 
                 Route::get('/requests',                             [App\Http\Controllers\AdminRequestController::class, 'index'])->name('requests');
-                Route::get('/requests/details/{ref}',           [App\Http\Controllers\AdminRequestController::class, 'requestDetails'])->name('request_details');
-                Route::post('/requests/assign-cse-technician/{id}',     [App\Http\Controllers\AdminRequestController::class, 'assignCSETechnician'])->name('assign_cse_technician');
-
-                Route::get('/requests/ongoing',                             [App\Http\Controllers\AdminRequestController::class, 'ongoingRequests'])->name('requests_ongoing');
-
-                Route::get('/requests/ongoing/details/{id}',           [App\Http\Controllers\AdminRequestController::class, 'ongoingRequestDetails'])->name('request_ongoing_details');
-
-                Route::post('/requests/ongoing/update',     [App\Http\Controllers\AdminRequestController::class, 'updateOngoingProgress'])->name('request_ongoing_update');
-
-                Route::get('/requests/ongoing/completed/{id}',                             [App\Http\Controllers\AdminRequestController::class, 'markRequestAsCompleted'])->name('mark_request_as_completed');
+                Route::get('/requests/details/{ref}',               [App\Http\Controllers\AdminRequestController::class, 'requestDetails'])->name('request_details');
+                Route::post('/requests/assign-cse-technician/{id}', [App\Http\Controllers\AdminRequestController::class, 'assignCSETechnician'])->name('assign_cse_technician');
+                Route::get('/requests/ongoing',                     [App\Http\Controllers\AdminRequestController::class, 'ongoingRequests'])->name('requests_ongoing');
+                Route::get('/requests/ongoing/details/{id}',        [App\Http\Controllers\AdminRequestController::class, 'ongoingRequestDetails'])->name('request_ongoing_details');
+                Route::post('/requests/ongoing/update',             [App\Http\Controllers\AdminRequestController::class, 'updateOngoingProgress'])->name('request_ongoing_update');
+                Route::get('/requests/ongoing/completed/{id}',      [App\Http\Controllers\AdminRequestController::class, 'markRequestAsCompleted'])->name('mark_request_as_completed');
                 
                 Route::view('/requests/details/completed', 	        'admin.requests.request_completed_details')->name('request_completed_details');
                 
@@ -64,30 +60,30 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::get('/users/admin/reinstate/{user}',         [App\Http\Controllers\AdminUserController::class, 'reinstate'])->name('reinstate_admin');
                 Route::post('/users/admin/activity-log/sorting',    [App\Http\Controllers\AdminUserController::class, 'sortActivityLog'])->name('activity_log_sorting_admin');
 
-                Route::get('/users/cse',                          [App\Http\Controllers\AdminCSEController::class, 'index'])->name('list_cse');
-                Route::get('/users/cse/add',                      [App\Http\Controllers\AdminCSEController::class, 'create'])->name('add_cse');
-                Route::post('/users/cse/store',                   [App\Http\Controllers\AdminCSEController::class, 'store'])->name('store_cse');
-                Route::get('/users/cse/edit/{user}',              [App\Http\Controllers\AdminCSEController::class, 'edit'])->name('edit_cse');
-                Route::get('/users/cse/summary/{user}',           [App\Http\Controllers\AdminCSEController::class, 'show'])->name('summary_cse');
-                Route::put('/users/cse/update/{user}',            [App\Http\Controllers\AdminCSEController::class, 'update'])->name('update_cse');
-                Route::get('/users/cse/delete/{user}',            [App\Http\Controllers\AdminCSEController::class, 'delete'])->name('delete_cse');
-                Route::get('/users/cse/deactivate/{user}',        [App\Http\Controllers\AdminCSEController::class, 'deactivate'])->name('deactivate_cse');
-                Route::get('/users/cse/reinstate/{user}',         [App\Http\Controllers\AdminCSEController::class, 'reinstate'])->name('reinstate_cse');
-                Route::post('/users/cse/activity-log/sorting',    [App\Http\Controllers\AdminCSEController::class, 'sortActivityLog'])->name('activity_log_sorting_cse');
+                Route::get('/users/cse',                            [App\Http\Controllers\AdminCSEController::class, 'index'])->name('list_cse');
+                Route::get('/users/cse/add',                        [App\Http\Controllers\AdminCSEController::class, 'create'])->name('add_cse');
+                Route::post('/users/cse/store',                     [App\Http\Controllers\AdminCSEController::class, 'store'])->name('store_cse');
+                Route::get('/users/cse/edit/{user}',                [App\Http\Controllers\AdminCSEController::class, 'edit'])->name('edit_cse');
+                Route::get('/users/cse/summary/{user}',             [App\Http\Controllers\AdminCSEController::class, 'show'])->name('summary_cse');
+                Route::put('/users/cse/update/{user}',              [App\Http\Controllers\AdminCSEController::class, 'update'])->name('update_cse');
+                Route::get('/users/cse/delete/{user}',              [App\Http\Controllers\AdminCSEController::class, 'delete'])->name('delete_cse');
+                Route::get('/users/cse/deactivate/{user}',          [App\Http\Controllers\AdminCSEController::class, 'deactivate'])->name('deactivate_cse');
+                Route::get('/users/cse/reinstate/{user}',           [App\Http\Controllers\AdminCSEController::class, 'reinstate'])->name('reinstate_cse');
+                Route::post('/users/cse/activity-log/sorting',      [App\Http\Controllers\AdminCSEController::class, 'sortActivityLog'])->name('activity_log_sorting_cse');
 
-                Route::get('/users/client/list', 	                [App\Http\Controllers\AdminClientController::class, 'index'])->name('list_client');
+                Route::get('/users/client/list', 	                 [App\Http\Controllers\AdminClientController::class, 'index'])->name('list_client');
                 Route::put('/users/client/update/{user}',            [App\Http\Controllers\AdminClientController::class, 'update'])->name('update_client');
                 Route::get('/users/client/delete/{user}',            [App\Http\Controllers\AdminClientController::class, 'delete'])->name('delete_client');
                 Route::get('/users/client/deactivate/{user}',        [App\Http\Controllers\AdminClientController::class, 'deactivate'])->name('deactivate_client');
                 Route::get('/users/client/reinstate/{user}',         [App\Http\Controllers\AdminClientController::class, 'reinstate'])->name('reinstate_client');
-                Route::get('/users/client/summary/{user}',         [App\Http\Controllers\AdminClientController::class, 'summary'])->name('summary_client');
+                Route::get('/users/client/summary/{user}',           [App\Http\Controllers\AdminClientController::class, 'summary'])->name('summary_client');
                 Route::post('/users/client/activity-log/sorting',    [App\Http\Controllers\AdminClientController::class, 'sortActivityLog'])->name('activity_log_sorting_client');
 
-                Route::get('/utilities/service-request-status',                             [App\Http\Controllers\ServiceRequestStatusController::class, 'index'])->name('utility_service_request_status');
-                Route::post('/utilities/service-request-status/store',                      [App\Http\Controllers\ServiceRequestStatusController::class, 'store'])->name('store_service_request_status');
-                Route::get('/utilities/service-request-status/edit/{id}',                   [App\Http\Controllers\ServiceRequestStatusController::class, 'edit'])->name('edit_service_request_status');
-                Route::put('/utilities/service-request-status/update/{id}',                    [App\Http\Controllers\ServiceRequestStatusController::class, 'update'])->name('update_service_request_status');
-                Route::get('/utilities/service-request-status/delete/{id}',                 [App\Http\Controllers\ServiceRequestStatusController::class, 'delete'])->name('delete_service_request_status');
+                Route::get('/utilities/service-request-status',                     [App\Http\Controllers\ServiceRequestStatusController::class, 'index'])->name('utility_service_request_status');
+                Route::post('/utilities/service-request-status/store',              [App\Http\Controllers\ServiceRequestStatusController::class, 'store'])->name('store_service_request_status');
+                Route::get('/utilities/service-request-status/edit/{id}',           [App\Http\Controllers\ServiceRequestStatusController::class, 'edit'])->name('edit_service_request_status');
+                Route::put('/utilities/service-request-status/update/{id}',         [App\Http\Controllers\ServiceRequestStatusController::class, 'update'])->name('update_service_request_status');
+                Route::get('/utilities/service-request-status/delete/{id}',         [App\Http\Controllers\ServiceRequestStatusController::class, 'delete'])->name('delete_service_request_status');
 
                 Route::view('/users/utilities/reset-password', 	    'admin.utilities.reset_password')->name('utility_reset_password');
                 // Route::view('/users/utilities/project-status', 	    'admin.utilities.project_status')->name('utility_service_request_status');
@@ -108,16 +104,21 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::view('/franchise/edit', 	                    'admin.franchise.edit')->name('edit_franchise');
                 Route::view('/franchise/list', 	                    'admin.franchise.list')->name('list_franchise');
 
-                Route::get('/tools-inventory',                             [App\Http\Controllers\ToolsInventoryController::class, 'index'])->name('tools_inventory');
-                Route::post('/tools-inventory/store',                      [App\Http\Controllers\ToolsInventoryController::class, 'store'])->name('store_tools_inventory');
-                Route::get('/tools-inventory/edit/{id}',                   [App\Http\Controllers\ToolsInventoryController::class, 'edit'])->name('edit_tools_inventory');
-                Route::put('/tools-inventory/update/{id}',                    [App\Http\Controllers\ToolsInventoryController::class, 'update'])->name('update_tools_inventory');
-                Route::get('/tools-inventory/delete/{id}',                 [App\Http\Controllers\ToolsInventoryController::class, 'delete'])->name('delete_tools_inventory');
+                Route::get('/tools-inventory',                      [App\Http\Controllers\ToolsInventoryController::class, 'index'])->name('tools_inventory');
+                Route::post('/tools-inventory/store',               [App\Http\Controllers\ToolsInventoryController::class, 'store'])->name('store_tools_inventory');
+                Route::get('/tools-inventory/edit/{id}',            [App\Http\Controllers\ToolsInventoryController::class, 'edit'])->name('edit_tools_inventory');
+                Route::put('/tools-inventory/update/{id}',          [App\Http\Controllers\ToolsInventoryController::class, 'update'])->name('update_tools_inventory');
+                Route::get('/tools-inventory/delete/{id}',          [App\Http\Controllers\ToolsInventoryController::class, 'delete'])->name('delete_tools_inventory');
 
-                Route::view('/tools-request', 	                    'admin.tools.requests')->name('tools_request');
+                Route::get('/tools-request',                        [App\Http\Controllers\ToolsRequestController::class, 'index'])->name('tools_request');
+                Route::get('/tools-request/details/{id}',           [App\Http\Controllers\ToolsRequestController::class, 'toolRequestDetails'])->name('tool_request_details');
+                Route::get('/tools-request/approve/{id}',           [App\Http\Controllers\ToolsRequestController::class, 'approveRequest'])->name('approve_tool_request');
+                Route::get('/tools-request/decline/{id}',           [App\Http\Controllers\ToolsRequestController::class, 'declineRequest'])->name('decline_tool_request');
+                Route::get('/tools-request/return/{id}',            [App\Http\Controllers\ToolsRequestController::class, 'returnToolsRequested'])->name('return_tools_requested');
                 
-                Route::get('/rfq',                             [App\Http\Controllers\RFQController::class, 'index'])->name('rfq');
-                Route::get('/rfq/details/{id}',                [App\Http\Controllers\RFQController::class, 'rfqDetails'])->name('rfq_details');
+                
+                Route::get('/rfq',                                  [App\Http\Controllers\RFQController::class, 'index'])->name('rfq');
+                Route::get('/rfq/details/{id}',                     [App\Http\Controllers\RFQController::class, 'rfqDetails'])->name('rfq_details');
                 
                 Route::get('/services',                             [App\Http\Controllers\ServicesController::class, 'index'])->name('services');
                 Route::post('/services/store',                      [App\Http\Controllers\ServicesController::class, 'store'])->name('store_services');

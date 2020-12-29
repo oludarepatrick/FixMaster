@@ -30,6 +30,16 @@ class ToolsInventory extends Model
     {
         return $this->hasMany(User::class, 'user_id')->withDefault();
     }
+
+    public function toolRequestBatch()
+    {
+        return $this->hasOne(ToolsRequestBatch::class, 'tool_id', 'id');
+    }
+
+    public function toolRequestBatches()
+    {
+        return $this->hasMany(ToolsRequestBatch::class, 'tool_id', 'id');
+    }
     
     /** 
      * Scope a query to only include active banches
