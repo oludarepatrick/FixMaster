@@ -30,4 +30,16 @@ class ToolsInventory extends Model
     {
         return $this->hasMany(User::class, 'user_id')->withDefault();
     }
+    
+    /** 
+     * Scope a query to only include active banches
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */    
+    //Function to return all active clients  
+    public function scopeAvalaibleTools($query){
+        return $query->select('id', 'name')
+        ->where('available', '>', '0');
+    }
 }

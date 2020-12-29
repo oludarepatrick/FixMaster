@@ -81,5 +81,10 @@ Route::get('/services',                    [App\Http\Controllers\PageController:
 //Essential Routes
 Route::post('/lga-list',                    [App\Http\Controllers\EssentialsController::class, 'lgasList'])->name('lga_list');
 
+
+Route::post('/avalaible-tool-quantity',                    [App\Http\Controllers\EssentialsController::class, 'getAvailableToolQuantity'])->name('available_quantity');
+
+
+
 // Auth::routes();
 

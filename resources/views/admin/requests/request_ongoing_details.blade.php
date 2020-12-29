@@ -169,204 +169,248 @@
 
                 <div class="tab-pane fade" id="update3" role="tabpanel" aria-labelledby="update-tab3">
                   <h6>UPDATE ACTION</h6>
-
-                  <div class="form-row mt-4">
-                    <div class="tx-13 mg-b-25">
-                      <div id="wizard3">
-                        <h3>Project Progress</h3>
-                        <section>
-                          <p class="mg-b-0">Specify the current progress of the job.</p>
-                          <div class="form-row mt-4">
-                            <div class="form-group col-md-8">
-                              {{-- <label for="inputEmail4">Status Options</label/> --}}
-                              <select class="form-control custom-select @error('service_request_status_id') is-invalid @enderror" name="service_request_status_id" required>
-                                <option value="" selected>Select...</option>
-                                @foreach($serviceRequestStatuses as $status)
-                                  <option value="{{ $status->id }}" {{ old('service_request_status_id') == $status->id ? 'selected' : ''}}>{{ $status->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('service_request_status_id')
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                              </span>
-                            @enderror
-                            </div>
-                          </div>
-                        </section>
-          
-                        <h3>Price Tagging</h3>
-                        <section>
-                          <p class="mg-b-0">Allocate prices received from the Supplier to generate a Pro forma invoice</p>
-                          <small class="text-danger">This portion will display only if the CSE initially executed a RFQ</small>
-                          
-                          <div class="mt-4 form-row">
-                            <div class="form-group col-md-4">
-                              <label for="inputPassword4">Supplier's Name</label>
-                              <input type="text" class="form-control" id="inputPassword4">
-                            </div>
-      
-                            <div class="form-group col-md-4">
-                              <label for="inputEmail4">Delivery Fee</label>
-                              <input type="tel" class="form-control amount" id="inputEmail4" >
-                            </div>
-              
-                            <div class="form-group col-md-4">
-                              <label for="inputPassword4">Delivery Time</label>
-                              <input type="datetime-local" class="form-control" id="inputPassword4">
-                            </div>
-                          </div>
-      
-                          <div class="form-row">
-                              <div class="form-group col-md-4">
-                                <label for="inputEmail4">Component Name</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="Plug" readonly>
-                              </div>
-                
-                              <div class="form-group col-md-3">
-                                <label for="inputPassword4">Model Number</label>
-                                <input type="text" class="form-control" id="inputPassword4" value="PL-2342" readonly>
-                              </div>
-                              <div class="form-group col-md-2">
-                                <label for="inputPassword4">Quantity</label>
-                                <input type="number" class="form-control" id="inputPassword4" value="2" placeholder="">
-                              </div>
-                              <div class="form-group col-md-3">
-                                <label for="inputPassword4">Amount</label>
-                                <input type="tel" class="form-control amount" id="inputPassword4" placeholder="">
-                              </div>
-                          </div>
-                          <div class="form-row">
-                              <div class="form-group col-md-4">
-                                <label for="inputEmail4">Component Name</label>
-                                <input type="text" class="form-control" id="inputEmail4" value="Carburetor" readonly>
-                              </div>
-                
-                              <div class="form-group col-md-3">
-                                <label for="inputPassword4">Model Number</label>
-                                <input type="text" class="form-control" id="inputPassword4" value="TX-2342" readonly>
-                              </div>
-                              <div class="form-group col-md-2">
-                                <label for="inputPassword4">Quantity</label>
-                                <input type="number" class="form-control" id="inputPassword4" value="1" placeholder="">
-                              </div>
-                              <div class="form-group col-md-3">
-                                <label for="inputPassword4">Amount</label>
-                                <input type="tel" class="form-control amount" id="inputPassword4" placeholder="">
-                              </div>
-                          </div>
-
-                        </section>
-
-                        <h3>RFQ Acceptance</h3>
-                        <section>
-                          <small class="text-danger">This portion will display only if the CSE initially executed a RFQ, the Client paid for the components and the Supplier has made the delivery.</small>
-
-                          <div class="form-row">
-                            <div class="form-group col-md-8">
-                              <label for="inputEmail4">Select Option</label>
-                              <select class="form-control custom-select" id="Sortbylist-Shop">
-                                <option>Select...</option>
-                                <option>Yes, all ordered components were delivered</option>
-                                <option>No, all ordered components were not delivered</option>
-                            </select>
-                            </div>
-                          </div>
-
-                        </section>
-
-                        <h3>New RFQ</h3>
-                        <section>
-                          <p class="mg-b-0">A request for quotation is a business process in which a company or public entity requests a quote from a supplier for the purchase of specific products or services.</p>
-                          <h4 id="section1" class="mt-4 mb-2">Initiate RFQ?</h4>
-          
-                          <div class="form-row mt-4">
-                              <div class="form-group col-md-4">
-                                  <div class="custom-control custom-radio">
-                                  <input type="radio" class="custom-control-input" id="rfqYes" name="intiate_rfq">
-                                  <label class="custom-control-label" for="rfqYes">Yes</label><br>
-                                  </div>
-                              </div>
-                              <div class="form-group col-md-4 d-flex align-items-end">
-                                  <div class="custom-control custom-radio">
-                                  <input type="radio" class="custom-control-input" id="rfqNo" name="intiate_rfq" checked>
-                                  <label class="custom-control-label" for="rfqNo">No</label><br>
-                                  </div>
-                              </div>
-                          </div>
-          
-                          <div class="d-none d-rfq">
-                              <h4 id="section1" class="mt-4 mb-2">Make Request</h4>
-                              <div class="form-row">
-                                  <div class="form-group col-md-4">
-                                    <label for="inputEmail4">Component Name</label>
-                                    <input type="text" class="form-control" id="inputEmail4">
-                                  </div>
+                  {{-- {{ dd($requestDetail->rfq()->count()) }} --}}
+                  <form method="POST" action="{{ route('admin.request_ongoing_update') }}">
+                    @csrf
+                    <input type="hidden" value="{{ $requestDetail->user_id }}" name="client_id" required>
+                    <input type="hidden" value="{{ $requestDetail->id }}" name="service_request_id" required>
                     
-                                  <div class="form-group col-md-3">
-                                    <label for="inputPassword4">Model Number</label>
-                                    <input type="text" class="form-control" id="inputPassword4" placeholder="">
-                                  </div>
-          
-                                  <div class="form-group col-md-2">
-                                    <label for="inputPassword4">Quantity</label>
-                                    <input type="number" class="form-control" id="inputPassword4" placeholder="">
-                                  </div>
-          
-                                  <div class="form-group col-md-1 mt-1">
-                                      <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5 mt-4 add-rfq" type="button"><i class="fas fa-plus" class="wd-10 mg-r-5" ></i></button>
-                                  </div>
+                    <div class="form-row mt-4">
+                      <div class="tx-13 mg-b-25">
+                        <div id="wizard3">
+                          <h3>Project Progress</h3>
+                          <section>
+                            <p class="mg-b-0">Specify the current progress of the job.</p>
+                            <div class="form-row mt-4">
+                              <div class="form-group col-md-8">
+                                {{-- <label for="inputEmail4">Status Options</label/> --}}
+                                <select class="form-control custom-select @error('service_request_status_id') is-invalid @enderror" name="service_request_status_id">
+                                    <option value="" selected>Select...</option>
+                                    @foreach($serviceRequestStatuses as $status)
+                                      <option value="{{ $status->id }}" {{ old('service_request_status_id') == $status->id ? 'selected' : ''}}>{{ $status->name }}</option>
+                                    @endforeach
+                                </select>
+                              @error('service_request_status_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
                               </div>
-          
-                              <span class="add-rfq-row"></span>
-          
-                          </div>
-                        </section>
-          
-                        <h3>New Tools Request</h3>
-                        <section>
-                            <p class="mg-b-0">A request form to procure tools and equipments from <span>FixMaster</span> to properly carry out a Service Request.</p>
-          
-                              <h4 id="section1" class="mt-4 mb-2">Initiate Tools Request?</h4>
-                              <div class="form-row mt-4">
-                                  <div class="form-group col-md-4">
-                                      <div class="custom-control custom-radio">
-                                      <input type="radio" class="custom-control-input" id="trfYes" name="intiate_trf">
-                                      <label class="custom-control-label" for="trfYes">Yes</label><br>
-                                      </div>
-                                  </div>
-                                  <div class="form-group col-md-4 d-flex align-items-end">
-                                      <div class="custom-control custom-radio">
-                                      <input type="radio" class="custom-control-input" id="trfNo" checked name="intiate_trf">
-                                      <label class="custom-control-label" for="trfNo">No</label><br>
-                                      </div>
-                                  </div>
+                            </div>
+                          </section>
+                          {{-- {{ dd($requestDetail->rfq->rfqBatches) }} --}}
+                          {{-- This portion will display only if the CSE initially executed a RFQ --}}
+                          @if($requestDetail->rfq()->where('status', '0')->count() > 0)
+
+                          <h3>Price Tagging</h3>
+                          <section>
+                            <p class="mg-b-0">Allocate prices received from the Supplier to generate a Pro forma invoice</p>
+                            <small class="text-danger">This portion will display only if the CSE initially executed a RFQ</small>
+                            
+                            <div class="mt-4 form-row">
+                              <div class="form-group col-md-4">
+                                <label for="name">Supplier's Name</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name') }}" name="name">
+                                @error('name')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                                @enderror
                               </div>
-          
-                              <div class="d-none d-trf">
-                                  
-                                  <h4 id="section1" class="mt-4 mb-2">Make Request</h4>
-                                  <div class="form-row">
-                                      <div class="form-group col-md-4">
-                                        <label for="inputEmail4">Equipment/Tools Name</label>
-                                        <input type="text" class="form-control" id="inputEmail4">
-                                      </div>
-                        
-                                      <div class="form-group col-md-2">
-                                        <label for="inputPassword4">Quantity</label>
-                                        <input type="tel" class="form-control quantity" id="inputPassword4" maxlength="2">
-                                      </div>
-                                      <div class="form-group col-md-2 mt-1">
-                                          <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5 mt-4 add-trf" type="button"><i class="fas fa-plus" class="wd-10 mg-r-5" ></i></button>
-                                      </div>
-                                  </div>
-          
-                                  <span class="add-trf-row"></span>
-          
+        
+                              <div class="form-group col-md-4">
+                                <label for="devlivery_fee">Delivery Fee</label>
+                                <input type="tel" class="form-control amount @error('devlivery_fee') is-invalid @enderror" id="devlivery_fee" name="devlivery_fee" value="{{ old('devlivery_fee') }}">
+                                @error('devlivery_fee')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                                @enderror
                               </div>
-                        </section>
+                
+                              <div class="form-group col-md-4">
+                                <label for="delivery_time">Delivery Time</label>
+                                <input type="datetime-local" class="form-control @error('delivery_time') is-invalid @enderror" name="delivery_time" id="delivery_time" value="{{ old('delivery_time') }}">
+                                @error('delivery_time')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                                @enderror
+                              </div>
+                            </div>
+                            @foreach($requestDetail->rfq->rfqBatches as $batch)
+                            <input type="hidden" value="{{ $batch->rfq_id }}" name="rfq_id" required>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                  <label for="component_name">Component Name</label>
+                                  <input type="text" class="form-control" id="component_name" name="component_name" value="{{ old('component_name') ?? $batch->component_name }}" readonly>
+                                </div>
+                  
+                                <div class="form-group col-md-3">
+                                  <label for="model_number">Model Number</label>
+                                  <input type="text" class="form-control" id="model_number" name="model_number" value="{{ old('model_number') ?? $batch->model_number }}" readonly>
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="quantity">Quantity</label>
+                                  <input type="number" class="form-control" id="quantity" name="quantity[]" value="{{ old('quantity') ?? $batch->quantity }}" min="{{ $batch->quantity }}" max="{{ $batch->quantity }}" readonly>
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label for="amount">Amount</label>
+                                  <input type="tel" class="form-control amount" id="amount" placeholder="" value="{{ old('amount') }}" name="amount[]" autocomplete="off">
+                                </div>
+                            </div>
+                            @endforeach
+                          </section>
+                          @endif
+
+                          {{-- This portion will display only if the CSE initially executed a RFQ, the Client paid for the components and the Supplier has made the delivery. --}}
+                          @if($requestDetail->rfq()->where('status', '2')->count() > 0)
+                          <h3>RFQ Acceptance</h3>
+                          <section>
+                            <small class="text-danger">This portion will display only if the CSE initially executed a RFQ, the Client paid for the components and the Supplier has made the delivery.</small>
+
+                            <div class="form-row">
+                              <div class="form-group col-md-8">
+                                <label for="inputEmail4">Select Option</label>
+                                <select class="form-control custom-select" id="Sortbylist-Shop">
+                                  <option>Select...</option>
+                                  <option>Yes, all ordered components were delivered</option>
+                                  <option>No, all ordered components were not delivered</option>
+                              </select>
+                              </div>
+                            </div>
+
+                          </section>
+                          @endif
+                          <h3>New RFQ</h3>
+                          <section>
+                            <p class="mg-b-0">A request for quotation is a business process in which a company or public entity requests a quote from a supplier for the purchase of specific products or services.</p>
+                            <h4 id="section1" class="mt-4 mb-2">Initiate RFQ?</h4>
+            
+                            <div class="form-row mt-4">
+                                <div class="form-group col-md-4">
+                                    <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="rfqYes" name="intiate_rfq" value="yes">
+                                    <label class="custom-control-label" for="rfqYes">Yes</label><br>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4 d-flex align-items-end">
+                                    <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="rfqNo" name="intiate_rfq" value="no">
+                                    <label class="custom-control-label" for="rfqNo">No</label><br>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="d-none d-rfq">
+                                <h4 id="section1" class="mt-4 mb-2">Make Request</h4>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                      <label for="component_name">Component Name</label>
+                                      <input type="text" class="form-control @error('component_name') is-invalid @enderror" id="component_name" name="component_name[]" value="{{ old('component_name') }}">
+                                      @error('component_name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                      @enderror
+                                    </div>
+                      
+                                    <div class="form-group col-md-3">
+                                      <label for="model_number">Model Number</label>
+                                      <input type="text" class="form-control @error('model_number') is-invalid @enderror" id="model_number" name="model_number[]" placeholder="" value="{{ old('model_number') }}">
+                                      @error('model_number')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                      @enderror
+                                    </div>
+            
+                                    <div class="form-group col-md-2">
+                                      <label for="quantity">Quantity</label>
+                                      <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity[]" min="1" pattern="\d*" maxlength="2" value="{{ old('quantity') }}">
+                                      @error('quantity')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                      @enderror
+                                    </div>
+            
+                                    <div class="form-group col-md-1 mt-1">
+                                        <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5 mt-4 add-rfq" type="button"><i class="fas fa-plus" class="wd-10 mg-r-5" ></i></button>
+                                    </div>
+                                </div>
+            
+                                <span class="add-rfq-row"></span>
+            
+                            </div>
+                          </section>
+            
+                          <h3>New Tools Request</h3>
+                          <section>
+                              <p class="mg-b-0">A request form to procure tools and equipments from <span>FixMaster</span> to properly carry out a Service Request.</p>
+            
+                                <h4 id="section1" class="mt-4 mb-2">Initiate Tools Request?</h4>
+                                <div class="form-row mt-4 ">
+                                    <div class="form-group col-md-4">
+                                        <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" id="trfYes" name="intiate_trf" value="yes">
+                                        <label class="custom-control-label" for="trfYes">Yes</label><br>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 d-flex align-items-end">
+                                        <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" id="trfNo" name="intiate_trf" value="no">
+                                        <label class="custom-control-label" for="trfNo">No</label><br>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="d-none d-trf">
+                                    
+                                    <h4 id="section1" class="mt-4 mb-2">Make Request</h4>
+                                    <div class="form-row tool-request">
+                                        <div class="form-group col-md-4">
+                                          <label for="tool_id">Equipment/Tools Name</label>
+                                          <select class="form-control custom-select @error('tool_id') is-invalid @enderror tool_id" id="tool_id" name="tool_id[]" >
+                                              <option value="" selected>Select...</option>
+                                              @foreach($tools as $tool)
+                                                <option value="{{ $tool->id }}" {{ old('tool_id') == $tool->id ? 'selected' : ''}} data-id="tool_quantity">{{ $tool->name }}</option>
+                                              @endforeach
+                                          </select>
+                                          @error('tool_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                          @enderror
+                                        </div>
+                          
+                                        <div class="form-group quantity-section col-md-2">
+                                          <label for="tool_quantity">Quantity</label>
+                                          <input type="number" class="form-control @error('tool_quantity') is-invalid @enderror tool_quantity" name="tool_quantity[]" id="tool_quantity" min="1" pattern="\d*" maxlength="2" value="{{ old('tool_quantity') }}">
+                                          @error('tool_quantity')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                          @enderror
+                                        </div>
+                                        <div class="form-group col-md-2 mt-1">
+                                            <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5 mt-4 add-trf" type="button"><i class="fas fa-plus" class="wd-10 mg-r-5" ></i></button>
+                                        </div>
+                                    </div>
+            
+                                    <span class="add-trf-row"></span>
+            
+                                </div>
+                          </section>
+
+                        </div>
                       </div>
-                    </div>
-                  </div><!-- df-example -->
+                    </div><!-- df-example -->
+
+                    <button type="submit" class="btn btn-primary d-none" id="update-progress">Update Progress</button>
+
+                  </form>
                 </div>
 
                 <div class="tab-pane fade" id="description3" role="tabpanel" aria-labelledby="description-tab3">
@@ -505,7 +549,7 @@
     </div>
 </div>
 
-@section('scripts')
+@push('scripts')
 <script>
   $(function(){
     'use strict'
@@ -515,6 +559,7 @@
       bodyTag: 'section',
       autoFocus: true,
       titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
+      loadingTemplate: '<span class="spinner"></span> #text#',
       labels: {
           // current: "current step:",
           // pagination: "Pagination",
@@ -523,7 +568,13 @@
           // previous: "Previous",
           loading: "Loading ..."
       },
-      stepsOrientation: 1
+      stepsOrientation: 1,
+      // transitionEffect: "fade",
+      // transitionEffectSpeed: 200,
+      showFinishButtonAlways: false,
+      onFinished: function (event, currentIndex) {
+        $('#update-progress').trigger('click');
+      },
     });
 
     let count = 1;
@@ -594,7 +645,7 @@
 
   function addRFQ(count){
 
-    let html = '<div class="form-row remove-rfq-row"><div class="form-group col-md-4"><label for="inputEmail4">Component Name</label> <input type="text" class="form-control" id="inputEmail4" /></div><div class="form-group col-md-3"><label for="inputPassword4">Model Number</label> <input type="text" class="form-control" id="inputPassword4" placeholder="" /></div><div class="form-group col-md-2"><label for="inputPassword4">Quantity</label> <input type="number" class="form-control" id="inputPassword4" placeholder="" /></div><div class="form-group col-md-2 mt-1"> <button class="btn btn-sm pd-x-15 btn-danger btn-uppercase mg-l-5 mt-4 remove-rfq" type="button"><i class="fas fa-times" class="wd-10 mg-r-5"></i></button></div></div>';
+    let html = '<div class="form-row remove-rfq-row"><div class="form-group col-md-4"> <label for="component_name">Component Name</label> <input type="text" class="form-control @error('component_name') is-invalid @enderror" id="component_name" name="component_name[]" value="{{ old('component_name') }}"> @error('component_name') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror</div><div class="form-group col-md-3"> <label for="model_number">Model Number</label> <input type="text" class="form-control @error('model_number') is-invalid @enderror" id="model_number" name="model_number[]" placeholder="" value="{{ old('model_number') }}"> @error('model_number') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror</div><div class="form-group col-md-2"> <label for="quantity">Quantity</label> <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity[]" placeholder="" value="{{ old('quantity') }}"> @error('quantity') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror</div><div class="form-group col-md-2 mt-1"> <button class="btn btn-sm pd-x-15 btn-danger btn-uppercase mg-l-5 mt-4 remove-rfq" type="button"><i class="fas fa-times" class="wd-10 mg-r-5"></i></button></div></div>';
 
     $('.add-rfq-row').append(html);
 
@@ -602,11 +653,40 @@
 
   function addTRF(count){
 
-    let html = '<div class="form-row remove-trf-row"><div class="form-group col-md-4"> <label for="inputEmail4">Equipment/Tools Name</label> <input type="text" class="form-control" id="inputEmail4"></div><div class="form-group col-md-2"> <label for="inputPassword4">Quantity</label> <input type="tel" class="form-control quantity-2" maxlength="2" id="inputPassword4" placeholder=""></div><div class="form-group col-md-2 mt-1"> <button class="btn btn-sm pd-x-15 btn-danger btn-uppercase mg-l-5 mt-4 remove-trf" type="button"><i class="fas fa-times" class="wd-10 mg-r-5"></i> </button></div></div>';
+    let html = '<div class="tool-request form-row remove-trf-row"><div class="form-group col-md-4"> <label for="tool_id">Equipment/Tools Name</label> <select class="form-control custom-select @error('tool_id') is-invalid @enderror tool_id" id="tool_id" name="tool_id[]" ><option value="" selected>Select...</option> @foreach($tools as $tool)<option value="{{ $tool->id }}" {{ old('tool_id') == $tool->id ? 'selected' : ''}} data-id="tool_quantity'+count+'">{{ $tool->name }}</option> @endforeach </select> @error('tool_id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror</div><div class="form-group quantity-section col-md-2"> <label for="tool_quantity">Quantity</label> <input type="number" class="form-control @error('tool_quantity') is-invalid @enderror tool_quantity" name="tool_quantity[]" id="tool_quantity'+count+'" min="1" pattern="\d*" maxlength="2" value="{{ old('tool_quantity') }}"> @error('tool_quantity') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror</div><div class="form-group col-md-2 mt-1"> <button class="btn btn-sm pd-x-15 btn-danger btn-uppercase mg-l-5 mt-4 remove-trf" type="button"><i class="fas fa-times" class="wd-10 mg-r-5"></i> </button></div></div>';
 
     $('.add-trf-row').append(html);
 
   }
+
+  //Get available quantity of a particular tool.
+  $(document).on('change', '.tool_id', function () {
+      let toolId = $(this).find('option:selected').val();
+      let toolName = $(this).children('option:selected').text();
+      let quantityName = $(this).children('option:selected').data('id'); 
+      
+      $.ajax({
+          url: "{{ route('available_quantity') }}",
+          method: "POST",
+          dataType: "JSON",
+          data: {"_token": "{{ csrf_token() }}", "tool_id":toolId},
+          success: function(data){
+              if(data){
+                
+                  $('#'+quantityName+'').attr({
+                    "value": data,
+                    "max": data,
+                  });
+                 
+              }else{
+                  var message = 'Error occured while trying to get '+ toolName +' available quantity';
+                  var type = 'error';
+                  displayMessage(message, type);
+              }
+          },
+      })  
+  });
+
 </script>
-@endsection
+@endpush
 @endsection

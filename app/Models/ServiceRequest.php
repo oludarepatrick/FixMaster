@@ -103,6 +103,16 @@ class ServiceRequest extends Model
     {
         return $this->hasMany(ServiceRequestProgress::class, 'service_request_id');
     }
+
+    public function rfq()
+    {
+        return $this->hasOne(RFQ::class, 'service_request_id');
+    }
+
+    public function rfqs()
+    {
+        return $this->hasMany(RFQ::class, 'service_request_id');
+    }
     
      /** 
      * Scope a query to only include active banches

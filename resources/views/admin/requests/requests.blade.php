@@ -60,7 +60,7 @@
                   <tr 
                     @if((\Carbon\Carbon::now() > Carbon\Carbon::parse($serviceRequest->serviceRequestDetail->timestamp, 'UTC')) || (\Carbon\Carbon::now() == Carbon\Carbon::parse($serviceRequest->serviceRequestDetail->timestamp, 'UTC')))
                       class="table-danger"
-                    @elseif(\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($serviceRequest->serviceRequestDetail->timestamp, 'UTC')) == 1)
+                    @elseif(\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($serviceRequest->serviceRequestDetail->timestamp, 'UTC')) < 2)
                       class="table-warning"
                     @endif
                   >

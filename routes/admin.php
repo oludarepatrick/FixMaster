@@ -32,6 +32,8 @@ Route::middleware(['adminRole'])->group(function() {
 
                 Route::get('/requests/ongoing/details/{id}',           [App\Http\Controllers\AdminRequestController::class, 'ongoingRequestDetails'])->name('request_ongoing_details');
 
+                Route::post('/requests/ongoing/update',     [App\Http\Controllers\AdminRequestController::class, 'updateOngoingProgress'])->name('request_ongoing_update');
+
                 Route::get('/requests/ongoing/completed/{id}',                             [App\Http\Controllers\AdminRequestController::class, 'markRequestAsCompleted'])->name('mark_request_as_completed');
                 
                 Route::view('/requests/details/completed', 	        'admin.requests.request_completed_details')->name('request_completed_details');
@@ -113,9 +115,10 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::get('/tools-inventory/delete/{id}',                 [App\Http\Controllers\ToolsInventoryController::class, 'delete'])->name('delete_tools_inventory');
 
                 Route::view('/tools-request', 	                    'admin.tools.requests')->name('tools_request');
-                // Route::view('/tools-inventory', 	                'admin.tools.inventory')->name('tools_inventory');
-                Route::view('/rfq', 	                            'admin.rfq')->name('rfq');
-
+                
+                Route::get('/rfq',                             [App\Http\Controllers\RFQController::class, 'index'])->name('rfq');
+                Route::get('/rfq/details/{id}',                [App\Http\Controllers\RFQController::class, 'rfqDetails'])->name('rfq_details');
+                
                 Route::get('/services',                             [App\Http\Controllers\ServicesController::class, 'index'])->name('services');
                 Route::post('/services/store',                      [App\Http\Controllers\ServicesController::class, 'store'])->name('store_services');
                 Route::get('/services/delete/{id}',                 [App\Http\Controllers\ServicesController::class, 'delete'])->name('delete_service');
