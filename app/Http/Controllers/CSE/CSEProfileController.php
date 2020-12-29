@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL; 
 use App\Models\ActivityLog;
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\RecordActivityLogController;
 use Route;
 
 class CSEProfileController extends Controller
