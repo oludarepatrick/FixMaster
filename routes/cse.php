@@ -36,6 +36,9 @@ Route::middleware(['cseRole'])->group(function() {
         Route::get('/view-profile',                 [App\Http\Controllers\CSE\CSEProfileController::class, 'view_profile' ])->name('cse.view_profile');
         // Route::view('/profile/edit', 	        'cse.edit_profile')->name('cse.edit_profile');
 
+        // Route::get('/add-message',                   [App\Http\Controllers\CSE\CSEMessageController::class, 'sendMessage' ])->name('add-message');
+        Route::post('save-message-data',             [App\Http\Controllers\CSE\CSEMessageController::class, 'saveMessageData' ])->name('cse.save-message-data');
+
         Route::view('/payments', 	                'cse.payments')->name('cse.payments');
         Route::view('/messages', 	                'cse.messages')->name('cse.messages');
         Route::view('/messages/sent', 	            'cse.messages_sent')->name('cse.messages_sent');
