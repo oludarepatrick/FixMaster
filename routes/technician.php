@@ -32,6 +32,8 @@ Route::middleware(['technicianRole'])->group(function() {
             Route::post('/password/upadte',             [App\Http\Controllers\Technician\TechnicianProfileController::class, 'update_password'])->name('technician.update_password');
             Route::get('/view-profile',                 [App\Http\Controllers\Technician\TechnicianProfileController::class, 'view_profile' ])->name('technician.view_profile');
 
+
+
             Route::view('/payments', 	                'technician.payments')->name('technician.payments');
             Route::view('/messages', 	                'technician.messages')->name('technician.messages');
             Route::view('/messages/sent', 	            'technician.messages_sent')->name('technician.messages_sent');

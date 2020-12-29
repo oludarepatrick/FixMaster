@@ -1,3 +1,4 @@
+
 <div class="modal fade" id="cseMessageComposer" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg wd-sm-650" role="document">
       <div class="modal-content">
@@ -6,15 +7,13 @@
             <span aria-hidden="true">&times;</span>
           </a>
           <h5 class="mg-b-2"><strong>Send Message</strong></h5>
+          <form method="POST" action="{{route('cse.save-message-data')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+            {{ csrf_field() }}
           <div class="form-row">
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Select User</label>
-                    <select class="custom-select" id="request-sorting">
-                        <option value="None">Select...</option>
-                        <option value="">FixMaster</option>
-                        <option value="Date">Ongoing Jobs</option>
-                    </select>
+                   
                 </div>
             </div><!--end col-->
 
