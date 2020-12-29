@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['cseRole'])->group(function() {
     Route::prefix('cse')->group(function () {
-        Route::view('/', 			                'cse.home')->name('cse.home');
+        Route::get('/',                 [App\Http\Controllers\CSE\CSEProfileController::class, 'home'])->name('cse.home');
+        // Route::view('/', 			                'cse.home')->name('cse.home');
         Route::view('/requests', 	                'cse.requests')->name('cse.requests');
         Route::view('/requests/details/new', 	    'cse.request_details')->name('cse.request_details');
         Route::view('/requests/details/ongoing', 	'cse.request_ongoing_details')->name('cse.request_ongoing_details');

@@ -22,7 +22,7 @@ class AdminDashboardController extends Controller
     }
 
     public function index(){
-        
+
         //Get Total requests
         $totalRequests = ServiceRequest::get()->count();
 

@@ -26,6 +26,23 @@ class CSEProfileController extends Controller
         $this->middleware('auth:web');
     }
 
+    public function home(){
+
+        $cse = CSE::where('user_id', Auth::id())->first();
+
+        $serviceRequests = $cse->requests;
+
+        foreach($serviceRequests as $item){
+            // $technician = $item;
+
+            return $item->technician->first_name.' '.$item->technician->last_name;
+        }
+
+        // ->user->technician->first_name;
+
+        return view('cse.home');
+    }
+
     //call the profile page with credentials
     public function edit_profile(Request $request)
     {
