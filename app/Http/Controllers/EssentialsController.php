@@ -214,4 +214,17 @@ class EssentialsController extends Controller
             'is_read'           =>  '0'
         ]); 
     }
+
+    public function notifyClientOfCSETechnicianAssigning($clientName, $clientId, $securityCode, $jobReference){
+
+        $body = '<p>Hello <strong>'.$clientName.'</strong>, we are glad to inform you that our best Client Service Executive and a Technician has been assigned to your Service Request (<strong>'.$jobReference.'</strong>). Once again, here is your Security Code to verify their identities.</p><p><strong>Security Code</strong>: '.$securityCode.'</p><div><div>Thanks,</div><div>FixMaster Management</div></div>';
+
+        Message::create([
+            'sender_id'         =>  4, 
+            'recipient_id'      =>  $clientId, 
+            'subject'           =>  'CSE & Technician has been assigned to '.$jobReference.' service request', 
+            'body'              =>  $body, 
+            'is_read'           =>  '0'
+        ]); 
+    }
 }
