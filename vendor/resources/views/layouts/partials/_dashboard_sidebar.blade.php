@@ -158,7 +158,7 @@
 {{-- {{ dd($user->adminPermissions) }} --}}
 
 <!-- START ADMIN SIDEBAR MENU -->
-{{-- @if(Route::currentRouteNamed('admin.home', 'admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details', 'admin.payments', 'admin.messages', 'admin.messages_sent', 'admin.view_profile', 'admin.edit_profile', 'admin.technicians', 'admin.technicians_profile', 'admin.add_admin', 'admin.list_admin', 'admin.summary_admin', 'admin.edit_admin', 'admin.activity_log_admin', 'admin.add_cse', 'admin.list_cse', 'admin.summary_cse', 'admin.edit_cse', 'admin.activity_log_cse', 'admin.list_client', 'admin.summary_client', 'admin.utility_reset_password', 'admin.utility_service_request_status', 'admin.utility_verify_payment', 'admin.add_technician', 'admin.list_technician', 'admin.summary_technician', 'admin.edit_technician', 'admin.activity_log_technician', 'admin.add_franchise', 'admin.edit_franchise', 'admin.list_franchise', 'admin.tools_request', 'admin.tools_inventory', 'admin.rfq', 'admin.services', 'admin.add_category', 'admin.edit_category', 'admin.list_category', 'admin.review_category', 'admin.disbursed_payments', 'admin.received_payments', 'admin.category_ratings', 'admin.job_ratings', 'admin.location_request', 'admin.add_payment_gateway', 'admin.list_payment_gateway', 'admin.edit_payment_gateway')) --}}
+{{-- @if(Route::currentRouteNamed('admin.home', 'admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details', 'admin.payments', 'admin.inbox_messages', 'admin.outbox_messages', 'admin.view_profile', 'admin.edit_profile', 'admin.technicians', 'admin.technicians_profile', 'admin.add_admin', 'admin.list_admin', 'admin.summary_admin', 'admin.edit_admin', 'admin.activity_log_admin', 'admin.add_cse', 'admin.list_cse', 'admin.summary_cse', 'admin.edit_cse', 'admin.activity_log_cse', 'admin.list_client', 'admin.summary_client', 'admin.utility_reset_password', 'admin.utility_service_request_status', 'admin.utility_verify_payment', 'admin.add_technician', 'admin.list_technician', 'admin.summary_technician', 'admin.edit_technician', 'admin.activity_log_technician', 'admin.add_franchise', 'admin.edit_franchise', 'admin.list_franchise', 'admin.tools_request', 'admin.tools_inventory', 'admin.rfq', 'admin.services', 'admin.add_category', 'admin.edit_category', 'admin.list_category', 'admin.review_category', 'admin.disbursed_payments', 'admin.received_payments', 'admin.category_ratings', 'admin.job_ratings', 'admin.location_request', 'admin.add_payment_gateway', 'admin.list_payment_gateway', 'admin.edit_payment_gateway')) --}}
 {{-- {{ dd($user) }} --}}
 @if($user->designation === '[SUPER_ADMIN_ROLE]' || $user->designation === '[ADMIN_ROLE]')
 <aside class="aside aside-fixed" id="sidebarMenu">
@@ -179,7 +179,7 @@
       <div class="d-flex align-items-center justify-content-start">
         <a href="" class="avatar"><img src="{{ asset('assets/images/home-fix-logo-coloredd.png') }}" class="rounded-circle" alt="Male Avatar"></a>
         <div class="aside-alert-link">
-        <a href="{{ route('admin.messages') }}" class="new" data-toggle="tooltip" title="You have 2 unread messages"><i data-feather="message-square"></i></a>
+        <a href="{{ route('admin.inbox_messages') }}" class="new" data-toggle="tooltip" title="You have 2 unread messages"><i data-feather="message-square"></i></a>
           {{-- <a href="" class="new" data-toggle="tooltip" title="You have 4 new notifications"><i data-feather="bell"></i></a> --}}
         <a href="{{ route('logout') }}" data-toggle="tooltip" title="Sign out"><i data-feather="log-out"></i></a>
         </div>
@@ -223,11 +223,11 @@
         <li class="nav-item {{ Route::currentRouteNamed('admin.location_request') ? 'active show' : '' }}"><a href="{{ route('admin.location_request') }}" class="nav-link"><i data-feather="map-pin"></i> <span>Location Request</span></a></li>
       @endif
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.messages', 'admin.messages_sent') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.inbox_messages', 'admin.outbox_messages') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
         <ul> 
-          <li class="{{ Route::currentRouteNamed('admin.messages') ? 'active' : '' }}"><a href="{{ route('admin.messages') }}">Inbox</a></li>
-          <li class="{{ Route::currentRouteNamed('admin.messages_sent') ? 'active' : '' }}"><a href="{{ route('admin.messages_sent') }}">Sent</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.inbox_messages') ? 'active' : '' }}"><a href="{{ route('admin.inbox_messages') }}">Inbox</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.outbox_messages') ? 'active' : '' }}"><a href="{{ route('admin.outbox_messages') }}">Sent</a></li>
           <li><a href="#admin.essageComposer" data-toggle="modal">Compose</a></li>
         </ul>
       </li>

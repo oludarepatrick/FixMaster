@@ -103,7 +103,7 @@ class ToolsRequestController extends Controller
             $severity = 'Error';
             $actionUrl = Route::currentRouteAction();
             $controllerActionPath = URL::full();
-            $message = 'An error occurred when '.Auth::user()->fullName->name.' was trying to approve Tools request with Bacth number: '.$batchNumberExists->batch_number.'.';
+            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to approve Tools request with Bacth number: '.$batchNumberExists->batch_number.'.';
 
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 
@@ -155,7 +155,7 @@ class ToolsRequestController extends Controller
             $severity = 'Error';
             $actionUrl = Route::currentRouteAction();
             $controllerActionPath = URL::full();
-            $message = 'An error occurred when '.Auth::user()->fullName->name.' was trying to decline Tools request with Bacth number: '.$batchNumberExists->batch_number.'.';
+            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to decline Tools request with Bacth number: '.$batchNumberExists->batch_number.'.';
 
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 
@@ -206,7 +206,7 @@ class ToolsRequestController extends Controller
             $severity = 'Error';
             $actionUrl = Route::currentRouteAction();
             $controllerActionPath = URL::full();
-            $message = 'An error occurred when '.Auth::user()->fullName->name.' was trying to mark Tools request with Bacth number: '.$batchNumberExists->batch_number.' as returned.';
+            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to mark Tools request with Bacth number: '.$batchNumberExists->batch_number.' as returned.';
 
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 

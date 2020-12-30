@@ -158,7 +158,6 @@ class User extends Authenticatable
         return $this->hasMany(CSE::class);
     }
 
-
     public function csecategory()
     {
         return $this->hasOne(CSECategory::class, 'cse_id');

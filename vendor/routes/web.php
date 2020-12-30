@@ -146,8 +146,8 @@ Auth::routes();
                 Route::view('/profile', 	                'admin.view_profile')->name('view_profile');
                 Route::view('/profile/edit', 	            'admin.edit_profile')->name('edit_profile');
                 Route::view('/payments', 	                'admin.payments')->name('payments');
-                Route::view('/messages', 	                'admin.messages')->name('messages');
-                Route::view('/messages/sent', 	            'admin.messages_sent')->name('messages_sent');
+                Route::view('/messages', 	                'admin.inbox_messages')->name('messages');
+                Route::view('/messages/sent', 	            'admin.outbox_messages')->name('messages_sent');
 
                 Route::get('/users/admin',                          [App\Http\Controllers\AdminUserController::class, 'index'])->name('list_admin');
                 Route::get('/users/admin/add',                      [App\Http\Controllers\AdminUserController::class, 'create'])->name('add_admin');

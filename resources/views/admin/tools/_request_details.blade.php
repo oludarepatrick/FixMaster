@@ -22,5 +22,5 @@
   </div>
 
   @if($toolRequestDetails->is_returned == '1')
-  <small class="text-center font-weight-bold">Tools were returned on {{ Carbon\Carbon::parse($toolRequestDetails->updated_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</small>
+  <small class="text-success font-weight-bold">Tools were returned on {{ Carbon\Carbon::parse($toolRequestDetails->updated_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</small>
   @endif

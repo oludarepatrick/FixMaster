@@ -354,7 +354,7 @@ class AdminRequestController extends Controller
             $severity = 'Error';
             $actionUrl = Route::currentRouteAction();
             $controllerActionPath = URL::full();
-            $message = 'An error occurred when '.Auth::user()->fullName->name.' was trying to update '.$serviceRequestExists->job_reference.' job.';
+            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to update '.$serviceRequestExists->job_reference.' job.';
 
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 

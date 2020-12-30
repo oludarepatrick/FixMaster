@@ -179,7 +179,7 @@
       <div class="d-flex align-items-center justify-content-start">
         <a href="" class="avatar"><img src="{{ asset('assets/images/home-fix-logo-coloredd.png') }}" class="rounded-circle" alt="Male Avatar"></a>
         <div class="aside-alert-link">
-        <a href="{{ route('admin.messages') }}" class="new" data-toggle="tooltip" title="You have 2 unread messages"><i data-feather="message-square"></i></a>
+        <a href="{{ route('admin.inbox_messages') }}" class="new" data-toggle="tooltip" title="You have 2 unread messages"><i data-feather="message-square"></i></a>
           {{-- <a href="" class="new" data-toggle="tooltip" title="You have 4 new notifications"><i data-feather="bell"></i></a> --}}
         <a href="{{ route('logout') }}" data-toggle="tooltip" title="Sign out"><i data-feather="log-out"></i></a>
         </div>
@@ -223,11 +223,11 @@
         <li class="nav-item {{ Route::currentRouteNamed('admin.location_request') ? 'active show' : '' }}"><a href="{{ route('admin.location_request') }}" class="nav-link"><i data-feather="map-pin"></i> <span>Location Request</span></a></li>
       @endif
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.messages', 'admin.messages_sent') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.inbox_messages', 'admin.outbox_messages') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
         <ul> 
-          <li class="{{ Route::currentRouteNamed('admin.messages') ? 'active' : '' }}"><a href="{{ route('admin.messages') }}">Inbox</a></li>
-          <li class="{{ Route::currentRouteNamed('admin.messages_sent') ? 'active' : '' }}"><a href="{{ route('admin.messages_sent') }}">Sent</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.inbox_messages') ? 'active' : '' }}"><a href="{{ route('admin.inbox_messages') }}">Inbox</a></li>
+          <li class="{{ Route::currentRouteNamed('admin.outbox_messages') ? 'active' : '' }}"><a href="{{ route('admin.outbox_messages') }}">Sent</a></li>
           <li><a href="#admin.essageComposer" data-toggle="modal">Compose</a></li>
         </ul>
       </li>
@@ -306,7 +306,9 @@
         <ul>
           <li class="{{ Route::currentRouteNamed('admin.utility_service_request_status') ? 'active' : '' }}"><a href="{{ route('admin.utility_service_request_status') }}">Project Status</a></li>
           {{-- <li><a href="#">Referral</a></li> --}}
-          <li class="{{ Route::currentRouteNamed('admin.utility_reset_password') ? 'active' : '' }}"><a href="{{ route('admin.utility_reset_password') }}">Reset Password</a></li>
+          @if(Auth::user()->designation == '[SUPER_ADMIN_ROLE]')
+            <li class="{{ Route::currentRouteNamed('admin.utility_reset_password') ? 'active' : '' }}"><a href="{{ route('admin.utility_reset_password') }}">Reset Password</a></li>
+          @endif
           <li class="{{ Route::currentRouteNamed('admin.utility_verify_payment') ? 'active' : '' }}"><a href="{{ route('admin.utility_verify_payment') }}">Verify Payment</a></li>
         </ul>
       </li>

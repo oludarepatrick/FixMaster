@@ -45,8 +45,13 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::put('/profile/update-passsword',             [App\Http\Controllers\AdminProfileController::class, 'updatePassword'])->name('update_profile_password');
                 
                 Route::view('/payments', 	                        'admin.payments')->name('payments');
-                Route::view('/messages', 	                        'admin.messages')->name('messages');
-                Route::view('/messages/sent', 	                    'admin.messages_sent')->name('messages_sent');
+
+                Route::get('/messages/inbox',                       [App\Http\Controllers\AdminMessagingController::class, 'inbox'])->name('inbox_messages');
+                Route::get('/messages/inbox/details/{id}',                       [App\Http\Controllers\AdminMessagingController::class, 'inboxMessageDetails'])->name('inbox_message_details');
+                Route::get('/messages/outbox',                       [App\Http\Controllers\AdminMessagingController::class, 'outbox'])->name('outbox_messages');
+                Route::get('/messages/outbox/details/{id}',                       [App\Http\Controllers\AdminMessagingController::class, 'outboxMessageDetails'])->name('outbox_message_details');
+               
+
 
                 Route::get('/users/admin',                          [App\Http\Controllers\AdminUserController::class, 'index'])->name('list_admin');
                 Route::get('/users/admin/add',                      [App\Http\Controllers\AdminUserController::class, 'create'])->name('add_admin');
@@ -85,8 +90,9 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::put('/utilities/service-request-status/update/{id}',         [App\Http\Controllers\ServiceRequestStatusController::class, 'update'])->name('update_service_request_status');
                 Route::get('/utilities/service-request-status/delete/{id}',         [App\Http\Controllers\ServiceRequestStatusController::class, 'delete'])->name('delete_service_request_status');
 
-                Route::view('/users/utilities/reset-password', 	    'admin.utilities.reset_password')->name('utility_reset_password');
-                // Route::view('/users/utilities/project-status', 	    'admin.utilities.project_status')->name('utility_service_request_status');
+                Route::get('/users/utilities/reset-password',                     [App\Http\Controllers\UtilityController::class, 'index'])->name('utility_reset_password');
+                Route::post('/users/utilities/reset-password',                     [App\Http\Controllers\UtilityController::class, 'resetPassword'])->name('utility_save_password');
+
                 Route::view('/users/utilities/verify-payment', 	    'admin.utilities.verify_payment')->name('utility_verify_payment');
                 
                 Route::get('/users/technician',                          [App\Http\Controllers\AdminTechnicianController::class, 'index'])->name('list_technician');
