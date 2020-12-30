@@ -11,6 +11,7 @@ use App\Models\State;
 use App\Models\ToolsInventory;
 use App\Models\LocationAndBrowserInfo;
 use App\Models\Message;
+use App\Models\ServiceRequest;
 use App\Http\Controllers\MailController;
 
 class EssentialsController extends Controller
@@ -115,6 +116,72 @@ class EssentialsController extends Controller
             return $availableQuantity;
         }
     }
+
+    public function getAdministratorsList(Request $request){
+        if($request->ajax()){
+            
+            $administrators = User::ActiveAdmins()->get();
+
+            $data = [
+                'administrators'    =>  $administrators,
+            ];
+
+            return view('admin.messages._admin_users', $data);
+        }
+    }
+
+    public function getClientsList(Request $request){
+        if($request->ajax()){
+            
+            $clients = User::ActiveClientUsers()->get();
+
+            $data = [
+                'clients'    =>  $clients,
+            ];
+
+            return view('admin.messages._client_users', $data);
+        }
+    }
+
+    public function getTechniciansList(Request $request){
+        if($request->ajax()){
+            
+            $technicians = User::ActiveTechnicians()->get();
+
+            $data = [
+                'technicians'    =>  $technicians,
+            ];
+
+            return view('admin.messages._technician_users', $data);
+        }
+    }
+
+    public function getCsesList(Request $request){
+        if($request->ajax()){
+            
+            $cses = User::ActiveCses()->get();
+
+            $data = [
+                'cses'    =>  $cses,
+            ];
+
+            return view('admin.messages._cse_users', $data);
+        }
+    }
+
+    public function getOngoingServiceRequests(Request $request){
+        if($request->ajax()){
+            
+            $ongoingServiceRequests = ServiceRequest::where('service_request_status_id', '>', '3')->get();
+
+            $data = [
+                'ongoingServiceRequests'    =>  $ongoingServiceRequests,
+            ];
+
+            return view('admin.messages._ongoing_service_requests', $data);
+        }
+    }
+
 
     // This function will return  
     // A random string of specified length 
