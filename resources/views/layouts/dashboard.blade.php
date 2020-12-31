@@ -150,6 +150,23 @@
         });
     }
 
+    <script src="{{ asset('assets/dashboard/assets/js/jquery.tinymce.min.js') }}"></script>
+    
+    <script>
+      tinymce.init({
+        selector: '#message_body',
+        height: 200,
+        theme: 'modern',
+        plugins: [
+          'advlist autolink lists link charmap print preview hr anchor pagebreak',
+          'searchreplace wordcount visualblocks visualchars code',
+          'insertdatetime nonbreaking save table contextmenu directionality',
+          'emoticons template paste textcolor colorpicker textpattern'
+        ],
+        toolbar1: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link',
+        toolbar2: 'print preview | forecolor backcolor emoticons',
+        image_advtab: true
+      });
     </script>
 
     <script>

@@ -47,7 +47,7 @@
                           <option value="Others">Others</option>
                           <option value="Payments">Payments</option>
                           <option value="Profile">Profile</option>
-                          <option value="Requests">Requests</option>
+                          <option value="Request">Requests</option>
                           <option value="Unauthorized">Unauthorized</option>
                     </select>
                 </div>
