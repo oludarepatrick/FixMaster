@@ -44,5 +44,12 @@ Route::middleware(['cseRole'])->group(function() {
         Route::view('/messages', 	                'cse.messages')->name('cse.messages');
         Route::view('/messages/sent', 	            'cse.messages_sent')->name('cse.messages_sent');
         Route::view('/location-request', 	        'cse.location_request')->name('cse.location_request');
+
+
+        Route::get('/messages/inbox',                       [App\Http\Controllers\CSE\CSEMessageController::class, 'inbox'])->name('inbox_messages');
+        Route::get('/messages/inbox/details/{id}',          [App\Http\Controllers\CSE\CSEMessageController::class, 'inboxMessageDetails'])->name('inbox_message_details');
+        Route::get('/messages/outbox',                      [App\Http\Controllers\CSE\CSEMessageController::class, 'outbox'])->name('outbox_messages');
+        Route::get('/messages/outbox/details/{id}',         [App\Http\Controllers\CSE\CSEMessageController::class, 'outboxMessageDetails'])->name('outbox_message_details');
+
     });
 });

@@ -53,11 +53,11 @@
       <li class="nav-item {{ Route::currentRouteNamed('cse.location_request') ? 'active show' : '' }}""><a href="{{ route('cse.location_request') }}" class="nav-link"><i data-feather="map-pin"></i> <span>Location Request</span></a></li>
 
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('cse.messages', 'cse.messages_sent') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('inbox_messages', 'outbox_messages') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
         <ul> 
-          <li class="{{ Route::currentRouteNamed('cse.messages') ? 'active' : '' }}"><a href="{{ route('cse.messages') }}">Inbox</a></li>
-          <li class="{{ Route::currentRouteNamed('cse.messages_sent') ? 'active' : '' }}"><a href="{{ route('cse.messages_sent') }}">Sent</a></li>
+          <li class="{{ Route::currentRouteNamed('inbox_messages') ? 'active' : '' }}"><a href="{{ route('inbox_messages') }}">Inbox</a></li>
+          <li class="{{ Route::currentRouteNamed('outbox_messages') ? 'active' : '' }}"><a href="{{ route('outbox_messages') }}">Sent</a></li>
           <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li>
         </ul>
       </li>
@@ -141,16 +141,17 @@
       
       <li class="nav-label mg-t-25">Adminstration</li>
 
-      {{-- <li class="nav-item with-sub {{ Route::currentRouteNamed('technician.messages', 'technician.messages_sent') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('technician.messages', 'technician.messages_sent') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
         <ul> 
           <li class="{{ Route::currentRouteNamed('technician.messages') ? 'active' : '' }}"><a href="{{ route('technician.messages') }}">Inbox</a></li>
           <li class="{{ Route::currentRouteNamed('technician.messages_sent') ? 'active' : '' }}"><a href="{{ route('technician.messages_sent') }}">Sent</a></li>
           <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li>
         </ul>
-      </li> --}}
+      </li>
       <li class="nav-item {{ Route::currentRouteNamed('technician.location_request') ? 'active show' : '' }}""><a href="{{ route('technician.location_request') }}" class="nav-link"><i data-feather="map-pin"></i> <span>Location Request</span></a></li>
 
+      
       <li class="nav-item {{ Route::currentRouteNamed('technician.requests', 'technician.request_details') ? 'active show' : '' }}"><a href="{{ route('technician.requests') }}" class="nav-link"><i data-feather="git-pull-request"></i> <span>Requests</span></a></li>
 
 

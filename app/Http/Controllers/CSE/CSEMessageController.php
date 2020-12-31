@@ -92,8 +92,69 @@ class CSEMessageController extends Controller
 
           $message->save(); 
         //   echo $message;
-          return;
+        return back()->with('success','Message sent successfully!');
 
+    }
+
+    public function inbox(){
+
+        $messages = Message::orderBy('created_at', 'DESC')->get()
+        ->groupBy(function ($val) {
+            return \Carbon\Carbon::parse($val->created_at)->format('l d, F Y');
+        });
+        $data = [
+            'messages'  =>  $messages
+        ];
+
+        return view('cse.messages.inbox', $data);
+    }
+
+    public function inboxMessageDetails($id){
+
+        $message = Message::findOrFail($id);
+
+        if($message->is_read == '0'){
+            Message::where('id', $id)->update([
+                'is_read'   =>  '1',
+            ]);
+        }
+
+        $data = [
+            'message'  =>  $message
+        ];
+
+        return view('cse.messages._inbox_message_body', $data);
+    }
+
+    public function outbox(){
+        
+        $messages =  Auth::user()->sentMessages()->orderBy('created_at', 'DESC')->get()
+        ->groupBy(function ($val) {
+            return \Carbon\Carbon::parse($val->created_at)->format('l d, F Y');
+        });
+
+        $data = [
+            'messages'  =>  $messages
+        ];
+
+        return view('cse.messages.outbox', $data);
+    }
+
+    public function outboxMessageDetails($id){
+
+        $message = Message::findOrFail($id);
+
+        if($message->is_read == '0'){
+            Message::where('id', $id)->update([
+                'is_read'   =>  '1',
+            ]);
+        }
+
+        $data = [
+            'message'  =>  $message
+        ];
+
+        return view('cse.messages._outbox_message_body', $data);
     }
 
     /**
