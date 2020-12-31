@@ -94,4 +94,9 @@ class AdminMessagingController extends Controller
 
         return view('admin.messages._outbox_message_body', $data);
     }
+    
+    public function sendAdminMessage(Request $request){
+
+    }
+
 }

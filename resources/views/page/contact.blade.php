@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('title', 'Contact Us')
 @section('contents')
+@include('layouts.partials._messages')
+
 <style>
     .shadow {
         -webkit-box-shadow: 0 0 3px rgba(233, 125, 31, 1) !important;
@@ -23,31 +25,42 @@
                 <div class="card custom-form rounded shadow border-0">
                     <div class="card-body">
                         <div id="message"></div>
-                        <form method="post" action="" name="contact-form" id="contact-form">
+                        <form method="POST" action="{{ route('page.send_contact_mail') }}" name="contact-form" id="contact-form">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group position-relative">
                                         <label>Your Name <span class="text-danger">*</span></label>
                                         <i data-feather="user" class="fea icon-sm icons"></i>
-                                        <input name="name" id="name" type="text" class="form-control pl-5" placeholder="Full Name :">
+                                        <input type="text" class="form-control pl-5 @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Full Name :">
                                     </div>
                                 </div><!--end col-->
                                 <div class="col-lg-6">
                                     <div class="form-group position-relative">
                                         <label>Your Email <span class="text-danger">*</span></label>
                                         <i data-feather="mail" class="fea icon-sm icons"></i>
-                                        <input name="email" id="email" type="email" class="form-control pl-5" placeholder="E-Mail Address :">
+                                        <input type="email" class="form-control pl-5 @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email') }}" required placeholder="E-Mail Address :">
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div> 
                                 </div><!--end col-->
                                 <div class="col-lg-12">
                                     <div class="form-group position-relative">
                                         <label>Subject Category <span class="text-danger">*</span></label>
-                                        <select class="form-control custom-select">
+                                        <select class="form-control custom-select @error('category') is-invalid @enderror" name="category" id="category">
                                             <option selected="">Select Category</option>
-                                            <option value="">Complaint</option>
-                                            <option value="">Inquiry</option>
-                                            <option value="">Support</option>
+                                            <option value="Complaint" {{ old('category') == 'Complaint' ? 'selected' : ''}}>Complaint</option>
+                                            <option value="Inquiry" {{ old('category') == 'Inquiry' ? 'selected' : ''}}>Inquiry</option>
+                                            <option value="Support" {{ old('category') == 'Support' ? 'selected' : ''}}>Support</option>
                                         </select>
+                                        @error('category')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -55,7 +68,12 @@
                                     <div class="form-group position-relative">
                                         <label>Message</label>
                                         <i data-feather="message-circle" class="fea icon-sm icons"></i>
-                                        <textarea name="message" id="message" rows="4" class="form-control pl-5" placeholder="Your Message :"></textarea>
+                                        <textarea name="message" id="message" rows="4" class="form-control pl-5 @error('message') is-invalid @enderror" placeholder="Your Message :">{{ old('message') }}</textarea>
+                                        @error('message')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div><!--end row-->
@@ -79,7 +97,7 @@
                         </div>
                         <div class="media-body content">
                             <h4 class="title font-weight-bold mb-0">Email</h4>
-                            <a href="mailto:info@FixMaster.ng" class="texty">info@FixMaster.ng</a>
+                            <a href="mailto:info@fixmaster.com.ng" class="texty">info@fixmaster.com.ng</a>
                         </div>
                     </div>
                     

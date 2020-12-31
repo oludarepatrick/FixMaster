@@ -84,6 +84,11 @@
                     <option value="Male" {{ old('gender') == 'Male' ? 'selected' : ''}} >Male</option>
                     <option value="Female" {{ old('gender') == 'Female' ? 'selected' : ''}} >Female</option>
                 </select>
+                @error('gender')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
               </div>
             </div>
             <div class="form-row">

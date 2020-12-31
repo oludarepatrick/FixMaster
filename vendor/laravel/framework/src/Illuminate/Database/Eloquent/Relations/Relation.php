@@ -360,16 +360,6 @@ abstract class Relation
     }
 
     /**
-     * Specifies that the morph types should be table names.
-     *
-     * @return void
-     */
-    public static function tableNameAsMorphType()
-    {
-        self::$tableNameAsMorphType = true;
-    }
-
-    /**
      * Builds a table-keyed array from model class names.
      *
      * @param  string[]|null  $models
