@@ -4,11 +4,21 @@ use App\Models\CSE;
 use App\Models\Technician;
 
         $cse = CSE::where('user_id', Auth::id())->first();
+        $technician = Technician::where('user_id', Auth::id())->first();
+        // if the person is a cse
+        if ($cse != '') {
+          $serviceRequests = $cse->requests;
+              $ongoingJobs = $cse->requests()
+                      ->where('service_request_status_id', '>', '3')
+                      ->get();
+        // if the person is a technician
+        } elseif ($technician != '') {
+          $serviceRequests = $technician->requests;
+              $ongoingJobs = $technician->requests()
+                      ->where('service_request_status_id', '>', '3')
+                      ->get();
+        } 
 
-        $serviceRequests = $cse->requests;
-        $ongoingJobs = $cse->requests()
-                ->where('service_request_status_id', '>', '3')
-                ->get();
 ?>
 <style type="text/css">
   .hideDiv{

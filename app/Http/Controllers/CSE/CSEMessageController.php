@@ -88,7 +88,7 @@ class CSEMessageController extends Controller
           $message->recipient_id = $request->selectedReciever;
           $message->subject = $request->subject; 
           $message->body = $request->message;
-          $message->created_at = date('Y-m-d');
+        //   $message->created_at = date('Y-m-d');
 
           $message->save(); 
         //   echo $message;

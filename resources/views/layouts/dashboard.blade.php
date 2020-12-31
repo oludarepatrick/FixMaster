@@ -45,7 +45,7 @@
       
       @yield('content')
 
-      @include('layouts.partials._cse_message_composer')
+      
 
     {{-- </div> --}}
     </div>
