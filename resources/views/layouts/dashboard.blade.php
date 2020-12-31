@@ -47,9 +47,9 @@
 
       @include('layouts.partials._cse_message_composer')
 
+    {{-- </div> --}}
     </div>
     
-
     <script src="{{ asset('assets/dashboard/lib/jquery/jquery.min.js') }}"></script>
     {{-- <script src="{{ asset('assets/frontend/js/jquery-3.5.1.min.js') }}"></script> --}}
     <script src="{{ asset('assets/dashboard/lib/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -75,6 +75,63 @@
     <script src="{{ asset('assets/dashboard/lib/jquery-steps/build/jquery.steps.min.js') }}"></script>
     {{-- <script src="{{ asset('assets/dashboard/assets/js/custom.js') }}"></script> --}}
     <script src="{{ asset('assets/client/js/sweetalert2.min.js') }}"></script>
+    <input type="hidden" id="path_backEnd" value="{{url('/')}}">
+
+    <script>
+          // function to show or hide the price text field when check box is checked for add
+    function updateReciever(data) {
+        if ( data === '4' ) { 
+            document.getElementById("Send-Message").style.display = "block";
+            document.getElementById("job-ref").style.display = "none";
+            document.getElementById("Recipient").style.display = "none";
+        } else{ 
+            document.getElementById("Send-Message").style.display = "block"; 
+            document.getElementById("job-ref").style.display = "block";
+            document.getElementById("Recipient").style.display = "block";
+         
+        }
+    }
+
+      // function updateJobRefList(){
+      //   $.ajaxSetup({
+      //           headers: {
+      //               'X-CSRF_TOKEN':$('meta[name="csrf-token"]').attr('content')
+      //           }
+      //       });
+
+      //       $.ajax({
+      //           url: "{{ route('add-message') }}",
+      //           method: "POST",
+      //           dataType: "JSON",
+      //           // data: {user_id:userId},
+      //           data: {},
+      //           success: function(data){
+      //             // console.log('the data',data);
+      //             var jobRef = "";
+      //               if(data){
+      //                   for (var i = 0; i < data.length; i++) {
+      //                       jobRef += '<option value="'+data[i]["id"]+'">'+data[i]["job_reference"]+ '</option>'
+      //                   }
+      //                   document.getElementById("job-reference").innerHTML = jobRef;
+      //               }else{
+      //                   var message = 'Error occured while trying to get job reference assigned to '+ userId ;
+      //                   var type = 'error';
+      //                   displayMessage(message, type);
+      //               }
+      //           },
+      //       }) 
+      // }
+
+      function updateRecieverList(jobRef){
+        $.ajax({
+            url: $("#path_backEnd").val()+"/cse/getUserAssigned"+"/"+jobRef,
+            responseData: { },
+            success: function( responseData ) {
+                document.getElementById("assigned").innerHTML = responseData;
+            }
+        });
+    }
+  </script>
     <script src="{{ asset('assets/dashboard/assets/js/jquery.tinymce.min.js') }}"></script>
     
     <script>
