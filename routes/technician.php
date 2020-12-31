@@ -29,7 +29,6 @@ Route::middleware(['technicianRole'])->group(function() {
             Route::get('/profile/edit',                 [App\Http\Controllers\Technician\TechnicianProfileController::class, 'edit_profile'])->name('technician.edit_profile');
             Route::post('/profile/update',              [App\Http\Controllers\Technician\TechnicianProfileController::class, 'update_profile'])->name('technician.updateProfile');
             Route::post('/profile/updatePassword',      [App\Http\Controllers\Technician\TechnicianProfileController::class, 'updatePassword'])->name('technician.updatePassword');
-            Route::post('/password/upadte',             [App\Http\Controllers\Technician\TechnicianProfileController::class, 'update_password'])->name('technician.update_password');
             Route::get('/view-profile',                 [App\Http\Controllers\Technician\TechnicianProfileController::class, 'view_profile' ])->name('technician.view_profile');
 
 
