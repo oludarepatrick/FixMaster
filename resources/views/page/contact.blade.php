@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Contact Us')
 @section('contents')
-@include('layouts.partials._messages')
 
 <style>
     .shadow {
@@ -10,6 +9,8 @@
     }
 </style>
 <section class="section">
+@include('layouts.partials._messages')
+
     <div class="container" style="margin-top: 3rem;">
     <div class="row justify-content-center">
             <div class="col-12 text-center">
