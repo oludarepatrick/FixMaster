@@ -4,7 +4,7 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/dashboard/assets/css/dashforge.mail.css') }}">
 
-
+@include('layouts.partials._cse_message_composer')
 <div class="mail-wrapper ml-2">
   <div class="mail-sidebar">
     <div class="mail-sidebar-body">
@@ -17,9 +17,11 @@
       <div class="search-form">
         <input type="search" class="form-control" placeholder="Search mail">
       </div><!-- search-form --> --}}
-      {{-- <div class="pd-10">
-        <a href="#adminMessageComposer" data-toggle="modal" class="btn btn-primary btn-block tx-uppercase tx-10 tx-medium tx-sans tx-spacing-4">Compose</a>
-      </div> --}}
+      <div class="pd-10">
+        <a href="#cseMessageComposer" data-toggle="modal" class="btn btn-primary btn-block tx-uppercase tx-10 tx-medium tx-sans tx-spacing-4">Compose</a>
+      </div>
+
+      
     </div><!-- mail-group-header -->
     <div class="mail-group-body">
       <div class="pd-y-15 pd-x-20 d-flex justify-content-between align-items-center">

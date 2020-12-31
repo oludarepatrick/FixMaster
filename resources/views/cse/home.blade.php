@@ -3,8 +3,6 @@
 @include('layouts.partials._messages')
 @section('content')
 
-@include('layouts.partials._cse_message_composer')
-
 <div class="content-body">
   <div class="container pd-x-0">
     <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">

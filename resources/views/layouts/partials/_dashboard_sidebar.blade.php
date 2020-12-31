@@ -58,7 +58,7 @@
         <ul> 
           <li class="{{ Route::currentRouteNamed('inbox_messages') ? 'active' : '' }}"><a href="{{ route('inbox_messages') }}">Inbox</a></li>
           <li class="{{ Route::currentRouteNamed('outbox_messages') ? 'active' : '' }}"><a href="{{ route('outbox_messages') }}">Sent</a></li>
-          <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li>
+          {{-- <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li> --}}
         </ul>
       </li>
 
