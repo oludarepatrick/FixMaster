@@ -21,11 +21,6 @@ class CSEMessageController extends Controller
         $this->middleware('auth:web');
     }
 
-    // public function edititem($id){
-    //     $data=Item::with('categoryitem')->find($id);
-    //     return $data;
-    //   }
-
     public function sendMessage(Request $request){
         try {
             $cse = CSE::where('user_id', Auth::id())->first();

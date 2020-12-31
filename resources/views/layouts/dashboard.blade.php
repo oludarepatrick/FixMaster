@@ -131,6 +131,16 @@
             }
         });
     }
+
+    function updateRecieverListTech(jobRef){
+        $.ajax({
+            url: $("#path_backEnd").val()+"/technician/getUserAssigned"+"/"+jobRef,
+            responseData: { },
+            success: function( responseData ) {
+                document.getElementById("assigned").innerHTML = responseData;
+            }
+        });
+    }
   </script>
     <script src="{{ asset('assets/dashboard/assets/js/jquery.tinymce.min.js') }}"></script>
     

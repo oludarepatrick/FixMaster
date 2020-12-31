@@ -50,7 +50,7 @@ use App\Models\Technician;
                 <div class="form-group position-relative ">
                     <label>Ongoing Jobs</label>
 
-                    <select class="custom-select" required name="jobReference" onchange="updateRecieverList(this.value)">
+                    <select class="custom-select" required name="jobReference" onchange="updateRecieverListTech(this.value)">
                       <option value="">Select Job Reference</option>
                       @foreach ($ongoingJobs as $item)
                         <option value="{{$item->id}}">{{$item->job_reference}} </option>

@@ -141,12 +141,12 @@
       
       <li class="nav-label mg-t-25">Adminstration</li>
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('technician.messages', 'technician.messages_sent') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('inbox_messages', 'technician.messages_sent') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
         <ul> 
-          <li class="{{ Route::currentRouteNamed('technician.messages') ? 'active' : '' }}"><a href="{{ route('technician.messages') }}">Inbox</a></li>
+          <li class="{{ Route::currentRouteNamed('inbox_messages') ? 'active' : '' }}"><a href="{{ route('inbox_messages') }}">Inbox</a></li>
           <li class="{{ Route::currentRouteNamed('technician.messages_sent') ? 'active' : '' }}"><a href="{{ route('technician.messages_sent') }}">Sent</a></li>
-          <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li>
+          {{-- <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li> --}}
         </ul>
       </li>
       <li class="nav-item {{ Route::currentRouteNamed('technician.location_request') ? 'active show' : '' }}""><a href="{{ route('technician.location_request') }}" class="nav-link"><i data-feather="map-pin"></i> <span>Location Request</span></a></li>
