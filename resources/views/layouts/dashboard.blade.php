@@ -80,18 +80,15 @@
     <script>
           // function to show or hide the price text field when check box is checked for add
     function updateReciever(data) {
-        if ( data === '4' ) {
-            document.getElementById("subject").style.display = "block";
-            document.getElementById("message").style.display = "block"; 
+        if ( data === '4' ) { 
             document.getElementById("Send-Message").style.display = "block";
             document.getElementById("job-ref").style.display = "none";
-        } else{
-          document.getElementById("subject").style.display = "block";
-            document.getElementById("message").style.display = "block"; 
+            document.getElementById("Recipient").style.display = "none";
+        } else{ 
             document.getElementById("Send-Message").style.display = "block"; 
             document.getElementById("job-ref").style.display = "block";
             document.getElementById("Recipient").style.display = "block";
-            updateJobRefList();
+         
         }
     }
 
@@ -123,33 +120,18 @@
       //               }
       //           },
       //       }) 
-
- 
-
       // }
 
-
-
- 
-      
       function updateRecieverList(jobRef){
-        // console.log(val);
-        // var love = $("#path_backEnd").val()+"/cse/getUserAssigned"+"/"+jobRef;
-        // console.log(love);
         $.ajax({
             url: $("#path_backEnd").val()+"/cse/getUserAssigned"+"/"+jobRef,
             responseData: { },
             success: function( responseData ) {
-                var assignedName = "";
-                console.log('responseData',responseData);
-                for (var i = 0; i < responseData.length; i++) {
-                    assignedName += '<option value="'+responseData[2]+'">'+responseData[i]+ '</option>'
-                }
-                document.getElementById("assigned").innerHTML = assignedName;
+                document.getElementById("assigned").innerHTML = responseData;
             }
         });
     }
-
+  </script>
     <script src="{{ asset('assets/dashboard/assets/js/jquery.tinymce.min.js') }}"></script>
     
     <script>

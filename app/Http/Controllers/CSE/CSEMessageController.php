@@ -52,54 +52,32 @@ class CSEMessageController extends Controller
                         ->where('service_request_status_id', '>', '3')
                         ->where('id', '=', $id)
                         ->get();
+
+        $data = '';
+        $data .= '<option value="" selected>Select...</option>';
+
         foreach($ongoingJob as $item){
-            $data = [
-                 $item->user->fullName->name,
-                 $item->admin->first_name.' '.$item->admin->last_name,
-                 $item->technician->first_name.' '.$item->technician->last_name,
-                //  $item->job_reference
-                //  $item->job_reference
-            ];
+
+            $data .= '<option value='.$item->user_id.'>'.$item->user->fullName->name. '(Client)</option>';
+            $data .= '<option value='.$item->admin_id.'>'.$item->admin->first_name.' '.$item->admin->last_name. '(Admin)</option>';
+            $data .= '<option value='.$item->technician_id.'>'.$item->technician->first_name.' '.$item->technician->last_name. '(Technician)</option>';
+            
+            // $data = [
+                
+            //      $item->user->fullName->name,
+            //      $item->admin->first_name.' '.$item->admin->last_name,
+            //      $item->technician->first_name.' '.$item->technician->last_name,
+            // ];
         };
         return $data;
 
        }
 
-    // public function getUserAssigned(Request $request){
-    //     try {
-    //         $hello = $request->data;
-    //         return $hello;
-    //     //     $cse = CSE::where('user_id', Auth::id())->first();
-
-    //     //     $serviceRequests = $cse->requests;
-
-    //     //     $ongoingJob = $cse->requests()
-    //     //                     ->where('service_request_status_id', '>', '3')
-    //     //                     ->where('id', '=', $request->data)
-    //     //                     ->get();
-
-    //     //     // return $ongoingJobs;
-
-    //     //     foreach($ongoingJob as $item){
-    //     //         $clientName[] = $item->user->fullName->name;
-    //     //         $adminName[] = $item->admin->first_name.' '.$item->admin->last_name;
-    //     //         $technicianName[] = $item->technician->first_name.' '.$item->technician->last_name;
-    //     //         $jobReference[] =$item->job_reference;                
-    //     //     };
-    //     //     return [$clientName,  $adminName, $technicianName, $jobReference];
-            
-            
-    //       } catch (\Throwable $e) {
-    //         return back()->with('error','An error occurred while tyring to update your password. Try again!');
-    //     }
-    // }
-
     
 
     public function saveMessageData(Request $request){
         // return $request;
-        $validatedData = $request->validate([            
-            'selectedUser'  => 'required|max:255',
+        $validatedData = $request->validate([
             'jobReference' => 'required|max:255',
             'subject'   => 'required|max:255',
             'message'   => 'required',
@@ -110,11 +88,10 @@ class CSEMessageController extends Controller
           $message->recipient_id = $request->selectedReciever;
           $message->subject = $request->subject; 
           $message->body = $request->message;
-          $message->is_read = 0;
           $message->created_at = date('Y-m-d');
 
-        //   $message->save(); 
-          echo $message;
+          $message->save(); 
+        //   echo $message;
           return;
 
     }

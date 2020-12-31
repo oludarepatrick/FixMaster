@@ -81,7 +81,7 @@ $cse = CSE::where('user_id', Auth::id())->first();
                            ADMIN     
                         @elseif($item->user->designation =='[ADMIN_ROLE]')  
                            CLIENT     
-                    @endif
+                    @endif 
 
                   </option>
                   @endforeach --}}
@@ -90,12 +90,12 @@ $cse = CSE::where('user_id', Auth::id())->first();
               </div>
             </div>
 
-            <div class="form-group col-md-12 hideDiv" id="subject">
+            <div class="form-group col-md-12">
                 <label for="inputEmail4">Subject</label>
                 <input type="text" class="form-control" id="inputEmail4" name="subject">
             </div>
 
-          <div class="form-group col-md-12 hideDiv" id="message">
+          <div class="form-group col-md-12">
             <label for="inputAddress2">Message</label>
             <textarea rows="4" class="form-control" id="inputAddress2" name="message"></textarea>
           </div>
