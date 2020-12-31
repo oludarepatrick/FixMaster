@@ -1,10 +1,8 @@
 <?php
 use App\Models\User;
 use App\Models\CSE;
-use App\Models\Technician;
 
         $cse = CSE::where('user_id', Auth::id())->first();
-
         $serviceRequests = $cse->requests;
         $ongoingJobs = $cse->requests()
                 ->where('service_request_status_id', '>', '3')

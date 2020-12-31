@@ -3,7 +3,7 @@
         <select class="custom-select @error('ongoing_requests') is-invalid @enderror" id="ongoing_requests" name="ongoing_requests">
             <option value="" selected>Select...</option>
             @foreach ($ongoingServiceRequests as $ongoingServiceRequest)
-                <option value="{{ $ongoingServiceRequest->id }}" {{ old('ongoing_requests') == $ongoingServiceRequest->id ? 'selected' : ''}} data-url="{{ route('service_details', $ongoingServiceRequest->id) }}">{{ $ongoingServiceRequest->job_reference }}</option>
+                <option value="{{ $ongoingServiceRequest->id }}" {{ old('ongoing_requests') == $ongoingServiceRequest->id ? 'selected' : ''}} data-url="{{ route('ongoing_service_request_detail', $ongoingServiceRequest->id) }}">{{ $ongoingServiceRequest->job_reference }}</option>
             @endforeach
         </select>
         @error('ongoing_requests')

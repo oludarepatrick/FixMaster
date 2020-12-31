@@ -86,7 +86,7 @@ Route::get('/clients-list',                 [App\Http\Controllers\EssentialsCont
 Route::get('/technicians-list',             [App\Http\Controllers\EssentialsController::class, 'getTechniciansList'])->name('technicians_list');
 Route::get('/cses-list',                    [App\Http\Controllers\EssentialsController::class, 'getCsesList'])->name('cses_list');
 Route::get('/ongoing-service-requests',     [App\Http\Controllers\EssentialsController::class, 'getOngoingServiceRequests'])->name('ongoing_service_request_list');
-Route::get('/services/details/{id}',        [App\Http\Controllers\ServicesController::class, 'serviceDetails'])->name('service_details');
+Route::get('/ongoing-service-request/{id}', [App\Http\Controllers\EssentialsController::class, 'getOngoingServiceRequestDetail'])->name('ongoing_service_request_detail');
 
 
 
