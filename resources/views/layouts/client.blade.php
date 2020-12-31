@@ -114,7 +114,10 @@
           });
       
         }
-      </script>
+    </script>
+ 
+ @yield('scripts')
+ @stack('scripts')
 
     <script>
       $(document).ready(function () {
@@ -225,8 +228,7 @@
       
       });
     </script>
-    @yield('scripts')
-    @stack('scripts')
+   
 
   </body>
 </html>

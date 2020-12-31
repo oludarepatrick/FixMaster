@@ -64,13 +64,13 @@ class PageController extends Controller
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
             $mail->Username   = 'test@ninthbinary.com';                     // SMTP username
             $mail->Password   = 'testingpassword24';                               // SMTP password
-            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $mail->SMTPSecure = env('MAIL_ENCRYPTION');         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            // $mail->SMTPSecure = env('MAIL_ENCRYPTION');         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             $mail->Port       = 26;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Recipients
-            $mail->setFrom($email, $name);
-            $mail->addAddress('anthonyjoboy2016@gmail.com', 'Anthony Joboy');     // Add a recipient
+            $mail->setFrom('test@ninthbinary.com', $name);
+            $mail->addAddress('info@fixmaster.com.ng');     // Add a recipient
             // $mail->addAddress('ellen@example.com');               // Name is optional
             // $mail->addReplyTo('info@example.com', 'Information');
             // $mail->addCC('cc@example.com');
@@ -90,12 +90,12 @@ class PageController extends Controller
             $mail->clearAddresses();
             // echo 'Message has been sent';
 
-            return redirect()->route('page.contact')->with('success','Message has been sent' );
+            return redirect()->route('page.contact')->with('success', 'Message has been sent');
 
         } catch (Exception $e) {
             // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 
-            return back()->with('error', "Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+            return back()->with('error', "Message could not be sent. Mailer Error: {$mail->ErrorInfo}")->withInput();
         }
 
         return back()->withInput();

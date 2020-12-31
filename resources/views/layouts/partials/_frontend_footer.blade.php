@@ -7,7 +7,7 @@
                         <img class=" preload-me" src="{{ asset('assets/images/home-fix-logo-new.png') }}"
                         style="margin-top: -65px !important; margin-bottom: -38px !important;" height="160" alt="FixMaster.ng">
                     </a>
-                    <p class="mt-4">FixMaster is Nigeria’s Topmost maintenance service provider. We install, service and repair all household and office appliances. We also provide maintenance and service facility for all plumbing, electrical, security, interior decorations, carpentry, cleaning and gardening services. When FixMaster repairs - you RELAX!!!</p>
+                    <p class="mt-4">FixMaster is Nigeria’s Topmost maintenance service provider. We install service and repair all household and office appliances. We also provide maintenance and service facilities for all plumbing, electrical, security, interior decorations, carpentry, cleaning, and gardening services. When FixMaster repairs - you RELAX!!!</p>
                     <ul class="list-unstyled social-icon social mb-0 mt-4">
                         <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i
                                     data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
