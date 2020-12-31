@@ -73,16 +73,20 @@ Route::view('/how-it-works', 		        'page.how_it_works')->name('page.how_it_w
 Route::view('/why-home-fix', 		        'page.why_home_fix')->name('page.why_home_fix');
 Route::view('/join-us', 			        'page.careers')->name('page.careers');
 Route::view('/faq', 			            'page.faq')->name('page.faq');
-Route::view('/contact-us', 			        'page.contact')->name('page.contact');
-// Route::view('/services', 			        'page.services')->name('page.services');
 Route::view('/service-details', 			'page.service_details')->name('page.services_details');
-Route::get('/services',                    [App\Http\Controllers\PageController::class, 'services'])->name('page.services');
+Route::get('/services',                     [App\Http\Controllers\PageController::class, 'services'])->name('page.services');
+Route::get('/contact-us',                   [App\Http\Controllers\PageController::class, 'contactUs'])->name('page.contact');
+Route::post('/contact-us',                  [App\Http\Controllers\PageController::class, 'sendContactMail'])->name('page.send_contact_mail');
 
 //Essential Routes
 Route::post('/lga-list',                    [App\Http\Controllers\EssentialsController::class, 'lgasList'])->name('lga_list');
-
-
-Route::post('/avalaible-tool-quantity',                    [App\Http\Controllers\EssentialsController::class, 'getAvailableToolQuantity'])->name('available_quantity');
+Route::post('/avalaible-tool-quantity',     [App\Http\Controllers\EssentialsController::class, 'getAvailableToolQuantity'])->name('available_quantity');
+Route::get('/administrators-list',          [App\Http\Controllers\EssentialsController::class, 'getAdministratorsList'])->name('administrators_list');
+Route::get('/clients-list',                 [App\Http\Controllers\EssentialsController::class, 'getClientsList'])->name('clients_list');
+Route::get('/technicians-list',             [App\Http\Controllers\EssentialsController::class, 'getTechniciansList'])->name('technicians_list');
+Route::get('/cses-list',                    [App\Http\Controllers\EssentialsController::class, 'getCsesList'])->name('cses_list');
+Route::get('/ongoing-service-requests',     [App\Http\Controllers\EssentialsController::class, 'getOngoingServiceRequests'])->name('ongoing_service_request_list');
+Route::get('/services/details/{id}',        [App\Http\Controllers\ServicesController::class, 'serviceDetails'])->name('service_details');
 
 
 

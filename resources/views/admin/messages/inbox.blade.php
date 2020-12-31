@@ -135,6 +135,79 @@
 
     });
 
+    //Get list of users by a particular designation
+    $('#user-type').on('change',function () {
+        let user = $(this).find('option:selected').val();
+        let route = $(this).find('option:selected').data('url');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF_TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: route,
+            beforeSend: function() {
+                $("#spinner-icon-admin").html('<div class="d-flex justify-content-center mt-4 mb-4" style="margin-left: 40px !important"><span class="loadingspinner"></span></div>');
+            },
+            // return the result
+            success: function(result) {
+
+                // $('.admin-list').removeClass('d-none');
+                $('#admin-list').html('');
+                $('#admin-list').html(result);
+            },
+            complete: function() {
+                $("#spinner-icon").hide();
+            },
+            error: function(jqXHR, testStatus, error) {
+                var message = error+ ' occured while trying to retireve '+ user +' list.';
+                var type = 'error';
+                displayMessage(message, type);
+                $("#spinner-icon-admin").hide();
+            },
+            timeout: 8000
+        })  
+    });
+
+    //Get list of users by a particular service request reference
+    $('#ongoing_requests').on('change',function () {
+        let user = $(this).find('option:selected').val();
+        let route = $(this).find('option:selected').data('url');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF_TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: route,
+            beforeSend: function() {
+                $("#spinner-icon-admin").html('<div class="d-flex justify-content-center mt-4 mb-4" style="margin-left: 40px !important"><span class="loadingspinner"></span></div>');
+            },
+            // return the result
+            success: function(result) {
+
+                // $('.admin-list').removeClass('d-none');
+                $('#admin-list').html('');
+                $('#admin-list').html(result);
+            },
+            complete: function() {
+                $("#spinner-icon").hide();
+            },
+            error: function(jqXHR, testStatus, error) {
+                var message = error+ ' occured while trying to retireve '+ user +' list.';
+                var type = 'error';
+                displayMessage(message, type);
+                $("#spinner-icon-admin").hide();
+            },
+            timeout: 8000
+        })  
+    });
+
+
   });
 </script>
 
