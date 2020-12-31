@@ -1,3 +1,20 @@
+<?php
+use App\Models\User;
+use App\Models\CSE;
+
+$cse = CSE::where('user_id', Auth::id())->first();
+      $serviceRequests = $cse->requests;
+      $ongoingJobs = $cse->requests()
+                      ->where('service_request_status_id', '>', '3')
+                      ->get();
+
+                      // dd($ongoingJobs);
+?>
+<style type="text/css">
+  .hideDiv{
+    display: none;
+  }
+</style>
 
 <div class="modal fade" id="cseMessageComposer" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg wd-sm-650" role="document">
@@ -13,33 +30,77 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Select User</label>
-                   
+
+                    <select class="custom-select" onchange="updateReciever(this.value)">
+                      <option value="None">Select...</option>
+                      <option value="4">Fix Master</option>
+                      <option value="5">On going Jobs</option>
+                    </select>
+
+                    {{-- <select class="custom-select" onchange="updateJobRefList(this.value)" id="request-sorting" name="selectedUser">
+                        <option value="None">Select...</option>
+                        @foreach ($serviceRequests as $serviceRequest)
+                         <option value="{{$serviceRequest->technician->first_name}}">{{$serviceRequest->technician->first_name}} {{$serviceRequest->technician->last_name}}</option>
+                        @endforeach
+                    </select> --}}
+
                 </div>
             </div><!--end col-->
 
-            <div class="col-md-12 specific-date d-none">
-                <div class="form-group position-relative">
+            <div class="col-md-12 specific-date hideDiv" id="job-ref" >
+                <div class="form-group position-relative ">
                     <label>Ongoing Jobs</label>
-                    <select class="custom-select" id="request-sorting">
-                        <option value="None">Select...</option>
-                        <option value="Date">REF-234094623496</option>
-                        <option value="Month">REF-094009623412</option>
-                        <option value="Month">REF-237290223123</option>
-                        <option value="Month">REF-234094623496</option>
-                    </select>
+
+                    <select class="custom-select" required name="jobReference" onchange="updateRecieverList(this.value)">
+                      <option value="">Select Job Reference</option>
+                      @foreach ($ongoingJobs as $item)
+                        <option value="{{$item->id}}">{{$item->job_reference}} </option>
+                      @endforeach
+                   </select>
+                   
                 </div>
             </div>
-            <div class="form-group col-md-12">
-                <label for="inputEmail4">Subject</label>
-                <input type="text" class="form-control" id="inputEmail4">
+
+            <div class="col-md-12 specific-date hideDiv" id="Recipient">
+              <div class="form-group position-relative ">
+                  <label>Select Recipient</label>
+
+                  {{-- <select class="custom-select" required  name="jobReference">
+                    <option value="">Select Recipient</option>
+                    <option value="">Admin</option>
+                    <option value="">Technicians</option>                    
+                    <option value="">Clients</option>
+                 </select> --}}
+
+                 <select class="custom-select" name="selectedReciever" id="assigned">
+                  <option value="None">Select...</option>
+                  {{-- @foreach ($ongoingJobs as $item)
+                   <option value="{{$item->user->fullName->name}}">{{$item->user->fullName->name}} 
+                    
+                    @if($item->user->designation =='[ADMIN_ROLE]')     
+                           ADMIN     
+                        @elseif($item->user->designation =='[ADMIN_ROLE]')  
+                           CLIENT     
+                    @endif
+
+                  </option>
+                  @endforeach --}}
+              </select>
+
+              </div>
             </div>
 
-          <div class="form-group col-md-12">
+            <div class="form-group col-md-12 hideDiv" id="subject">
+                <label for="inputEmail4">Subject</label>
+                <input type="text" class="form-control" id="inputEmail4" name="subject">
+            </div>
+
+          <div class="form-group col-md-12 hideDiv" id="message">
             <label for="inputAddress2">Message</label>
-            <textarea rows="4" class="form-control" id="inputAddress2"></textarea>
+            <textarea rows="4" class="form-control" id="inputAddress2" name="message"></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary">Send Message</button>
+          <button type="submit" class="btn btn-primary hideDiv" id="Send-Message">Send Message</button>
 
         </div>
         </div><!-- modal-body -->

@@ -29,17 +29,22 @@ class CSEProfileController extends Controller
 
     public function home(){
 
-        $cse = CSE::where('user_id', Auth::id())->first();
+        // $cse = CSE::where('user_id', Auth::id())->first();
 
-        $serviceRequests = $cse->requests;
+        // $serviceRequests = $cse->requests;
 
-        foreach($serviceRequests as $item){
-            // $technician = $item;
+        // foreach($serviceRequests as $item){
+        //     // $technician = $item;
+        //     return $item->technician->first_name.' '.$item->technician->last_name;
+        // }
 
-            return $item->technician->first_name.' '.$item->technician->last_name;
-        }
+        // $cse = CSE::where('user_id', Auth::id())->first();
 
-        // ->user->technician->first_name;
+        //     $serviceRequests = $cse->requests;
+
+        //     $ongoingJobs = $cse->requests()->where('service_request_status_id', '>', '3')->first()->job_reference;
+
+        //     return $ongoingJobs;
 
         return view('cse.home');
     }
