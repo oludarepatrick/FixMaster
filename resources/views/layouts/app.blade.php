@@ -31,6 +31,8 @@
     <link href="{{ asset('assets/client/css/colors/default.css') }}" rel="stylesheet" id="color-opt">
     <link href="{{ asset('assets/frontend/css/unicons.css') }}" rel="stylesheet" id="color-opt">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+    <link href="{{ asset('assets/client/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+
     {{-- <link href="{{ asset('css/googlemap.css') }}" rel="stylesheet"> --}}
 </head>
 
@@ -69,7 +71,33 @@
     <script src="{{asset('assets/frontend/js/custom.js')}}"></script>
     {{-- <script src="{{ asset('js/googlemap.js') }}" defer></script>
     <script src="https://maps.googleapis.com/maps/api/js?key={{config('googlemap')['google_api_key']}}&callback=initMap" async defer></script> --}}
-    @yield('scripts')
+    <script src="{{ asset('assets/client/js/sweetalert2.min.js') }}"></script>
+
     
+    <script>
+        function displayMessage(message, type){
+      
+          const Toast = swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 8000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+          });
+          Toast.fire({
+                  icon: type,
+                //   type: 'success',
+                  title: message
+          });
+      
+        }
+    <script>
+      
+    @yield('scripts')
+
 </body>
 </html>
