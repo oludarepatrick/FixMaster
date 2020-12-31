@@ -4,6 +4,7 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/dashboard/assets/css/dashforge.mail.css') }}">
 
+
 <div class="mail-wrapper ml-2">
   <div class="mail-sidebar">
     <div class="mail-sidebar-body">
@@ -12,17 +13,20 @@
 
   <div class="mail-group">
     <div class="mail-group-header">
-      <i data-feather="search"></i>
+      {{-- <i data-feather="search"></i>
       <div class="search-form">
         <input type="search" class="form-control" placeholder="Search mail">
-      </div><!-- search-form -->
+      </div><!-- search-form --> --}}
+      <div class="pd-10">
+        <a href="#adminMessageComposer" data-toggle="modal" class="btn btn-primary btn-block tx-uppercase tx-10 tx-medium tx-sans tx-spacing-4">Compose</a>
+      </div>
     </div><!-- mail-group-header -->
     <div class="mail-group-body">
       <div class="pd-y-15 pd-x-20 d-flex justify-content-between align-items-center">
         <h6 class="tx-uppercase tx-semibold mg-b-0">Inbox</h6>
         <div class="dropdown tx-13">
-          <span class="tx-color-03">Sort:</span> <a href="" class="dropdown-link link-02">Date</a>
-        </div><!-- dropdown -->
+          {{-- <span class="tx-color-03">Sort:</span> <a href="" class="dropdown-link link-02">Date</a> --}}
+        </div>
       </div>
       @foreach ($messages as $message => $values)
       <label class="mail-group-label">{{ $message }}</label>
@@ -84,42 +88,128 @@
   </div><!-- mail-content -->
 </div><!-- mail-wrapper -->
 
-  @push('scripts')
+@include('admin.messages._admin_message_composer')
 
-  <script src="{{ asset('assets/dashboard/assets/js/dashforge.mail.js') }}"></script>
+@push('scripts')
 
-  <script>
-    $(document).ready(function (){
-      $(document).on('click', '.mail-group-body .media', function(){
-        // e.preventDefault();
-        let route = $(this).attr('data-url');
+<script src="{{ asset('assets/dashboard/assets/js/dashforge.mail.js') }}"></script>
+
+<script>
+  $(document).ready(function (){
+
+    $(document).on('click', '.mail-group-body .media', function(){
+      // e.preventDefault();
+      let route = $(this).attr('data-url');
+
+      $.ajax({
+          url: route,
+          beforeSend: function() {
+            $("#spinner-icon").html('<div class="d-flex justify-content-center mt-4 mb-4" style="margin-top: 200px !important"><span class="loadingspinner"></span></div>');
+          },
+          // return the result
+          success: function(result) {
+              $('#mail-content').html('');
+              $('#mail-content').html(result);
+              $('.mail-content-header, .mail-content-body').removeClass('d-none');
+
+              if(window.matchMedia('(max-width: 1199px)').matches) {
+                $('body').addClass('mail-content-show');
+              }
+
+              if(window.matchMedia('(min-width: 768px)').matches) {
+                $('#mailSidebar').removeClass('d-md-none');
+                $('#mainMenuOpen').removeClass('d-md-flex');
+              }
+          },
+          complete: function() {
+              $("#spinner-icon").hide();
+          },
+          error: function(jqXHR, testStatus, error) {
+              var message = error+ ' occured while trying to retireve message details.';
+              var type = 'error';
+              displayMessage(message, type);
+              $("#spinner-icon").hide();
+          },
+          timeout: 8000
+      });
+
+    });
+
+    //Get list of users by a particular designation
+    $('#user-type').on('change',function () {
+        let user = $(this).find('option:selected').val();
+        let route = $(this).find('option:selected').data('url');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF_TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
             url: route,
             beforeSend: function() {
-              $("#spinner-icon").html('<div class="d-flex justify-content-center mt-4 mb-4" style="margin-top: 200px !important"><span class="loadingspinner"></span></div>');
+                $("#spinner-icon-admin").html('<div class="d-flex justify-content-center mt-4 mb-4" style="margin-left: 40px !important"><span class="loadingspinner"></span></div>');
             },
             // return the result
             success: function(result) {
-                $('#mail-content').html('');
-                $('#mail-content').html(result);
-                $('.mail-content-header, .mail-content-body').removeClass('d-none');
+
+                // $('.admin-list').removeClass('d-none');
+                $('#admin-list').html('');
+                $('#admin-list').html(result);
             },
             complete: function() {
                 $("#spinner-icon").hide();
             },
             error: function(jqXHR, testStatus, error) {
-                var message = error+ ' occured while trying to retireve message details.';
+                var message = error+ ' occured while trying to retireve '+ user +' list.';
                 var type = 'error';
                 displayMessage(message, type);
-                $("#spinner-icon").hide();
+                $("#spinner-icon-admin").hide();
             },
             timeout: 8000
+        })  
+    });
+
+    //Get list of users by a particular service request reference
+    $('#ongoing_requests').on('change',function () {
+        let user = $(this).find('option:selected').val();
+        let route = $(this).find('option:selected').data('url');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF_TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
         });
 
-      });
-    });
-  </script>
+        $.ajax({
+            url: route,
+            beforeSend: function() {
+                $("#spinner-icon-admin").html('<div class="d-flex justify-content-center mt-4 mb-4" style="margin-left: 40px !important"><span class="loadingspinner"></span></div>');
+            },
+            // return the result
+            success: function(result) {
 
-  @endpush
+                // $('.admin-list').removeClass('d-none');
+                $('#admin-list').html('');
+                $('#admin-list').html(result);
+            },
+            complete: function() {
+                $("#spinner-icon").hide();
+            },
+            error: function(jqXHR, testStatus, error) {
+                var message = error+ ' occured while trying to retireve '+ user +' list.';
+                var type = 'error';
+                displayMessage(message, type);
+                $("#spinner-icon-admin").hide();
+            },
+            timeout: 8000
+        })  
+    });
+
+
+  });
+</script>
+
+@endpush
 @endsection

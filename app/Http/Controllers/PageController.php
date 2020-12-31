@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 use App\Models\Service;
 use App\Models\Category;
 
@@ -27,5 +32,82 @@ class PageController extends Controller
         ];
 
         return view('page.services', $data);
+    }
+
+    public function contactUs(){
+
+        return view('page.contact');
+    }
+
+    public function sendContactMail(Request $request){
+
+        //Validate contact form has values
+        $this->validateContactUsRequest();
+
+        $name = $request->name;
+        $email = $request->email;
+        $category = $request->category;
+        $message = $request->message;
+
+        // Load Composer's autoloader
+        require '../vendor/autoload.php';
+
+        // Instantiation and passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+            $mail->isSMTP();                                            // Send using SMTP
+            $mail->Host       = env('MAIL_HOST');                    // Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+            $mail->Username   = env('MAIL_USERNAME');                     // SMTP username
+            $mail->Password   = env('MAIL_PASSWORD');                               // SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+            //Recipients
+            $mail->setFrom($email, $name);
+            $mail->addAddress('xanderxapex@gmail.com', 'Anthony Joboy');     // Add a recipient
+            // $mail->addAddress('ellen@example.com');               // Name is optional
+            // $mail->addReplyTo('info@example.com', 'Information');
+            // $mail->addCC('cc@example.com');
+            // $mail->addBCC('bcc@example.com');
+
+            // Attachments
+            // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+            // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+            // Content
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = $name.' sent a '.$category.' message';
+            $mail->Body    = $message;
+            // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+            $mail->clearAddresses();
+            // echo 'Message has been sent';
+
+            return redirect()->route('page.contact')->with('success','Message has been sent' );
+
+        } catch (Exception $e) {
+            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+
+            return back()->with('error', "Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+        }
+
+        return back()->withInput();
+    }
+
+    /**
+     * Validate user input fields
+     */
+    private function validateContactUsRequest(){
+        return request()->validate([
+            'name'      =>   'required',
+            'email'     =>   'required',
+            'category'  =>   'required',
+            'message'   =>   'required',
+        ]);
     }
 }

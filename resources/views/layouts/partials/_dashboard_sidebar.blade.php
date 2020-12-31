@@ -13,6 +13,8 @@
       <i data-feather="menu"></i>
       <i data-feather="x"></i>
     </a>
+    <a href="" id="mailSidebar" class="burger-menu d-md-none"><i data-feather="arrow-left"></i></a>
+
   </div>
   <div class="aside-body">
     <div class="aside-loggedin">
@@ -102,6 +104,8 @@
       <i data-feather="menu"></i>
       <i data-feather="x"></i>
     </a>
+    <a href="" id="mailSidebar" class="burger-menu d-md-none"><i data-feather="arrow-left"></i></a>
+
   </div>
   <div class="aside-body">
     <div class="aside-loggedin">
@@ -173,6 +177,7 @@
       <i data-feather="menu"></i>
       <i data-feather="x"></i>
     </a>
+    <a href="" id="mailSidebar" class="burger-menu d-md-none"><i data-feather="arrow-left"></i></a>
   </div>
   <div class="aside-body">
     <div class="aside-loggedin">
@@ -228,7 +233,7 @@
         <ul> 
           <li class="{{ Route::currentRouteNamed('admin.inbox_messages') ? 'active' : '' }}"><a href="{{ route('admin.inbox_messages') }}">Inbox</a></li>
           <li class="{{ Route::currentRouteNamed('admin.outbox_messages') ? 'active' : '' }}"><a href="{{ route('admin.outbox_messages') }}">Sent</a></li>
-          <li><a href="#admin.essageComposer" data-toggle="modal">Compose</a></li>
+          {{-- <li><a href="#adminMessageComposer" data-toggle="modal">Compose</a></li> --}}
         </ul>
       </li>
       

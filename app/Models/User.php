@@ -245,4 +245,56 @@ class User extends Authenticatable
         // ->where('id', '!=', 1)
         ->orderBy('users.created_at', 'ASC');
     }
+
+    /** 
+     * Scope a query to only include active banches
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */    
+    //Function to return all active clients  
+    public function scopeActiveAdmins($query){
+        return $query->select('id')
+        ->where('designation', '[ADMIN_ROLE]')
+        ->where('is_active', '1');
+    }
+
+    /** 
+     * Scope a query to only include active banches
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */    
+    //Function to return all active clients  
+    public function scopeActiveClientUsers($query){
+        return $query->select('id')
+        ->where('designation', '[CLIENT_ROLE]')
+        ->where('is_active', '1');
+    }
+
+    /** 
+     * Scope a query to only include active banches
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */    
+    //Function to return all active clients  
+    public function scopeActiveTechnicians($query){
+        return $query->select('id')
+        ->where('designation', '[TECHNICIAN_ROLE]')
+        ->where('is_active', '1');
+    }
+
+    /** 
+     * Scope a query to only include active banches
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */    
+    //Function to return all active clients  
+    public function scopeActiveCses($query){
+        return $query->select('id')
+        ->where('designation', '[CSE_ROLE]')
+        ->where('is_active', '1');
+    }
 }

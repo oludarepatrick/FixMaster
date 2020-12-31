@@ -95,6 +95,10 @@ class AdminRequestController extends Controller
 
     public function assignCSETechnician(Request $request, $id){
 
+        if(Auth::user()->designation != '[ADMIN_ROLE]'){
+            return back()->with('error', 'Sorry! Only FixMaster Administrators can assign CSE and Technicians.');
+        }
+
         $requestExists = ServiceRequest::findOrFail($id);
 
         $request->validate([
@@ -112,6 +116,14 @@ class AdminRequestController extends Controller
         $technicianEmail = $request->input('technician_email');
 
         $jobReference = $requestExists->job_reference;
+
+        $clientId = $requestExists->user_id;
+        $clientName = $requestExists->user->fullName->name;
+        $securityCode = $requestExists->security_code;
+
+        // return [
+        //     $clientId, $clientName, $securityCode
+        // ];
 
         //service_request_status_id = Pending(1), Ongoing(4), Completed(3), Cancelled(2) 
         $assignCSETechnician = ServiceRequest::where('id', $id)->update([
@@ -134,6 +146,7 @@ class AdminRequestController extends Controller
             $this->assignMessage = new EssentialsController();
             $this->assignMessage->assignCseMessage($cseName, $cseId, $jobReference);
             $this->assignMessage->assignTechnicianMessage($technicianName, $technicianId, $cseName, $jobReference);
+            $this->assignMessage->notifyClientOfCSETechnicianAssigning($clientName, $clientId, $securityCode, $jobReference);
 
             /*
             * Code to send email goes here...

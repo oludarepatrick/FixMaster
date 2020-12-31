@@ -11,6 +11,7 @@ use App\Models\State;
 use App\Models\ToolsInventory;
 use App\Models\LocationAndBrowserInfo;
 use App\Models\Message;
+use App\Models\ServiceRequest;
 use App\Http\Controllers\MailController;
 
 class EssentialsController extends Controller
@@ -116,6 +117,72 @@ class EssentialsController extends Controller
         }
     }
 
+    public function getAdministratorsList(Request $request){
+        if($request->ajax()){
+            
+            $administrators = User::ActiveAdmins()->get();
+
+            $data = [
+                'administrators'    =>  $administrators,
+            ];
+
+            return view('admin.messages._admin_users', $data);
+        }
+    }
+
+    public function getClientsList(Request $request){
+        if($request->ajax()){
+            
+            $clients = User::ActiveClientUsers()->get();
+
+            $data = [
+                'clients'    =>  $clients,
+            ];
+
+            return view('admin.messages._client_users', $data);
+        }
+    }
+
+    public function getTechniciansList(Request $request){
+        if($request->ajax()){
+            
+            $technicians = User::ActiveTechnicians()->get();
+
+            $data = [
+                'technicians'    =>  $technicians,
+            ];
+
+            return view('admin.messages._technician_users', $data);
+        }
+    }
+
+    public function getCsesList(Request $request){
+        if($request->ajax()){
+            
+            $cses = User::ActiveCses()->get();
+
+            $data = [
+                'cses'    =>  $cses,
+            ];
+
+            return view('admin.messages._cse_users', $data);
+        }
+    }
+
+    public function getOngoingServiceRequests(Request $request){
+        if($request->ajax()){
+            
+            $ongoingServiceRequests = ServiceRequest::where('service_request_status_id', '>', '3')->get();
+
+            $data = [
+                'ongoingServiceRequests'    =>  $ongoingServiceRequests,
+            ];
+
+            return view('admin.messages._ongoing_service_requests', $data);
+        }
+    }
+
+
     // This function will return  
     // A random string of specified length 
     public function randomStringGenerator($length_of_string) { 
@@ -210,6 +277,19 @@ class EssentialsController extends Controller
             'sender_id'         =>  4, 
             'recipient_id'      =>  $requesterId, 
             'subject'           =>  'Tool Request for Job('.$jobReference.') has been declined', 
+            'body'              =>  $body, 
+            'is_read'           =>  '0'
+        ]); 
+    }
+
+    public function notifyClientOfCSETechnicianAssigning($clientName, $clientId, $securityCode, $jobReference){
+
+        $body = '<p>Hello <strong>'.$clientName.'</strong>, we are glad to inform you that our best Client Service Executive and a Technician has been assigned to your Service Request (<strong>'.$jobReference.'</strong>). Once again, here is your Security Code to verify their identities.</p><p><strong>Security Code</strong>: '.$securityCode.'</p><div><div>Thanks,</div><div>FixMaster Management</div></div>';
+
+        Message::create([
+            'sender_id'         =>  4, 
+            'recipient_id'      =>  $clientId, 
+            'subject'           =>  'CSE & Technician has been assigned to '.$jobReference.' service request', 
             'body'              =>  $body, 
             'is_read'           =>  '0'
         ]); 

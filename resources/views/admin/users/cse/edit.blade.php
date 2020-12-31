@@ -84,6 +84,11 @@
                     <option value="Male" {{ old('gender') == 'Male' ? 'selected' : ''}} @if($cse->cse->gender == 'Male') selected @endif>Male</option>
                     <option value="Female" {{ old('gender') == 'Female' ? 'selected' : ''}} @if($cse->cse->gender == 'Female') selected @endif>Female</option>
                 </select>
+                @error('gender')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
               </div>
             </div>
             
