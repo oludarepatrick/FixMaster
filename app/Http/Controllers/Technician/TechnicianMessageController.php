@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\URL;
 use App\Models\ActivityLog;
 use App\Models\Message;
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\RecordActivityLogController;
 use App\Models\Technician;
+use App\Models\Name;
+use Route;
 
 class TechnicianMessageController extends Controller
 {
@@ -39,8 +42,6 @@ class TechnicianMessageController extends Controller
     }
 
     public function getUserAssigned($id) {
-        // $data = Item::where("category", $id)->where("is_deleted", "0")->get();
-        // return $data;
         $technician = Technician::where('user_id', Auth::id())->first();
         $serviceRequests = $technician->requests;
         $ongoingJob = $technician->requests()
@@ -77,11 +78,43 @@ class TechnicianMessageController extends Controller
           $message->recipient_id = $request->selectedReciever;
           $message->subject = $request->subject; 
           $message->body = $request->message;
-        //   $message->created_at = date('Y-m-d');
 
-          $message->save(); 
+          $recipientName = Name::findOrFail($request->selectedReciever);
+          $recipientName = $recipientName->name;
+
+        // echo $message;
+        // return;
+         $saveMessage = $message->save(); 
+
+         if($saveMessage){
+
+            //Record crurrenlty logged in user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Profile';
+            $severity = 'Informational';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = Auth::user()->fullName->name.' sent a message to '.$recipientName;
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return back()->with('success', 'Message sent successfully!');
+
+        }else{
+            //Record Unauthorized user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Errors';
+            $severity = 'Error';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = 'An error occurred while '.Auth::user()->fullName->name.'was sending a message to '.$recipientName;
+
+            return back()->with('error', 'An error occurred while trying to send Message.');
+        }
+
         //   echo $message;
-        return back()->with('success','Message sent successfully!');
+        // return back()->with('success','Message sent successfully!');
 
     }
 

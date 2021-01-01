@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\URL;
 use App\Models\ActivityLog;
 use App\Models\Technician;
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\RecordActivityLogController;
 use Route;
 
 class TechnicianProfileController extends Controller
@@ -107,9 +108,36 @@ class TechnicianProfileController extends Controller
             $technician->full_address = $request->full_address;
             $technician->save();
         } 
+
+        if($user_data){
+
+            //Record crurrenlty logged in user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Profile';
+            $severity = 'Informational';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = Auth::user()->fullName->name.' updated profile';
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return back()->with('success', 'Profile was successfully updated.');
+
+        }else{
+            //Record Unauthorized user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Errors';
+            $severity = 'Error';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to update profile.';
+
+            return back()->with('error', 'An error occurred while trying to update Profile.');
+        }
         
-        Session::flash('success', 'Profile updated successfully!');
-        return redirect()->back();
+        // Session::flash('success', 'Profile updated successfully!');
+        // return redirect()->back();
     }
 
     /**

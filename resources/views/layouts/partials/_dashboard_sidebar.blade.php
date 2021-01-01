@@ -53,11 +53,11 @@
       <li class="nav-item {{ Route::currentRouteNamed('cse.location_request') ? 'active show' : '' }}""><a href="{{ route('cse.location_request') }}" class="nav-link"><i data-feather="map-pin"></i> <span>Location Request</span></a></li>
 
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('inbox_messages', 'outbox_messages') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('cse.inbox_messages', 'cse.outbox_messages') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
         <ul> 
-          <li class="{{ Route::currentRouteNamed('inbox_messages') ? 'active' : '' }}"><a href="{{ route('inbox_messages') }}">Inbox</a></li>
-          <li class="{{ Route::currentRouteNamed('outbox_messages') ? 'active' : '' }}"><a href="{{ route('outbox_messages') }}">Sent</a></li>
+          <li class="{{ Route::currentRouteNamed('cse.inbox_messages') ? 'active' : '' }}"><a href="{{ route('cse.inbox_messages') }}">Inbox</a></li>
+          <li class="{{ Route::currentRouteNamed('cse.outbox_messages') ? 'active' : '' }}"><a href="{{ route('cse.outbox_messages') }}">Sent</a></li>
           {{-- <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li> --}}
         </ul>
       </li>

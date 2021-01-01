@@ -177,6 +177,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
+
+        Unicodeveloper\Paystack\PaystackServiceProvider::class,
     ],
 
     /*
@@ -232,6 +234,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+
+        'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
     ],
 
 ];
