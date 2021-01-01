@@ -75,6 +75,7 @@ Route::view('/join-us', 			        'page.careers')->name('page.careers');
 Route::view('/faq', 			            'page.faq')->name('page.faq');
 Route::view('/service-details', 			'page.service_details')->name('page.services_details');
 Route::get('/services',                     [App\Http\Controllers\PageController::class, 'services'])->name('page.services');
+Route::get('/services/details/{url}',                                     [App\Http\Controllers\ClientDashboardController::class, 'serviceDetails'])->name('client.services_details');
 Route::get('/contact-us',                   [App\Http\Controllers\PageController::class, 'contactUs'])->name('page.contact');
 Route::post('/contact-us',                  [App\Http\Controllers\PageController::class, 'sendContactMail'])->name('page.send_contact_mail');
 

@@ -96,7 +96,7 @@
                     <tr>
                         <td class="text-center">{{ ++$i }}</td>
                         <td>{{ $userServiceRequest->job_reference }}</td>
-                        <td>{{ $createdBy->find($userServiceRequest->cse_id)->name ?? 'Not Assigned' }}</td>
+                        <td>@if(!empty($userServiceRequest->cse_id)) {{ $userServiceRequest->cse->first_name.' '.$userServiceRequest->cse->last_name }} @else Not Assigned @endif</td>
                         <td>{{ $userServiceRequest->serviceRequestDetail->timestamp ?? '' }}</td>
                         <td class="font-weight-bold text-center">
                             @if(!empty($userServiceRequest->serviceRequestDetail->discount_service_fee))
@@ -108,7 +108,7 @@
                         </td>
                         @if($userServiceRequest->serviceRequestStatus->name == 'Pending')
                             <td class="text-warning">Pending</td>
-                        @elseif($userServiceRequest->serviceRequestStatus->name == 'Ongoing')
+                        @elseif($userServiceRequest->service_request_status_id > '3')
                             <td class="text-info">Ongoing</td>
                         @elseif($userServiceRequest->serviceRequestStatus->name == 'Completed')
                             <td class="text-success">Completed</td>
@@ -124,13 +124,13 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <a href="{{ route('client.request_details', $userServiceRequest->id) }}" class="dropdown-item text-primary"><i data-feather="clipboard" class="fea icon-sm"></i> View Details</a>
-                                    @if($userServiceRequest->service_request_status_id == 'Pending')
-                                        <a href="#" class="dropdown-item text-info"><i data-feather="edit" class="fea icon-sm"></i> Edit Request</a>
+                                    @if($userServiceRequest->service_request_status_id == '1')
+                                        <a href="#editRequest" id="edit-request" data-toggle="modal" class="dropdown-item text-info" data-url="{{ route('client.edit_request', $userServiceRequest->id) }}" data-job-reference="{{ $userServiceRequest->job_reference }}"><i data-feather="edit" class="fea icon-sm"></i> Edit Request</a>
                                     @endif
-                                    <a href="{{ route('client.request_invoice') }}" class="dropdown-item text-success"><i data-feather="file-text" class="fea icon-sm"></i> View Invoice</a>
-                                    @if($userServiceRequest->service_request_status_id != 'Completed')
+                                    {{-- <a href="{{ route('client.request_invoice') }}" class="dropdown-item text-success"><i data-feather="file-text" class="fea icon-sm"></i> View Invoice</a> --}}
+                                    @if($userServiceRequest->service_request_status_id != '3')
                                         <div class="dropdown-divider"></div>
-                                        @if($userServiceRequest->service_request_status_id != 'Cancelled')
+                                        @if($userServiceRequest->service_request_status_id != '2')
                                             <a href="javascript:void(0)" class="dropdown-item text-danger cancel_request"><i data-feather="x" class="fea icon-sm"></i> Cancel Request</a>
                                         @else
                                             <a href="javascript:void(0)" class="dropdown-item text-success cancel_request"><i data-feather="corner-up-left" class="fea icon-sm"></i> Reinstate Request</a>
@@ -148,9 +148,62 @@
     </div>
 </div><!--end col-->
 
-@section('scripts')
+
+<div class="modal fade" id="editRequest" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content rounded shadow border-0">
+        <div class="modal-header">
+            {{-- <h5 class="modal-title" id="exampleModalCenterTitle">Modal title </h5> --}}
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" id="modal-edit-request">
+            <!-- Modal displays here -->
+            <div id="spinner-icon"></div>
+        </div>
+        </div><!-- modal-body -->
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+@push('scripts')
 <script>
     $(document).ready(function() {
+
+        $(document).on('click', '#edit-request', function(event) {
+            event.preventDefault();
+            let route = $(this).attr('data-url');
+            let jobReference = $(this).attr('data-job-reference');
+        
+            $.ajax({
+                url: route,
+                beforeSend: function() {
+                    $("#spinner-icon").html('<div class="d-flex justify-content-center mt-4 mb-4"><span class="loadingspinner"></span></div>');
+                },
+                // return the result
+                success: function(result) {
+                    $('#modal-edit-request').modal("show");
+                    $('#modal-edit-request').html('');
+                    $('#modal-edit-request').html(result).show();
+                },
+                complete: function() {
+                    $("#spinner-icon").hide();
+                },
+                error: function(jqXHR, testStatus, error) {
+                    var message = error+ 'An error occured while trying to retireve '+ jobReference +' service request details.';
+                    var type = 'error';
+                    displayMessage(message, type);
+                    $("#spinner-icon").hide();
+                },
+                timeout: 8000
+            })
+        });
+
+        $('.close').click(function (){
+            $('#modal-edit-request').html('');
+            $(".modal-backdrop").remove();
+        });
 
         $(document).on('click', '.cancel_request', function(){
             Swal.fire({
@@ -224,6 +277,6 @@
     });
    
 </script>
-@endsection
+@endpush
 
 @endsection

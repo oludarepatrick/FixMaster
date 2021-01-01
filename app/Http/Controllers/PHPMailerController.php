@@ -3,51 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-use App\Models\Service;
-use App\Models\Category;
-
-class PageController extends Controller
+class PHPMailerController extends Controller
 {
-    public function services(){
-
-        $categories = Service::ActiveServices()->get();
-
-        $services = Service::select('id', 'name')
-        ->where('id', '!=', 1)
-        ->where('is_active', '1')
-        ->orderBy('name', 'ASC')
-        ->with(['categories'    =>  function($query){
-            return $query->select('id', 'name', 'url', 'image', 'service_id');
-        }])
-        ->has('categories')->get();
-
-        $data = [
-            'services'      =>  $services,
-            'categories'    =>  $categories,
-        ];
-
-        return view('page.services', $data);
-    }
-
-    public function contactUs(){
-
-        return view('page.contact');
-    }
-
-    public function sendContactMail(Request $request){
-
-        //Validate contact form has values
-        $this->validateContactUsRequest();
-
-        $name = $request->name;
-        $email = $request->email;
-        $category = $request->category;
-        $message = $request->message;
+    public static function sendMail($email, $mailBody, $subject){
 
         // Load Composer's autoloader
         require '../vendor/autoload.php';
@@ -69,8 +31,8 @@ class PageController extends Controller
             $mail->Port       = 26;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Recipients
-            $mail->setFrom($email, $name);
-            $mail->addAddress('info@fixmaster.com.ng');     // Add a recipient
+            $mail->setFrom('test@ninthbinary.com', 'FixMaster - We Fix, You Relax!');
+            $mail->addAddress($email);     // Add a recipient
             // $mail->addAddress('ellen@example.com');               // Name is optional
             // $mail->addReplyTo('info@example.com', 'Information');
             // $mail->addCC('cc@example.com');
@@ -82,8 +44,8 @@ class PageController extends Controller
 
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = $name.' sent a '.$category.' message';
-            $mail->Body    = $message;
+            $mail->Subject =  $subject;
+            $mail->Body    = $mailBody;
             // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             $mail->send();
@@ -98,34 +60,5 @@ class PageController extends Controller
             return back()->with('error', "Message could not be sent. Mailer Error: {$mail->ErrorInfo}")->withInput();
         }
 
-        return back()->withInput();
-    }
-
-    /**
-     * Validate user input fields
-     */
-    private function validateContactUsRequest(){
-        return request()->validate([
-            'name'      =>   'required',
-            'email'     =>   'required',
-            'category'  =>   'required',
-            'message'   =>   'required',
-        ]);
-    }
-
-    public function serviceDetails($url){
-
-        $urlExists = Category::where('url', $url)->first();
-
-        if(!empty($urlExists)){
-
-            $data = [
-                'service' =>  $urlExists,
-            ];
-
-            return view('page.service_details', $data);
-        }else{
-            return back();
-        }
     }
 }

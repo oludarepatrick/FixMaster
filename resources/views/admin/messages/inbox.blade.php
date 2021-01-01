@@ -125,7 +125,7 @@
               $("#spinner-icon").hide();
           },
           error: function(jqXHR, testStatus, error) {
-              var message = error+ ' occured while trying to retireve message details.';
+              var message = error+ 'An error occured while trying to retireve message details.';
               var type = 'error';
               displayMessage(message, type);
               $("#spinner-icon").hide();
@@ -162,7 +162,7 @@
                 $("#spinner-icon").hide();
             },
             error: function(jqXHR, testStatus, error) {
-                var message = error+ ' occured while trying to retireve '+ user +' list.';
+                var message = error+ 'An error occured while trying to retireve '+ user +' list.';
                 var type = 'error';
                 displayMessage(message, type);
                 $("#spinner-icon-admin").hide();
@@ -199,7 +199,7 @@
                 $("#spinner-icon").hide();
             },
             error: function(jqXHR, testStatus, error) {
-                var message = error+ ' occured while trying to retireve '+ user +' detail.';
+                var message = error+ 'An error occured while trying to retireve '+ user +' detail.';
                 var type = 'error';
                 displayMessage(message, type);
                 $("#spinner-icon-admin").hide();

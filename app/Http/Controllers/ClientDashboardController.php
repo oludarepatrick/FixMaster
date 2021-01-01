@@ -31,6 +31,16 @@ class ClientDashboardController extends Controller
 
     public function index(){
 
+        if(Auth::user()->client->discounted == 0){
+            $dateDifference = \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(Auth::user()->email_verified_at, 'UTC'));
+
+            if($dateDifference > 7){
+                Client::where('user_id', Auth::id())->update([
+                    'discounted'    =>  '1'
+                ]);
+            }
+        }
+
         $client =  Client::where('user_id', Auth::id())->first();
 
         $user =  User::where('id', Auth::id())->first();
@@ -41,12 +51,11 @@ class ClientDashboardController extends Controller
 
         $cseName = Name::get();
 
-      //service_request_status_id = Pending, Ongoing, Completed, Cancelled 
-        $completedRequests = ServiceRequest::where('user_id', $user->id)->where('service_request_status_id', 'Completed')->get()->count();
-        $cancelledRequests = ServiceRequest::where('user_id', $user->id)->where('service_request_status_id', 'Cancelled')->get()->count();
+        //service_request_status_id = Pending, Ongoing, Completed, Cancelled 
+        $completedRequests = ServiceRequest::where('user_id', $user->id)->where('service_request_status_id', '3')->get()->count();
+        $cancelledRequests = ServiceRequest::where('user_id', $user->id)->where('service_request_status_id', '2')->get()->count();
 
-        $popularRequests = Category::select('name', 'standard_fee', 'url', 'image')
-        ->take(10)->get()->random(3);
+        $popularRequests = Category::select('id', 'name', 'standard_fee', 'url', 'image')->take(10)->get()->random(3);
 
         $data  = [
             'user'                  =>  $user,
@@ -290,13 +299,19 @@ class ClientDashboardController extends Controller
         $urlExists = Category::select('id', 'service_id', 'name', 'standard_fee', 'urgent_fee', 'ooh_fee')
         ->where('url', $url)->first();
 
+        $email = Auth::user()->email;
+        $clientDiscount = Auth::user()->client->discounted;
+
         if(!empty($urlExists)){
 
             $data = [
-                'serviceQuote' =>  $urlExists,
+                'serviceQuote'      =>  $urlExists,
+                'email'             =>  $email,
+                'clientDiscount'    =>  $clientDiscount,
             ];
 
             return view('client.service_quote', $data);
+            
         }else{
             return back();
         }

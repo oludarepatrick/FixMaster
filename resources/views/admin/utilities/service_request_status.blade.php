@@ -149,7 +149,7 @@
               $("#spinner-icon").hide();
           },
           error: function(jqXHR, testStatus, error) {
-              var message = error+ ' occured while trying to retireve '+ statusName +' statusStatus.';
+              var message = error+ 'An error occured while trying to retireve '+ statusName +' statusStatus.';
               var type = 'error';
               displayMessage(message, type);
               $("#spinner-icon").hide();

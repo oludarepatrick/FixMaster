@@ -123,6 +123,18 @@ class ServiceRequest extends Model
     {
         return $this->hasMany(ToolsRequest::class, 'service_request_id');
     }
+
+    public function receivedPayment()
+    {
+        return $this->hasOne(ReceivedPayment::class, 'service_request_id');
+    }
+
+    public function receivedPayments()
+    {
+        return $this->hasMany(ReceivedPayment::class, 'service_request_id');
+    }
+
+    
     
      /** 
      * Scope a query to only include active banches

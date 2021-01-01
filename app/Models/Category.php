@@ -36,12 +36,12 @@ class Category extends Model
 
     public function request()
     {
-        return $this->hasOne(ServiceRequest::class);
+        return $this->hasOne(ServiceRequest::class, 'category_id', 'id' );
     }
 
     public function requests()
     {
-        return $this->hasMany(ServiceRequest::class);
+        return $this->hasMany(ServiceRequest::class, 'category_id', 'id' );
     }
 
     public function category()
