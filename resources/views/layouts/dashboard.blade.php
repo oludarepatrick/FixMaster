@@ -45,7 +45,7 @@
       
       @yield('content')
 
-      @include('layouts.partials._cse_message_composer')
+      
 
     {{-- </div> --}}
     </div>
@@ -125,6 +125,16 @@
       function updateRecieverList(jobRef){
         $.ajax({
             url: $("#path_backEnd").val()+"/cse/getUserAssigned"+"/"+jobRef,
+            responseData: { },
+            success: function( responseData ) {
+                document.getElementById("assigned").innerHTML = responseData;
+            }
+        });
+    }
+
+    function updateRecieverListTech(jobRef){
+        $.ajax({
+            url: $("#path_backEnd").val()+"/technician/getUserAssigned"+"/"+jobRef,
             responseData: { },
             success: function( responseData ) {
                 document.getElementById("assigned").innerHTML = responseData;

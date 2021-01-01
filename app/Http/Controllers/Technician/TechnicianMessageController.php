@@ -9,8 +9,12 @@ use Auth;
 use Session;
 use Illuminate\Support\Facades\URL; 
 use App\Models\ActivityLog;
-use App\Models\Technician;
+use App\Models\Message;
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\RecordActivityLogController;
+use App\Models\Technician;
+use App\Models\Name;
+use Route;
 
 class TechnicianMessageController extends Controller
 {
@@ -22,13 +26,157 @@ class TechnicianMessageController extends Controller
 
     public function sendMessage(Request $request){
         try {
-           $roles = User::distinct()->get();
-           dd($roles);
-        //    ['designation']
-            // return view('technician.message.sendMessage', compact('roles'));
-        } catch (\Throwable $e) {
+            $technician = Technician::where('user_id', Auth::id())->first();
+
+            $serviceRequests = $technician->requests;
+
+            $ongoingJobs = $technician->requests()
+                            ->where('service_request_status_id', '>', '3')
+                            ->get();
+
+            return $ongoingJobs;
+            
+          } catch (\Throwable $e) {
             return back()->with('error','An error occurred while tyring to update your password. Try again!');
         }
+    }
+
+    public function getUserAssigned($id) {
+        $technician = Technician::where('user_id', Auth::id())->first();
+        $serviceRequests = $technician->requests;
+        $ongoingJob = $technician->requests()
+                        ->where('service_request_status_id', '>', '3')
+                        ->where('id', '=', $id)
+                        ->get();
+
+        $data = '';
+        $data .= '<option value="" selected>Select...</option>';
+
+        foreach($ongoingJob as $item){
+
+            $data .= '<option value='.$item->user_id.'>'.$item->user->fullName->name. '(Client)</option>';
+            $data .= '<option value='.$item->admin_id.'>'.$item->admin->first_name.' '.$item->admin->last_name. '(Admin)</option>';
+            $data .= '<option value='.$item->technician_id.'>'.$item->technician->first_name.' '.$item->technician->last_name. '(Technician)</option>';
+
+        };
+        return $data;
+
+       }
+
+    
+
+    public function saveMessageData(Request $request){
+        // return $request;
+        $validatedData = $request->validate([
+            'jobReference' => 'required|max:255',
+            'subject'   => 'required|max:255',
+            'message'   => 'required',
+          ]);
+          
+          $message = new Message;
+          $message->sender_id  = Auth::id();
+          $message->recipient_id = $request->selectedReciever;
+          $message->subject = $request->subject; 
+          $message->body = $request->message;
+
+          $recipientName = Name::findOrFail($request->selectedReciever);
+          $recipientName = $recipientName->name;
+
+        // echo $message;
+        // return;
+         $saveMessage = $message->save(); 
+
+         if($saveMessage){
+
+            //Record crurrenlty logged in user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Profile';
+            $severity = 'Informational';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = Auth::user()->fullName->name.' sent a message to '.$recipientName;
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return back()->with('success', 'Message sent successfully!');
+
+        }else{
+            //Record Unauthorized user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Errors';
+            $severity = 'Error';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = 'An error occurred while '.Auth::user()->fullName->name.'was sending a message to '.$recipientName;
+
+            return back()->with('error', 'An error occurred while trying to send Message.');
+        }
+
+        //   echo $message;
+        // return back()->with('success','Message sent successfully!');
+
+    }
+
+    public function inbox(){
+
+        $messages = Message::orderBy('created_at', 'DESC')->get()
+        ->groupBy(function ($val) {
+            return \Carbon\Carbon::parse($val->created_at)->format('l d, F Y');
+        });
+        $data = [
+            'messages'  =>  $messages
+        ];
+
+        return view('technician.messages.inbox', $data);
+    }
+
+    public function inboxMessageDetails($id){
+
+        $message = Message::findOrFail($id);
+
+        if($message->is_read == '0'){
+            Message::where('id', $id)->update([
+                'is_read'   =>  '1',
+            ]);
+        }
+
+        $data = [
+            'message'  =>  $message
+        ];
+
+        return view('cse.messages._inbox_message_body', $data);
+    }
+
+    public function outbox(){
+        
+        $messages =  Auth::user()->sentMessages()->orderBy('created_at', 'DESC')->get()
+        ->groupBy(function ($val) {
+            return \Carbon\Carbon::parse($val->created_at)->format('l d, F Y');
+        });
+
+        $data = [
+            'messages'  =>  $messages
+        ];
+
+        return view('cse.messages.outbox', $data);
+    }
+
+    public function outboxMessageDetails($id){
+
+        $message = Message::findOrFail($id);
+
+        if($message->is_read == '0'){
+            Message::where('id', $id)->update([
+                'is_read'   =>  '1',
+            ]);
+        }
+
+        $data = [
+            'message'  =>  $message
+        ];
+
+        return view('cse.messages._outbox_message_body', $data);
     }
 
     /**

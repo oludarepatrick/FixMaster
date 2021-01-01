@@ -31,12 +31,20 @@ Route::middleware(['technicianRole'])->group(function() {
             Route::post('/profile/updatePassword',      [App\Http\Controllers\Technician\TechnicianProfileController::class, 'updatePassword'])->name('technician.updatePassword');
             Route::get('/view-profile',                 [App\Http\Controllers\Technician\TechnicianProfileController::class, 'view_profile' ])->name('technician.view_profile');
 
-
-
             Route::view('/payments', 	                'technician.payments')->name('technician.payments');
             Route::view('/messages', 	                'technician.messages')->name('technician.messages');
             Route::view('/messages/sent', 	            'technician.messages_sent')->name('technician.messages_sent');
             Route::view('/location-request', 	        'technician.location_request')->name('technician.location_request');
+
+            Route::post('/add-message',                  [App\Http\Controllers\Technician\TechnicianMessageController::class, 'sendMessage' ])->name('add-message');
+            Route::get('/getUserAssigned/{id}',          [App\Http\Controllers\Technician\TechnicianMessageController::class, 'getUserAssigned' ])->name('get-userAssigned');
+            Route::post('save-message-data',             [App\Http\Controllers\Technician\TechnicianMessageController::class, 'saveMessageData' ])->name('cse.save-message-data');
+
+            Route::get('/messages/inbox',                [App\Http\Controllers\Technician\TechnicianMessageController::class, 'inbox'])->name('inbox_messages');
+            Route::get('/messages/inbox/details/{id}',   [App\Http\Controllers\Technician\TechnicianMessageController::class, 'inboxMessageDetails'])->name('inbox_message_details');
+            Route::get('/messages/outbox',               [App\Http\Controllers\Technician\TechnicianMessageController::class, 'outbox'])->name('outbox_messages');
+            Route::get('/messages/outbox/details/{id}',  [App\Http\Controllers\Technician\TechnicianMessageController::class, 'outboxMessageDetails'])->name('outbox_message_details');
+
 
         // });
     });

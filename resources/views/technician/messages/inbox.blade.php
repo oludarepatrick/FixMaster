@@ -4,7 +4,7 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/dashboard/assets/css/dashforge.mail.css') }}">
 
-@include('layouts.partials._cse_message_composer')
+@include('layouts.partials._technician_message_composer')
 <div class="mail-wrapper ml-2">
   <div class="mail-sidebar">
     <div class="mail-sidebar-body">
@@ -18,7 +18,7 @@
         <input type="search" class="form-control" placeholder="Search mail">
       </div><!-- search-form --> --}}
       <div class="pd-10">
-        <a href="#cseMessageComposer" data-toggle="modal" class="btn btn-primary btn-block tx-uppercase tx-10 tx-medium tx-sans tx-spacing-4">Compose</a>
+        <a href="#technicianMessageComposer" data-toggle="modal" class="btn btn-primary btn-block tx-uppercase tx-10 tx-medium tx-sans tx-spacing-4">Compose</a>
       </div>
 
       
@@ -127,7 +127,7 @@
               $("#spinner-icon").hide();
           },
           error: function(jqXHR, testStatus, error) {
-              var message = error+ 'An error occured while trying to retireve message details.';
+              var message = error+ ' occured while trying to retireve message details.';
               var type = 'error';
               displayMessage(message, type);
               $("#spinner-icon").hide();
@@ -164,7 +164,7 @@
                 $("#spinner-icon").hide();
             },
             error: function(jqXHR, testStatus, error) {
-                var message = error+ 'An error occured while trying to retireve '+ user +' list.';
+                var message = error+ ' occured while trying to retireve '+ user +' list.';
                 var type = 'error';
                 displayMessage(message, type);
                 $("#spinner-icon-admin").hide();
@@ -200,7 +200,7 @@
                 $("#spinner-icon").hide();
             },
             error: function(jqXHR, testStatus, error) {
-                var message = error+ 'An error occured while trying to retireve '+ user +' list.';
+                var message = error+ ' occured while trying to retireve '+ user +' list.';
                 var type = 'error';
                 displayMessage(message, type);
                 $("#spinner-icon-admin").hide();
