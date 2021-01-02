@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 02, 2021 at 02:05 PM
+-- Generation Time: Jan 02, 2021 at 07:53 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -333,7 +333,23 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 (294, 1, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\AdminRequestController@markRequestAsCompleted', 'http://localhost:8000/admin/requests/ongoing/completed/5', 'NinthBinary Developer marked REF-27D2F0BE as completed', '2021-01-02 11:54:18'),
 (295, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 01:13:28(hrs:min:ss).', '2021-01-02 12:41:44'),
 (296, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-02 12:41:55'),
-(297, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'http://localhost:8000/client/requests/cancel/7', 'Adekola Adeleke cancelled REF-131D985E service request.', '2021-01-02 13:01:24');
+(297, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'http://localhost:8000/client/requests/cancel/7', 'Adekola Adeleke cancelled REF-131D985E service request.', '2021-01-02 13:01:24'),
+(298, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 00:24:16(hrs:min:ss).', '2021-01-02 13:06:11'),
+(299, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-02 13:26:56'),
+(300, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 00:03:46(hrs:min:ss).', '2021-01-02 13:30:42'),
+(301, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-02 13:30:54'),
+(302, 1, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\AdminRequestController@updateOngoingProgress', 'http://localhost:8000/admin/requests/ongoing/update', 'NinthBinary Developer updated REF-66EB5A26 job.', '2021-01-02 14:55:16'),
+(303, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 01:25:10(hrs:min:ss).', '2021-01-02 14:56:04'),
+(304, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-02 14:56:16'),
+(305, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 00:16:52(hrs:min:ss).', '2021-01-02 15:13:08'),
+(306, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-02 15:13:18'),
+(307, 1, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\AdminRequestController@updateOngoingProgress', 'http://localhost:8000/admin/requests/ongoing/update', 'NinthBinary Developer updated REF-66EB5A26 job.', '2021-01-02 15:38:30'),
+(308, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:50:20(hrs:min:ss).', '2021-01-02 16:03:38'),
+(309, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-02 16:03:49'),
+(310, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:00:08(hrs:min:ss).', '2021-01-02 16:03:57'),
+(311, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-02 16:04:05'),
+(312, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'http://localhost:8000/client/services/quote/store', 'Adekola Adeleke requested Computer & Laptops service', '2021-01-02 18:51:26'),
+(313, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 02:48:20(hrs:min:ss).', '2021-01-02 18:52:25');
 
 -- --------------------------------------------------------
 
@@ -506,7 +522,7 @@ CREATE TABLE `clients` (
 INSERT INTO `clients` (`id`, `user_id`, `state_id`, `lga_id`, `profession_id`, `town`, `first_name`, `middle_name`, `last_name`, `phone_number`, `gender`, `avatar`, `full_address`, `discounted`) VALUES
 (1, 9, 25, 369, 1, 'Okota', 'Wisdom', NULL, 'Amana', '09082354902', 'Male', NULL, 'Sango Ota, Lagos.', '0'),
 (2, 10, 25, 365, 18, 'Ibeju-Lekki', 'Debola', NULL, 'Williams', '08167836902', 'Male', NULL, 'Funsho williams street, Ibeju Lekki, Lagos.', '0'),
-(31, 11, 25, 359, 1, 'Falomo', 'Adekola', NULL, 'Adeleke', '08034516844', 'Male', '0c9ac4cada39ba68e97fc6c0a0807458d1385048.jpg', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', '1');
+(31, 11, 25, 359, 1, 'Falomo', 'Adekola', NULL, 'Adeleke', '09035547107', 'Male', '0c9ac4cada39ba68e97fc6c0a0807458d1385048.jpg', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', '1');
 
 -- --------------------------------------------------------
 
@@ -1453,7 +1469,8 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 (18, 4, 15, 'New Job(REF-27D2F0BE) Assignment', '<p><strong>Taofeek Adedokun</strong>, you have been assigned to <strong>REF-27D2F0BE</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>Favour Nnamdi</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-30 09:30:19', '2020-12-30 09:31:10'),
 (19, 4, 11, 'CSE & Technician has been assigned to REF-27D2F0BE service request', '<p>Hello <strong>Adekola Adeleke</strong>, we are glad to inform you that our best Client Service Executive and a Technician has been assigned to your Service Request (<strong>REF-27D2F0BE</strong>). Once again, here is your Security Code to verify their identities.</p><p><strong>Security Code</strong>: SEC-35FA9E28</p><div><div>Thanks,</div><div>FixMaster Management</div></div>', '1', NULL, '2020-12-30 09:30:19', '2021-01-02 07:31:59'),
 (21, 11, 19, 'CSE Message Test', '<p><strong>FixMaster</strong> is your best trusted one-call solution for a wide range of home maintenance, servicing and repair needs. Our well-trained &amp; certified uniformed technicians are fully insured professionals with robust experience to provide home services to fully meet your needs with singular objective to make you totally relax while your repair requests are professionally handled.</p>\r\n<p>&nbsp;</p>', '0', NULL, '2021-01-02 05:56:55', '2021-01-02 07:09:24'),
-(22, 11, 4, 'FixMaster Message Test', '<p>This Message is sent directly to FixMaster default Administrator.</p>\r\n<div>Thanks,</div>\r\n<div>Adeleke Adekola</div>', '0', NULL, '2021-01-02 06:03:06', '2021-01-02 07:07:14');
+(22, 11, 4, 'FixMaster Message Test', '<p>This Message is sent directly to FixMaster default Administrator.</p>\r\n<div>Thanks,</div>\r\n<div>Adeleke Adekola</div>', '0', NULL, '2021-01-02 06:03:06', '2021-01-02 07:07:14'),
+(23, 4, 11, 'Service Request(REF-E1C71A87)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-E1C71A87</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,500(Standard)</p><p><strong>Date & Time:</strong> January 5th 2021, 10:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-02 17:51:26', '2021-01-02 17:51:26');
 
 -- --------------------------------------------------------
 
@@ -1558,20 +1575,21 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `payment_gateways` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `information` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `keyword` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT current_timestamp()
+  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `status` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `payment_gateways`
 --
 
-INSERT INTO `payment_gateways` (`id`, `name`, `information`, `keyword`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Paystack', '{\"private_key\":\"AVYKFEw63FtDt9aeYOe9biyifNI56s2Hc2F1Us11hWoY5GMuegipJRQBfWLiIKNbwQ5tmqKSrQTU3zB3\",\"public_key\":\"EJY0qOKliVg7wKsR3uPN7lngr9rL1N7q4WV0FulT1h4Fw3_e5Itv1mxSdbtSUwAaQoXQFgq-RLlk_sQu\",\"text\":\"Pay via Paystack.\"}', 'paystack', 1, '2021-01-01 17:16:57', '2021-01-01 17:16:57');
+INSERT INTO `payment_gateways` (`id`, `name`, `information`, `keyword`, `created_at`, `updated_at`, `status`) VALUES
+(1, 'Paystack', '{\"private_key\":\"sk_test_b612f25bd992c4d84760e312175c7515336b77fc\",\"public_key\":\"pk_test_41ada297a2a2953f9d42e125713644baccd0658c\",\"text\":\"Pay via Paystack\"}', 'paystack', '2021-01-01 17:16:57', '2021-01-02 12:25:01', 1),
+(2, 'Flutter', '{\"private_key\":\"AVYKFEw63FtDt9aeYOe9biyifNI56s2Hc2F1Us11hWoY5GMuegipJRQBfWLiIKNbwQ5tmqKSrQTU3zB3\",\"public_key\":\"EJY0qOKliVg7wKsR3ubtSUwAaQoXQFgq-RLlk_sQuOKliVg7wKsR3ubtSUwAaQoXQFgq-RLlk_sQu\",\"text\":\"Pay via Flutter\"}', 'flutter', '2021-01-01 16:16:57', '2021-01-02 12:18:09', 1);
 
 -- --------------------------------------------------------
 
@@ -1656,10 +1674,10 @@ INSERT INTO `professions` (`id`, `name`, `description`, `created_at`, `updated_a
 -- --------------------------------------------------------
 
 --
--- Table structure for table `received__payments`
+-- Table structure for table `received_payments`
 --
 
-CREATE TABLE `received__payments` (
+CREATE TABLE `received_payments` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
@@ -1669,6 +1687,13 @@ CREATE TABLE `received__payments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `received_payments`
+--
+
+INSERT INTO `received_payments` (`id`, `user_id`, `service_request_id`, `payment_reference`, `payment_method`, `amount`, `created_at`, `updated_at`) VALUES
+(1, 11, 9, '782422874', 'Online', 2500, '2021-01-02 17:51:26', '2021-01-02 17:51:26');
 
 -- --------------------------------------------------------
 
@@ -1683,7 +1708,7 @@ CREATE TABLE `rfqs` (
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
   `batch_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `invoice_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` enum('0','1','2') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `status` enum('0','1','2','3') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `accepted` enum('Yes','No') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `total_amount` int(10) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1695,7 +1720,7 @@ CREATE TABLE `rfqs` (
 --
 
 INSERT INTO `rfqs` (`id`, `issued_by`, `client_id`, `service_request_id`, `batch_number`, `invoice_number`, `status`, `accepted`, `total_amount`, `created_at`, `updated_at`) VALUES
-(1, 5, 11, 1, 'RFQ-C85BEA04', NULL, '0', NULL, NULL, '2020-12-28 15:58:54', NULL);
+(1, 5, 11, 1, 'RFQ-C85BEA04', 'INV-E6572521', '2', 'Yes', 5800, '2020-12-28 15:58:54', '2021-01-02 14:38:30');
 
 -- --------------------------------------------------------
 
@@ -1717,8 +1742,8 @@ CREATE TABLE `rfq_batches` (
 --
 
 INSERT INTO `rfq_batches` (`id`, `rfq_id`, `component_name`, `model_number`, `quantity`, `amount`) VALUES
-(1, 1, 'Power cable', 'PC-234234', 1, NULL),
-(2, 1, '8GB RAM', 'RM-3242', 2, NULL);
+(1, 1, 'Power cable', 'PC-234234', 1, 2500),
+(2, 1, '8GB RAM', 'RM-3242', 2, 2500);
 
 -- --------------------------------------------------------
 
@@ -1733,6 +1758,13 @@ CREATE TABLE `rfq_suppliers` (
   `devlivery_fee` int(10) UNSIGNED NOT NULL,
   `delivery_time` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `rfq_suppliers`
+--
+
+INSERT INTO `rfq_suppliers` (`id`, `rfq_id`, `name`, `devlivery_fee`, `delivery_time`) VALUES
+(1, 1, 'Emah Portfolio', 1450, 'January 2nd 2021, 7:00:00pm');
 
 -- --------------------------------------------------------
 
@@ -1792,11 +1824,12 @@ CREATE TABLE `service_requests` (
 --
 
 INSERT INTO `service_requests` (`id`, `user_id`, `admin_id`, `cse_id`, `technician_id`, `service_id`, `category_id`, `job_reference`, `security_code`, `service_request_status_id`, `total_amount`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 11, 6, 12, 15, 7, 1, 'REF-66EB5A26', 'SEC-27AEC73E', 4, 3325, NULL, '2020-12-14 12:39:55', '2021-01-02 10:22:26'),
+(1, 11, 6, 12, 15, 7, 1, 'REF-66EB5A26', 'SEC-27AEC73E', 6, 3325, NULL, '2020-12-14 12:39:55', '2021-01-02 14:38:30'),
 (2, 10, NULL, NULL, NULL, 3, 2, 'REF-330CB862', 'SEC-88AC1B19', 1, 3300, NULL, '2020-12-14 12:48:20', NULL),
-(5, 11, 6, 19, 15, 5, 3, 'REF-27D2F0BE', 'SEC-35FA9E28', 5, 2500, NULL, '2020-12-14 15:36:58', '2021-01-02 10:54:18'),
+(5, 11, 6, 19, 15, 5, 3, 'REF-27D2F0BE', 'SEC-35FA9E28', 4, 2500, NULL, '2020-12-14 15:36:58', '2021-01-02 10:54:18'),
 (6, 9, NULL, NULL, NULL, 3, 4, 'REF-1FC50FCC', 'SEC-EBC1D654', 1, 3500, NULL, '2020-12-15 09:33:01', NULL),
-(7, 11, NULL, NULL, NULL, 7, 1, 'REF-131D985E', 'SEC-A62C515E', 2, 4700, NULL, '2020-12-15 09:51:29', '2021-01-02 12:01:24');
+(7, 11, NULL, NULL, NULL, 7, 1, 'REF-131D985E', 'SEC-A62C515E', 2, 4700, NULL, '2020-12-15 09:51:29', '2021-01-02 12:01:24'),
+(9, 11, NULL, NULL, NULL, 7, 1, 'REF-E1C71A87', 'SEC-6B5B72A2', 1, 2500, NULL, '2021-01-02 17:51:26', '2021-01-02 17:51:26');
 
 -- --------------------------------------------------------
 
@@ -1855,7 +1888,8 @@ INSERT INTO `service_request_details` (`id`, `service_request_id`, `state_id`, `
 (2, 2, 25, 359, 'Falomo', 3300, NULL, 'Urgent', '08167836902', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'Hello FixMaster, my kitchen pipe broke and water is spilling everywhere, kindly send someone over...it\'s of utmost urgency. Thanks', 'December 15th 2020, 10:00:00am', NULL, 'Online', NULL, '2020-12-14 12:48:20', '2020-12-14 12:48:20'),
 (3, 5, 25, 359, 'Falomo', 2500, NULL, 'Standard', '08034516844', '127B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'My dishwasher broke, and its spilling water everywhere. Please send someone, ASAP!', 'December 15th 2020, 11:00:00am', NULL, 'Online', NULL, '2020-12-14 15:36:58', '2020-12-14 15:36:58'),
 (4, 6, 25, 359, 'Falomo', 3500, NULL, 'Urgent', '08034516844', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'Testing 222', 'December 27th 2020, 4:00:00pm', NULL, 'Online', NULL, '2020-12-15 09:33:01', '2020-12-15 09:33:01'),
-(5, 7, 25, 359, 'Falomo', 4700, NULL, 'Out of Hours', '08034516844', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'Please I urgently need a repair for my computer, It goes off saying overheating. I think the fan is faulty. You know it\'s New Year, so I\'ll need as swift response, thanks.', 'January 1st 2021, 11:00:00am', NULL, 'Online', NULL, '2020-12-15 09:51:29', '2021-01-01 07:42:03');
+(5, 7, 25, 359, 'Falomo', 4700, NULL, 'Out of Hours', '08034516844', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'Please I urgently need a repair for my computer, It goes off saying overheating. I think the fan is faulty. You know it\'s New Year, so I\'ll need as swift response, thanks.', 'January 1st 2021, 11:00:00am', NULL, 'Online', NULL, '2020-12-15 09:51:29', '2021-01-01 07:42:03'),
+(7, 9, 25, 359, 'Falomo', 2500, NULL, 'Standard', '09035547107', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'Testing Paystack payment gateway', 'January 5th 2021, 10:00:00am', NULL, 'Online', NULL, '2021-01-02 17:51:26', '2021-01-02 17:51:26');
 
 -- --------------------------------------------------------
 
@@ -1880,7 +1914,9 @@ INSERT INTO `service_request_progresses` (`id`, `user_id`, `service_request_id`,
 (1, 6, 1, 4, '2020-12-27 16:20:17', '2020-12-27 16:20:17'),
 (2, 5, 1, 5, '2020-12-28 15:58:54', '2020-12-28 15:58:54'),
 (4, 6, 5, 4, '2020-12-30 09:30:18', '2020-12-30 09:30:18'),
-(7, 11, 7, 2, '2021-01-02 12:01:24', '2021-01-02 12:01:24');
+(7, 11, 7, 2, '2021-01-02 12:01:24', '2021-01-02 12:01:24'),
+(8, 1, 1, 6, '2021-01-02 13:55:16', '2021-01-02 13:55:16'),
+(9, 1, 1, 6, '2021-01-02 14:38:30', '2021-01-02 14:38:30');
 
 -- --------------------------------------------------------
 
@@ -2149,7 +2185,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_token`, `is_email_verified`, `password`, `remember_token`, `designation`, `is_active`, `is_admin`, `login_count`, `current_sign_in`, `last_sign_in`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 86, '2021-01-02 10:28:16', '2021-01-01 16:33:06', NULL, '2019-12-31 23:29:26', '2021-01-02 10:28:16'),
+(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 89, '2021-01-02 15:03:49', '2021-01-02 14:13:18', NULL, '2019-12-31 23:29:26', '2021-01-02 15:03:49'),
 (2, '', NULL, NULL, '0', '', NULL, '[INTRUDER_ROLE]', '0', '0', 0, NULL, NULL, NULL, NULL, NULL),
 (3, 'charles.famoriyo@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 3, '2020-12-03 19:34:43', '2020-11-30 21:34:14', NULL, '2020-11-30 06:26:42', NULL),
 (4, 'info@fixmaster.com.ng', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, NULL, NULL),
@@ -2159,7 +2195,7 @@ INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_tok
 (8, 'godfrey.emmanuel@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (9, 'wisdom.amana@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (10, 'debo.williams@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
-(11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 35, '2021-01-02 11:41:55', '2021-01-02 05:11:56', NULL, '2020-12-11 12:43:02', '2021-01-02 11:41:55'),
+(11, 'anthonyjoboy2016@gmail.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 38, '2021-01-02 15:04:05', '2021-01-02 13:56:16', NULL, '2020-12-11 12:43:02', '2021-01-02 15:04:05'),
 (12, 'jamal.diwa@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', '0', 8, '2020-12-22 08:47:24', '2020-12-19 10:13:40', NULL, '2020-12-04 06:03:06', '2020-12-22 08:47:24'),
 (13, 'mayowabenedict@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$vicB3ZBUEj6YMfdk9P2ELO82xVE4X50.A6X.MqeTktkTTJMDh6PkS', NULL, '[CSE_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', '2020-12-29 19:11:23'),
 (14, 'andrew.nwankwo@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 1, '2020-12-17 09:17:14', '2020-12-17 09:17:14', NULL, '2020-12-04 06:03:06', NULL),
@@ -2329,9 +2365,9 @@ ALTER TABLE `professions`
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- Indexes for table `received__payments`
+-- Indexes for table `received_payments`
 --
-ALTER TABLE `received__payments`
+ALTER TABLE `received_payments`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `received__payments_payment_reference_unique` (`payment_reference`),
   ADD KEY `received__payments_user_id_index` (`user_id`),
@@ -2499,7 +2535,7 @@ ALTER TABLE `wallets`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=298;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=314;
 
 --
 -- AUTO_INCREMENT for table `admins`
@@ -2559,7 +2595,7 @@ ALTER TABLE `location_and_browser_infos`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -2577,7 +2613,7 @@ ALTER TABLE `names`
 -- AUTO_INCREMENT for table `payment_gateways`
 --
 ALTER TABLE `payment_gateways`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `professions`
@@ -2586,10 +2622,10 @@ ALTER TABLE `professions`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
--- AUTO_INCREMENT for table `received__payments`
+-- AUTO_INCREMENT for table `received_payments`
 --
-ALTER TABLE `received__payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `received_payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rfqs`
@@ -2607,7 +2643,7 @@ ALTER TABLE `rfq_batches`
 -- AUTO_INCREMENT for table `rfq_suppliers`
 --
 ALTER TABLE `rfq_suppliers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `services`
@@ -2619,7 +2655,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `service_requests`
 --
 ALTER TABLE `service_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `service_request_cancellation_reasons`
@@ -2631,13 +2667,13 @@ ALTER TABLE `service_request_cancellation_reasons`
 -- AUTO_INCREMENT for table `service_request_details`
 --
 ALTER TABLE `service_request_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `service_request_progresses`
 --
 ALTER TABLE `service_request_progresses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `service_request_statuses`
@@ -2775,11 +2811,11 @@ ALTER TABLE `names`
   ADD CONSTRAINT `names_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `received__payments`
+-- Constraints for table `received_payments`
 --
-ALTER TABLE `received__payments`
-  ADD CONSTRAINT `received__payments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `received__payments_ibfk_2` FOREIGN KEY (`service_request_id`) REFERENCES `service_requests` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE `received_payments`
+  ADD CONSTRAINT `received_payments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `received_payments_ibfk_2` FOREIGN KEY (`service_request_id`) REFERENCES `service_requests` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `rfqs`

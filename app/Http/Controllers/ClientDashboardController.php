@@ -302,6 +302,7 @@ class ClientDashboardController extends Controller
 
         $email = Auth::user()->email;
         $clientDiscount = Auth::user()->client->discounted;
+        $clientPhoneNumber = Auth::user()->client->phone_number;
         $paystack = PaymentGateway::find(1);
         $flutter = PaymentGateway::find(2);
 
@@ -313,6 +314,7 @@ class ClientDashboardController extends Controller
                 'clientDiscount'    =>  $clientDiscount,
                 'paystack'          =>  $paystack,
                 'flutter'           =>  $flutter,
+                'clientPhoneNumber' =>  $clientPhoneNumber,
             ];
             
 

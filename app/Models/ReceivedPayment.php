@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ReceivedPayment extends Model
 {
     use HasFactory;
-
+    
+    public $table = "received_payments";
+    
     /**
      * The attributes that are mass assignable.
      *

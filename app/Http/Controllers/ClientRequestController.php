@@ -69,7 +69,7 @@ class ClientRequestController extends Controller
      */
     public function store(Request $request){
 
-        return $request->input('payment_method');
+        // return $request;
         //Check if client has internect connected
         $this->isConnected = new EssentialsController();
 
@@ -143,7 +143,7 @@ class ClientRequestController extends Controller
 
 
         //IF payment was successful
-        if($request->payment_reference === 'success'){
+        if(!empty($request->input('payment_reference')) == 'success'){
             //Generate security code
             $this->randomStringGenerator = new EssentialsController();
 
@@ -176,7 +176,7 @@ class ClientRequestController extends Controller
             $paymentRecord = ReceivedPayment::create([
                 'user_id'               =>  Auth::id(), 
                 'service_request_id'    =>  $createServiceRequest->id,
-                'payment_reference'     =>  $request->payment_reference, 
+                'payment_reference'     =>  $request->input('payment_reference'), 
                 'payment_method'        =>  $request->input('payment_method'), 
                 'amount'                =>  $amount,
             ]);

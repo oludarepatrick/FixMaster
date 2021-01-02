@@ -26,9 +26,9 @@
                                 <div class="p-3 text-left">
                                 <h5 class="title">Standard: ₦{{ number_format($serviceQuote->standard_fee) }}</h5>
                                     <p class="text-muted tab-para mb-0">Your job will be evaluated by a CSE and technician within a maximum period of 8 hours.</p>
-                                    <input type="radio" id="service-fee-radio" name="service_fee" value="{{ $serviceQuote->standard_fee }}" class="custom-control-input service-fee" @if(old('service_fee') == $serviceQuote->standard_fee) checked @endif>
+                                    <input type="radio" name="service_fee" value="{{ $serviceQuote->standard_fee }}" class="custom-control-input service-fee" @if(old('service_fee') == $serviceQuote->standard_fee) checked @endif>
 
-                                    <input type="radio" id="service-fee-radio" name="service_fee_name" value="Standard" class="custom-control-input service-fee-name" @if(old('service_fee') == $serviceQuote->standard_fee) checked @endif>
+                                    <input type="radio" name="service_fee_name" value="Standard" class="custom-control-input service-fee-name" @if(old('service_fee') == $serviceQuote->standard_fee) checked @endif>
 
                                 </div>
                             </a><!--end nav link-->
@@ -39,9 +39,9 @@
                                 <div class="p-3 text-left">
                                 <h5 class="title">Urgent - ₦{{ number_format($serviceQuote->urgent_fee) }}</h5>
                                     <p class="text-muted tab-para mb-0">Your job will be evaluated by a CSE and technician within a maximum period of 2 hours</p>
-                                    <input type="radio" id="service-fee-radio" name="service_fee" value="{{ $serviceQuote->urgent_fee }}" class="custom-control-input service-fee" @if(old('service_fee') == $serviceQuote->urgent_fee) checked @endif>
+                                    <input type="radio" name="service_fee" value="{{ $serviceQuote->urgent_fee }}" class="custom-control-input service-fee" @if(old('service_fee') == $serviceQuote->urgent_fee) checked @endif>
 
-                                    <input type="radio" id="service-fee-radio" name="service_fee_name" value="Urgent" class="custom-control-input service-fee-name" @if(old('service_fee') == $serviceQuote->urgent_fee) checked @endif>
+                                    <input type="radio" name="service_fee_name" value="Urgent" class="custom-control-input service-fee-name" @if(old('service_fee') == $serviceQuote->urgent_fee) checked @endif>
                                 </div>
                             </a><!--end nav link-->
                         </li><!--end nav item-->
@@ -51,9 +51,9 @@
                                 <div class="p-3 text-left">
                                 <h5 class="title">Out of Hours - ₦{{ number_format($serviceQuote->ooh_fee) }}</h5>
                                     <p class="text-muted tab-para mb-0">Our normal working Hours is 7AM to 7PM. A CSE and technician will evaluate your job within a maximum period of 2 hours</p>
-                                    <input type="radio" id="service-fee-radio" name="service_fee" value="{{ $serviceQuote->ooh_fee }}" class="custom-control-input service-fee" @if(old('service_fee') == $serviceQuote->ooh_fee) checked @endif>
+                                    <input type="radio" name="service_fee" value="{{ $serviceQuote->ooh_fee }}" class="custom-control-input service-fee" @if(old('service_fee') == $serviceQuote->ooh_fee) checked @endif>
 
-                                    <input type="radio" id="service-fee-radio" name="service_fee_name" value="Out of Hours" class="custom-control-input service-fee-name" @if(old('service_fee') == $serviceQuote->ooh_fee) checked @endif>
+                                    <input type="radio" name="service_fee_name" value="Out of Hours" class="custom-control-input service-fee-name" @if(old('service_fee') == $serviceQuote->ooh_fee) checked @endif>
 
                                 </div>
                             </a><!--end nav link-->
@@ -152,21 +152,21 @@
                             
                         <div class="col-md-4 form-group">
                             <div class="custom-control custom-checkbox form-group position-relative">
-                                <input type="radio" id="customRadio5" name="payment_method" class="custom-control-input" value="Wallet" @if(old('payment_method') == 'Wallet') checked @endif>
+                                <input type="radio" id="customRadio5" name="payment_method" class="custom-control-input" value="Wallet">
                                 <label class="custom-control-label" for="customRadio5">E-Wallet</label>
                             </div>
                         </div>
 
                         <div class="col-md-4 form-group">
                             <div class="custom-control custom-checkbox form-group position-relative">
-                                <input type="radio" onclick="payWithPaystack()" id="paystack_option" name="payment_method" class="custom-control-input" value="Online" @if(old('payment_method') == 'Online') checked @endif>
+                                <input type="radio" onclick="payWithPaystack()" id="paystack_option" name="payment_method" class="custom-control-input" value="Online">
                                 <label class="custom-control-label" for="paystack_option">Pay Online</label>
                             </div>
                         </div>
                         
                         <div class="col-md-4 form-group">
                             <div class="custom-control custom-checkbox form-group position-relative">
-                                <input type="radio" id="pay_offline" name="payment_method" class="custom-control-input" data-toggle="modal" href="#payOffline" value="Offline" @if(old('payment_method') == 'Offline') checked @endif>
+                                <input type="radio" id="pay_offline" name="payment_method" class="custom-control-input" data-toggle="modal" href="#payOffline" value="Offline">
                                 <label class="custom-control-label" for="pay_offline">Pay Offline</label>
                             </div>
                         </div>
@@ -179,10 +179,11 @@
                 {{-- REQUIREMENTS FOR PAYMENT GATWAYS  --}}
                 <input type="hidden" class="d-none" value="{{ old('email') ?? $email }}" id="email" name="email">
                 <input type="hidden" class="d-none" value="{{ old('client_discount') ?? $clientDiscount }}" id="client_discount" name="client_discount">
+                <input type="hidden" class="d-none" value="{{ old('client_phone_number') ?? $clientPhoneNumber }}" id="client_phone_number" name="client_phone_number">
 
                 {{-- Values are to be provided by the payment gateway using jQuery or Vanilla JS --}}
-                <input type="hidden" class="d-none" value="" id="payment_response_message" name="payment_response_message">
-                <input type="hidden" class="d-none" value="" id="payment_reference" name="payment_reference">
+                <input type="hidden" class="d-none" value="{{ old('payment_response_message') }}" id="payment_response_message" name="payment_response_message">
+                <input type="hidden" class="d-none" value="{{ old('payment_reference') }}" id="payment_reference" name="payment_reference">
 
                 
                 <div class="row">
@@ -297,49 +298,71 @@ $paystackInfo = json_decode($paystack->information, true);
 
 <script>
     function payWithPaystack(){
+
         var clientEmail = $('#email').val();
-            var clientDiscount = $('#client_discount').val();
-            var serviceFee = $('.service-fee').val();
-            var amount;
+        var clientDiscount = $('#client_discount').val();
+        var clientPhoneNumber = $('#client_phone_number').val();
+        var amount;
+        var serviceFee = $("input[name='service_fee']:checked").val();
 
-            //ADD VALUE FROM PAYSTACK
-            var paymentResponseMessage = $('#payment_response_message');
-            var paymentReference = $('#payment_reference');
+        if($.trim(serviceFee).length < 1){
 
-            if(clientDiscount == 0){
-                //If client still has a discount of 5%
-                var discountServiceFee = 0.95 * serviceFee;
-                amount = discountServiceFee;
-            }else{
-                amount = serviceFee;
-            }
+            $('#paystack_option').prop('checked', false);
 
-      var handler = PaystackPop.setup({
-        key: '{{$paystackInfo['public_key']}}',
-        email: clientEmail,
-        amount: amount * 100,
-        currency: "NGN",
-        ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-        metadata: {
-           custom_fields: [
-              {
-                  display_name: "Mobile Number",
-                  variable_name: "mobile_number",
-                  value: "+2348163394819"
-              }
-           ]
-        },
-        callback: function(response){
-            // sendResponseToController(response);
-            // alert('success. transaction ref is ' + response.reference);
-            $('#payment_reference').val(response.reference);
-            $('#payment_response_message').val('success');
-        },
-        onClose: function(){
-            alert('window closed');
+            var message = 'Please select a Service Fee Type.';
+            var type = 'error';
+            displayMessage(message, type);
+
+            return false;
         }
-      });
-      handler.openIframe();
+
+        //ADD VALUE FROM PAYSTACK
+        var paymentResponseMessage = $('#payment_response_message');
+        var paymentReference = $('#payment_reference');
+
+        if(clientDiscount == 0){
+            //If client still has a discount of 5%
+            var discountServiceFee = 0.95 * serviceFee;
+            amount = discountServiceFee;
+        }else{
+            amount = serviceFee;
+        }
+
+        var handler = PaystackPop.setup({
+            key:"{{ $paystackInfo['public_key'] }}",
+            // key: 'pk_test_41ada297a2a2953f9d42e125713644baccd0658c',
+            email: clientEmail,
+            amount: amount * 100,
+            currency: "NGN",
+            ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+            metadata: {
+            custom_fields: [
+                {
+                    display_name: "Mobile Number",
+                    variable_name: "mobile_number",
+                    value: clientPhoneNumber,
+                }
+            ]
+            },
+            callback: function(response){
+                // sendResponseToController(response);
+                // alert('success. transaction ref is ' + response.reference);
+                $('#payment_reference').val(response.reference);
+                $('#payment_response_message').val('success');
+
+                // console.log($('#payment_reference').val());
+                $('.submitBnt').trigger('click');
+
+            },
+            onClose: function(){
+                // alert('window closed');
+
+                var message = 'Closing payment gateway window.';
+                var type = 'success';
+                displayMessage(message, type);
+            }
+        });
+        handler.openIframe();
     }
 
   </script>
