@@ -34,6 +34,8 @@
     <link rel="stylesheet" href="{{ asset('assets/dashboard/assets/datatables/dataTables.bs4-custom.css') }}" />
     <link href="{{ asset('assets/dashboard/lib/select2/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/lib/prismjs/themes/prism-vs.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/client/css/jquery.datetimepicker.min.css') }}">
+
   </head>
   
   <body class="app-mail">
@@ -76,6 +78,9 @@
     {{-- <script src="{{ asset('assets/dashboard/assets/js/custom.js') }}"></script> --}}
     <script src="{{ asset('assets/client/js/sweetalert2.min.js') }}"></script>
     <input type="hidden" id="path_backEnd" value="{{url('/')}}">
+
+    <script src="{{ asset('assets/client/js/jquery.datetimepicker.full.min.js') }}"></script>
+    <script src="{{ asset('assets/client/js/moment.js') }}"></script>
 
     <script>
           // function to show or hide the price text field when check box is checked for add
@@ -197,6 +202,19 @@
                 sSearch: '',
                 lengthMenu: '_MENU_ items/page',
               }
+        });
+
+        // Url for more info on datepicker options https://xdsoft.net/jqplugins/datetimepicker/
+        $(document).on('click', '#service-date-time', function(){
+          $('#service-date-time').datetimepicker({
+              // format: 'L', //LT for time only
+              // inline: true,
+              // sideBySide: true,
+              format:'Y/m/d H:i',
+              formatDate:'Y/m/d',
+              minDate:'-1970/01/02', // yesterday is minimum date
+              mask: true,
+          });
         });
 
 

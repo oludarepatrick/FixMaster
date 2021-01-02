@@ -248,16 +248,15 @@ class AdminRequestController extends Controller
 
     public function updateOngoingProgress(Request $request){
 
+        // return $request;
         //Validate user input fields
-        // $this->validateUpdateOngoingRequest();
+        $this->validateUpdateOngoingRequest();
 
         $clientId = $request->input('client_id');
         $serviceRequestId = $request->input('service_request_id');
         $serviceRequestStatusId = $request->input('service_request_status_id');
 
         $serviceRequestExists = ServiceRequest::findOrFail($serviceRequestId);
-
-        // return $serviceRequestExists->job_reference;
 
         //Update record on `service_requests` table
         $updateServiceRequest = ServiceRequest::where('id', $serviceRequestId)->update([
@@ -302,6 +301,20 @@ class AdminRequestController extends Controller
                 'status'            =>  '1', //Status is set to `Awaiting Client's paymemt`
             ]);
 
+        }
+
+        if($request->accepted == 'Yes'){
+
+            $request->validate([
+                'accepted'          =>  'required',
+                'accepted_rfq_id'   =>  'required',
+            ]);
+
+            $acceptedRFQId =  $request->input('accepted_rfq_id');
+
+            RFQ::where('id', $acceptedRFQId)->update([
+                'accepted'  =>  $request->accepted,
+            ]);
         }
 
         //Create record only if RFQ was initiated

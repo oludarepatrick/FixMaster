@@ -230,7 +230,7 @@
                 
                               <div class="form-group col-md-4">
                                 <label for="delivery_time">Delivery Time</label>
-                                <input type="datetime-local" class="form-control @error('delivery_time') is-invalid @enderror" name="delivery_time" id="delivery_time" value="{{ old('delivery_time') }}">
+                              <input type="text" min="{{ \Carbon\Carbon::now()->isoFormat('MMMM Do YYYY, h:mm') }}" class="form-control @error('delivery_time') is-invalid @enderror" name="delivery_time" id="service-date-time" value="{{ old('delivery_time') }}" readonly>
                                 @error('delivery_time')
                                   <span class="invalid-feedback" role="alert">
                                       <strong>{{ $message }}</strong>
@@ -238,6 +238,8 @@
                                 @enderror
                               </div>
                             </div>
+
+                            @if(!empty($requestDetail->rfq->rfqBatches))
                             @foreach($requestDetail->rfq->rfqBatches as $batch)
                             <input type="hidden" value="{{ $batch->rfq_id }}" name="rfq_id" required>
 
@@ -261,23 +263,34 @@
                                 </div>
                             </div>
                             @endforeach
+                            @endif
+
                           </section>
                           @endif
 
                           {{-- This portion will display only if the CSE initially executed a RFQ, the Client paid for the components and the Supplier has made the delivery. --}}
-                          @if($requestDetail->rfq()->where('status', '2')->count() > 0)
+                          {{-- {{ dd(($requestDetail->rfq->accepted)) }} --}}
+                          @if($requestDetail->rfq()->where('status', '2')->count() > 0 && empty($requestDetail->rfq->accepted) == 'true')
                           <h3>RFQ Acceptance</h3>
                           <section>
                             <small class="text-danger">This portion will display only if the CSE initially executed a RFQ, the Client paid for the components and the Supplier has made the delivery.</small>
 
                             <div class="form-row">
+                              @foreach($requestDetail->rfq->rfqBatches as $batch) @endforeach
+                            <input type="hidden" value="{{ $batch->rfq_id }}" name="accepted_rfq_id" required>
+
                               <div class="form-group col-md-8">
-                                <label for="inputEmail4">Select Option</label>
-                                <select class="form-control custom-select" id="Sortbylist-Shop">
-                                  <option>Select...</option>
-                                  <option>Yes, all ordered components were delivered</option>
-                                  <option>No, all ordered components were not delivered</option>
+                                <label for="accepted">RFQ Acceptance</label>
+                                <select class="form-control custom-select" id="accepted" name="accepted">
+                                  <option value="" selected>Select...</option>
+                                  <option value="Yes" value="{{ old('Yes') }}" {{ old('accepted') == 'Yes' ? 'selected' : ''}}>Yes, all ordered components were delivered</option>
+                                  <option value="No" value="{{ old('No') }}" {{ old('accepted') == 'No' ? 'selected' : ''}}>No, all ordered components were not delivered</option>
                               </select>
+                              @error('accepted')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
                               </div>
                             </div>
 
