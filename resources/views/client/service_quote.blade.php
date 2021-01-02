@@ -1,6 +1,8 @@
 @extends('layouts.client')
 @section('title', 'Service Quote')
 @section('content')
+@include('layouts.partials._messages')
+
 <div class="col-lg-8 col-12">
     <div class="card custom-form border-0">
         <div class="card-body">
@@ -248,7 +250,6 @@
         });
 
         $('#pay_offline').on('change', function (){  
-            alert();
             $('#pay_offline').attr('checked', 'checked');
         });
 

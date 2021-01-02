@@ -104,6 +104,16 @@ class ServiceRequest extends Model
         return $this->hasMany(ServiceRequestProgress::class, 'service_request_id');
     }
 
+    public function serviceRequestCancellationReason()
+    {
+        return $this->hasOne(ServiceRequestCanellation::class, 'service_request_id');
+    }
+
+    public function serviceRequestCancellationReasons()
+    {
+        return $this->hasMany(ServiceRequestCanellation::class, 'service_request_id');
+    }
+
     public function rfq()
     {
         return $this->hasOne(RFQ::class, 'service_request_id');
@@ -157,6 +167,30 @@ class ServiceRequest extends Model
     //Function to return all active clients  
     public function scopeOngoingRequests($query){
         return $query->where('service_request_status_id', '>', 3)
+        ->orderBy('created_at', 'DESC');
+    }
+
+    /** 
+     * Scope a query to only include active banches
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */    
+    //Function to return all active clients  
+    public function scopeCompletedRequests($query){
+        return $query->where('service_request_status_id', '=', 3)
+        ->orderBy('created_at', 'DESC');
+    }
+
+    /** 
+     * Scope a query to only include active banches
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */    
+    //Function to return all active clients  
+    public function scopeCancelledRequests($query){
+        return $query->where('service_request_status_id', '=', 2)
         ->orderBy('created_at', 'DESC');
     }
 }

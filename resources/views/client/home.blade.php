@@ -1,6 +1,8 @@
 @extends('layouts.client')
 @section('title', 'Home')
 @section('content')
+@include('layouts.partials._messages')
+
 <div class="col-lg-8 col-12">
     <div class="border-bottom pb-4 row">
         {{-- <h5>Femi Joseph</h5>

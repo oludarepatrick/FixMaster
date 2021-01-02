@@ -1,6 +1,7 @@
 @extends('layouts.client') 
 @section('title', 'Request Details') 
 @section('content')
+@include('layouts.partials._messages')
 
 <div class="col-lg-8 col-12">
     <div class="float-right mt-4">
@@ -67,7 +68,10 @@
                             <div class="mt-4">
                                 {{-- <a href="{{ route('client.technician_profile') }}" class="btn btn-sm btn-outline-primary">View Profile</a> --}}
                                 <a href="#validateSecurityCode" data-toggle="modal" class="btn btn-sm btn-outline-primary">CSE & Technician Profiles</a>
-                                <a href="#" data-toggle="modal" data-target="#message-modal" class="btn btn-sm btn-primary">Send Message </a>
+
+                                @if($requestDetail->service_request_status_id != '3')
+                                    <a href="#" data-toggle="modal" data-target="#message-modal" class="btn btn-sm btn-primary">Send Message </a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -128,7 +132,7 @@
 <!--end col-->
 
 <!-- Modal Content Start -->
-<div class="modal fade" id="message-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="message-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content rounded shadow border-0">
             <div class="modal-header">
@@ -138,7 +142,7 @@
                 </button>
             </div>
             <div class="modal-body p-4">
-            <form class="rounded shadow p-4" method="POST" action="{{ route('client.messages') }}">
+            <form class="rounded shadow p-4" method="POST" action="{{ route('client.send_messages') }}">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
@@ -147,7 +151,7 @@
                             <div class="form-group position-relative">
                                 <label>Subject <span class="text-danger">*</span></label>
                                 <i data-feather="alert-circle" class="fea icon-sm icons"></i>
-                                <input name="subject" id="subject" type="text" class="form-control pl-5 @error('subject') is-invalid @enderror" required/>
+                                <input name="subject" id="subject" type="text" class="form-control pl-5 @error('subject') is-invalid @enderror"/>
                                 @error('subject')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -159,9 +163,9 @@
 
                         <div class="col-md-12">
                             <div class="form-group position-relative">
-                                <label>Address <span class="text-danger">*</span></label>
+                                <label>Message <span class="text-danger">*</span></label>
                                 <i data-feather="message-circle" class="fea icon-sm icons"></i>
-                                <textarea name="message" id="message_body" rows="4" class="form-control pl-5 @error('message') is-invalid @enderror" placeholder="Your message :" required></textarea>
+                                <textarea name="message" id="message_body" rows="4" class="form-control pl-5 @error('message') is-invalid @enderror" placeholder="Your message :"></textarea>
                                 @error('message')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -174,7 +178,7 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <button type="button" id="submit" name="send" class="submitBnt btn btn-primary submit-message">Submit</button>
+                            <button type="submit" id="submit" class=" btn btn-primary">Submit</button>
                         </div>
                         <!--end col-->
                     </div>
@@ -423,25 +427,25 @@
             }
         });
 
-        $(document).on("click", ".submit-message", function () {
-            const Toast = swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 8000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener("mouseenter", Swal.stopTimer);
-                    toast.addEventListener("mouseleave", Swal.resumeTimer);
-                },
-            });
+        // $(document).on("click", ".submit-message", function () {
+        //     const Toast = swal.mixin({
+        //         toast: true,
+        //         position: "top-end",
+        //         showConfirmButton: false,
+        //         timer: 8000,
+        //         timerProgressBar: true,
+        //         didOpen: (toast) => {
+        //             toast.addEventListener("mouseenter", Swal.stopTimer);
+        //             toast.addEventListener("mouseleave", Swal.resumeTimer);
+        //         },
+        //     });
 
-            Toast.fire({
-                icon: "success",
-                type: "success",
-                title: "Message has been sent",
-            });
-        });
+        //     Toast.fire({
+        //         icon: "success",
+        //         type: "success",
+        //         title: "Message has been sent",
+        //     });
+        // });
     });
 </script>
 @endpush 

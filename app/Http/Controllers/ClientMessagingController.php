@@ -25,11 +25,61 @@ class ClientMessagingController extends Controller
 
     public function index(){
        
-        return view('client.messages');
+        $receivedMessages =  Auth::user()->receivedMessages()->orderBy('created_at', 'DESC')->get()
+        ->groupBy(function ($val) {
+            return \Carbon\Carbon::parse($val->created_at)->format('l d, F Y');
+        });
+
+        $sentMessages =  Auth::user()->sentMessages()->orderBy('created_at', 'DESC')->get()
+        ->groupBy(function ($val) {
+            return \Carbon\Carbon::parse($val->created_at)->format('l d, F Y');
+        });
+
+        $data = [
+            'receivedMessages'  =>  $receivedMessages,
+            'sentMessages'      =>  $sentMessages,
+        ];
+
+        // return $sentMessages;
+
+        return view('client.messages', $data);
+    }
+
+    public function inboxMessageDetails($id){
+
+        $message = Message::findOrFail($id);
+
+        if($message->is_read == '0'){
+            Message::where('id', $id)->update([
+                'is_read'   =>  '1',
+            ]);
+        }
+
+        $data = [
+            'message'  =>  $message
+        ];
+
+        return view('client._inbox_message_body', $data);
+    }
+
+    public function outboxMessageDetails($id){
+
+        $message = Message::findOrFail($id);
+
+        if($message->is_read == '0'){
+            Message::where('id', $id)->update([
+                'is_read'   =>  '1',
+            ]);
+        }
+
+        $data = [
+            'message'  =>  $message
+        ];
+
+        return view('client._outbox_message_body', $data);
     }
 
     public function sendMessage(Request $request){
-        return $request;
         //Validat user input fields
         $request->validate([
             'recipient_id'  =>   'required',
@@ -42,14 +92,14 @@ class ClientMessagingController extends Controller
             'sender_id'     =>  Auth::id(),
             'recipient_id'  =>   $request->recipient_id,
             'subject'       =>   $request->subject,
-            'body'          =>   $request->body,
+            'body'          =>   $request->message,
         ]);
 
         if($sendMessage){
 
             //Get recipent's full name
-            $recipientName = Name::findOrFail($request->recipient_id);
-            $recipientName = $recipientName->name;
+            $recipientName = Name::where('user_id', $request->recipient_id)->first()->name;
+            // $recipientName = $recipientName->name;
 
             //Record crurrenlty logged in user activity
             $this->addRecord = new RecordActivityLogController();
@@ -61,7 +111,7 @@ class ClientMessagingController extends Controller
             $message = Auth::user()->fullName->name.' sent a message to '.$recipientName;
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 
-            return redirect()->route('admin.requests_ongoing')->with('success', 'Message was sent to '.$recipientName);
+            return redirect()->route('client.messages')->with('success', 'Message was sent to '.$recipientName);
 
         }else{
 
@@ -83,3 +133,4 @@ class ClientMessagingController extends Controller
         return back()->withInput();
     }
 }
+

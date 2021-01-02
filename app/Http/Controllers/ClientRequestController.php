@@ -15,11 +15,14 @@ use App\Models\User;
 use App\Models\Client;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestDetail;
+use App\Models\ServiceRequestProgress;
+use App\Models\ServiceRequestCanellation;
+
 use App\Models\Category;
 use App\Models\Service;
 use App\Models\Name;
 use App\Models\Message;
-
+use App\Models\ReceivedPayment;
 
 class ClientRequestController extends Controller
 {
@@ -66,6 +69,7 @@ class ClientRequestController extends Controller
      */
     public function store(Request $request){
 
+        return $request->input('payment_method');
         //Check if client has internect connected
         $this->isConnected = new EssentialsController();
 
@@ -137,81 +141,99 @@ class ClientRequestController extends Controller
             $mediaFileName = null;
         }
 
-        //Generate security code
-        $this->randomStringGenerator = new EssentialsController();
 
-        $createServiceRequest = ServiceRequest::create([
-            'user_id'               =>  Auth::id(), 
-            'service_id'            =>  $request->input('service_id'), 
-            'category_id'           =>  $request->input('category_id'), 
-            'job_reference'         =>  'REF-'.$this->randomStringGenerator->randomStringGenerator(8),
-            'security_code'         =>  'SEC-'.strtoupper(substr(md5(time()), 0, 8)),
-            'service_request_status_id' =>  'Pending',
-        ]);
+        //IF payment was successful
+        if($request->payment_response_message === 'success'){
+            //Generate security code
+            $this->randomStringGenerator = new EssentialsController();
 
-        $createServiceRequestDetail = ServiceRequestDetail::create([
-            'service_request_id'        =>  $createServiceRequest->id,
-            'state_id'                  =>  Auth::user()->client->state_id, 
-            'lga_id'                    =>  Auth::user()->client->lga_id,
-            'town'                      =>  Auth::user()->client->town,
-            'initial_service_fee'       =>  $serviceFee, 
-            'discount_service_fee'      =>  $discountServiceFee, 
-            'service_fee_name'          =>  $request->input('service_fee_name'), 
-            'phone_number'              =>  $phoneNumber, 
-            'address'                   =>  $address, 
-            'description'               =>  $request->input('description'), 
-            'timestamp'                 =>  $timestamp, 
-            'media_file'                =>  $mediaFileName, 
-            'payment_method'            =>  $request->input('payment_method')
-        ]);
+            $createServiceRequest = ServiceRequest::create([
+                'user_id'                   =>  Auth::id(), 
+                'service_id'                =>  $request->input('service_id'), 
+                'category_id'               =>  $request->input('category_id'), 
+                'job_reference'             =>  'REF-'.$this->randomStringGenerator->randomStringGenerator(8),
+                'security_code'             =>  'SEC-'.strtoupper(substr(md5(time()), 0, 8)),
+                'service_request_status_id' =>  '1',
+                'total_amount'              =>  $amount,
+            ]);
 
-        if($createServiceRequest AND $createServiceRequestDetail){
+            $createServiceRequestDetail = ServiceRequestDetail::create([
+                'service_request_id'        =>  $createServiceRequest->id,
+                'state_id'                  =>  Auth::user()->client->state_id, 
+                'lga_id'                    =>  Auth::user()->client->lga_id,
+                'town'                      =>  Auth::user()->client->town,
+                'initial_service_fee'       =>  $serviceFee, 
+                'discount_service_fee'      =>  $discountServiceFee, 
+                'service_fee_name'          =>  $request->input('service_fee_name'), 
+                'phone_number'              =>  $phoneNumber, 
+                'address'                   =>  $address, 
+                'description'               =>  $request->input('description'), 
+                'timestamp'                 =>  $timestamp, 
+                'media_file'                =>  $mediaFileName, 
+                'payment_method'            =>  $request->input('payment_method'),
+            ]);
 
-            if(Auth::user()->client->discounted == 0){
+            $paymentRecord = ReceivedPayment::create([
+                'user_id'               =>  Auth::id(), 
+                'service_request_id'    =>  $createServiceRequest->id,
+                'payment_reference'     =>  $request->payment_reference, 
+                'payment_method'        =>  $request->input('payment_method'), 
+                'amount'                =>  $amount,
+            ]);
 
-                Client::where('user_id', Auth::id())->update([
-                    'discounted'    =>  '1',
-                ]);
+            if($createServiceRequest AND $createServiceRequestDetail){
+
+                if(Auth::user()->client->discounted == 0){
+
+                    Client::where('user_id', Auth::id())->update([
+                        'discounted'    =>  '1',
+                    ]);
+                }
+
+                if(!empty($mediaFileName)){
+                    $mediaFile->move(public_path('assets/service-request-files'), $mediaFileName);
+                }
+
+                $this->sendMessage = new EssentialsController();
+
+                $this->sendMessage->successServiceRequestMessage($createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
+
+                // MailController::clientServiceBookingMail(Auth::user()->email, Auth::user()->fullName->name, $createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
+
+                // MailController::adminServiceBookingMailNotification('info@fixmaster.com.ng', Auth::user()->fullName->name, $createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
+
+                $this->addRecord = new RecordActivityLogController();
+                $id = Auth::id();
+                $type = 'Request';
+                $severity = 'Informational';
+                $actionUrl = Route::currentRouteAction();
+                $controllerActionPath = URL::full();
+                $message = Auth::user()->fullName->name.' requested '.$categoryName.' service';
+                $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+                return redirect()->route('client.requests')->with('success', 'Your request was successful.');
+
+            }else{
+
+                //Record crurrenlty logged in user activity
+                $this->addRecord = new RecordActivityLogController();
+                $id = Auth::id();
+                $type = 'Errors';
+                $severity = 'Error';
+                $actionUrl = Route::currentRouteAction();
+                $controllerActionPath = URL::full();
+                $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to book a service '.$categoryExists->name.' category.';
+                $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+                return back()->with('error', 'An error occurred while trying to book a service.')->withInput();
+
             }
-
-            if(!empty($mediaFileName)){
-                $mediaFile->move(public_path('assets/service-request-files'), $mediaFileName);
-            }
-
-            $this->sendMessage = new EssentialsController();
-
-            $this->sendMessage->successServiceRequestMessage($createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
-
-            // MailController::clientServiceBookingMail(Auth::user()->email, Auth::user()->fullName->name, $createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
-
-            // MailController::adminServiceBookingMailNotification('info@fixmaster.com.ng', Auth::user()->fullName->name, $createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
-
-            $this->addRecord = new RecordActivityLogController();
-            $id = Auth::id();
-            $type = 'Request';
-            $severity = 'Informational';
-            $actionUrl = Route::currentRouteAction();
-            $controllerActionPath = URL::full();
-            $message = Auth::user()->fullName->name.' requested '.$categoryName.' service';
-            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
-
-            return redirect()->route('client.requests')->with('success', 'Your request was successful.');
+            
 
         }else{
-
-            //Record crurrenlty logged in user activity
-            $this->addRecord = new RecordActivityLogController();
-            $id = Auth::id();
-            $type = 'Errors';
-            $severity = 'Error';
-            $actionUrl = Route::currentRouteAction();
-            $controllerActionPath = URL::full();
-            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to book a service '.$categoryExists->name.' category.';
-            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
-
-            return back()->with('error', 'An error occurred while trying to book a service.')->withInput();
-
+            return back()->withInput()->with('error', 'Sorry, Payment was not successful. Please select another Payment option.');
         }
+        
 
         return back()->withInput();
 
@@ -223,12 +245,14 @@ class ClientRequestController extends Controller
      */
     private function validateRequest(){
         return request()->validate([
-            'service_fee'           =>   'required',
-            'description'           =>   'required',
-            'timestamp'             =>   'required',
-            'phone_number'          =>   'required',
-            'address'               =>   'required',
-            'payment_method'        =>   'required',
+            'service_fee'               =>   'required',
+            'description'               =>   'required',
+            'timestamp'                 =>   'required',
+            'phone_number'              =>   'required',
+            'address'                   =>   'required',
+            'payment_method'            =>   'required',
+            'payment_reference'         =>   'required',
+            'payment_response_message'  =>  'required',
         ]);
     }
 
@@ -292,6 +316,119 @@ class ClientRequestController extends Controller
             return back()->with('error', 'An error occurred while trying to update a '.$requestExist->job_reference.' service request.');
         }
        
+        return back()->withInput();
+    }
+
+    public function markRequestAsCompleted($id){
+
+        $requestExists = ServiceRequest::findOrFail($id);
+
+        //service_request_status_id = Pending(1), Ongoing(4), Completed(3), Cancelled(2) 
+        $markAsCompleted = ServiceRequest::where('id', $id)->update([
+            'service_request_status_id' =>  '3',
+        ]);
+
+        $jobReference = $requestExists->job_reference;
+
+        //Create record in `service_request_progress` table
+        $recordServiceProgress = ServiceRequestProgress::create([
+            'user_id'                       =>  Auth::id(), 
+            'service_request_id'            =>  $id, 
+            'service_request_status_id'     =>  '3',
+        ]);
+
+        if($markAsCompleted AND $recordServiceProgress){
+
+            //Record crurrenlty logged in user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Request';
+            $severity = 'Informational';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = Auth::user()->fullName->name.' marked '.$jobReference.' as completed';
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return redirect()->route('client.requests')->with('success', $jobReference.' has been marked as completed. Kindly rate our professionals. Thanks');
+
+        }else{
+            //Record Unauthorized user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Errors';
+            $severity = 'Error';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to to mark '.$jobReference.' as completed';
+
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return back()->with('error', 'An error occurred while trying to mark '.$jobReference.' as completed.');
+        }
+
+        return back()->withInput();
+
+    }
+
+    public function cancelRequest(Request $request, $id){
+
+        $requestExists = ServiceRequest::findOrFail($id);
+
+        //Validat user input fields
+        $request->validate([
+            'reason'       =>   'required',
+        ]);
+
+        //service_request_status_id = Pending(1), Ongoing(4), Completed(3), Cancelled(2) 
+        $markAsCompleted = ServiceRequest::where('id', $id)->update([
+            'service_request_status_id' =>  '2',
+        ]);
+
+        $jobReference = $requestExists->job_reference;
+
+        //Create record in `service_request_progress` table
+        $recordServiceProgress = ServiceRequestProgress::create([
+            'user_id'                       =>  Auth::id(), 
+            'service_request_id'            =>  $id, 
+            'service_request_status_id'     =>  '2',
+        ]);
+
+        $recordCancellation = ServiceRequestCanellation::create([
+            'user_id'                       =>  Auth::id(), 
+            'service_request_id'            =>  $id, 
+            'reason'                        =>  $request->reason,
+        ]);
+
+
+        if($markAsCompleted AND $recordServiceProgress AND $recordCancellation){
+
+            //Record crurrenlty logged in user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Request';
+            $severity = 'Informational';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = Auth::user()->fullName->name.' cancelled '.$jobReference.' service request.';
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return redirect()->route('client.requests')->with('success', 'Your '.$jobReference.' service request has been cancelled.');
+
+        }else{
+            //Record Unauthorized user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Errors';
+            $severity = 'Error';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to cancel '.$jobReference.' service request.';
+
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return back()->with('error', 'An error occurred while trying to cancel '.$jobReference.' service request.');
+        }
+
         return back()->withInput();
     }
 }

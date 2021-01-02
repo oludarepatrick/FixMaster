@@ -59,7 +59,6 @@
               </thead>
               <tbody>
                 @foreach ($serviceRequests as $serviceRequest)
-                {{-- {{ dd($serviceRequest->cse->first_name) }} --}}
                 <tr>
                   <td class="tx-color-03 tx-center">{{ ++$i }}</td>
                   <td class="tx-medium">{{ $serviceRequest->job_reference }}</td>
@@ -81,8 +80,6 @@
                   </td>
                 </tr>
                 @endforeach
-                
-
               </tbody>
             </table>
           </div><!-- table-responsive -->

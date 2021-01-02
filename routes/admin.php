@@ -32,10 +32,13 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::post('/requests/ongoing/update',             [App\Http\Controllers\AdminRequestController::class, 'updateOngoingProgress'])->name('request_ongoing_update');
                 Route::get('/requests/ongoing/completed/{id}',      [App\Http\Controllers\AdminRequestController::class, 'markRequestAsCompleted'])->name('mark_request_as_completed');
                 
+                Route::get('/requests/completed', 	                [App\Http\Controllers\AdminRequestController::class, 'completedRequests'])->name('requests_completed');
+
+                Route::get('/requests/cancelled', 	                [App\Http\Controllers\AdminRequestController::class, 'cancelledRequests'])->name('requests_cancelled');
+
                 Route::view('/requests/details/completed', 	        'admin.requests.request_completed_details')->name('request_completed_details');
                 
-                Route::view('/requests/completed', 	                'admin.requests.requests_completed')->name('requests_completed');
-                Route::view('/requests/cancelled', 	                'admin.requests.requests_cancelled')->name('requests_cancelled');
+                
                 Route::view('/technicians', 	                    'admin.technicians')->name('technicians');
                 Route::view('/technicians/profile', 	            'admin.technicians_profile')->name('technicians_profile');
                 Route::view('/profile', 	                        'admin.view_profile')->name('view_profile');

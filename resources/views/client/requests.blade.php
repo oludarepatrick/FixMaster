@@ -131,10 +131,14 @@
                                     @if($userServiceRequest->service_request_status_id != '3')
                                         <div class="dropdown-divider"></div>
                                         @if($userServiceRequest->service_request_status_id != '2')
-                                            <a href="javascript:void(0)" class="dropdown-item text-danger cancel_request"><i data-feather="x" class="fea icon-sm"></i> Cancel Request</a>
+                                            <a href="#cancelRequest" id="cancel-request" data-toggle="modal" data-url="{{ route('client.cancel_request', $userServiceRequest->id) }}" data-job-reference="{{ $userServiceRequest->job_reference }}" class="dropdown-item text-danger cancel_reques"><i data-feather="x" class="fea icon-sm"></i> Cancel Request</a>
                                         @else
                                             <a href="javascript:void(0)" class="dropdown-item text-success cancel_request"><i data-feather="corner-up-left" class="fea icon-sm"></i> Reinstate Request</a>
                                         @endif
+                                    @endif
+
+                                    @if($userServiceRequest->service_request_status_id > '3')
+                                        <a href="{{ route('client.mark_request_as_completed', $userServiceRequest->id) }}" class="dropdown-item details text-success"><i data-feather="check" class="fea icon-sm"></i> Mark as Completed</a>
                                     @endif
 
                                 </div>
@@ -167,6 +171,46 @@
     </div><!-- modal-dialog -->
 </div><!-- modal -->
 
+<div class="modal fade" id="cancelRequest" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content rounded shadow border-0">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Kindly state your reason for cancellation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" id="modal-cancel-request">
+            <form class="p-4" method="POST" id="cancel-request-form">
+                @csrf
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                        <div class="form-group position-relative">
+                            <label>Reason</label>
+                            <i data-feather="info" class="fea icon-sm icons"></i>
+                            <textarea name="reason" id="reason" rows="3" class="form-control pl-5 @error('reason') is-invalid @enderror" placeholder="">{{ old('reason')  }}</textarea>
+                            @error('reason')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div><!--end col--> 
+            
+                {{-- </div><!--end row--> --}}
+            
+                    <div class="col-sm-12">
+                    <button type="submit" class="submitBnt btn btn-primary">Update</button>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </form><!--end form-->
+        </div>
+        </div><!-- modal-body -->
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
 @push('scripts')
 <script>
     $(document).ready(function() {
@@ -191,7 +235,7 @@
                     $("#spinner-icon").hide();
                 },
                 error: function(jqXHR, testStatus, error) {
-                    var message = error+ 'An error occured while trying to retireve '+ jobReference +' service request details.';
+                    var message = error+ ' An error occured while trying to retireve '+ jobReference +' service request details.';
                     var type = 'error';
                     displayMessage(message, type);
                     $("#spinner-icon").hide();
@@ -203,6 +247,14 @@
         $('.close').click(function (){
             $('#modal-edit-request').html('');
             $(".modal-backdrop").remove();
+        });
+
+        $(document).on('click', '#cancel-request', function(event) {
+            event.preventDefault();
+            let route = $(this).attr('data-url');
+            let jobReference = $(this).attr('data-job-reference');
+
+            $('#cancel-request-form').attr('action', route);
         });
 
         $(document).on('click', '.cancel_request', function(){

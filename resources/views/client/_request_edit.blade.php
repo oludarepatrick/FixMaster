@@ -35,7 +35,7 @@
                 <label>Address</label>
                 <i data-feather="map-pin" class="fea icon-sm icons"></i>
                 <textarea name="address" id="address" rows="3" class="form-control pl-5 @error('address') is-invalid @enderror" placeholder="Address of where the service is required">{{ old('address') ?? $userServiceRequest->serviceRequestDetail->address }}</textarea>
-                @error('alternate_address')
+                @error('address')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

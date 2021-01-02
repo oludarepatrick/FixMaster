@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 01, 2021 at 07:16 PM
+-- Generation Time: Jan 02, 2021 at 02:05 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -312,7 +312,28 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 (273, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-01 16:19:36'),
 (274, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 01:13:20(hrs:min:ss).', '2021-01-01 17:32:56'),
 (275, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-01 17:33:06'),
-(276, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:43:32(hrs:min:ss).', '2021-01-01 18:16:38');
+(276, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:43:32(hrs:min:ss).', '2021-01-01 18:16:38'),
+(277, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-01 22:20:45'),
+(278, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 00:00:12(hrs:min:ss).', '2021-01-01 22:20:57'),
+(279, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-01 22:23:38'),
+(280, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 00:00:36(hrs:min:ss).', '2021-01-01 22:24:14'),
+(281, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-01 22:25:41'),
+(282, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 00:00:59(hrs:min:ss).', '2021-01-01 22:26:40'),
+(283, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-01 22:26:57'),
+(284, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 04:22:41(hrs:min:ss).', '2021-01-02 02:49:38'),
+(285, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-02 02:49:48'),
+(286, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-02 06:11:56'),
+(287, 11, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\ClientMessagingController@sendMessage', 'http://localhost:8000/client/messages', 'Adekola Adeleke sent a message to Favour Nnamdi', '2021-01-02 06:43:37'),
+(288, 11, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\ClientMessagingController@sendMessage', 'http://localhost:8000/client/messages', 'Adekola Adeleke sent a message to Favour Nnamdi', '2021-01-02 06:45:32'),
+(289, 11, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\ClientMessagingController@sendMessage', 'http://localhost:8000/client/messages', 'Adekola Adeleke sent a message to Favour Nnamdi', '2021-01-02 06:56:55'),
+(290, 11, '127.0.0.1', 'Others', 'Informational', 'App\\Http\\Controllers\\ClientMessagingController@sendMessage', 'http://localhost:8000/client/messages', 'Adekola Adeleke sent a message to FixMaster', '2021-01-02 07:03:06'),
+(291, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@markRequestAsCompleted', 'http://localhost:8000/client/requests/completed/1', 'Adekola Adeleke marked REF-66EB5A26 as completed', '2021-01-02 11:22:26'),
+(292, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 05:16:12(hrs:min:ss).', '2021-01-02 11:28:08'),
+(293, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-02 11:28:16'),
+(294, 1, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\AdminRequestController@markRequestAsCompleted', 'http://localhost:8000/admin/requests/ongoing/completed/5', 'NinthBinary Developer marked REF-27D2F0BE as completed', '2021-01-02 11:54:18'),
+(295, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 01:13:28(hrs:min:ss).', '2021-01-02 12:41:44'),
+(296, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-02 12:41:55'),
+(297, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'http://localhost:8000/client/requests/cancel/7', 'Adekola Adeleke cancelled REF-131D985E service request.', '2021-01-02 13:01:24');
 
 -- --------------------------------------------------------
 
@@ -485,7 +506,7 @@ CREATE TABLE `clients` (
 INSERT INTO `clients` (`id`, `user_id`, `state_id`, `lga_id`, `profession_id`, `town`, `first_name`, `middle_name`, `last_name`, `phone_number`, `gender`, `avatar`, `full_address`, `discounted`) VALUES
 (1, 9, 25, 369, 1, 'Okota', 'Wisdom', NULL, 'Amana', '09082354902', 'Male', NULL, 'Sango Ota, Lagos.', '0'),
 (2, 10, 25, 365, 18, 'Ibeju-Lekki', 'Debola', NULL, 'Williams', '08167836902', 'Male', NULL, 'Funsho williams street, Ibeju Lekki, Lagos.', '0'),
-(31, 11, 25, 359, 1, 'Falomo', 'Adekola', NULL, 'Adeleke', '08034516844', 'Male', '0c9ac4cada39ba68e97fc6c0a0807458d1385048.jpg', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', '0');
+(31, 11, 25, 359, 1, 'Falomo', 'Adekola', NULL, 'Adeleke', '08034516844', 'Male', '0c9ac4cada39ba68e97fc6c0a0807458d1385048.jpg', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', '1');
 
 -- --------------------------------------------------------
 
@@ -1413,13 +1434,13 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `is_read`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 4, 11, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Adekola Adefarasin,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2020-12-11 12:43:02', '2020-12-11 12:43:02'),
-(2, 4, 11, 'Congratulations! You have earned a discount', '<h1>Congratulations! You have just earned a 5% discount on your first job booking</h1><p>We are very excited you joined the most compelling community of FixMaster satisfied customers! As you already know, excellent quality service, rewards, and savings have always been a vital part of FixMaster\'s success.</p><p> Having said so, we constantly cater to our customers\' best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>For registering with FixMaster, you have been rewarded with a discount on your first job booking which entitles you to a 5% discount off your booking fee.</p><p><strong>PLEASE NOTE THAT THIS DISCOUNT IS ONLY APPLICABLE FOR YOUR FIRST JOB BOOKING</strong></p><p>Should you require further assistance, please do not hesitate to contact us immediately on <strong>08132863878</strong>. We are here to serve you; 24-hours, 7 days a week.</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-14 12:06:25', '2020-12-30 08:32:19'),
+(1, 4, 11, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Adekola Adefarasin,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2020-12-11 12:43:02', '2021-01-02 07:16:37'),
+(2, 4, 11, 'Congratulations! You have earned a discount', '<h1>Congratulations! You have just earned a 5% discount on your first job booking</h1><p>We are very excited you joined the most compelling community of FixMaster satisfied customers! As you already know, excellent quality service, rewards, and savings have always been a vital part of FixMaster\'s success.</p><p> Having said so, we constantly cater to our customers\' best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>For registering with FixMaster, you have been rewarded with a discount on your first job booking which entitles you to a 5% discount off your booking fee.</p><p><strong>PLEASE NOTE THAT THIS DISCOUNT IS ONLY APPLICABLE FOR YOUR FIRST JOB BOOKING</strong></p><p>Should you require further assistance, please do not hesitate to contact us immediately on <strong>08132863878</strong>. We are here to serve you; 24-hours, 7 days a week.</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-14 12:06:25', '2021-01-02 07:17:05'),
 (4, 4, 11, 'Service Request(JOB-66EB5A26)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>JOB-66EB5A26</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,325(Urgent)</p><p><strong>Date & Time:</strong> December 15th 2020, 5:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-14 12:39:55', '2020-12-14 12:39:55'),
-(5, 4, 11, 'Service Request(JOB-330CB862)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>JOB-330CB862</p><p><strong>Service: </strong>Plumbing(Bath-Tubs, Pipes, Kitchen Sink)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,300(Urgent)</p><p><strong>Date & Time:</strong> December 14th 2020, 4:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-14 12:48:20', '2020-12-30 08:33:18'),
+(5, 4, 11, 'Service Request(JOB-330CB862)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>JOB-330CB862</p><p><strong>Service: </strong>Plumbing(Bath-Tubs, Pipes, Kitchen Sink)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,300(Urgent)</p><p><strong>Date & Time:</strong> December 14th 2020, 4:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-14 12:48:20', '2021-01-02 07:00:12'),
 (6, 4, 11, 'Service Request(REF-27D2F0BE)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-27D2F0BE</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,500(Urgent)</p><p><strong>Date & Time:</strong> December 15th 2020, 11:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-14 15:36:58', '2020-12-14 15:36:58'),
-(7, 4, 11, 'Service Request(REF-1FC50FCC)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-1FC50FCC</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Urgent)</p><p><strong>Date & Time:</strong> December 16th 2020, 4:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-15 09:33:01', '2020-12-15 09:33:01'),
-(8, 4, 11, 'Service Request(REF-131D985E)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-131D985E</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦4,700(Out of Hours)</p><p><strong>Date & Time:</strong> December 16th 2020, 8:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-15 09:51:29', '2020-12-15 09:51:29'),
+(7, 4, 11, 'Service Request(REF-1FC50FCC)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-1FC50FCC</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Urgent)</p><p><strong>Date & Time:</strong> December 16th 2020, 4:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-15 09:33:01', '2021-01-02 07:17:17'),
+(8, 4, 11, 'Service Request(REF-131D985E)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-131D985E</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦4,700(Out of Hours)</p><p><strong>Date & Time:</strong> December 16th 2020, 8:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2020-12-15 09:51:29', '2021-01-02 06:57:11'),
 (9, 4, 19, 'Welcome to FixMaster!', '<h1>Welcome to FixMaster, Favour Nnamdi!</h1><p>We are very excited you joined the most compelling community of FixMaster to satisfy customer\'s need.</p><p>As a <strong>Client Service Executive</strong>(CSE) you are expected to deliver excellent quality service which has always been a vital part of FixMaster\'s success.</p><p>Having said so, we constantly cater to our customer\'s best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>Remember to change your password to a more convenient one asides the one given to you by FixMaster Admin.</p><p><span style=\"text-decoration: underline;\"><strong>Login Credentials</strong></span></p><p><strong>E-Mail</strong>: nnamdi.favour@yahoo.com</p><p><strong>Password:</strong> admin12345</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-18 13:03:17', '2020-12-18 13:03:17'),
 (10, 4, 23, 'Welcome to FixMaster!', '<h1>Welcome to FixMaster, John Desmond!</h1><p>We are very excited you joined the most compelling community of FixMaster to satisfy customer\'s need.</p><p>As a <strong>Technician</strong> you will be assigned to jobs and you are expected to deliver excellent quality service which has always been a vital part of FixMaster\'s success.</p><p>Having said so, we constantly cater to our customer\'s best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>Remember to change your password to a more convenient one asides the one given to you by FixMaster Admin.</p><p><span style=\"text-decoration: underline;\"><strong>Login Credentials</strong></span></p><p><strong>E-Mail</strong>: desmond.john@outlook.co.uk</p><p><strong>Password:</strong> admin12345</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-19 21:26:29', '2020-12-19 21:26:29'),
 (11, 5, 19, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Hello Favour Nnamdi</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to critically reviewing the client\'s request.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-25 23:23:19', '2020-12-29 23:17:28'),
@@ -1428,9 +1449,11 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 (14, 5, 15, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Taofeek Adedokun</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>Godrey Diwa</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-27 16:20:17', '2020-12-29 23:17:42'),
 (15, 9, 5, 'Tool Request Approval for Job(REF-66EB5A26)', '<p>Hello <strong>David Akinsola</strong>, your Tool request(<strong>TRF-C85BEA04</strong>) for Job(<strong>REF-66EB5A26</strong>) has been approved.&nbsp;</p><p>&nbsp;</p><div><div>Thanks,</div><div>FixMaster Management</div></div>', '0', NULL, '2020-12-29 14:03:21', '2020-12-29 23:05:01'),
 (16, 19, 5, 'Tool Request Approval for Job(REF-66EB5A26)', '<p>Hello <strong>David Akinsola</strong>, your Tool request(<strong>TRF-C85BEA04</strong>) for Job(<strong>REF-66EB5A26</strong>) has been approved.&nbsp;</p><p>&nbsp;</p><div><div>Thanks,</div><div>FixMaster Management</div></div>', '0', NULL, '2020-12-29 14:06:08', '2020-12-30 09:09:01'),
-(17, 4, 19, 'New Job(REF-27D2F0BE) Assignment', '<p><strong>Hello Favour Nnamdi</strong>, you have been assigned to <strong>REF-27D2F0BE</strong> job. Kindly proceed to critically reviewing the client\'s request.</p><br /><p>Thanks,<br />FixMaster Management</p>', '1', NULL, '2020-12-30 09:30:19', '2020-12-30 10:02:03'),
+(17, 4, 19, 'New Job(REF-27D2F0BE) Assignment', '<p><strong>Hello Favour Nnamdi</strong>, you have been assigned to <strong>REF-27D2F0BE</strong> job. Kindly proceed to critically reviewing the client\'s request.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-30 09:30:19', '2020-12-30 10:02:03'),
 (18, 4, 15, 'New Job(REF-27D2F0BE) Assignment', '<p><strong>Taofeek Adedokun</strong>, you have been assigned to <strong>REF-27D2F0BE</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>Favour Nnamdi</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-30 09:30:19', '2020-12-30 09:31:10'),
-(19, 4, 11, 'CSE & Technician has been assigned to REF-27D2F0BE service request', '<p>Hello <strong>Adekola Adeleke</strong>, we are glad to inform you that our best Client Service Executive and a Technician has been assigned to your Service Request (<strong>REF-27D2F0BE</strong>). Once again, here is your Security Code to verify their identities.</p><p><strong>Security Code</strong>: SEC-35FA9E28</p><div><div>Thanks,</div><div>FixMaster Management</div></div>', '1', NULL, '2020-12-30 09:30:19', '2020-12-30 10:42:13');
+(19, 4, 11, 'CSE & Technician has been assigned to REF-27D2F0BE service request', '<p>Hello <strong>Adekola Adeleke</strong>, we are glad to inform you that our best Client Service Executive and a Technician has been assigned to your Service Request (<strong>REF-27D2F0BE</strong>). Once again, here is your Security Code to verify their identities.</p><p><strong>Security Code</strong>: SEC-35FA9E28</p><div><div>Thanks,</div><div>FixMaster Management</div></div>', '1', NULL, '2020-12-30 09:30:19', '2021-01-02 07:31:59'),
+(21, 11, 19, 'CSE Message Test', '<p><strong>FixMaster</strong> is your best trusted one-call solution for a wide range of home maintenance, servicing and repair needs. Our well-trained &amp; certified uniformed technicians are fully insured professionals with robust experience to provide home services to fully meet your needs with singular objective to make you totally relax while your repair requests are professionally handled.</p>\r\n<p>&nbsp;</p>', '0', NULL, '2021-01-02 05:56:55', '2021-01-02 07:09:24'),
+(22, 11, 4, 'FixMaster Message Test', '<p>This Message is sent directly to FixMaster default Administrator.</p>\r\n<div>Thanks,</div>\r\n<div>Adeleke Adekola</div>', '0', NULL, '2021-01-02 06:03:06', '2021-01-02 07:07:14');
 
 -- --------------------------------------------------------
 
@@ -1475,7 +1498,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (24, '2020_12_26_022812_create_rfqs_table', 17),
 (25, '2020_12_26_024041_create_rfq_batches_table', 17),
 (26, '2020_12_26_024633_create_rfq_suppliers_table', 17),
-(27, '2021_01_01_173645_create_received__payments_table', 18);
+(27, '2021_01_01_173645_create_received__payments_table', 18),
+(28, '2021_01_02_120756_create_service_request_cancellation_reasons_table', 19);
 
 -- --------------------------------------------------------
 
@@ -1505,14 +1529,14 @@ INSERT INTO `names` (`id`, `user_id`, `name`, `created_at`, `updated_at`) VALUES
 (7, 8, 'Emmanuel Godfrey', '2020-12-04 06:03:06', NULL),
 (8, 9, 'Wisdom Amana', NULL, NULL),
 (9, 10, 'Debola Williams', NULL, NULL),
-(10, 4, 'FixMaster', NULL, NULL),
+(10, 4, 'FixMaster Management', NULL, NULL),
 (11, 11, 'Adekola Adeleke', '2020-12-11 12:43:02', NULL),
 (12, 12, 'Godrey Diwa', '2020-12-11 12:43:02', '2020-12-18 18:25:52'),
 (13, 13, 'Benedict Olaoye', NULL, '2020-12-18 18:26:52'),
 (14, 14, 'Andrew Nwankwo', NULL, NULL),
 (15, 15, 'Taofeek Adedokun', NULL, '2020-12-20 10:58:48'),
-(17, 19, 'Favour Nnamdi', '2020-12-18 13:03:16', '2020-12-18 19:38:12'),
-(20, 23, 'John Desmond', '2020-12-19 21:26:29', '2020-12-19 22:30:02');
+(16, 19, 'Favour Nnamdi', '2020-12-18 13:03:16', '2020-12-18 19:38:12'),
+(17, 23, 'John Desmond', '2020-12-19 21:26:29', '2020-12-19 22:30:02');
 
 -- --------------------------------------------------------
 
@@ -1768,11 +1792,33 @@ CREATE TABLE `service_requests` (
 --
 
 INSERT INTO `service_requests` (`id`, `user_id`, `admin_id`, `cse_id`, `technician_id`, `service_id`, `category_id`, `job_reference`, `security_code`, `service_request_status_id`, `total_amount`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 11, 6, 12, 15, 7, 1, 'REF-66EB5A26', 'SEC-27AEC73E', 5, 3325, NULL, '2020-12-14 12:39:55', '2020-12-28 15:58:54'),
+(1, 11, 6, 12, 15, 7, 1, 'REF-66EB5A26', 'SEC-27AEC73E', 4, 3325, NULL, '2020-12-14 12:39:55', '2021-01-02 10:22:26'),
 (2, 10, NULL, NULL, NULL, 3, 2, 'REF-330CB862', 'SEC-88AC1B19', 1, 3300, NULL, '2020-12-14 12:48:20', NULL),
-(5, 11, 6, 19, 15, 5, 3, 'REF-27D2F0BE', 'SEC-35FA9E28', 4, 2500, NULL, '2020-12-14 15:36:58', '2020-12-30 09:30:18'),
+(5, 11, 6, 19, 15, 5, 3, 'REF-27D2F0BE', 'SEC-35FA9E28', 5, 2500, NULL, '2020-12-14 15:36:58', '2021-01-02 10:54:18'),
 (6, 9, NULL, NULL, NULL, 3, 4, 'REF-1FC50FCC', 'SEC-EBC1D654', 1, 3500, NULL, '2020-12-15 09:33:01', NULL),
-(7, 11, NULL, NULL, NULL, 7, 1, 'REF-131D985E', 'SEC-A62C515E', 1, 4700, NULL, '2020-12-15 09:51:29', NULL);
+(7, 11, NULL, NULL, NULL, 7, 1, 'REF-131D985E', 'SEC-A62C515E', 2, 4700, NULL, '2020-12-15 09:51:29', '2021-01-02 12:01:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service_request_cancellation_reasons`
+--
+
+CREATE TABLE `service_request_cancellation_reasons` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `service_request_id` bigint(20) UNSIGNED NOT NULL,
+  `reason` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `service_request_cancellation_reasons`
+--
+
+INSERT INTO `service_request_cancellation_reasons` (`id`, `user_id`, `service_request_id`, `reason`, `created_at`, `updated_at`) VALUES
+(1, 11, 7, 'Testin request cancellation', '2021-01-02 12:01:24', '2021-01-02 12:01:24');
 
 -- --------------------------------------------------------
 
@@ -1833,7 +1879,8 @@ CREATE TABLE `service_request_progresses` (
 INSERT INTO `service_request_progresses` (`id`, `user_id`, `service_request_id`, `service_request_status_id`, `created_at`, `updated_at`) VALUES
 (1, 6, 1, 4, '2020-12-27 16:20:17', '2020-12-27 16:20:17'),
 (2, 5, 1, 5, '2020-12-28 15:58:54', '2020-12-28 15:58:54'),
-(4, 6, 5, 4, '2020-12-30 09:30:18', '2020-12-30 09:30:18');
+(4, 6, 5, 4, '2020-12-30 09:30:18', '2020-12-30 09:30:18'),
+(7, 11, 7, 2, '2021-01-02 12:01:24', '2021-01-02 12:01:24');
 
 -- --------------------------------------------------------
 
@@ -2102,7 +2149,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_token`, `is_email_verified`, `password`, `remember_token`, `designation`, `is_active`, `is_admin`, `login_count`, `current_sign_in`, `last_sign_in`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 85, '2021-01-01 16:33:06', '2021-01-01 14:54:57', NULL, '2019-12-31 23:29:26', '2021-01-01 16:33:06'),
+(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 86, '2021-01-02 10:28:16', '2021-01-01 16:33:06', NULL, '2019-12-31 23:29:26', '2021-01-02 10:28:16'),
 (2, '', NULL, NULL, '0', '', NULL, '[INTRUDER_ROLE]', '0', '0', 0, NULL, NULL, NULL, NULL, NULL),
 (3, 'charles.famoriyo@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 3, '2020-12-03 19:34:43', '2020-11-30 21:34:14', NULL, '2020-11-30 06:26:42', NULL),
 (4, 'info@fixmaster.com.ng', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, NULL, NULL),
@@ -2112,7 +2159,7 @@ INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_tok
 (8, 'godfrey.emmanuel@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (9, 'wisdom.amana@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (10, 'debo.williams@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
-(11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 28, '2021-01-01 15:19:36', '2021-01-01 15:18:42', NULL, '2020-12-11 12:43:02', '2021-01-01 15:19:36'),
+(11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 35, '2021-01-02 11:41:55', '2021-01-02 05:11:56', NULL, '2020-12-11 12:43:02', '2021-01-02 11:41:55'),
 (12, 'jamal.diwa@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', '0', 8, '2020-12-22 08:47:24', '2020-12-19 10:13:40', NULL, '2020-12-04 06:03:06', '2020-12-22 08:47:24'),
 (13, 'mayowabenedict@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$vicB3ZBUEj6YMfdk9P2ELO82xVE4X50.A6X.MqeTktkTTJMDh6PkS', NULL, '[CSE_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', '2020-12-29 19:11:23'),
 (14, 'andrew.nwankwo@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 1, '2020-12-17 09:17:14', '2020-12-17 09:17:14', NULL, '2020-12-04 06:03:06', NULL),
@@ -2340,6 +2387,14 @@ ALTER TABLE `service_requests`
   ADD KEY `service_request_status_id` (`service_request_status_id`);
 
 --
+-- Indexes for table `service_request_cancellation_reasons`
+--
+ALTER TABLE `service_request_cancellation_reasons`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `service_request_cancellation_reasons_user_id_index` (`user_id`),
+  ADD KEY `service_request_cancellation_reasons_service_request_id_index` (`service_request_id`);
+
+--
 -- Indexes for table `service_request_details`
 --
 ALTER TABLE `service_request_details`
@@ -2444,7 +2499,7 @@ ALTER TABLE `wallets`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=298;
 
 --
 -- AUTO_INCREMENT for table `admins`
@@ -2504,19 +2559,19 @@ ALTER TABLE `location_and_browser_infos`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `names`
 --
 ALTER TABLE `names`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `payment_gateways`
@@ -2567,6 +2622,12 @@ ALTER TABLE `service_requests`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `service_request_cancellation_reasons`
+--
+ALTER TABLE `service_request_cancellation_reasons`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `service_request_details`
 --
 ALTER TABLE `service_request_details`
@@ -2576,7 +2637,7 @@ ALTER TABLE `service_request_details`
 -- AUTO_INCREMENT for table `service_request_progresses`
 --
 ALTER TABLE `service_request_progresses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `service_request_statuses`
@@ -2757,6 +2818,13 @@ ALTER TABLE `service_requests`
   ADD CONSTRAINT `service_requests_ibfk_5` FOREIGN KEY (`technician_id`) REFERENCES `technicians` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `service_requests_ibfk_6` FOREIGN KEY (`cse_id`) REFERENCES `cses` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `service_requests_ibfk_7` FOREIGN KEY (`service_request_status_id`) REFERENCES `service_request_statuses` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `service_request_cancellation_reasons`
+--
+ALTER TABLE `service_request_cancellation_reasons`
+  ADD CONSTRAINT `service_request_cancellation_reasons_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `service_request_cancellation_reasons_ibfk_2` FOREIGN KEY (`service_request_id`) REFERENCES `service_requests` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `service_request_details`

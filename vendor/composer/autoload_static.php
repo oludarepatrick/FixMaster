@@ -666,6 +666,7 @@ class ComposerStaticInit0258898968c5a94c6296c7b8653b99d8
         'App\\Models\\RFQ' => __DIR__ . '/../..' . '/app/Models/RFQ.php',
         'App\\Models\\RFQBatch' => __DIR__ . '/../..' . '/app/Models/RFQBatch.php',
         'App\\Models\\RFQSupplier' => __DIR__ . '/../..' . '/app/Models/RFQSupplier.php',
+        'App\\Models\\ReceivedPayment' => __DIR__ . '/../..' . '/app/Models/ReceivedPayment.php',
         'App\\Models\\SecurityAlert' => __DIR__ . '/../..' . '/app/Models/SecurityAlert.php',
         'App\\Models\\Service' => __DIR__ . '/../..' . '/app/Models/Service.php',
         'App\\Models\\ServiceRequest' => __DIR__ . '/../..' . '/app/Models/ServiceRequest.php',

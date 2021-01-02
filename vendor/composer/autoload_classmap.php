@@ -82,6 +82,7 @@ return array(
     'App\\Models\\RFQ' => $baseDir . '/app/Models/RFQ.php',
     'App\\Models\\RFQBatch' => $baseDir . '/app/Models/RFQBatch.php',
     'App\\Models\\RFQSupplier' => $baseDir . '/app/Models/RFQSupplier.php',
+    'App\\Models\\ReceivedPayment' => $baseDir . '/app/Models/ReceivedPayment.php',
     'App\\Models\\SecurityAlert' => $baseDir . '/app/Models/SecurityAlert.php',
     'App\\Models\\Service' => $baseDir . '/app/Models/Service.php',
     'App\\Models\\ServiceRequest' => $baseDir . '/app/Models/ServiceRequest.php',

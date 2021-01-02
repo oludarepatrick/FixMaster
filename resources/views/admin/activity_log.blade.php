@@ -159,7 +159,7 @@
                 // console.log(error);
                 // alert("Page " + route + " cannot open. Error:" + error);
                 // var message = "Page " + route + " cannot open. Error:" + error;
-                var message = error+ 'An error occured while trying to retireve Activity Log details.';
+                var message = error+ ' An error occured while trying to retireve Activity Log details.';
                 var type = 'error';
                 displayMessage(message, type);
                 $("#sort_table_details").hide();
