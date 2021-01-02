@@ -183,11 +183,37 @@ class AdminRequestController extends Controller
 
     }
 
+    public function completedRequests(){
+
+        $serviceRequests = ServiceRequest::CompletedRequests()->get();
+
+        $createdBy = Name::get();
+
+        $data = [
+            'serviceRequests'   =>  $serviceRequests,
+            'createdBy'         =>  $createdBy,
+        ];
+
+        return view('admin.requests.requests_completed', $data)->with('i');
+    }
+
+    public function cancelledRequests(){
+
+        $serviceRequests = ServiceRequest::CancelledRequests()->get();
+
+        $createdBy = Name::get();
+
+        $data = [
+            'serviceRequests'   =>  $serviceRequests,
+            'createdBy'         =>  $createdBy,
+        ];
+
+        return view('admin.requests.requests_cancelled', $data)->with('i');
+    }
+
     public function ongoingRequests(){
 
         $serviceRequests = ServiceRequest::OngoingRequests()->get();
-
-        // return $serviceRequests;
 
         $createdBy = Name::get();
 
@@ -396,21 +422,18 @@ class AdminRequestController extends Controller
 
         $requestExists = ServiceRequest::findOrFail($id);
 
-        return $requestExists;
-
         //service_request_status_id = Pending(1), Ongoing(4), Completed(3), Cancelled(2) 
         $markAsCompleted = ServiceRequest::where('id', $id)->update([
-            'admin_id'      =>  Auth::id(),
-            'cse_id'        =>  $cseId,
-            'technician_id' =>  $technicianId,
             'service_request_status_id' =>  '3',
         ]);
+
+        $jobReference = $requestExists->job_reference;
 
         //Create record in `service_request_progress` table
         $recordServiceProgress = ServiceRequestProgress::create([
             'user_id'                       =>  Auth::id(), 
             'service_request_id'            =>  $id, 
-            'service_request_status_id'     =>  '4',
+            'service_request_status_id'     =>  '3',
         ]);
 
         if($markAsCompleted AND $recordServiceProgress){

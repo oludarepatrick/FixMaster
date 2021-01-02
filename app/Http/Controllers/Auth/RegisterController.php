@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\URL;
 use Route;
 
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PHPMailerController;
 use App\Http\Controllers\EssentialsController;
 use App\Http\Controllers\RecordActivityLogController;
 
@@ -120,11 +121,11 @@ class RegisterController extends Controller
         $this->validateRequest();
 
         // DB::transaction(function () use ($request) {
-
+            $token = sha1(time());
             $createClientProfile = User::create([
                 'email'                         =>   $request->input('email'),
                 'password'                      =>   Hash::make($request->input('password')),
-                'email_verification_token'      =>   sha1(time()),
+                'email_verification_token'      =>   $token,
                 'designation'                   =>   '[CLIENT_ROLE]',
             ]);
 
@@ -145,7 +146,13 @@ class RegisterController extends Controller
 
                 $clientName = $request->input('first_name').' '.$request->input('last_name');
 
-                MailController::clientEmailVerification($createClientProfile->email, $createClientProfile->email_verification_token, $clientName);
+                $mailBody = '<p>Hello, '.$clientName.'</p><h1>Welcome to FixMaster!</h1><p>We are very excited to have you on FixMaster. Activate your account to book your first job and have the full experience.</p><p>To verify your email, simply click the "Verify E-Mail" button..</p><table role="presentation" width="100%" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td align="center"><table style="height: 24px;" role="presentation" border="0" width="100%" cellspacing="0" cellpadding="0"><tbody><tr style="height: 24px;"><td style="height: 24px;" align="center"><table role="presentation" border="0" cellspacing="0" cellpadding="0"><tbody><tr><td><a href="http://temp.homefix.ng/client-email-verify?token='.$token.'" target="_blank">Verify E-Mail</a></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table><p>Thanks,</p><p>FixMaster Management</p><p>&nbsp;<img class="CToWUd" src="http://temp.homefix.ng/assets/images/home-fix-logo-colored.png" alt="FixMaster Logo" width="70" />&nbsp;</p><p>284B, Ajose Adeogun Street, Victoria Island, Lagos, Nigeria. 08132863878|<a href="mailto:info@fixmaster.com.ng" target="_blank" rel="noopener">info@fixmaster.<wbr />com.ng</a></p><p>&nbsp;</p><hr /><p>If you&rsquo;re having trouble clicking the "Verify E-Mail" button, copy and paste the URL below into your web browser: http://temp.homefix.ng/<a href="temp.homefix.ng/client-email-verify?token='.$token.'" target="_blank"</p>';
+
+                $subject = 'Welcome to FixMaster';
+
+                // PHPMailerController::sendMail($createClientProfile->email, $mailBody, $subject);
+
+                // MailController::clientEmailVerification($createClientProfile->email, $createClientProfile->email_verification_token, $clientName);
 
                 //Create new User record on `names` table
                 Name::create([
@@ -171,7 +178,6 @@ class RegisterController extends Controller
                 ]); 
 
                 
-
                 // return back()->with('success', 'Your account has been created. Please check your E-Mail for verification.');
                 $data = [
                     'email'         => $createClientProfile->email,
@@ -263,7 +269,7 @@ class RegisterController extends Controller
 
         if($user != null){
 
-            MailController::newClientDiscountMail($user->email, $user->fullName->name);
+            // MailController::newClientDiscountMail($user->email, $user->fullName->name);
             
             $user->is_email_verified = '1';
             $user->email_verified_at = \Carbon\Carbon::now();

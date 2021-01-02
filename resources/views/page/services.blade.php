@@ -18,17 +18,17 @@
     <div class="text-center pt-md-1 mb-4">
         <form class="rounded p-4 mt-4 bg-white">
             <div class="row justify-content-center">
-                <div class="col-lg-5 col-md-4">
+                <div class="col-lg-6 col-md-6">
                     <div class="form-group mb-0">
-                        <input type="text" class="form-control" required placeholder="Keywords">
+                        <input type="text" class="form-control search-category" required placeholder="Keywords">
                     </div>
                 </div><!--end col-->
                 
-                <div class="col-lg-7 col-md-8">
+                <div class="col-lg-6 col-md-6">
                     <div class="row align-items-center">
                         <div class="col-md-6 mt-4 mt-sm-0">
                             <div class="form-group mb-0">
-                                <select class="form-control custom-select">
+                                <select class="form-control custom-select" id="sort-category">
                                     <option selected value="">Select...</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -37,9 +37,6 @@
                             </div>
                         </div><!--end col-->
 
-                        <div class="col-md-6 mt-4 mt-sm-0">
-                            <input type="submit" id="search" name="search" class="searchbtn btn btn-primary btn-block p" value="Search">
-                        </div><!--end col-->
                     </div><!--end row-->
                 </div> <!---end col-->
             </div><!--end row-->
@@ -50,8 +47,13 @@
 
     </div>
 
+    <div class="d-none search-result">
+        <!-- Modal displays here -->
+        <div id="spinner-icon"></div>
+    </div>
+    
     @foreach ($services as $service)
-    <div class="col-lg-12 col-md-8 col-12 mt-5 pt-2 mt-sm-0 pt-sm-0">
+    <div class="col-lg-12 col-md-8 col-12 mt-5 pt-2 mt-sm-0 pt-sm-0 services-list">
         <div class="row align-items-center">
             <div class="col-lg-9 col-md-7">
                 <div class="title-heading">
@@ -69,7 +71,7 @@
                             <div class="overlay rounded-top bg-dark"></div>
                         </div>
                         <div class="card-body content">
-                        <h5 class="serv__2">{{ $item->name }} <a href="{{ route('page.services_details') }}" title="View {{ $item->name }} service details"> <i data-feather="info" class="text-primary"></i></a></h5>
+                        <h5 class="serv__2">{{ $item->name }} <a href="{{ route('page.services_details', $item->url) }}" title="View {{ $item->name }} service details"> <i data-feather="info" class="text-primary"></i></a></h5>
                             <div class="post-meta d-flex justify-content-between mt-2">
                                 {{-- <p class="serv__3 text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias commodi.</p> --}}
                             </div>
@@ -166,4 +168,75 @@
     </div><!-- modal-dialog -->
 </div><!-- modal -->
 
+@push('scripts')
+<script>
+
+    $(document).ready(function (){
+        $(document).on('keyup', '.search-category', function(){
+            let query = $(this).val();
+            let type = 'Name';
+
+            if($.trim(query).length <= 0){
+                $('.search-result').html('');
+                $('.search-result').addClass('d-none');
+                $('.services-list').removeClass('d-none');
+            }
+
+            if($.trim(query).length > 5){
+                $('.services-list').addClass('d-none');
+                $('.search-result').removeClass('d-none');
+                searchCategory(type, query);
+            }
+
+        });
+
+        $(document).on('change','#sort-category', function(){
+
+            let query = $(this).find("option:selected").val();
+            let type = 'ID';
+
+            if($.trim(query).length <= 0){
+                $('.search-result').html('');
+                $('.search-result').addClass('d-none');
+                $('.services-list').removeClass('d-none');
+            }
+
+            if($.trim(query).length > 0){
+                $('.services-list').addClass('d-none');
+                $('.search-result').removeClass('d-none');
+                searchCategory(type, query);
+            }
+
+        });
+
+    });
+
+    function searchCategory(type, query){
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+                url: '{{ route("page.services_search") }}',
+                beforeSend: function() {
+                    $("#spinner-icon").html('<div class="d-flex justify-content-center mt-4 mb-4"><span class="loadingspinner"></span></div>');
+                },
+                method: 'POST',
+                data: {'type': type, 'query': query},
+                // return the result
+                success: function(result) {
+                    $('.search-result').html('');
+                    $('.search-result').html(result);
+                },
+                complete: function() {
+                    $("#spinner-icon").hide();
+                },
+                timeout: 8000
+        });
+    }
+
+</script>
+@endpush
 @endsection

@@ -4872,3 +4872,20 @@ p {
   border-top: 1px solid #283353;
 }
 /*# sourceMappingURL=style.css.map */
+.loadingspinner {
+  pointer-events: none;
+  width: 2.5em;
+  height: 2.5em;
+  border: 0.4em solid transparent;
+  border-color: #eee;
+  border-top-color: #E97D1F;
+  border-radius: 50%;
+  animation: loadingspin 1s linear infinite;
+  align-items: center;
+}
+
+@keyframes loadingspin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

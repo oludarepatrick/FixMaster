@@ -150,13 +150,13 @@
         height: 200,
         theme: 'modern',
         plugins: [
-          'advlist autolink lists link charmap print preview hr anchor pagebreak',
-          'searchreplace wordcount visualblocks visualchars code',
+          'advlist autolink lists charmap hr anchor pagebreak',
+          'searchreplace wordcount visualblocks visualchars',
           'insertdatetime nonbreaking save table contextmenu directionality',
-          'emoticons template paste textcolor colorpicker textpattern'
+          'emoticons paste textcolor colorpicker textpattern'
         ],
-        toolbar1: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link',
-        toolbar2: 'print preview | forecolor backcolor emoticons',
+        toolbar1: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+        toolbar2: 'forecolor backcolor emoticons',
         image_advtab: true
       });
     </script>

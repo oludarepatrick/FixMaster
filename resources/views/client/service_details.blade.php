@@ -1,6 +1,8 @@
 @extends('layouts.client')
 @section('title', 'Service Details')
 @section('content')
+@include('layouts.partials._messages')
+
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
 <link href="{{ asset('assets/frontend/css/service-details.css') }}" rel="stylesheet" type="text/css"/>
 

@@ -1,6 +1,8 @@
 @extends('layouts.client')
 @section('title', 'Home')
 @section('content')
+@include('layouts.partials._messages')
+
 <div class="col-lg-8 col-12">
     <div class="border-bottom pb-4 row">
         {{-- <h5>Femi Joseph</h5>
@@ -116,15 +118,17 @@
                             @endif 
                             ({{ $userServiceRequest->serviceRequestDetail->service_fee_name }})
                         </p>
-                        <p class="mb-0"><a href="javascript:void(0)" style="color: #161c2d">CSE: <span class="text-muted">{{ $cseName->find($userServiceRequest->cse_id)->name ?? 'Not Assigned' }}</span></a></p>    
+                        <p class="mb-0"><a href="{{ route('client.request_details', $userServiceRequest->id) }}" style="color: #161c2d" title="View Service request details">CSE: <span class="text-muted">
+                            @if(!empty($userServiceRequest->cse_id)) {{ $userServiceRequest->cse->first_name.' '.$userServiceRequest->cse->last_name }} @else Not Assigned @endif
+                        </span></a></p>    
                         <p class="mb-0">Status: 
-                            @if($userServiceRequest->service_request_status_id == 'Pending')
+                            @if($userServiceRequest->service_request_status_id == '1')
                                 <span class="text-warning">Pending</span>
-                            @elseif($userServiceRequest->service_request_status_id == 'Ongoing')
+                            @elseif($userServiceRequest->service_request_status_id > '3')
                                 <span class="text-info">Ongoing</span>
-                            @elseif($userServiceRequest->service_request_status_id == 'Completed')
+                            @elseif($userServiceRequest->service_request_status_id == '3')
                                 <span class="text-success">Completed</span>
-                            @elseif($userServiceRequest->service_request_status_id == 'Cancelled')
+                            @elseif($userServiceRequest->service_request_status_id == '2')
                                 <span class="text-danger">Cancelled</span>
                             @endif
                         </p>    

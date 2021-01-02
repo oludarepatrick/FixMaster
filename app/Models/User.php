@@ -208,6 +208,17 @@ class User extends Authenticatable
         return $this->hasMany(ServiceRequestProgress::class, 'user_id');
     }
 
+    public function receivedPayment()
+    {
+        return $this->hasOne(ReceivedPayment::class, 'user_id');
+    }
+
+    public function receivedPayments()
+    {
+        return $this->hasMany(ReceivedPayment::class, 'user_id');
+    }
+    
+
     public function scopeActiveAdmin($query, $args){
         return $query->where('id', $args)
         ->select('id', 'email')

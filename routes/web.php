@@ -73,8 +73,10 @@ Route::view('/how-it-works', 		        'page.how_it_works')->name('page.how_it_w
 Route::view('/why-home-fix', 		        'page.why_home_fix')->name('page.why_home_fix');
 Route::view('/join-us', 			        'page.careers')->name('page.careers');
 Route::view('/faq', 			            'page.faq')->name('page.faq');
-Route::view('/service-details', 			'page.service_details')->name('page.services_details');
+// Route::view('/service-details', 			'page.service_details')->name('page.services_details');
 Route::get('/services',                     [App\Http\Controllers\PageController::class, 'services'])->name('page.services');
+Route::get('/services/details/{url}',       [App\Http\Controllers\PageController::class, 'serviceDetails'])->name('page.services_details');
+Route::post('/services/search',              [App\Http\Controllers\PageController::class, 'searchCategories'])->name('page.services_search');
 Route::get('/contact-us',                   [App\Http\Controllers\PageController::class, 'contactUs'])->name('page.contact');
 Route::post('/contact-us',                  [App\Http\Controllers\PageController::class, 'sendContactMail'])->name('page.send_contact_mail');
 

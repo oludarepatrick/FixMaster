@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
+use App\Models\Client;
 
 class HomeController extends Controller
 {
@@ -38,6 +39,7 @@ class HomeController extends Controller
             return redirect()->route('admin.home');
         
         }elseif(!empty($designation) && ($designation === '[CLIENT_ROLE]')) {
+
 
             // return Client dashboard route;
             return redirect()->route('client.home');

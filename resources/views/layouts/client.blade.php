@@ -93,6 +93,26 @@
     <script src="https://unicons.iconscout.com/release/v2.1.9/script/monochrome/bundle.js"></script>
     <script src="{{ asset('assets/client/js/sweetalert2.min.js') }}"></script>
 
+    <script src="{{ asset('assets/dashboard/assets/js/jquery.tinymce.min.js') }}"></script>
+    
+    <script>
+      tinymce.init({
+        selector: '#message_body',
+        height: 200,
+        theme: 'modern',
+        plugins: [
+          'advlist autolink lists charmap hr anchor pagebreak',
+          'searchreplace wordcount visualblocks visualchars',
+          'insertdatetime nonbreaking save table contextmenu directionality',
+          'emoticons paste textcolor colorpicker textpattern'
+        ],
+        toolbar1: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+        toolbar2: 'forecolor backcolor emoticons',
+        image_advtab: true
+      });
+    </script>
+
+
     <script>
         function displayMessage(message, type){
       
