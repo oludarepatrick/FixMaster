@@ -2,6 +2,7 @@
 @section('title', 'Service Quote')
 @section('content')
 @include('layouts.partials._messages')
+<script src="https://js.paystack.co/v1/inline.js"></script>
 
 <div class="col-lg-8 col-12">
     <div class="card custom-form border-0">
@@ -158,7 +159,7 @@
 
                         <div class="col-md-4 form-group">
                             <div class="custom-control custom-checkbox form-group position-relative">
-                                <input type="radio" id="paystack_option" name="payment_method" class="custom-control-input" value="Online" @if(old('payment_method') == 'Online') checked @endif>
+                                <input type="radio" onclick="payWithPaystack()" id="paystack_option" name="payment_method" class="custom-control-input" value="Online" @if(old('payment_method') == 'Online') checked @endif>
                                 <label class="custom-control-label" for="paystack_option">Pay Online</label>
                             </div>
                         </div>
@@ -183,7 +184,7 @@
                 <input type="hidden" class="d-none" value="" id="payment_response_message" name="payment_response_message">
                 <input type="hidden" class="d-none" value="" id="payment_reference" name="payment_reference">
 
-
+                
                 <div class="row">
                     <div class="col-sm-12">
                     <button type="submit" class="submitBnt btn btn-primary">Submit</button>
@@ -236,6 +237,10 @@
     </div><!-- modal-dialog -->
 </div><!-- modal -->
 
+@php
+$paystackInfo = json_decode($paystack->information, true);
+@endphp
+
 @push('scripts')
 <script>
     $(document).ready(function (){
@@ -260,7 +265,39 @@
         //PAYMENR GATEWAY
         $('#paystack_option').on('change', function (){  
 
-            var clientEmail = $('#email').val();
+            // var clientEmail = $('#email').val();
+            // var clientDiscount = $('#client_discount').val();
+            // var serviceFee = $('.service-fee').val();
+            // var amount;
+
+            // //ADD VALUE FROM PAYSTACK
+            // var paymentResponseMessage = $('#payment_response_message');
+            // var paymentReference = $('#payment_reference');
+
+            // if(clientDiscount == 0){
+            //     //If client still has a discount of 5%
+            //     var discountServiceFee = 0.95 * serviceFee;
+            //     amount = discountServiceFee;
+            // }else{
+            //     amount = serviceFee;
+            // }
+
+            // //IF client has no discount seviceFee and amount should be the same value
+            //  console.log(clientEmail, clientDiscount, serviceFee, amount);
+
+            // //DENK your CODE continues from here. Cheers
+        });
+
+        // payment_response_message
+// payment_reference
+
+
+    });
+</script>
+
+<script>
+    function payWithPaystack(){
+        var clientEmail = $('#email').val();
             var clientDiscount = $('#client_discount').val();
             var serviceFee = $('.service-fee').val();
             var amount;
@@ -277,15 +314,35 @@
                 amount = serviceFee;
             }
 
-            //IF client has no discount seviceFee and amount should be the same value
-            return console.log(clientEmail, clientDiscount, serviceFee, amount);
+      var handler = PaystackPop.setup({
+        key: '{{$paystackInfo['public_key']}}',
+        email: clientEmail,
+        amount: amount * 100,
+        currency: "NGN",
+        ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+        metadata: {
+           custom_fields: [
+              {
+                  display_name: "Mobile Number",
+                  variable_name: "mobile_number",
+                  value: "+2348163394819"
+              }
+           ]
+        },
+        callback: function(response){
+            // sendResponseToController(response);
+            // alert('success. transaction ref is ' + response.reference);
+            $('#payment_reference').val(response.reference);
+            $('#payment_response_message').val('success');
+        },
+        onClose: function(){
+            alert('window closed');
+        }
+      });
+      handler.openIframe();
+    }
 
-            //DENK your CODE continues from here. Cheers
-            
-        });
+  </script>
 
-        
-    });
-</script>
 @endpush
 @endsection

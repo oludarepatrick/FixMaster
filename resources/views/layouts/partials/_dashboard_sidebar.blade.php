@@ -249,11 +249,10 @@
       @endif
       
       @if(Auth::id() == 1)
-        <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.add_payment_gateway', 'admin.list_payment_gateway', 'admin.edit_payment_gateway') ? 'active show' : '' }}">
+        <li class="nav-item with-sub {{ Route::currentRouteNamed('list_payment_gateway') ? 'active show' : '' }}">
           <a href="" class="nav-link"><i data-feather="credit-card"></i> <span>Payment Gateway</span></a>
           <ul> 
-            <li class="{{ Route::currentRouteNamed('admin.add_payment_gateway') ? 'active' : '' }}"><a href="{{ route('admin.add_payment_gateway') }}">Add</a></li>
-            <li class="{{ Route::currentRouteNamed('admin.list_payment_gateway', 'admin.edit_payment_gateway') ? 'active' : '' }}"><a href="{{ route('admin.list_payment_gateway') }}">List</a></li>
+            <li class="{{ Route::currentRouteNamed('list_payment_gateway') ? 'active' : '' }}"><a href="{{ route('admin.list_payment_gateway') }}">List</a></li>
           </ul>
         </li>
       @endif

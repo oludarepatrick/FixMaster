@@ -143,7 +143,7 @@ class ClientRequestController extends Controller
 
 
         //IF payment was successful
-        if($request->payment_response_message === 'success'){
+        if($request->payment_reference === 'success'){
             //Generate security code
             $this->randomStringGenerator = new EssentialsController();
 
