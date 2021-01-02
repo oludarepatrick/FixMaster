@@ -18,6 +18,7 @@ use App\Models\State;
 use App\Models\Service;
 use App\Models\Category;
 use App\Http\Controllers\RecordActivityLogController;
+use App\Models\PaymentGateway;
 
 class ClientDashboardController extends Controller
 {
@@ -301,6 +302,8 @@ class ClientDashboardController extends Controller
 
         $email = Auth::user()->email;
         $clientDiscount = Auth::user()->client->discounted;
+        $paystack = PaymentGateway::find(1);
+        $flutter = PaymentGateway::find(2);
 
         if(!empty($urlExists)){
 
@@ -308,7 +311,10 @@ class ClientDashboardController extends Controller
                 'serviceQuote'      =>  $urlExists,
                 'email'             =>  $email,
                 'clientDiscount'    =>  $clientDiscount,
+                'paystack'          =>  $paystack,
+                'flutter'           =>  $flutter,
             ];
+            
 
             return view('client.service_quote', $data);
             

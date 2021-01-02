@@ -116,7 +116,7 @@
                         @endphp
                         <div class="form-group">
                             <label>Flutter</label>
-                            <div class="selectgroup w-100">
+                            <div class="selectgroup">
                               <label class="selectgroup-item">
                                 <input type="radio" name="status" value="1" class="selectgroup-input" {{$flutter->status == 1 ? 'checked' : ''}}>
                                 <span class="selectgroup-button">Active</span>
@@ -167,62 +167,6 @@
     </div><!-- row -->
 
   </div><!-- container -->
-
-  <div class="modal fade" id="paymentGatewayDetails" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-      <div class="modal-content bd-0 bg-transparent">
-        <div class="modal-body pd-0">
-          <a href="" role="button" class="close pos-absolute t-15 r-15 z-index-10" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </a>
-
-          <div class="row no-gutters">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 bg-white rounded-right">
-              <div class="ht-100p d-flex flex-column justify-content-center pd-20 pd-sm-30 pd-md-40">
-                {{-- <img src="{{ asset('assets/images/cleaning-franchise.png') }}" class="wd-sm-200 rounded float-sm-right" alt=""> --}}
-
-                <h3 class="tx-16 tx-sm-20 tx-md-24 mg-b-15 mg-md-b-20">Paystack</h3>
-                <div class="table-responsive">
-                  <table class="table table-striped table-sm mg-b-0">
-                    <tbody>
-                      <tr>
-                        <td class="tx-medium">Script URL</td>
-                        <td class="tx-color-03">https://js.paystack.co/v1/inline.js</td>
-                      </tr>
-                      <tr>
-                        <td class="tx-medium">Public Key</td>
-                        <td class="tx-color-03">pk_live_f4afcde02270cd546eb336c1fa28024da716c82d</td>
-                      </tr>
-                      <tr>
-                        <td class="tx-medium">Verification URL</td>
-                        <td class="tx-color-03">https://api.paystack.co/transaction/verify/</td>
-                      </tr>
-                      <tr>
-                        <td class="tx-medium">Demo Script URL</td>
-                        <td class="tx-color-03">https://js.paystack.co/v1/inline.js</td>
-                      </tr>
-                      <tr>
-                        <td class="tx-medium">Demo Public Key</td>
-                        <td class="tx-color-03">pk_test_de1419f9b2d039655463bcbb897c2e6c45c79ef8</td>
-                      </tr>
-                      <tr>
-                        <td class="tx-medium">Demo Secret Key</td>
-                        <td class="tx-color-03">sk_test_d2cf8c867e371a9d7464064b70afe14d0cd75eb6</td>
-                      </tr>
-                      <tr>
-                        <td class="tx-medium">Demo Verification URL</td>
-                        <td class="tx-color-03">https://api.paystack.co/transaction/verify/</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div><!-- col -->
-          </div><!-- row -->
-        </div><!-- modal-body -->
-      </div><!-- modal-content -->
-    </div><!-- modal-dialog -->
-  </div><!-- modal -->
 
 </div>
 
