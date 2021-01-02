@@ -147,6 +147,16 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::get('/category/edit/{id}',                   [App\Http\Controllers\CategoryController::class, 'edit'])->name('edit_category');
                 Route::put('/category/update/{id}',                 [App\Http\Controllers\CategoryController::class, 'update'])->name('update_category');
 
+                //Admin payment Routes
+                Route::get('/payment-gateway/list', 
+                [App\Http\Controllers\GatewayController::class, 'index'])->name('list_payment_gateway');
+                
+                Route::post('/paystack/update', 
+                [App\Http\Controllers\GatewayController::class, 'paystackUpdate'])->name('paystack_update');
+
+                Route::post('/flutter/update', 
+                [App\Http\Controllers\GatewayController::class, 'flutterUpdate'])->name('flutter_update');
+
                 Route::view('/category/review', 	                'admin.services.review_category')->name('review_category');
 
                 Route::view('/payments/disbursed', 	                'admin.payments.disbursed')->name('disbursed_payments');
@@ -155,9 +165,9 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::view('/ratings/category', 	                'admin.ratings.category')->name('category_ratings');
                 Route::view('/ratings/job', 	                    'admin.ratings.job')->name('job_ratings');
                 Route::view('/location-request', 	                'admin.location_request')->name('location_request');
-                Route::view('/payment-gateway/add', 	            'admin.payment_gateways.add')->name('add_payment_gateway');
-                Route::view('/payment-gateway/edit', 	            'admin.payment_gateways.edit')->name('edit_payment_gateway');
-                Route::view('/payment-gateway/list', 	            'admin.payment_gateways.list')->name('list_payment_gateway');
+                // Route::view('/payment-gateway/add', 	            'admin.payment_gateways.add')->name('add_payment_gateway');
+                // Route::view('/payment-gateway/edit', 	            'admin.payment_gateways.edit')->name('edit_payment_gateway');
+                // Route::view('/payment-gateway/list', 	            'admin.payment_gateways.list')->name('list_payment_gateway');
                 
             });
         });
