@@ -10,6 +10,7 @@ use App\Models\Client;
 use App\Models\CSE;
 use App\Models\Technician;
 use App\Models\ServiceRequest;
+use App\Models\ReceivedPayment;
 
 class AdminDashboardController extends Controller
 {
@@ -61,6 +62,15 @@ class AdminDashboardController extends Controller
 
         $highestReturningJobs = ServiceRequest::select('user_id', 'job_reference', 'total_amount', 'created_at')->orderBy('total_amount', 'DESC')->limit(3)->get();
 
+        $receivedPayments = ReceivedPayment::limit(5)->get();
+
+        $cses = User::where('users.designation', '[CSE_ROLE]')
+        ->orderBy('users.is_active', 'DESC')
+        ->latest('users.created_at')
+        ->limit(5)
+        ->get();
+
+
         // return $highestReturningJobs;
 
         $data = [
@@ -75,7 +85,10 @@ class AdminDashboardController extends Controller
             'totalTechnicians'          =>  $totalTechnicians,
             'totalUsers'                =>  $totalUsers,
             'totalAmount'               =>  $totalAmount,
-            'highestReturningJobs'      =>  $highestReturningJobs
+            'highestReturningJobs'      =>  $highestReturningJobs,
+            'receivedPayments'          =>  $receivedPayments,
+            'cses'                      =>  $cses,
+
         ];
         
         return view('admin.home', $data)->with('i');

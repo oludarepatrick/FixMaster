@@ -134,7 +134,7 @@
     </div>
 </div>
 
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('assets/dashboard/assets/js/table-sort.js') }}"></script>
 <script>
   $(document).ready(function(){
@@ -175,6 +175,6 @@
   });
 </script>
 
-@endsection
+@endpush
 
 @endsection

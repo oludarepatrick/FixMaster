@@ -42,74 +42,7 @@
               
             </div>
           </div><!-- card-body -->
-          <div class="table-responsive">
-            <div class="row mt-1 mb-1 ml-1 mr-1">
-              <div class="col-md-4">
-                  <div class="form-group">
-                      <label>Sort</label>
-                      <select class="custom-select" id="request-sorting">
-                          <option value="None">Select...</option>
-                          <option value="Date">Date</option>
-                          <option value="Month">Month</option>
-                          <option value="Date Range">Date Range</option>
-                      </select>
-                  </div>
-              </div><!--end col-->
-  
-              <div class="col-md-4 specific-date d-none">
-                  <div class="form-group position-relative">
-                      <label>Specify Date <span class="text-danger">*</span></label>
-                      <input name="name" id="name" type="date" class="form-control pl-5">
-                  </div>
-              </div>
-  
-              <div class="col-md-4 sort-by-year d-none">
-                  <div class="form-group position-relative">
-                      <label>Specify Year <span class="text-danger">*</span></label>
-                      <select class="form-control custom-select" id="Sortbylist-Shop">
-                          <option>Select...</option>
-                          <option>2018</option>
-                          <option>2019</option>
-                          <option>2020</option>
-                      </select>
-                  </div>
-              </div>
-  
-              <div class="col-md-4 sort-by-year d-none">
-                  <div class="form-group position-relative">
-                      <label>Specify Month <span class="text-danger">*</span></label>
-                      <select class="form-control custom-select" id="Sortbylist-Shop">
-                          <option>Select...</option>
-                          <option>January</option>
-                          <option>February</option>
-                          <option>March</option>
-                          <option>April</option>
-                          <option>May</option>
-                          <option>June</option>
-                          <option>July</option>
-                          <option>August</option>
-                          <option>September</option>
-                          <option>October</option>
-                          <option>November</option>
-                          <option>December</option>
-                      </select>
-                  </div>
-              </div>
-  
-              <div class="col-md-4 date-range d-none">
-                  <div class="form-group position-relative">
-                      <label>From <span class="text-danger">*</span></label>
-                      <input name="name" id="name" type="date" class="form-control pl-5">
-                  </div>
-              </div>
-  
-              <div class="col-md-4 date-range d-none">
-                  <div class="form-group position-relative">
-                      <label>To <span class="text-danger">*</span></label>
-                      <input name="name" id="name" type="date" class="form-control pl-5">
-                  </div>
-              </div>
-            </div>
+          <div class="table-responsive">         
             <table class="table table-hover mg-b-0" id="basicExample">
               <thead class="thead-primary">
                 <tr>
@@ -141,7 +74,7 @@
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.request_ongoing_details', $serviceRequest->id) }}"class="dropdown-item details"><i class="fas fa-clipboard"></i> Details</a>
+                      <a href="{{ route('admin.request_completed_details', $serviceRequest->id) }}"class="dropdown-item details"><i class="fas fa-clipboard"></i> Details</a>
                       <a href="#" class="dropdown-item details text-danger"><i class="fas fa-undo"></i> Revert to Ongoing</a>
                       </div>
                     </div>

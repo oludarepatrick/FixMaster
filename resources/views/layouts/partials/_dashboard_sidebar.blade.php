@@ -268,13 +268,13 @@
       @endif
 
       @if($user->adminPermissions->requests == 1)
-        <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details') ? 'active show' : '' }}">
+        <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details', 'admin.request_cancelled_details') ? 'active show' : '' }}">
           <a href="" class="nav-link"><i data-feather="git-pull-request"></i> <span>Requests</span></a>
           <ul>
             <li class="{{ Route::currentRouteNamed('admin.requests', 'admin.request_details') ? 'active' : '' }}"><a href="{{ route('admin.requests') }}">New</a></li>
             <li class="{{ Route::currentRouteNamed('admin.requests_ongoing', 'admin.request_ongoing_details') ? 'active' : '' }}"><a href="{{ route('admin.requests_ongoing') }}">Ongoing</a></li>
             <li class="{{ Route::currentRouteNamed('admin.requests_completed', 'admin.request_completed_details') ? 'active' : '' }}"><a href="{{ route('admin.requests_completed') }}">Completed</a></li>
-            <li class="{{ Route::currentRouteNamed('admin.requests_cancelled') ? 'active' : '' }}"><a href="{{ route('admin.requests_cancelled') }}">Cancelled</a></li>
+            <li class="{{ Route::currentRouteNamed('admin.requests_cancelled', 'admin.request_cancelled_details') ? 'active' : '' }}"><a href="{{ route('admin.requests_cancelled') }}">Cancelled</a></li>
           </ul>
         </li>
       @endif

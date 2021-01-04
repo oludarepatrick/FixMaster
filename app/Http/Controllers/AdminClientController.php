@@ -114,11 +114,11 @@ class AdminClientController extends Controller
      */
     public function delete($user)
     {
-        $client = Client::findOrFail($user);
+        // $client = Client::findOrFail($user);
 
-        $userExists =  User::where('id', $client->user_id)->first();
+        // $userExists =  User::where('id', $client->user_id)->first();
 
-        // $userExists = User::findOrFail($user);
+        $userExists = User::findOrFail($user);
 
         //Casted to SoftDelete
         $softDeleteUser = $userExists->delete();

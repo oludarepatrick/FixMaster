@@ -57,7 +57,7 @@
                           <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                           <div class="dropdown-menu dropdown-menu-right">
                           <a href="#editInventory" data-toggle="modal" class="dropdown-item details text-info" data-url="{{ route('admin.edit_service_request_status', $serviceRequestStatus->id) }}" data-status-name="{{ $serviceRequestStatus->name }}" data-id="{{ $serviceRequestStatus->id }}" id="edit-status"><i class="far fa-edit"></i> Edit</a>
-                          <a href="{{ route('admin.delete_service_request_status', $serviceRequestStatus->id) }}" class="dropdown-item details text-danger" title="Delete {{ $serviceRequestStatus->name}}"><i class="fas fa-trash"></i> Delete</a>
+                          {{-- <a href="{{ route('admin.delete_service_request_status', $serviceRequestStatus->id) }}" class="dropdown-item details text-danger" title="Delete {{ $serviceRequestStatus->name}}"><i class="fas fa-trash"></i> Delete</a> --}}
                           @endif
                           </div>
                         </div>

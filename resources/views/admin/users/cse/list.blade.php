@@ -49,20 +49,20 @@
                 @foreach ($cses as $cse)
                 @foreach ($cse->cses as $item)@endforeach
                 <tr>
-                <td class="tx-color-03 tx-center">{{ ++$i }}</td>
-                <td class="tx-medium">{{ $cse->fullName->name }}</td>
-                <td class="tx-medium text-center">{{ $item->tag_id }}</td>
-                <td class="tx-medium">{{ $cse->email }}</td>
-                <td class="tx-medium">{{ $item->phone_number }}</td>
-                <td class="tx-medium">{{ $item->gender }}</td>
-                @if($cse->is_active == '1') 
-                  <td class="text-medium text-success">Active</td>
-                @else 
-                  <td class="text-medium text-danger">Inactive</td>
-                @endif
-                <td class="tx-medium text-center">{{ $cse->cse->requests()->where('service_request_status_id', 'Completed')->count() }}</td>
+                  <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                  <td class="tx-medium">{{ $cse->fullName->name }}</td>
+                  <td class="tx-medium text-center">{{ $item->tag_id }}</td>
+                  <td class="tx-medium">{{ $cse->email }}</td>
+                  <td class="tx-medium">{{ $item->phone_number }}</td>
+                  <td class="tx-medium">{{ $item->gender }}</td>
+                  @if($cse->is_active == '1') 
+                    <td class="text-medium text-success">Active</td>
+                  @else 
+                    <td class="text-medium text-danger">Inactive</td>
+                  @endif
+                  <td class="tx-medium text-center">{{ $cse->cse->requests()->where('service_request_status_id', '3')->count() }}</td>
 
-                <td class="text-medium">{{ Carbon\Carbon::parse($cse->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
+                  <td class="text-medium">{{ Carbon\Carbon::parse($cse->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                   <td class=" text-center">
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>

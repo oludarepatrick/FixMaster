@@ -10,7 +10,7 @@ class ReceivedPayment extends Model
     use HasFactory;
     
     public $table = "received_payments";
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -38,5 +38,16 @@ class ReceivedPayment extends Model
     public function serviceRequests()
     {
         return $this->hasMany(ServiceRequest::class, 'service_request_id');
+    }
+
+    /** 
+     * Scope a query to only include active banches
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */    
+    //Function to return all active clients  
+    public function scopeAllReceivedPayments($query){
+        return $query->select('id');
     }
 }

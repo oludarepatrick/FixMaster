@@ -20,7 +20,7 @@
         @if($user->is_active == 0)
           <a href="{{ route('admin.reinstate_client', $user->id) }}" class="btn btn-success"><i class="fas fa-undo"></i> Reinstate</a>
         @endif
-        <a href="{{ route('admin.delete_client', $user->id) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+        {{-- <a href="{{ route('admin.delete_client', $user->id) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a> --}}
       </div>
     </div>
 
@@ -155,33 +155,36 @@
 
         <div id="requestsHistory" class="tab-pane pd-20 pd-xl-25">
           {{-- <div class="d-flex align-items-center justify-content-between mg-b-30"> --}}
-              <h6 class="tx-15 mg-b-0">Requests History</h6>
+              <h5>Requests History</h5>
               <div class="table-responsive mt-4">
                 <table class="table table-hover mg-b-0" id="requestExample">
                   <thead class="thead-primary">
                     <tr>
                       <th class="text-center">#</th>
                       <th>Job Ref.</th>
-                      <th>Client</th>
+                      <th>Supervised By</th>
+                      <th>CSE</th>
                       <th>Technician</th>
                       <th class="text-center">Amount</th>
+                      <th class="text-center">Fee Type</th>
                       <th class="text-center">Status</th>
-                      <th class="text-center">Date</th>
-                      <th class=" text-center">Action</th>
+                      <th class="text-center">Scheduled Date</th>
+                      {{-- <th class=" text-center">Action</th> --}}
                     </tr>
                   </thead>
                   <tbody>
                     @foreach($user->requests as $request)
                       @if(!empty($request->serviceRequestDetail->discount_service_fee))
-                        {{$totalFee += $request->serviceRequestDetail->discount_service_fee}}
+                        <?php $totalFee += $request->serviceRequestDetail->discount_service_fee; ?>
                       @else
-                        {{$totalFee += $request->serviceRequestDetail->initial_service_fee}}
+                        <?php $totalFee += $request->serviceRequestDetail->initial_service_fee; ?>
                       @endif
                     <tr>
                       <td class="tx-color-03 tx-center">{{ ++$i }}</td>
                       <td class="tx-medium">{{ $request->job_reference }}</td>
-                        <td class="tx-medium">{{ $request->user->fullName->name ?? '' }}</td>
-                        <td class="tx-medium">{{ $request->technician->user->fullName->name ?? '' }}</td>
+                        <td class="tx-medium">{{ $request->admin->user->fullName->name ?? 'Not Assigned' }}</td>
+                        <td class="tx-medium">{{ $request->cse->user->fullName->name ?? 'Not Assigned' }}</td>
+                        <td class="tx-medium">{{ $request->technician->user->fullName->name ?? 'Not Assigned' }}</td>
                       <td class="tx-medium text-center">
                         @if(!empty($request->serviceRequestDetail->discount_service_fee))
                             ₦{{ number_format($request->serviceRequestDetail->discount_service_fee) }}
@@ -191,29 +194,32 @@
                             ₦{{ number_format($request->serviceRequestDetail->initial_service_fee) }}
                         @endif
                       </td>
-                      @if($request->service_request_status_id == 'Pending')
-                          <td class="text-medium text-warning text-center">Pending</td>
-                      @elseif($request->service_request_status_id == 'Ongoing')
-                          <td class="text-medium text-info text-center">Ongoing</td>
-                      @elseif($request->service_request_status_id == 'Completed')
-                          <td class="text-medium text-success text-center">Completed</td>
-                      @elseif($request->service_request_status_id == 'Cancelled')
-                          <td class="text-medium text-danger text-center">Cancelled</td>
+                      <td>{{ $request->serviceRequestDetail->service_fee_name }}</td>
+                      @if($request->service_request_status_id == '1')
+                          <td class="tx-medium text-warning text-center">Pending</td>
+                      @elseif($request->service_request_status_id > '3')
+                          <td class="tx-medium text-info text-center">Ongoing</td>
+                      @elseif($request->service_request_status_id == '3')
+                          <td class="tx-medium text-success text-center">Completed</td>
+                      @elseif($request->service_request_status_id == '2')
+                          <td class="tx-medium text-danger text-center">Cancelled</td>
                       @endif
-                      <td class="text-medium">May 15th 2020 at 11:30am</td>
-                      <td class=" text-center">
+                      <td class="text-center">{{ $request->serviceRequestDetail->timestamp ?? '' }}</td>
+                      {{-- <td class=" text-center">
                         <div class="dropdown-file">
                           <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                           <div class="dropdown-menu dropdown-menu-right">
                           <a href="{{ route('cse.request_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
                           </div>
                         </div>
-                      </td>
+                      </td> --}}
                     </tr>
                     @endforeach
                     <tr>
+                      <td></td>
                       <td class="text-center" colspan="4">Total</td>
                       <td class="text-center tx-medium">₦{{ number_format($totalFee) }}</td>
+                      <td></td>
                       <td></td>
                       <td></td>
                     </tr>
@@ -225,7 +231,7 @@
 
         <div id="paymentsHistory" class="tab-pane pd-20 pd-xl-25">
           {{-- <div class="d-flex align-items-center justify-content-between mg-b-30"> --}}
-              <h6 class="tx-15 mg-b-0">Payments History</h6>
+              <h5>Payments History</h5>
 
               <div class="table-responsive mt-4">
                 <div class="row mt-1 mb-1 ml-1 mr-1">
@@ -299,41 +305,30 @@
                   <thead class="thead-primary">
                     <tr>
                       <th class="text-center">#</th>
-                      <th>Job Ref.</th>
+                      <th>Job Reference</th>
                       <th>Reference No</th>
+                      <th>Client Name</th>
+                      <th>Payment Method</th>
+                      <th>Payment Type</th>
                       <th>Amount</th>
-                      <th class="text-center">Status</th>
                       <th class="text-center">Payment Date</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td class="tx-color-03 tx-center">1</td>
-                      <td class="tx-medium">REF-234094623496</td>
-                      <td class="tx-medium">234092734623496</td>
-                      <td class="tx-medium">₦7,000</td>
-                      <td class="text-medium text-success text-center">Paid</td>
-                      <td class="text-medium tx-center">Apr 3, 2020, 12:56pm</td>
-                    </tr>
-    
-                    <tr>
-                        <td class="tx-color-03 tx-center">2</td>
-                        <td class="tx-medium">REF-094009623412</td>
-                        <td class="tx-medium">4352927346209232</td>
-                        <td class="tx-medium">₦4,800</td>
-                        <td class="text-medium text-success text-center">Paid</td>
-                        <td class="text-medium tx-center">Mar 21, 2020, 3:30pm</td>
-                    </tr>
-    
-                    <tr>
-                        <td class="tx-color-03 tx-center">3</td>
-                        <td class="tx-medium">REF-237290223123</td>
-                        <td class="tx-medium">1234527346092372</td>
-                        <td class="tx-medium">₦2,500</td>
-                        <td class="text-medium text-success text-center">Paid</td>
-                        <td class="text-medium tx-center">Feb 25, 2020, 8:17am</td>
-                    </tr>
-                    
+                    @foreach($user->receivedPayments as $receivedPayment)
+                    <?php $x = 0; ?>
+                      <tr>
+                        <td class="tx-color-03 tx-center">{{ ++$x }}</td>
+                        <td class="tx-medium">{{ $receivedPayment->serviceRequest->job_reference }}</td>
+                        <td class="tx-medium">{{ $receivedPayment->payment_reference }}</td>
+                        <td class="tx-medium">{{ $receivedPayment->user->fullName->name }}</td>
+                        <td class="tx-medium">{{ $receivedPayment->payment_method }}</td>
+                        <td class="tx-medium">Credit</td>
+                        <td class="tx-medium">₦{{ number_format($receivedPayment->amount) }}</td>
+                        {{-- <td class="text-medium text-success">Paid</td> --}}
+                        <td class="text-medium tx-center">{{ Carbon\Carbon::parse($receivedPayment->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
+                      </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div><!-- table-responsive -->
@@ -344,7 +339,7 @@
         <div id="activityLog" class="tab-pane pd-20 pd-xl-25">
           {{-- <div class="d-flex align-items-center justify-content-between mg-b-30"> --}}
 
-              <h6 class="tx-15 mg-b-0">Activity Log</h6>
+              <h5>Activity Log</h5>
               <div class="table-responsive mt-4">
                 <div class="row mt-1 mb-1 ml-1 mr-1">
                 <input value="{{ $userId }}" type="hidden" id="user_id">

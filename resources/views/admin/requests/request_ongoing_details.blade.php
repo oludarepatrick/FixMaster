@@ -47,9 +47,8 @@
               <div class="tab-content bd bd-gray-300 bd-t-0 pd-20" id="myTabContent3">
 
                 <div class="tab-pane fade show active" id="media3" role="tabpanel" aria-labelledby="media-tab3">
-                  <h6>JOB Progress</h6>
-
-                  <div class="table-responsive">
+                  <h5 class="mt-4 text-primary">Service Request Progress</h5>
+                  <div class="table-responsive mb-4">
                     <table class="table table-hover mg-b-0">
                       <thead class="">
                         <tr>
@@ -72,99 +71,89 @@
                     </table>
                   </div><!-- table-responsive -->
 
-                  <h5 class="mt-4">Tools Request</h5>
-                  <div class="table-responsive">
+                  <h5 class="mt-4 text-primary">Tool Requests</h5>
+                  <div class="table-responsive mb-4">
                     <table class="table table-hover mg-b-0">
                       <thead class="">
                         <tr>
                           <th class="text-center">#</th>
-                          <th>Equipment/Tools Name</th>
-                          <th class="text-center">Quantity</th>
-                          <th>Authorised By</th>
-                          <th class="text-center">Timestamp</th>
+                          <th>Batch Number</th>
+                          <th>Client</th>
+                          <th>Approved By</th>
+                          <th>Requested By</th>
+                          <th>Status</th>
+                          <th>Date Requested</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
+                        @foreach($requestDetail->toolRequests as $toolRequest)
+                        <?php  $z = 0; ?>
                         <tr>
-                          <td class="tx-color-03 tx-center">1</td>
-                          <td class="tx-medium">Ladder</td>
-                          <td class="text-medium text-center">2</td>
-                          <td class="text-medium">David Akinsola</td>
-                          <td class="text-medium tx-center">May 15th 2020 at 11:30am</td>
+                          <td class="tx-color-03 tx-center">{{ ++$z }}</td>
+                          <td class="tx-medium">{{ $toolRequest->batch_number }}</td>
+                          <td class="tx-medium">{{ $toolRequest->serviceRequest->user->fullName->name }}</td>
+                          <td class="tx-medium">{{ $toolRequest->approver->fullName->name ?? 'Null' }}</td>
+                          <td class="tx-medium">{{ $toolRequest->requester->fullName->name }}</td>
+                          @if($toolRequest->status == 'Pending')
+                            <td class="text-medium text-warning">Pending</td>
+                          @elseif($toolRequest->status == 'Approved')
+                            <td class="text-medium text-success">Approved</td>
+                          @else
+                            <td class="text-medium text-danger">Declined</td>
+                          @endif
+                          <td class="text-medium">{{ Carbon\Carbon::parse($toolRequest->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
+                          <td class=" text-center">
+                            <a href="#toolsRequestDetails" data-toggle="modal" class="btn btn-sm btn-primary" title="View {{ $toolRequest->batch_number}} details" data-batch-number="{{ $toolRequest->batch_number}}" data-url="{{ route('admin.tool_request_details', $toolRequest->id) }}" id="tool-request-details">Details</a>
+                          </td>
                         </tr>
-
-                        <tr>
-                          <td class="tx-color-03 tx-center">2</td>
-                          <td class="tx-medium">Hose</td>
-                          <td class="text-medium text-center">2</td>
-                          <td class="text-medium">Obuchi Omotosho</td>
-                          <td class="text-medium tx-center">May 15th 2020 at 11:30am</td>
-                        </tr>
+                        @endforeach
                       </tbody>
                     </table>
                   </div><!-- table-responsive -->
 
 
-                  <h5 class="mt-4">Request For Quotation <span class="text-success">(Accepted)</span></h5>
+                  <h5 class="mt-4 text-primary">Request For Quotation</h5>
                   <div class="table-responsive">
-                    <table class="table table-striped table-sm mg-b-0">
-                      <tbody>
-                        <tr>
-                          <td class="tx-medium">Supplier's Name</td>
-                          <td class="tx-color-03">Golden Tribe LTD</td>
-                        </tr>
-                        <tr>
-                          <td class="tx-medium">Delivery Fee</td>
-                          <td class="tx-color-03">₦1,500</td>
-                        </tr>
-                        <tr>
-                          <td class="tx-medium">Delivery Time</td>
-                          <td class="tx-color-03">May 15th 2020 at 11:30am</td>
-                        </tr>
-                        <tr>
-                          <td class="tx-medium">Accepted By</td>
-                          <td class="tx-color-03">Godfrey Diwa</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  
                     <table class="table table-hover mg-b-0 mt-4">
                       <thead class="">
                         <tr>
                           <th class="text-center">#</th>
-                          <th>Component Name</th>
-                          <th>Model</th>
-                          <th class="text-center">Quantity</th>
-                          <th class="text-center">Amount</th>
+                          <th>Batch Number</th>
+                          <th>Client</th>
+                          <th>Issued By</th>
+                          <th>Status</th>
+                          <th class="text-center">Total Amount</th>
+                          <th>Date Created</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
+                        @foreach($requestDetail->rfqs as $rfq )
+                        <?php  $y = 0; ?>
                         <tr>
-                          <td class="tx-color-03 tx-center">1</td>
-                          <td class="tx-medium">Plug</td>
-                          <td class="text-medium">PL-2342</td>
-                          <td class="text-medium text-center">2</td>
-                          <td class="text-medium tx-center">₦700</td>
+                          <td class="tx-color-03 tx-center">{{ ++$y }}</td>
+                          <td class="tx-medium">{{ $rfq->batch_number }}</td>
+                          <td class="tx-medium">{{ $rfq->issuer->fullName->name }}</td>
+                          <td class="tx-medium">{{ $rfq->client->fullName->name }}</td>
+                          @if($rfq->status == 0)
+                            <td class="text-medium text-warning">Awaiting total amount</td>
+                          @elseif($rfq->status == 1)
+                            <td class="text-medium text-info">Awaiting Client's payment</td>
+                          @else
+                            <td class="text-medium text-success">Payment received</td>
+                          @endif
+                          <td class="tx-medium text-center">₦{{ number_format($rfq->total_amount) ?? 'Null'}}</td>
+                          <td class="text-medium">{{ Carbon\Carbon::parse($rfq->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
+                          <td class=" text-center">
+                            <a href="#rfqDetails" data-toggle="modal" class="btn btn-sm btn-primary" title="View {{ $rfq->batch_number}} details" data-batch-number="{{ $rfq->batch_number}}" data-url="{{ route('admin.rfq_details', $rfq->id) }}" id="rfq-details"></i> Details</a>
+                          </td>
                         </tr>
-
-                        <tr>
-                          <td class="tx-color-03 tx-center">2</td>
-                          <td class="tx-medium">Carburetor</td>
-                          <td class="text-medium">TX-2342</td>
-                          <td class="text-medium text-center">1</td>
-                          <td class="text-medium tx-center">₦1,200</td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td class="text-medium tx-center">Total</td>
-                          <td class="text-medium tx-center">3</td>
-                          <td class="text-medium tx-center">₦1,900</td>
-                          <td></td>
-                        </tr>
+                        @endforeach
                       </tbody>
                     </table>
                   </div><!-- table-responsive -->
-                  
                 </div>
 
                 <div class="tab-pane fade" id="update3" role="tabpanel" aria-labelledby="update-tab3">
@@ -428,7 +417,6 @@
 
                 <div class="tab-pane fade" id="description3" role="tabpanel" aria-labelledby="description-tab3">
                   <h6>JOB DESCRIPTION</h6>
-                  
                   <div class="row row-xs mt-4">
                     <div class="col-lg-12 col-xl-12">
                       <table class="table table-striped table-sm mg-b-0">
@@ -562,6 +550,40 @@
     </div>
 </div>
 
+<div class="modal fade" id="toolsRequestDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content tx-14">
+      <div class="modal-header">
+        <h6 class="modal-title" id="exampleModalLabel2">Tools Request</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- Modal displays here -->
+        <div id="spinner-icon"></div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="rfqDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content tx-14">
+      <div class="modal-header">
+        <h6 class="modal-title" id="exampleModalLabel2">RFQ Details</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body-rfq-details">
+          <!-- Modal displays here -->
+          <div id="spinner-icon"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 @push('scripts')
 <script>
   $(function(){
@@ -654,6 +676,68 @@
         }
     });
 
+    $(document).on('click', '#tool-request-details', function(event) {
+      event.preventDefault();
+      let route = $(this).attr('data-url');
+      let batchNumber = $(this).attr('data-batch-number');
+      
+      $.ajax({
+          url: route,
+          beforeSend: function() {
+            $("#spinner-icon").html('<div class="d-flex justify-content-center mt-4 mb-4"><span class="loadingspinner"></span></div>');
+          },
+          // return the result
+          success: function(result) {
+              $('#modal-body').modal("show");
+              $('#modal-body').html('');
+              $('#modal-body').html(result).show();
+          },
+          complete: function() {
+              $("#spinner-icon").hide();
+          },
+          error: function(jqXHR, testStatus, error) {
+              var message = error+ ' An error occured while trying to retireve '+ batchNumber +'  details.';
+              var type = 'error';
+              displayMessage(message, type);
+              $("#spinner-icon").hide();
+          },
+          timeout: 8000
+      })
+    });
+
+    $(document).on('click', '#rfq-details', function(event) {
+      event.preventDefault();
+      let route = $(this).attr('data-url');
+      let batchNumber = $(this).attr('data-batch-number');
+      
+      $.ajax({
+          url: route,
+          beforeSend: function() {
+            $("#spinner-icon").html('<div class="d-flex justify-content-center mt-4 mb-4"><span class="loadingspinner"></span></div>');
+          },
+          // return the result
+          success: function(result) {
+              $('#modal-body-rfq-details').modal("show");
+              $('#modal-body-rfq-details').html('');
+              $('#modal-body-rfq-details').html(result).show();
+          },
+          complete: function() {
+              $("#spinner-icon").hide();
+          },
+          error: function(jqXHR, testStatus, error) {
+              var message = error+ ' An error occured while trying to retireve '+ batchNumber +'  details.';
+              var type = 'error';
+              displayMessage(message, type);
+              $("#spinner-icon").hide();
+          },
+          timeout: 8000
+      })
+    });
+
+    $('.close').click(function (){
+      $(".modal-backdrop").remove();
+    });
+
   });
 
   function addRFQ(count){
@@ -702,4 +786,5 @@
 
 </script>
 @endpush
+
 @endsection

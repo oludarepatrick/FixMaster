@@ -35,7 +35,7 @@
                 </div>
                 <div class="media-body">
                   <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold tx-nowrap mg-b-5 mg-md-b-8">Total Payments</h6>
-                  <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">8</h4>
+                <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">{{ $receivedPayments->count() }}</h4>
                 </div>
               </div>
               
@@ -119,59 +119,24 @@
                   <th>Payment Method</th>
                   <th>Payment Type</th>
                   <th>Amount</th>
-                  <th>Status</th>
+                  {{-- <th>Status</th> --}}
                   <th class="text-center">Payment Date</th>
                 </tr>
               </thead>
               <tbody>
+                @foreach($receivedPayments as $receivedPayment)
                 <tr>
-                  <td class="tx-color-03 tx-center">1</td>
-                  <td class="tx-medium">REF-234094623496</td>
-                  <td class="tx-medium">234092734623496</td>
-                  <td class="tx-medium">Femi Joseph</td>
-                  <td class="tx-medium">Payment Gateway(Paystack)</td>
+                  <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                <td class="tx-medium">{{ $receivedPayment->serviceRequest->job_reference }}</td>
+                <td class="tx-medium">{{ $receivedPayment->payment_reference }}</td>
+                  <td class="tx-medium">{{ $receivedPayment->user->fullName->name }}</td>
+                  <td class="tx-medium">{{ $receivedPayment->payment_method }}</td>
                   <td class="tx-medium">Credit</td>
-                  <td class="tx-medium">₦7,000</td>
-                  <td class="text-medium text-success">Paid</td>
-                  <td class="text-medium tx-center">Apr 3, 2020, 12:56pm</td>
+                  <td class="tx-medium">₦{{ number_format($receivedPayment->amount) }}</td>
+                  {{-- <td class="text-medium text-success">Paid</td> --}}
+                  <td class="text-medium tx-center">{{ Carbon\Carbon::parse($receivedPayment->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                 </tr>
-
-                <tr>
-                    <td class="tx-color-03 tx-center">2</td>
-                    <td class="tx-medium">REF-094009623412</td>
-                    <td class="tx-medium">4352927346209232</td>
-                    <td class="tx-medium">Haruna Ahmadu</td>
-                    <td class="tx-medium">Payment Gateway(Flutterwave)</td>
-                    <td class="tx-medium">Credit</td>
-                    <td class="tx-medium">₦4,800</td>
-                    <td class="text-medium text-success">Paid</td>
-                    <td class="text-medium tx-center">Mar 21, 2020, 3:30pm</td>
-                </tr>
-
-                <tr>
-                    <td class="tx-color-03 tx-center">3</td>
-                    <td class="tx-medium">REF-237290223123</td>
-                    <td class="tx-medium">1234527346092372</td>
-                    <td class="tx-medium">Femi Joseph</td>
-                    <td class="tx-medium">E-Wallet</td>
-                    <td class="tx-medium">Debit</td>
-                    <td class="tx-medium">₦2,500</td>
-                    <td class="text-medium text-success">Paid</td>
-                    <td class="text-medium tx-center">Feb 25, 2020, 8:17am</td>
-                </tr>
-
-                <tr>
-                  <td class="tx-color-03 tx-center">4</td>
-                  <td class="tx-medium">REF-063846273522</td>
-                  <td class="tx-medium">0327426348329762</td>
-                  <td class="tx-medium">Oluyemi Ayotunde</td>
-                  <td class="tx-medium">E-Wallet</td>
-                  <td class="tx-medium">Credit</td>
-                  <td class="tx-medium">₦7,250</td>
-                  <td class="text-medium text-success">Paid</td>
-                  <td class="text-medium tx-center">Feb 25, 2020, 8:17am</td>
-              </tr>
-                
+                @endforeach
               </tbody>
             </table>
           </div><!-- table-responsive -->

@@ -25,7 +25,13 @@
                   
                   <tr>
                     <td class="tx-medium">CSE Acceptance</td>
-                    {{-- <td class="tx-color-03">Yes, all ordered components were delivered</td> --}}
+                    @if($rfqDetails->accepted == 'Yes')
+                    <td class="tx-color-03">Yes, all ordered components were delivered</td>
+                    @elseif($rfqDetails->accepted == 'No')
+                      <td class="tx-color-03">No, all ordered components were not delivered</td>
+                    @else
+                      <td class="tx-color-03">Pending payment</td>
+                    @endif
                     <td class="tx-color-03"></td>
                   </tr>
                   {{-- <tr>
@@ -34,7 +40,7 @@
                   </tr> --}}
                   <tr>
                     <td class="tx-medium">Grand Total</td>
-                    <td class="tx-color-03">₦{{ number_format($rfqDetails->total_amount) ?? '0' }}</td>
+                    <td class="tx-color-03">₦{{ number_format($rfqDetails->total_amount + $rfqDetails->rfqSupplier->devlivery_fee) ?? '0' }}</td>
                   </tr>
 
                 </tbody>

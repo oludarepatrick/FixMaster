@@ -59,4 +59,9 @@ class ToolsRequest extends Model
     {
         return $this->hasMany(ToolsRequestBatch::class, 'tool_request_id');
     }
+
+    public function toolRequestBatchess()
+    {
+        return $this->belongsToMany(ToolsRequestBatch::class, 'id', 'tool_request_id');
+    }
 }

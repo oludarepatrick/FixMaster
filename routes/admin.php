@@ -31,14 +31,11 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::get('/requests/ongoing/details/{id}',        [App\Http\Controllers\AdminRequestController::class, 'ongoingRequestDetails'])->name('request_ongoing_details');
                 Route::post('/requests/ongoing/update',             [App\Http\Controllers\AdminRequestController::class, 'updateOngoingProgress'])->name('request_ongoing_update');
                 Route::get('/requests/ongoing/completed/{id}',      [App\Http\Controllers\AdminRequestController::class, 'markRequestAsCompleted'])->name('mark_request_as_completed');
-                
+                Route::get('/requests/completed/details/{id}',        [App\Http\Controllers\AdminRequestController::class, 'completedRequestDetails'])->name('request_completed_details');
                 Route::get('/requests/completed', 	                [App\Http\Controllers\AdminRequestController::class, 'completedRequests'])->name('requests_completed');
-
                 Route::get('/requests/cancelled', 	                [App\Http\Controllers\AdminRequestController::class, 'cancelledRequests'])->name('requests_cancelled');
+                Route::get('/requests/cancelled/details/{id}',        [App\Http\Controllers\AdminRequestController::class, 'cancelledRequestDetails'])->name('request_cancelled_details');
 
-                Route::view('/requests/details/completed', 	        'admin.requests.request_completed_details')->name('request_completed_details');
-                
-                
                 Route::view('/technicians', 	                    'admin.technicians')->name('technicians');
                 Route::view('/technicians/profile', 	            'admin.technicians_profile')->name('technicians_profile');
                 Route::view('/profile', 	                        'admin.view_profile')->name('view_profile');
@@ -53,7 +50,7 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::get('/messages/inbox/details/{id}',                       [App\Http\Controllers\AdminMessagingController::class, 'inboxMessageDetails'])->name('inbox_message_details');
                 Route::get('/messages/outbox',                       [App\Http\Controllers\AdminMessagingController::class, 'outbox'])->name('outbox_messages');
                 Route::get('/messages/outbox/details/{id}',                       [App\Http\Controllers\AdminMessagingController::class, 'outboxMessageDetails'])->name('outbox_message_details');
-               
+                Route::post('/messages',                  [App\Http\Controllers\AdminMessagingController::class, 'sendMessage'])->name('send_messages');
 
 
                 Route::get('/users/admin',                          [App\Http\Controllers\AdminUserController::class, 'index'])->name('list_admin');
@@ -162,8 +159,10 @@ Route::middleware(['adminRole'])->group(function() {
 
                 Route::view('/category/review', 	                'admin.services.review_category')->name('review_category');
 
+                Route::get('/payments/received', 
+                [App\Http\Controllers\PaymentsController::class, 'receivedPayments'])->name('received_payments');
+
                 Route::view('/payments/disbursed', 	                'admin.payments.disbursed')->name('disbursed_payments');
-                Route::view('/payments/received', 	                'admin.payments.received')->name('received_payments');
 
                 Route::view('/ratings/category', 	                'admin.ratings.category')->name('category_ratings');
                 Route::view('/ratings/job', 	                    'admin.ratings.job')->name('job_ratings');
