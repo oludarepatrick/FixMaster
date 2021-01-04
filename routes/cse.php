@@ -21,7 +21,7 @@ Route::middleware(['cseRole'])->group(function() {
         Route::view('/requests/details/new', 	    'cse.request_details')->name('cse.request_details');
         Route::view('/requests/details/ongoing', 	'cse.request_ongoing_details')->name('cse.request_ongoing_details');
         Route::view('/requests/details/completed', 	'cse.request_completed_details')->name('cse.request_completed_details');
-        Route::view('/requests/ongoing', 	        'cse.requests_ongoing')->name('cse.requests_ongoing');
+        // Route::view('/requests/ongoing', 	        'cse.requests_ongoing')->name('cse.requests_ongoing');
         Route::view('/requests/completed', 	        'cse.requests_completed')->name('cse.requests_completed');
         Route::view('/requests/cancelled', 	        'cse.requests_cancelled')->name('cse.requests_cancelled');
         Route::view('/technicians', 	            'cse.technicians')->name('cse.technicians');
@@ -50,6 +50,9 @@ Route::middleware(['cseRole'])->group(function() {
         Route::get('/messages/inbox/details/{id}',          [App\Http\Controllers\CSE\CSEMessageController::class, 'inboxMessageDetails'])->name('cse.inbox_message_details');
         Route::get('/messages/outbox',                      [App\Http\Controllers\CSE\CSEMessageController::class, 'outbox'])->name('cse.outbox_messages');
         Route::get('/messages/outbox/details/{id}',         [App\Http\Controllers\CSE\CSEMessageController::class, 'outboxMessageDetails'])->name('cse.outbox_message_details');
+
+
+        Route::get('/requests/ongoing',                     [App\Http\Controllers\CSE\CSERequestController::class, 'onGoing'])->name('cse.requests_ongoing');
 
     });
 });
