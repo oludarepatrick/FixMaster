@@ -123,6 +123,26 @@ class User extends Authenticatable
         return $this->hasMany(ServiceRequest::class);
     }
 
+    public function cseRequest()
+    {
+        return $this->hasOne(ServiceRequest::class, 'cse_id');
+    }
+
+    public function technicianRequests()
+    {
+        return $this->hasMany(ServiceRequest::class, 'technician_id');
+    }
+
+    public function technicianRequest()
+    {
+        return $this->hasOne(ServiceRequest::class, 'technician_id');
+    }
+
+    public function cseRequests()
+    {
+        return $this->hasMany(ServiceRequest::class, 'cse_id');
+    }
+
     public function sentMessage()
     {
         return $this->hasOne(Message::class, 'sender_id');

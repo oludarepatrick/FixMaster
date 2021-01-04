@@ -318,6 +318,10 @@ class AdminRequestController extends Controller
 
         $serviceRequestExists = ServiceRequest::findOrFail($serviceRequestId);
 
+        if($serviceRequestExists->service_request_status_id == '3'){
+            return back()->with('error', 'Sorry! This service request('.$serviceRequestExists->job_reference.') has already been completed.');
+        }
+        
         //Update record on `service_requests` table
         $updateServiceRequest = ServiceRequest::where('id', $serviceRequestId)->update([
             'service_request_status_id' =>  $serviceRequestStatusId,

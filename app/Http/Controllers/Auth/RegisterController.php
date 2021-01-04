@@ -122,11 +122,17 @@ class RegisterController extends Controller
 
         // DB::transaction(function () use ($request) {
             $token = sha1(time());
+
             $createClientProfile = User::create([
                 'email'                         =>   $request->input('email'),
                 'password'                      =>   Hash::make($request->input('password')),
                 'email_verification_token'      =>   $token,
                 'designation'                   =>   '[CLIENT_ROLE]',
+
+                'is_email_verified'             =>  '1',
+                'email_verified_at'             =>  \Carbon\Carbon::now(),
+                'is_active'                     =>  '1',
+
             ]);
 
             $createClientRecord = Client::create([
@@ -193,6 +199,8 @@ class RegisterController extends Controller
                 $controllerActionPath = URL::full();
                 $message = $clientName.'('.$request->input('email').') account was registered successfully.';
                 $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+                return redirect()->route('login');
 
                 return view('mail.client_email_verification', $data);
             }

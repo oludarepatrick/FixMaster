@@ -126,7 +126,7 @@
             </div>
             <div class="col-6 col-sm-4 mg-t-20 mg-sm-t-0">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">Occupation</label>
-            <p class="tx-primary tx-rubik mg-b-0">{{ $client->profession->name }}</p>
+            <p class="tx-primary tx-rubik mg-b-0">{{ $client->profession->name ?? '' }}</p>
             </div>
             <div class="col-sm-4 mg-t-20 mg-sm-t-30">
               <label class="tx-10 tx-medium tx-spacing-1 tx-color-03 tx-uppercase tx-sans mg-b-10">State</label>

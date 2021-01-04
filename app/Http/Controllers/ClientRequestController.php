@@ -374,6 +374,10 @@ class ClientRequestController extends Controller
 
         $requestExists = ServiceRequest::findOrFail($id);
 
+        if($requestExists->service_request_status_id == '3'){
+            return back()->with('error', 'Sorry! This service request('.$requestExists->job_reference.') has already been completed.');
+        }
+
         //Validat user input fields
         $request->validate([
             'reason'       =>   'required',
