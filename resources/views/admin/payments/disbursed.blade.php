@@ -18,6 +18,10 @@
     </div>
 
     <div class="row row-xs">
+      <div class="col-12 justify-content-center text-center align-items-center">
+        <a href="#recordPayment" class="btn btn-primary float-right" data-toggle="modal"><i class="fas fa-plus"></i> Record Payment</a>
+      </div>
+
       <div class="col-lg-12 col-xl-12 mg-t-10">
         <div class="card mg-b-10">
           <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
@@ -173,6 +177,112 @@
 
 
   </div><!-- container -->
+</div>
+
+<div class="modal fade" id="recordPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content tx-14">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Record Payment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <form method="POST" action="{{ route('admin.store_admin') }}">
+          @csrf
+          <div class="col-md-12">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="first_name">First Name</label>
+                    <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name" name="first_name" value="{{ old('first_name') }}" placeholder="First Name" autocomplete="off">
+                    @error('first_name')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="middle_name">Middle Name</label>
+                    <input type="text" class="form-control" id="middle_name" name="middle_name" value="{{ old('middle_name') }}" autocomplete="off" placeholder="Middle Name">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name" name="last_name" value="{{ old('last_name') }}" autocomplete="off" placeholder="Last Name">
+                    @error('last_name')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" autocomplete="off"  placeholder="Email">
+                @error('email')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
+              <div class="form-group col-md-4">
+                <label for="phone_number">Phone Number</label>
+                <input type="tel" maxlength="11" class="form-control @error('phone_number') is-invalid @enderror" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" placeholder="Phone Number" autocomplete="off">
+                @error('phone_number')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
+              <div class="form-group col-md-4">
+                <label for="designation">Designation</label>
+                <select class="custom-select @error('designation') is-invalid @enderror" id="designation" name="designation">
+                  <option selected value="">Select...</option>
+                  <option value="ADMIN_ROLE" {{ old('designation') == 'ADMIN_ROLE' ? 'selected' : ''}}>Administrator</option>
+                  <option value="SUPER_ADMIN_ROLE" {{ old('designation') == 'SUPER_ADMIN_ROLE' ? 'selected' : ''}}>Super Admin</option>
+                </select>
+                @error('designation')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="password">Password</label>
+                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                  Password must be 8 characters at least.
+                </small>
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              <div class="form-group col-md-6">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
+                @error('confirm_password')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 mt-4">
+            <button type="submit" class="btn btn-primary">Create</button>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
 </div>
 
 @section('scripts')
