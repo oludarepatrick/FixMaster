@@ -128,25 +128,25 @@
     </div>
   </div> --}}
   @foreach ($errors->all() as $error)
-    @section('scripts')
+    @push('scripts')
       <script>
         var message = '{{ $error }}';
         var type = 'error';
         displayMessage(message, type);
       </script>
-    @endsection
+    @endpush
   @endforeach
 
 @endif
 
 @if ($message = Session::get('error'))
-  @section('scripts')
+  @push('scripts')
     <script>
       var message = '{{ $message }}';
       var type = 'error';
       displayMessage(message, type);
     </script>
-  @endsection
+  @endpush
 @endif
 
 {{-- @if($errors->has('email'))

@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\URL;
 use App\Models\ActivityLog;
 use App\Models\Technician;
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\RecordActivityLogController;
 use App\Models\Message;
+use Route;
 
 class CSEMessageController extends Controller
 {
@@ -20,11 +22,6 @@ class CSEMessageController extends Controller
     public function __construct() {
         $this->middleware('auth:web');
     }
-
-    // public function edititem($id){
-    //     $data=Item::with('categoryitem')->find($id);
-    //     return $data;
-    //   }
 
     public function sendMessage(Request $request){
         try {
@@ -88,12 +85,103 @@ class CSEMessageController extends Controller
           $message->recipient_id = $request->selectedReciever;
           $message->subject = $request->subject; 
           $message->body = $request->message;
-          $message->created_at = date('Y-m-d');
+        //   $message->created_at = date('Y-m-d');
 
-          $message->save(); 
+        $recipientName = Name::findOrFail($request->selectedReciever);
+        $recipientName = $recipientName->name;
+
+        $saveMessage = $message->save(); 
+
+        if($saveMessage){
+
+            //Record crurrenlty logged in user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Profile';
+            $severity = 'Informational';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = Auth::user()->fullName->name.' sent a message to '.$recipientName;
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return back()->with('success', 'Message sent successfully!');
+
+        }else{
+            //Record Unauthorized user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Errors';
+            $severity = 'Error';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = 'An error occurred while '.Auth::user()->fullName->name.'was sending a message to '.$recipientName;
+
+            return back()->with('error', 'An error occurred while trying to send Message.');
+        }
         //   echo $message;
-          return;
+        return back()->with('success','Message sent successfully!');
 
+    }
+
+    public function inbox(){
+
+        $messages = Message::orderBy('created_at', 'DESC')->get()
+        ->groupBy(function ($val) {
+            return \Carbon\Carbon::parse($val->created_at)->format('l d, F Y');
+        });
+        $data = [
+            'messages'  =>  $messages
+        ];
+
+        return view('cse.messages.inbox', $data);
+    }
+
+    public function inboxMessageDetails($id){
+
+        $message = Message::findOrFail($id);
+
+        if($message->is_read == '0'){
+            Message::where('id', $id)->update([
+                'is_read'   =>  '1',
+            ]);
+        }
+
+        $data = [
+            'message'  =>  $message
+        ];
+
+        return view('cse.messages._inbox_message_body', $data);
+    }
+
+    public function outbox(){
+        
+        $messages =  Auth::user()->sentMessages()->orderBy('created_at', 'DESC')->get()
+        ->groupBy(function ($val) {
+            return \Carbon\Carbon::parse($val->created_at)->format('l d, F Y');
+        });
+
+        $data = [
+            'messages'  =>  $messages
+        ];
+
+        return view('cse.messages.outbox', $data);
+    }
+
+    public function outboxMessageDetails($id){
+
+        $message = Message::findOrFail($id);
+
+        if($message->is_read == '0'){
+            Message::where('id', $id)->update([
+                'is_read'   =>  '1',
+            ]);
+        }
+
+        $data = [
+            'message'  =>  $message
+        ];
+
+        return view('cse.messages._outbox_message_body', $data);
     }
 
     /**

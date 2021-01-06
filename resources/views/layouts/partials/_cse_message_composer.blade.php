@@ -2,13 +2,11 @@
 use App\Models\User;
 use App\Models\CSE;
 
-$cse = CSE::where('user_id', Auth::id())->first();
-      $serviceRequests = $cse->requests;
-      $ongoingJobs = $cse->requests()
-                      ->where('service_request_status_id', '>', '3')
-                      ->get();
-
-                      // dd($ongoingJobs);
+        $cse = CSE::where('user_id', Auth::id())->first();
+        $serviceRequests = $cse->requests;
+        $ongoingJobs = $cse->requests()
+                ->where('service_request_status_id', '>', '3')
+                ->get();
 ?>
 <style type="text/css">
   .hideDiv{

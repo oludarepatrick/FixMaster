@@ -22,22 +22,22 @@ class Technician extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id')->withDefault();
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function users()
     {
-        return $this->hasMany(User::class, 'user_id')->withDefault();
+        return $this->hasMany(User::class, 'user_id')->withTrashed();
     }
 
     public function request()
     {
-        return $this->belongsTo(ServiceRequest::class, 'technician_id', 'user_id');
+        return $this->belongsTo(ServiceRequest::class, 'technician_id', 'user_id')->withTrashed();
     }
 
     public function requests()
     {
-        return $this->hasMany(ServiceRequest::class, 'technician_id', 'user_id');
+        return $this->hasMany(ServiceRequest::class, 'technician_id', 'user_id')->withTrashed();
     }
 
     public function fullName()

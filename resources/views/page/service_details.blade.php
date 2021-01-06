@@ -20,17 +20,26 @@
                 {{-- <img src="{{ asset('assets/images/comp.jpg') }}" class="img-fluid rounded" alt=""> --}}
                 <div class="card blog rounded border-0 shadow">
                     <div class="position-relative">
-                        <img src="{{ asset('assets/images/comp.jpg') }}" class="card-img-top rounded-top" alt="...">
+                        @if(empty($service->image))
+                        <img src="{{ asset('assets/images/no-image-available.png') }}" alt="Image not available" class="card-img-top rounded-top">
+                        @else
+                            @if(file_exists(public_path().'/assets/category-images/'.$service->image))
+                                <img src="{{ asset('assets/category-images/'.$service->image) }}" alt="{{ $service->name }}" class="card-img-top rounded-top">
+                            @else
+                            <img src="{{ asset('assets/images/no-image-available.png') }}" alt="Image not available" class="card-img-top rounded-top">
+                            @endif
+                        @endif
+
                     <div class="overlay rounded-top bg-dark"></div>
                     </div>
                     
                     <div class="author">
-                        <h4 class="text-light user d-block"><i class="mdi mdi-account"></i> Computers & Laptops</h4>
-                        <small class="text-light date"><i class="mdi mdi-bookmark"></i> 69 Requests</small>
+                    <h4 class="text-light user d-block"><i class="mdi mdi-account"></i> {{ $service->name }}</h4>
+                        <small class="text-light date"><i class="mdi mdi-bookmark"></i> {{ $service->requests()->count() }} Requests</small>
                     </div>
                 </div>
                 <div class="mt-4 pt-2">
-                    <a href="{{ route('login') }}}" class="btn btn-primary">Request Service</a>
+                    <a href="{{ route('client.service_quote', $service->url) }}" class="btn btn-primary">Request Service</a>
                 </div>
             </div><!--end col-->
 
@@ -131,7 +140,7 @@
                     
                     <br>
                     <h5 class="mt-4 py-2">Description :</h5>
-                    <p class="text-muted">With <span>FixMaster</span> you don't have to run to the repair shop every time your PC ends up with a fault, we have a host of tech support we provide. Maybe you need to upgrade your operating system, or install new software, protect against viruses. We do all that!</p>
+                    <p class="text-muted">{{ $service->description }}</p>
                 
                 </div>
             </div><!--end col-->

@@ -22,32 +22,32 @@ class ToolsRequest extends Model
 
     public function requester()
     {
-        return $this->belongsTo(User::class, 'requested_by')->withDefault();
+        return $this->belongsTo(User::class, 'requested_by')->withTrashed();
     }
 
     public function requesters()
     {
-        return $this->hasMany(User::class, 'requested_by')->withDefault();
+        return $this->hasMany(User::class, 'requested_by')->withTrashed();
     }
     
     public function approver()
     {
-        return $this->belongsTo(User::class, 'approved_by')->withDefault();
+        return $this->belongsTo(User::class, 'approved_by')->withTrashed();
     }
 
     public function approvers()
     {
-        return $this->hasMany(User::class, 'approved_by')->withDefault();
+        return $this->hasMany(User::class, 'approved_by')->withTrashed();
     }
 
     public function serviceRequest()
     {
-        return $this->belongsTo(ServiceRequest::class, 'service_request_id');
+        return $this->belongsTo(ServiceRequest::class, 'service_request_id')->withTrashed();
     }
 
     public function serviceRequests()
     {
-        return $this->hasMany(ServiceRequest::class, 'service_request_id');
+        return $this->hasMany(ServiceRequest::class, 'service_request_id')->withTrashed();
     }
 
     public function toolRequestBatch()
@@ -58,5 +58,10 @@ class ToolsRequest extends Model
     public function toolRequestBatches()
     {
         return $this->hasMany(ToolsRequestBatch::class, 'tool_request_id');
+    }
+
+    public function toolRequestBatchess()
+    {
+        return $this->belongsToMany(ToolsRequestBatch::class, 'id', 'tool_request_id');
     }
 }

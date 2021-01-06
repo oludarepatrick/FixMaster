@@ -22,27 +22,27 @@ class ServiceRequestProgress extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id')->withDefault();
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function users()
     {
-        return $this->hasMany(User::class, 'user_id')->withDefault();
+        return $this->hasMany(User::class, 'user_id')->withTrashed();
     }
 
     public function serviceRequest()
     {
-        return $this->belongsTo(ServiceRequest::class, 'service_request_id');
+        return $this->belongsTo(ServiceRequest::class, 'service_request_id')->withTrashed();
     }
 
     public function serviceRequestStatus()
     {
-        return $this->hasOne(ServiceRequestStatus::class, 'id', 'service_request_status_id');
+        return $this->hasOne(ServiceRequestStatus::class, 'id', 'service_request_status_id')->withTrashed();
     }
     
     public function serviceRequestStatuses()
     {
-        return $this->belongsToMany(ServiceRequestStatus::class, 'id', 'service_request_status_id');
+        return $this->belongsToMany(ServiceRequestStatus::class, 'id', 'service_request_status_id')->withTrashed();
     }
 
 }

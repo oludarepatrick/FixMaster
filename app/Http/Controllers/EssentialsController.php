@@ -182,6 +182,17 @@ class EssentialsController extends Controller
         }
     }
 
+    public function getOngoingServiceRequestDetail($id){
+
+        $serviceRequest = ServiceRequest::findOrFail($id);
+
+        $data = [
+            'serviceRequest'    =>  $serviceRequest,
+        ];
+
+        return view('admin.messages._ongoing_service_request-detail', $data);
+    }
+
 
     // This function will return  
     // A random string of specified length 

@@ -226,7 +226,7 @@
               $("#spinner-icon").hide();
           },
           error: function(jqXHR, testStatus, error) {
-              var message = error+ ' occured while trying to retireve '+ serviceName +' service details.';
+              var message = error+ ' An error occured while trying to retireve '+ serviceName +' service details.';
               var type = 'error';
               displayMessage(message, type);
               $("#spinner-icon").hide();
@@ -255,7 +255,7 @@
               $("#spinner-icon-2").hide();
           },
           error: function(jqXHR, testStatus, error) {
-              var message = error+ ' occured while trying to reassign categories assigned to '+ serviceName;
+              var message = error+ ' An error occured while trying to reassign categories assigned to '+ serviceName;
               var type = 'error';
               displayMessage(message, type);
               $("#spinner-icon-2").hide();
@@ -310,7 +310,7 @@
               }, 3000);
 
             }else {
-              var message = error+ ' occured while trying to edit '+ serviceName;
+              var message = error+ ' An error occured while trying to edit '+ serviceName;
               var type = 'error';
               displayMessage(message, type);
             }            
@@ -319,7 +319,7 @@
         //       $("#spinner-icon-3").hide();
         // },
         // error: function(jqXHR, testStatus, error) {
-        //     var message = error+ ' occured while trying to edit '+ serviceName;
+        //     var message = error+ ' An error occured while trying to edit '+ serviceName;
         //     var type = 'error';
         //     displayMessage(message, type);
         //     $("#spinner-icon-3").hide();

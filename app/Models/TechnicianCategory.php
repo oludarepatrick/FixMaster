@@ -24,31 +24,31 @@ class TechnicianCategory extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id')->withDefault();
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function users()
     {
-        return $this->hasMany(User::class, 'user_id')->withDefault();
+        return $this->hasMany(User::class, 'user_id')->withTrashed();
     }
 
     public function technician()
     {
-        return $this->belongsTo(Technician::class, 'id');
+        return $this->belongsTo(Technician::class, 'id')->withTrashed();
     }
 
     public function technicians()
     {
-        return $this->hasMany(Technician::class, 'id');
+        return $this->hasMany(Technician::class, 'id')->withTrashed();
     }
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id')->withTrashed();
     }
 
     public function categories()
     {
-        return $this->hasMany(Category::class, 'category_id');
+        return $this->hasMany(Category::class, 'category_id')->withTrashed();
     }
 }

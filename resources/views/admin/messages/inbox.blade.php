@@ -125,7 +125,7 @@
               $("#spinner-icon").hide();
           },
           error: function(jqXHR, testStatus, error) {
-              var message = error+ ' occured while trying to retireve message details.';
+              var message = error+ ' An error occured while trying to retireve message details.';
               var type = 'error';
               displayMessage(message, type);
               $("#spinner-icon").hide();
@@ -154,7 +154,7 @@
             // return the result
             success: function(result) {
 
-                // $('.admin-list').removeClass('d-none');
+                $('.request-detail').remove();
                 $('#admin-list').html('');
                 $('#admin-list').html(result);
             },
@@ -162,7 +162,7 @@
                 $("#spinner-icon").hide();
             },
             error: function(jqXHR, testStatus, error) {
-                var message = error+ ' occured while trying to retireve '+ user +' list.';
+                var message = error+ ' An error occured while trying to retireve '+ user +' list.';
                 var type = 'error';
                 displayMessage(message, type);
                 $("#spinner-icon-admin").hide();
@@ -172,8 +172,10 @@
     });
 
     //Get list of users by a particular service request reference
-    $('#ongoing_requests').on('change',function () {
-        let user = $(this).find('option:selected').val();
+    // $('#ongoing_requests').on('change',function () {
+    $(document).on('change', '#ongoing_requests', function () {
+
+        let user = $(this).find('option:selected').text();
         let route = $(this).find('option:selected').data('url');
 
         $.ajaxSetup({
@@ -190,15 +192,14 @@
             // return the result
             success: function(result) {
 
-                // $('.admin-list').removeClass('d-none');
-                $('#admin-list').html('');
-                $('#admin-list').html(result);
+                $('#request-list').html('');
+                $('#request-list').html(result);
             },
             complete: function() {
                 $("#spinner-icon").hide();
             },
             error: function(jqXHR, testStatus, error) {
-                var message = error+ ' occured while trying to retireve '+ user +' list.';
+                var message = error+ ' An error occured while trying to retireve '+ user +' detail.';
                 var type = 'error';
                 displayMessage(message, type);
                 $("#spinner-icon-admin").hide();
@@ -206,7 +207,6 @@
             timeout: 8000
         })  
     });
-
 
   });
 </script>

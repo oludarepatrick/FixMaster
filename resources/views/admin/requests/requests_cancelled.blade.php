@@ -36,7 +36,7 @@
                 </div>
                 <div class="media-body">
                   <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold tx-nowrap mg-b-5 mg-md-b-8">Total Requests</h6>
-                  <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">2</h4>
+                  <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">{{ $serviceRequests->where('service_request_status_id', '>', '2')->count() }}</h4>
                 </div>
               </div>
               
@@ -49,6 +49,9 @@
                   <th class="text-center">#</th>
                   <th>Job Ref.</th>
                   <th>Client</th>
+                  <th>Admin</th>
+                  <th>CSE</th>
+                  <th>Technician</th>
                   <th class="text-center">Amount</th>
                   <th>Status</th>
                   <th class="text-center">Date Cancelled</th>
@@ -56,41 +59,28 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ($serviceRequests as $serviceRequest)
                 <tr>
-                  <td class="tx-color-03 tx-center">1</td>
-                  <td class="tx-medium">REF-234094623496</td>
-                  <td class="tx-medium">Femi Joseph</td>
-                  <td class="text-medium text-center">₦14,000</td>
-                  <td class="text-medium text-danger">Cancelled</td>
-                  <td class="text-medium text-center">May 15th 2020 at 11:30am</td>
-                  <td class=" text-center">
+                  <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                  <td class="tx-medium">{{ $serviceRequest->job_reference }}</td>
+                  <td class="tx-medium">{{ $serviceRequest->user->fullName->name }}</td>
+                  <td class="tx-medium">@if(!empty($serviceRequest->admin)) {{ $serviceRequest->admin->first_name.' '.$serviceRequest->admin->last_name }} @else Not Assigned @endif</td>
+                  <td class="tx-medium">@if(!empty($serviceRequest->cse)) {{ $serviceRequest->cse->first_name.' '.$serviceRequest->cse->last_name }} @else Not Assigned @endif</td>
+                  <td class="tx-medium">@if(!empty($serviceRequest->technician)) {{ $serviceRequest->technician->first_name.' '.$serviceRequest->technician->last_name }} @else Not Assigned @endif</td>
+                  <td class="tx-medium text-center">₦{{ number_format($serviceRequest->total_amount) }}</td>
+                  <td class="tx-medium tx-center text-success">{{ $serviceRequest->serviceRequestStatus->name }}</td>
+                  <td class="tx-medium text-center">{{ $serviceRequest->serviceRequestDetail->timestamp ?? '' }}</td>
+                  <td class="text-center">
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#modalDetails" data-toggle="modal" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
+                      <a href="{{ route('admin.request_cancelled_details', $serviceRequest->id) }}"class="dropdown-item details"><i class="fas fa-clipboard"></i> Details</a>
+                      <a href="#" class="dropdown-item details text-danger"><i class="fas fa-undo"></i> Revert to Ongoing</a>
                       </div>
                     </div>
                   </td>
                 </tr>
-
-                <tr>
-                  <td class="tx-color-03 tx-center">2</td>
-                  <td class="tx-medium">REF-234094623496</td>
-                  <td class="tx-medium">Mobolaji Adetoun</td>
-                  <td class="text-medium text-center">₦6,500</td>
-                  <td class="text-medium text-danger">Cancelled</td>
-                  <td class="text-medium text-center">May 11th 2020 at 8:19am</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#modalDetails" data-toggle="modal" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-
-                
+                @endforeach
               </tbody>
             </table>
           </div><!-- table-responsive -->

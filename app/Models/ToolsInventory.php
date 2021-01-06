@@ -23,12 +23,12 @@ class ToolsInventory extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id')->withDefault();
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function users()
     {
-        return $this->hasMany(User::class, 'user_id')->withDefault();
+        return $this->hasMany(User::class, 'user_id')->withTrashed();
     }
 
     public function toolRequestBatch()

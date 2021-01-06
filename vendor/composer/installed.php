@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '65712eaef7c398ae0457646927e5d09c9dff0380',
+    'reference' => 'c7f5012c829aa3a6b42bd01625872b9fd266cf0c',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -499,7 +499,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '65712eaef7c398ae0457646927e5d09c9dff0380',
+      'reference' => 'c7f5012c829aa3a6b42bd01625872b9fd266cf0c',
     ),
     'laravel/tinker' => 
     array (
@@ -1360,6 +1360,15 @@
       array (
       ),
       'reference' => 'b43b05cf43c1b6d849478965062b6ef73e223bb5',
+    ),
+    'unicodeveloper/laravel-paystack' => 
+    array (
+      'pretty_version' => '1.0.6',
+      'version' => '1.0.6.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '731358f45ca24e7a4a8b392ee0dea0411287b795',
     ),
     'vlucas/phpdotenv' => 
     array (

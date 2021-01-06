@@ -16,22 +16,22 @@ class ServiceRequestStatus extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id')->withDefault();
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function users()
     {
-        return $this->hasMany(User::class, 'user_id')->withDefault();
+        return $this->hasMany(User::class, 'user_id')->withTrashed();
     }
 
     public function serviceRequest()
     {
-        return $this->hasOne(ServiceRequest::class, 'service_request_status_id');
+        return $this->hasOne(ServiceRequest::class, 'service_request_status_id')->withTrashed();
     }
 
     public function serviceRequests()
     {
-        return $this->hasMany(ServiceRequest::class, 'service_request_status_id');
+        return $this->hasMany(ServiceRequest::class, 'service_request_status_id')->withTrashed();
     }
 
     /** 
@@ -45,5 +45,6 @@ class ServiceRequestStatus extends Model
         return $query->select('id', 'name')
         ->where('id', '>', '4');
     }
+    
 
 }

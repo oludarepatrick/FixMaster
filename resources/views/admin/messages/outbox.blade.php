@@ -12,16 +12,19 @@
 
   <div class="mail-group">
     <div class="mail-group-header">
-      <i data-feather="search"></i>
+      {{-- <i data-feather="search"></i>
       <div class="search-form">
         <input type="search" class="form-control" placeholder="Search mail">
-      </div><!-- search-form -->
+      </div><!-- search-form --> --}}
+      <div class="pd-10">
+        <a href="#adminMessageComposer" data-toggle="modal" class="btn btn-primary btn-block tx-uppercase tx-10 tx-medium tx-sans tx-spacing-4">Compose</a>
+      </div>
     </div><!-- mail-group-header -->
     <div class="mail-group-body">
       <div class="pd-y-15 pd-x-20 d-flex justify-content-between align-items-center">
-        <h6 class="tx-uppercase tx-semibold mg-b-0">Inbox</h6>
+        <h6 class="tx-uppercase tx-semibold mg-b-0">Outbox</h6>
         <div class="dropdown tx-13">
-          <span class="tx-color-03">Sort:</span> <a href="" class="dropdown-link link-02">Date</a>
+          {{-- <span class="tx-color-03">Sort:</span> <a href="" class="dropdown-link link-02">Date</a> --}}
         </div><!-- dropdown -->
       </div>
       @foreach ($messages as $message => $values)
@@ -84,7 +87,10 @@
   </div><!-- mail-content -->
 </div><!-- mail-wrapper -->
 
-  @push('scripts')
+@include('admin.messages._admin_message_composer')
+
+
+@push('scripts')
 
   <script src="{{ asset('assets/dashboard/assets/js/dashforge.mail.js') }}"></script>
 
@@ -109,7 +115,7 @@
                 $("#spinner-icon").hide();
             },
             error: function(jqXHR, testStatus, error) {
-                var message = error+ ' occured while trying to retireve message details.';
+                var message = error+ ' An error occured while trying to retireve message details.';
                 var type = 'error';
                 displayMessage(message, type);
                 $("#spinner-icon").hide();
@@ -118,6 +124,80 @@
         });
 
       });
+
+      //Get list of users by a particular designation
+    $('#user-type').on('change',function () {
+        let user = $(this).find('option:selected').val();
+        let route = $(this).find('option:selected').data('url');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF_TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: route,
+            beforeSend: function() {
+                $("#spinner-icon-admin").html('<div class="d-flex justify-content-center mt-4 mb-4" style="margin-left: 40px !important"><span class="loadingspinner"></span></div>');
+            },
+            // return the result
+            success: function(result) {
+
+                $('.request-detail').remove();
+                $('#admin-list').html('');
+                $('#admin-list').html(result);
+            },
+            complete: function() {
+                $("#spinner-icon").hide();
+            },
+            error: function(jqXHR, testStatus, error) {
+                var message = error+ ' An error occured while trying to retireve '+ user +' list.';
+                var type = 'error';
+                displayMessage(message, type);
+                $("#spinner-icon-admin").hide();
+            },
+            timeout: 8000
+        })  
+    });
+
+    //Get list of users by a particular service request reference
+    // $('#ongoing_requests').on('change',function () {
+    $(document).on('change', '#ongoing_requests', function () {
+
+        let user = $(this).find('option:selected').text();
+        let route = $(this).find('option:selected').data('url');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF_TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: route,
+            beforeSend: function() {
+                $("#spinner-icon-admin").html('<div class="d-flex justify-content-center mt-4 mb-4" style="margin-left: 40px !important"><span class="loadingspinner"></span></div>');
+            },
+            // return the result
+            success: function(result) {
+
+                $('#request-list').html('');
+                $('#request-list').html(result);
+            },
+            complete: function() {
+                $("#spinner-icon").hide();
+            },
+            error: function(jqXHR, testStatus, error) {
+                var message = error+ ' An error occured while trying to retireve '+ user +' detail.';
+                var type = 'error';
+                displayMessage(message, type);
+                $("#spinner-icon-admin").hide();
+            },
+            timeout: 8000
+        })  
+    });
+
     });
   </script>
 

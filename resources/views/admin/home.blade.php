@@ -94,12 +94,14 @@
             </div>
           </div>
           
+          <h5 class="ml-4" >Total Requests: {{ $totalRequests }}</h5><br>
+
           <div class="row row-xs col-lg-12">
             <div class="col-sm-6 col-lg-3">
               <div class="card card-body">
-                <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Total Requests</h6>
+                <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Pending Requests</h6>
                 <div class="d-flex d-lg-block d-xl-flex align-items-end">
-                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $totalRequests }}</h5>
+                <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1"><a href="{{ route('admin.requests') }}"> {{ $totalPendingRequests }}</a></h5>
                 </div>
                 
               </div>
@@ -108,7 +110,7 @@
               <div class="card card-body">
                 <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Completed Requests</h6>
                 <div class="d-flex d-lg-block d-xl-flex align-items-end">
-                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $totalCompletedRequests }}</h5>
+                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1"><a href="{{ route('admin.requests_completed') }}">{{ $totalCompletedRequests }}</a></h5>
                 </div>
               </div>
             </div>
@@ -116,7 +118,7 @@
               <div class="card card-body">
                 <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Ongoing Requests</h6>
                 <div class="d-flex d-lg-block d-xl-flex align-items-end">
-                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $totalOngoingRequests }}</h5>
+                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1"><a href="{{ route('admin.requests_ongoing') }}">{{ $totalOngoingRequests }}</a></h5>
                 </div>
               </div>
             </div>
@@ -124,7 +126,7 @@
               <div class="card card-body">
                 <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cancelled Requests</h6>
                 <div class="d-flex d-lg-block d-xl-flex align-items-end">
-                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ $totalCancelledRequests }}</h5>
+                  <h5 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1"><a href="{{ route('admin.requests_cancelled') }}">{{ $totalCancelledRequests }}</a></h5>
                 </div>
               </div>
             </div>
@@ -365,64 +367,22 @@
             </div> --}}
           </div>
           <ul class="list-group list-group-flush tx-13">
-            <li class="list-group-item d-flex pd-sm-x-20">
-              <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
-              <div class="pd-sm-l-10">
-                <p class="tx-medium mg-b-0">Payment from Femi Joseph for REF-234094623496 job</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Apr 3, 2020, 12:56pm</small>
-              </div>
-              <div class="mg-l-auto text-right">
-                <p class="tx-medium mg-b-0"> ₦7,000</p>
-                <small class="tx-12 tx-success mg-b-0">Completed</small>
-              </div>
-            </li>
-            <li class="list-group-item d-flex pd-sm-x-20">
-              <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
-              <div class="pd-sm-l-10">
-                <p class="tx-medium mg-b-0">Payment from Esuruoso Favour for REF-094009623412 job</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Mar 21, 2020, 3:30pm</small>
-              </div>
-              <div class="mg-l-auto text-right">
-                <p class="tx-medium mg-b-0"> ₦4,800</p>
-                <small class="tx-12 tx-success mg-b-0">Completed</small>
-              </div>
-            </li>
-            <li class="list-group-item d-flex pd-sm-x-20">
-              <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
-              <div class="pd-sm-l-10">
-                <p class="tx-medium mg-b-0">Payment from Haruna Ahmadu for REF-237290223123</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Feb 25, 2020, 8:17am</small>
-              </div>
-              <div class="mg-l-auto text-right">
-                <p class="tx-medium mg-b-0"> ₦2,500</p>
-                <small class="tx-12 tx-success mg-b-0">Completed</small>
-              </div>
-            </li>
-            <li class="list-group-item d-flex pd-sm-x-20">
-              <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
-              <div class="pd-sm-l-10">
-                <p class="tx-medium mg-b-0">Payment from Oluyemi Ayotunde for REF-234094623496 job</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Jan 18, 2020, 7:30pm</small>
-              </div>
-              <div class="mg-l-auto text-right">
-                <p class="tx-medium mg-b-0"> ₦1,950</p>
-                <small class="tx-12 tx-success mg-b-0">Completed</small>
-              </div>
-            </li>
-            <li class="list-group-item d-flex pd-sm-x-20">
-              <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
-              <div class="pd-sm-l-10">
-                <p class="tx-medium mg-b-0">Payment from Cynthia Akam for REF-544199238409 job</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Jan 8, 2020, 6:18am</small>
-              </div>
-              <div class="mg-l-auto text-right">
-                <p class="tx-medium mg-b-0"> ₦6,000</p>
-                <small class="tx-12 tx-success mg-b-0">Completed</small>
-              </div>
-            </li>
+            @foreach($receivedPayments as $receivedPayment)
+              <li class="list-group-item d-flex pd-sm-x-20">
+                <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
+                <div class="pd-sm-l-10">
+                  <p class="tx-medium mg-b-0">Payment from {{ $receivedPayment->user->fullName->name }} for {{ $receivedPayment->serviceRequest->job_reference }} job</p>
+                  <small class="tx-12 tx-color-03 mg-b-0">Apr 3, 2020, 12:56pm</small>
+                </div>
+                <div class="mg-l-auto text-right">
+                  <p class="tx-medium mg-b-0"> ₦{{ number_format($receivedPayment->amount) }}</p>
+                  <small class="tx-12 tx-success mg-b-0">Completed</small>
+                </div>
+              </li>
+            @endforeach
           </ul>
           <div class="card-footer text-center tx-13">
-          <a href="{{ route('admin.received_payments') }}" class="link-03">View All Transactions <i class="icon ion-md-arrow-down mg-l-5"></i></a>
+          <a href="{{ route('admin.received_payments') }}" class="link-03">View Received Payments <i class="icon ion-md-arrow-down mg-l-5"></i></a>
           </div><!-- card-footer -->
         </div><!-- card -->
       </div>
@@ -437,74 +397,31 @@
             </div> --}}
           </div>
           <ul class="list-group list-group-flush tx-13">
+            @foreach ($cses as $cse)
             <li class="list-group-item d-flex pd-x-20">
-              <div class="avatar"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt=""></div>
+              <div class="avatar">
+                @if(!empty($cse->cse->avatar) && file_exists(public_path().'/assets/cse-technician-images/'.$cse->cse->avatar))
+                    <img src="{{ asset('assets/cse-technician-images/'.$cse->cse->avatar) }}" class="rounded-circle" alt="{{ $cse->fullName->name }}" />
+                @else
+                    @if($cse->cse->gender == 'Male')
+                        <img src="{{ asset('assets/images/default-male-avatar.png') }}" alt="Default male profile avatar" class="rounded-circle" />
+                    @else
+                        <img src="{{ asset('assets/images/default-female-avatar.png') }}" alt="Default female profile avatar" class="rounded-circle" />
+                    @endif
+                @endif
+              </div>
               <div class="pd-l-10">
-                <p class="tx-medium mg-b-0">Andrew Nwankwo</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Completed Jobs: 12</small>
+                <p class="tx-medium mg-b-0">{{ $cse->fullName->name }}</p>
+                <small class="tx-12 tx-color-03 mg-b-0">Completed Jobs: {{ $cse->cse->requests()->where('service_request_status_id', '3')->count() }}</small>
               </div>
               <div class="mg-l-auto d-flex align-self-center">
                 <nav class="nav nav-icon-only">
-                  <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a>
-                  <a href="" class="nav-link d-none d-sm-block" title="View Profile"><i data-feather="user"></i></a>
+                  {{-- <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a> --}}
+                  <a href="{{ route('admin.summary_cse', $cse->id) }}" class="nav-link d-none d-sm-block" title="View Profile"><i data-feather="user"></i></a>
                 </nav>
               </div>
             </li>
-
-            <li class="list-group-item d-flex pd-x-20">
-              <div class="avatar"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt=""></div>
-              <div class="pd-l-10">
-                <p class="tx-medium mg-b-0">Taofeek Adedokun</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Completed Jobs: 9</small>
-              </div>
-              <div class="mg-l-auto d-flex align-self-center">
-                <nav class="nav nav-icon-only">
-                  <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a>
-                  <a href="" class="nav-link d-none d-sm-block" title="View Profile"><i data-feather="user"></i></a>
-                </nav>
-              </div>
-            </li>
-
-            <li class="list-group-item d-flex pd-x-20">
-              <div class="avatar"><img src="{{ asset('assets/images/default-female-avatar.png') }}" class="rounded-circle" alt=""></div>
-              <div class="pd-l-10">
-                <p class="tx-medium mg-b-0">Blessing Nnamdi</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Completed Jobs: 8</small>
-              </div>
-              <div class="mg-l-auto d-flex align-self-center">
-                <nav class="nav nav-icon-only">
-                  <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a>
-                  <a href="" class="nav-link d-none d-sm-block" title="View Profile"><i data-feather="user"></i></a>
-                </nav>
-              </div>
-            </li>
-            <li class="list-group-item d-flex pd-x-20">
-              <div class="avatar"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt=""></div>
-              <div class="pd-l-10">
-                <p class="tx-medium mg-b-0">Bidemi George</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Completed Jobs: 6</small>
-              </div>
-              <div class="mg-l-auto d-flex align-self-center">
-                <nav class="nav nav-icon-only">
-                  <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a>
-                  <a href="" class="nav-link d-none d-sm-block" title="View Profile"><i data-feather="user"></i></a>
-                </nav>
-              </div>
-            </li>
-
-            <li class="list-group-item d-flex pd-x-20">
-              <div class="avatar"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt=""></div>
-              <div class="pd-l-10">
-                <p class="tx-medium mg-b-0">Isaac Johnson</p>
-                <small class="tx-12 tx-color-03 mg-b-0">Completed Jobs: 4</small>
-              </div>
-              <div class="mg-l-auto d-flex align-self-center">
-                <nav class="nav nav-icon-only">
-                  <a href="" class="nav-link d-none d-sm-block" title="Revoke login access"><i data-feather="slash"></i></a>
-                  <a href="" class="nav-link d-none d-sm-block" title="View Profile"><i data-feather="user"></i></a>
-                </nav>
-              </div>
-            </li>
+            @endforeach
           </ul>
           <div class="card-footer text-center tx-13">
             <a href="{{ route('admin.list_cse') }}" class="link-03">View More <i class="icon ion-md-arrow-down mg-l-5"></i></a>

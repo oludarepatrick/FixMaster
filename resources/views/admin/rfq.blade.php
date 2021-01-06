@@ -13,7 +13,7 @@
             <li class="breadcrumb-item active" aria-current="page">RFQ</li>
           </ol>
         </nav>
-        <h4 class="mg-b-0 tx-spacing--1">RFQ</h4>
+        <h4 class="mg-b-0 tx-spacing--1">Request for Quotation(RFQ) </h4>
       </div>
     </div>
 
@@ -37,7 +37,7 @@
                   <th>Job Ref.</th>
                   <th>Batch Number</th>
                   <th>Client</th>
-                  <th>CSE</th>
+                  <th>Issued By</th>
                   <th>Status</th>
                   <th class="text-center">Total Amount</th>
                   <th>Date Created</th>
@@ -60,7 +60,7 @@
                   @else
                     <td class="text-medium text-success">Payment received</td>
                   @endif
-                  <td class="tx-medium text-center">{{ $rfq->total_amount ?? 'Null'}}</td>
+                  <td class="tx-medium text-center">₦{{ number_format($rfq->total_amount) ?? 'Null'}}</td>
                   <td class="text-medium">{{ Carbon\Carbon::parse($rfq->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                   <td class=" text-center">
                     <div class="dropdown-file">
@@ -82,7 +82,7 @@
 
   </div><!-- container -->
 
-  <div class="modal fade" id="rfqDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal fade" id="rfqDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content tx-14">
         <div class="modal-header">
@@ -125,7 +125,7 @@
               $("#spinner-icon").hide();
           },
           error: function(jqXHR, testStatus, error) {
-              var message = error+ ' occured while trying to retireve '+ batchNumber +'  details.';
+              var message = error+ ' An error occured while trying to retireve '+ batchNumber +'  details.';
               var type = 'error';
               displayMessage(message, type);
               $("#spinner-icon").hide();

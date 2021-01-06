@@ -108,7 +108,7 @@
                     </ul>
                 </li>
 
-                <li title="Logout"><a href="{{ route('logout') }}" ><i class="uil uil-sign-out-alt" style="font-size: 20px" ></i></a></li>
+                <li title="Logout"><a href="{{ route('logout') }}" class="text-danger"><i class="uil uil-sign-out-alt text-danger" style="font-size: 20px" ></i></a></li>
 
             </ul><!--end navigation menu-->
         </div><!--end navigation-->

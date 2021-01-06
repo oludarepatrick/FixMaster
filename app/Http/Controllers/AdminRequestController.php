@@ -183,11 +183,97 @@ class AdminRequestController extends Controller
 
     }
 
+    public function completedRequests(){
+
+        $serviceRequests = ServiceRequest::CompletedRequests()->get();
+
+        $createdBy = Name::get();
+
+        $data = [
+            'serviceRequests'   =>  $serviceRequests,
+            'createdBy'         =>  $createdBy,
+        ];
+
+        return view('admin.requests.requests_completed', $data)->with('i');
+    }
+
+    public function completedRequestDetails($id){
+
+        $requestDetail = ServiceRequest::findOrFail($id);
+
+        $serviceRequestProgreses =  $requestDetail->serviceRequestProgreses;
+
+        $serviceRequestStatuses = ServiceRequestStatus::RequestUpdateStatuses()->get();
+
+        $tools = ToolsInventory::AvalaibleTools()->get();
+
+        // return $requestDetail->rfq->rfqBatches;
+        $data = [
+            'requestDetail'             =>  $requestDetail,
+            'serviceRequestProgreses'   =>  $serviceRequestProgreses,
+            'serviceRequestStatuses'    =>  $serviceRequestStatuses,
+            'tools'                     =>  $tools,
+        ];
+
+        return view('admin.requests.request_completed_details', $data)->with('i');
+    }
+
+    public function cancelledRequests(){
+
+        $serviceRequests = ServiceRequest::CancelledRequests()->get();
+
+        $createdBy = Name::get();
+
+        $data = [
+            'serviceRequests'   =>  $serviceRequests,
+            'createdBy'         =>  $createdBy,
+        ];
+
+        return view('admin.requests.requests_cancelled', $data)->with('i');
+    }
+
+    public function cancelledRequestDetails($ref){
+
+        $requestDetail = ServiceRequest::findOrFail($ref);
+
+        $cses = User::select('id', 'created_at', 'email', 'is_active')
+        ->with(['cses' => function($query){
+            return $query->select('tag_id', 'gender', 'phone_number', 'town', 'user_id');
+        }])
+        ->with(['fullName' => function($name){
+            return $name->select(['name', 'user_id']);
+        }])
+        ->where('users.designation', '[CSE_ROLE]')
+        ->where('users.is_active', '1')
+        ->latest('users.created_at')
+        ->get();
+
+        $technicians = User::select('id', 'created_at', 'email', 'is_active')
+        ->with(['technicians' => function($query){
+            return $query->select('tag_id', 'gender', 'phone_number', 'town', 'user_id');
+        }])
+        ->with(['fullName' => function($name){
+            return $name->select(['name', 'user_id']);
+        }])
+        ->where('users.designation', '[TECHNICIAN_ROLE]')
+        ->where('users.is_active', '1')
+        ->latest('users.created_at')
+        ->get();
+
+        // return $cses;
+
+        $data = [
+            'requestDetail' =>  $requestDetail,
+            'cses'          =>  $cses,
+            'technicians'   =>  $technicians,
+        ];
+
+        return view('admin.requests.request_cancelled_details', $data);
+    }
+
     public function ongoingRequests(){
 
         $serviceRequests = ServiceRequest::OngoingRequests()->get();
-
-        // return $serviceRequests;
 
         $createdBy = Name::get();
 
@@ -222,8 +308,9 @@ class AdminRequestController extends Controller
 
     public function updateOngoingProgress(Request $request){
 
+        // return $request;
         //Validate user input fields
-        // $this->validateUpdateOngoingRequest();
+        $this->validateUpdateOngoingRequest();
 
         $clientId = $request->input('client_id');
         $serviceRequestId = $request->input('service_request_id');
@@ -231,8 +318,10 @@ class AdminRequestController extends Controller
 
         $serviceRequestExists = ServiceRequest::findOrFail($serviceRequestId);
 
-        // return $serviceRequestExists->job_reference;
-
+        if($serviceRequestExists->service_request_status_id == '3'){
+            return back()->with('error', 'Sorry! This service request('.$serviceRequestExists->job_reference.') has already been completed.');
+        }
+        
         //Update record on `service_requests` table
         $updateServiceRequest = ServiceRequest::where('id', $serviceRequestId)->update([
             'service_request_status_id' =>  $serviceRequestStatusId,
@@ -276,6 +365,20 @@ class AdminRequestController extends Controller
                 'status'            =>  '1', //Status is set to `Awaiting Client's paymemt`
             ]);
 
+        }
+
+        if($request->accepted == 'Yes'){
+
+            $request->validate([
+                'accepted'          =>  'required',
+                'accepted_rfq_id'   =>  'required',
+            ]);
+
+            $acceptedRFQId =  $request->input('accepted_rfq_id');
+
+            RFQ::where('id', $acceptedRFQId)->update([
+                'accepted'  =>  $request->accepted,
+            ]);
         }
 
         //Create record only if RFQ was initiated
@@ -396,21 +499,18 @@ class AdminRequestController extends Controller
 
         $requestExists = ServiceRequest::findOrFail($id);
 
-        return $requestExists;
-
         //service_request_status_id = Pending(1), Ongoing(4), Completed(3), Cancelled(2) 
         $markAsCompleted = ServiceRequest::where('id', $id)->update([
-            'admin_id'      =>  Auth::id(),
-            'cse_id'        =>  $cseId,
-            'technician_id' =>  $technicianId,
             'service_request_status_id' =>  '3',
         ]);
+
+        $jobReference = $requestExists->job_reference;
 
         //Create record in `service_request_progress` table
         $recordServiceProgress = ServiceRequestProgress::create([
             'user_id'                       =>  Auth::id(), 
             'service_request_id'            =>  $id, 
-            'service_request_status_id'     =>  '4',
+            'service_request_status_id'     =>  '3',
         ]);
 
         if($markAsCompleted AND $recordServiceProgress){

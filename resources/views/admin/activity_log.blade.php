@@ -134,7 +134,7 @@
     </div>
 </div>
 
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('assets/dashboard/assets/js/table-sort.js') }}"></script>
 <script>
   $(document).ready(function(){
@@ -159,7 +159,7 @@
                 // console.log(error);
                 // alert("Page " + route + " cannot open. Error:" + error);
                 // var message = "Page " + route + " cannot open. Error:" + error;
-                var message = error+ ' occured while trying to retireve Activity Log details.';
+                var message = error+ ' An error occured while trying to retireve Activity Log details.';
                 var type = 'error';
                 displayMessage(message, type);
                 $("#sort_table_details").hide();
@@ -175,6 +175,6 @@
   });
 </script>
 
-@endsection
+@endpush
 
 @endsection

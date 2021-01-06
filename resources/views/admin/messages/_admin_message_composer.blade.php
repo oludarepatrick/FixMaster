@@ -7,7 +7,7 @@
             <span aria-hidden="true">&times;</span>
           </a>
           <h5 class="mg-b-2"><strong>Send Message</strong></h5>
-          <form method="POST" action="{{route('cse.save-message-data')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+          <form method="POST" action="{{ route('admin.send_messages') }}" class="form-horizontal">
             {{ csrf_field() }}
           <div class="form-row mt-4">
             <div class="col-md-12">
@@ -28,26 +28,24 @@
             <div class="col-md-12" id="admin-list"><div id="spinner-icon-admin"></div></div>
             <div class="col-md-12" id="request-list"><div id="spinner-icon-request"></div></div>
 
-            <div class="col-md-12 specific-date d-none">
-                <div class="form-group position-relative">
-                    <label>Ongoing Jobs</label>
-                    <select class="custom-select" id="request-sorting">
-                        <option value="None">Select...</option>
-                        <option value="Date">REF-234094623496</option>
-                        <option value="Month">REF-094009623412</option>
-                        <option value="Month">REF-237290223123</option>
-                        <option value="Month">REF-234094623496</option>
-                    </select>
-                </div>
-            </div>
             <div class="form-group col-md-12">
-                <label for="inputEmail4">Subject</label>
-                <input type="text" class="form-control" id="inputEmail4">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control @error('subject') is-invalid @enderror" name="subject" id="subject">
+                @error('subject')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
 
           <div class="form-group col-md-12">
             <label for="message_body">Message</label>
-            <textarea rows="4" class="form-control" id="message_body"></textarea>
+            <textarea rows="4" class="form-control @error('message') is-invalid @enderror" name="message" id="message_body">{{ old('message') }}</textarea>
+            @error('message')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
           </div>
 
           <button type="submit" class="btn btn-primary">Send Message</button>

@@ -232,22 +232,22 @@
                       <th class="text-center">#</th>
                       <th>Job Ref.</th>
                       <th>Client</th>
-                      <th>Admin</th>
+                      <th>Supervised By</th>
                       <th>Technician</th>
                       <th class="text-center">Amount</th>
                       <th class="text-center">Fee Type</th>
                       <th class="text-center">Status</th>
                       <th class="text-center">Scheduled Date</th>
-                      <th class="text-center">Action</th>
+                      {{-- <th class="text-center">Action</th> --}}
                     </tr>
                   </thead>
                   <tbody>
                     
                     @foreach($cse->cse->requests as $request)
                     @if(!empty($request->serviceRequestDetail->discount_service_fee))
-                        {{$totalFee += $request->serviceRequestDetail->discount_service_fee}}
+                        <?php $totalFee += $request->serviceRequestDetail->discount_service_fee; ?>
                       @else
-                        {{$totalFee += $request->serviceRequestDetail->initial_service_fee}}
+                        <?php $totalFee += $request->serviceRequestDetail->initial_service_fee; ?>
                       @endif
                     <tr>
                       <td class="tx-color-03 tx-center">1</td>
@@ -264,25 +264,25 @@
                             ₦{{ number_format($request->serviceRequestDetail->initial_service_fee) }}
                         @endif
                       </td>
-                      @if($request->service_request_status_id == 'Pending')
+                      <td>{{ $request->serviceRequestDetail->service_fee_name }}</td>
+                      @if($request->service_request_status_id == '1')
                           <td class="text-medium text-warning text-center">Pending</td>
-                      @elseif($request->service_request_status_id == 'Ongoing')
+                      @elseif($request->service_request_status_id > '3')
                           <td class="text-medium text-info text-center">Ongoing</td>
-                      @elseif($request->service_request_status_id == 'Completed')
+                      @elseif($request->service_request_status_id == '3')
                           <td class="text-medium text-success text-center">Completed</td>
-                      @elseif($request->service_request_status_id == 'Cancelled')
+                      @elseif($request->service_request_status_id == '2')
                           <td class="text-medium text-danger text-center">Cancelled</td>
                       @endif
-                      <td>{{ $request->serviceRequestDetail->service_fee_name }}</td>
                       <td class="text-center">{{ $request->serviceRequestDetail->timestamp ?? '' }}</td>
-                      <td class=" text-center">
+                      {{-- <td class=" text-center">
                         <div class="dropdown-file">
                           <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                           <div class="dropdown-menu dropdown-menu-right">
                           <a href="{{ route('cse.request_details') }}" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
                           </div>
                         </div>
-                      </td>
+                      </td> --}}
                     </tr>
                     @endforeach
                     <tr>

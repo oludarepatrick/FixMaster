@@ -1,6 +1,8 @@
 @extends('layouts.client')
 @section('title', 'Settings')
 @section('content')
+@include('layouts.partials._messages')
+
 <div class="col-lg-8 col-12">
     <div class="card border-0 rounded shadow">
         <div class="card-body mt-">

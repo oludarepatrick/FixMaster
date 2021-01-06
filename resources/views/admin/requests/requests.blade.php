@@ -59,9 +59,9 @@
                 @foreach ($serviceRequests as $serviceRequest)
                   <tr 
                     @if((\Carbon\Carbon::now() > Carbon\Carbon::parse($serviceRequest->serviceRequestDetail->timestamp, 'UTC')) || (\Carbon\Carbon::now() == Carbon\Carbon::parse($serviceRequest->serviceRequestDetail->timestamp, 'UTC')))
-                      class="table-danger"
+                      class="bg-danger" style="color: #fff !important"
                     @elseif(\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($serviceRequest->serviceRequestDetail->timestamp, 'UTC')) < 2)
-                      class="table-warning"
+                      class="bg-warning" style="color: #fff !important"
                     @endif
                   >
                     <td class="tx-color-03 tx-center">{{ ++$i }}</td>

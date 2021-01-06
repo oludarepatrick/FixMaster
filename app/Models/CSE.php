@@ -22,22 +22,22 @@ class CSE extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id')->withDefault();
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function users()
     {
-        return $this->hasMany(User::class, 'user_id')->withDefault();
+        return $this->hasMany(User::class, 'user_id')->withTrashed();
     }
 
     public function request()
     {
-        return $this->belongsTo(ServiceRequest::class, 'cse_id', 'user_id');
+        return $this->belongsTo(ServiceRequest::class, 'cse_id', 'user_id')->withTrashed();
     }
 
     public function requests()
     {
-        return $this->hasMany(ServiceRequest::class, 'cse_id', 'user_id');
+        return $this->hasMany(ServiceRequest::class, 'cse_id', 'user_id')->withTrashed();
     }
 
     public function state()
@@ -52,12 +52,12 @@ class CSE extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id')->withTrashed();
     }
 
     public function categories()
     {
-        return $this->hasMany(Category::class, 'category_id');
+        return $this->hasMany(Category::class, 'category_id')->withTrashed();
     }
 
     public function cseCategory()

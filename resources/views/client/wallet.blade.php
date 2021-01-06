@@ -1,6 +1,8 @@
 @extends('layouts.client')
 @section('title', 'E-Wallet')
 @section('content')
+@include('layouts.partials._messages')
+
 <style>
     [type=radio] { 
         position: absolute;

@@ -37,7 +37,7 @@
                   <th>Job Ref.</th>
                   <th>Batch Number</th>
                   <th>Client</th>
-                  <th>Admin</th>
+                  <th>Approved By</th>
                   <th>Requested By</th>
                   <th>Status</th>
                   <th>Date Requested</th>
@@ -88,7 +88,7 @@
 
   </div><!-- container -->
 
-  <div class="modal fade" id="toolsRequestDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal fade" id="toolsRequestDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content tx-14">
         <div class="modal-header">
@@ -131,7 +131,7 @@
               $("#spinner-icon").hide();
           },
           error: function(jqXHR, testStatus, error) {
-              var message = error+ ' occured while trying to retireve '+ batchNumber +'  details.';
+              var message = error+ ' An error occured while trying to retireve '+ batchNumber +'  details.';
               var type = 'error';
               displayMessage(message, type);
               $("#spinner-icon").hide();

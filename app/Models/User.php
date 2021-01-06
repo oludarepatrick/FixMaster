@@ -123,6 +123,26 @@ class User extends Authenticatable
         return $this->hasMany(ServiceRequest::class);
     }
 
+    public function cseRequest()
+    {
+        return $this->hasOne(ServiceRequest::class, 'cse_id');
+    }
+
+    public function technicianRequests()
+    {
+        return $this->hasMany(ServiceRequest::class, 'technician_id');
+    }
+
+    public function technicianRequest()
+    {
+        return $this->hasOne(ServiceRequest::class, 'technician_id');
+    }
+
+    public function cseRequests()
+    {
+        return $this->hasMany(ServiceRequest::class, 'cse_id');
+    }
+
     public function sentMessage()
     {
         return $this->hasOne(Message::class, 'sender_id');
@@ -208,6 +228,17 @@ class User extends Authenticatable
         return $this->hasMany(ServiceRequestProgress::class, 'user_id');
     }
 
+    public function receivedPayment()
+    {
+        return $this->hasOne(ReceivedPayment::class, 'user_id');
+    }
+
+    public function receivedPayments()
+    {
+        return $this->hasMany(ReceivedPayment::class, 'user_id');
+    }
+    
+
     public function scopeActiveAdmin($query, $args){
         return $query->where('id', $args)
         ->select('id', 'email')
@@ -241,9 +272,9 @@ class User extends Authenticatable
         ->with(['clients' => function($query){
             return $query->select('phone_number', 'user_id');
         }])
-        ->where('designation', '[CLIENT_ROLE]')
+        ->where('designation', '[CLIENT_ROLE]');
         // ->where('id', '!=', 1)
-        ->orderBy('users.created_at', 'ASC');
+        // ->orderBy('users.created_at', 'DESC');
     }
 
     /** 

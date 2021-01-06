@@ -53,12 +53,12 @@
       <li class="nav-item {{ Route::currentRouteNamed('cse.location_request') ? 'active show' : '' }}""><a href="{{ route('cse.location_request') }}" class="nav-link"><i data-feather="map-pin"></i> <span>Location Request</span></a></li>
 
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('cse.messages', 'cse.messages_sent') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('cse.inbox_messages', 'cse.outbox_messages') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
         <ul> 
-          <li class="{{ Route::currentRouteNamed('cse.messages') ? 'active' : '' }}"><a href="{{ route('cse.messages') }}">Inbox</a></li>
-          <li class="{{ Route::currentRouteNamed('cse.messages_sent') ? 'active' : '' }}"><a href="{{ route('cse.messages_sent') }}">Sent</a></li>
-          <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li>
+          <li class="{{ Route::currentRouteNamed('cse.inbox_messages') ? 'active' : '' }}"><a href="{{ route('cse.inbox_messages') }}">Inbox</a></li>
+          <li class="{{ Route::currentRouteNamed('cse.outbox_messages') ? 'active' : '' }}"><a href="{{ route('cse.outbox_messages') }}">Sent</a></li>
+          {{-- <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li> --}}
         </ul>
       </li>
 
@@ -141,16 +141,17 @@
       
       <li class="nav-label mg-t-25">Adminstration</li>
 
-      {{-- <li class="nav-item with-sub {{ Route::currentRouteNamed('technician.messages', 'technician.messages_sent') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('inbox_messages', 'technician.messages_sent') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
         <ul> 
-          <li class="{{ Route::currentRouteNamed('technician.messages') ? 'active' : '' }}"><a href="{{ route('technician.messages') }}">Inbox</a></li>
+          <li class="{{ Route::currentRouteNamed('inbox_messages') ? 'active' : '' }}"><a href="{{ route('inbox_messages') }}">Inbox</a></li>
           <li class="{{ Route::currentRouteNamed('technician.messages_sent') ? 'active' : '' }}"><a href="{{ route('technician.messages_sent') }}">Sent</a></li>
-          <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li>
+          {{-- <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li> --}}
         </ul>
-      </li> --}}
+      </li>
       <li class="nav-item {{ Route::currentRouteNamed('technician.location_request') ? 'active show' : '' }}""><a href="{{ route('technician.location_request') }}" class="nav-link"><i data-feather="map-pin"></i> <span>Location Request</span></a></li>
 
+      
       <li class="nav-item {{ Route::currentRouteNamed('technician.requests', 'technician.request_details') ? 'active show' : '' }}"><a href="{{ route('technician.requests') }}" class="nav-link"><i data-feather="git-pull-request"></i> <span>Requests</span></a></li>
 
 
@@ -248,11 +249,10 @@
       @endif
       
       @if(Auth::id() == 1)
-        <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.add_payment_gateway', 'admin.list_payment_gateway', 'admin.edit_payment_gateway') ? 'active show' : '' }}">
+        <li class="nav-item with-sub {{ Route::currentRouteNamed('list_payment_gateway') ? 'active show' : '' }}">
           <a href="" class="nav-link"><i data-feather="credit-card"></i> <span>Payment Gateway</span></a>
           <ul> 
-            <li class="{{ Route::currentRouteNamed('admin.add_payment_gateway') ? 'active' : '' }}"><a href="{{ route('admin.add_payment_gateway') }}">Add</a></li>
-            <li class="{{ Route::currentRouteNamed('admin.list_payment_gateway', 'admin.edit_payment_gateway') ? 'active' : '' }}"><a href="{{ route('admin.list_payment_gateway') }}">List</a></li>
+            <li class="{{ Route::currentRouteNamed('list_payment_gateway') ? 'active' : '' }}"><a href="{{ route('admin.list_payment_gateway') }}">List</a></li>
           </ul>
         </li>
       @endif
@@ -268,13 +268,13 @@
       @endif
 
       @if($user->adminPermissions->requests == 1)
-        <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details') ? 'active show' : '' }}">
+        <li class="nav-item with-sub {{ Route::currentRouteNamed('admin.requests', 'admin.requests_ongoing', 'admin.requests_completed', 'admin.requests_cancelled', 'admin.request_details', 'admin.request_ongoing_details', 'admin.request_completed_details', 'admin.request_cancelled_details') ? 'active show' : '' }}">
           <a href="" class="nav-link"><i data-feather="git-pull-request"></i> <span>Requests</span></a>
           <ul>
             <li class="{{ Route::currentRouteNamed('admin.requests', 'admin.request_details') ? 'active' : '' }}"><a href="{{ route('admin.requests') }}">New</a></li>
             <li class="{{ Route::currentRouteNamed('admin.requests_ongoing', 'admin.request_ongoing_details') ? 'active' : '' }}"><a href="{{ route('admin.requests_ongoing') }}">Ongoing</a></li>
             <li class="{{ Route::currentRouteNamed('admin.requests_completed', 'admin.request_completed_details') ? 'active' : '' }}"><a href="{{ route('admin.requests_completed') }}">Completed</a></li>
-            <li class="{{ Route::currentRouteNamed('admin.requests_cancelled') ? 'active' : '' }}"><a href="{{ route('admin.requests_cancelled') }}">Cancelled</a></li>
+            <li class="{{ Route::currentRouteNamed('admin.requests_cancelled', 'admin.request_cancelled_details') ? 'active' : '' }}"><a href="{{ route('admin.requests_cancelled') }}">Cancelled</a></li>
           </ul>
         </li>
       @endif
