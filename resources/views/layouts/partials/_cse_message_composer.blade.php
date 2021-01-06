@@ -94,8 +94,8 @@ use App\Models\CSE;
             </div>
 
           <div class="form-group col-md-12">
-            <label for="inputAddress2">Message</label>
-            <textarea rows="4" class="form-control" id="inputAddress2" name="message"></textarea>
+            <label for="message_body">Message</label>
+            <textarea rows="4" class="form-control" id="message_body" name="message"></textarea>
           </div>
 
           <button type="submit" class="btn btn-primary hideDiv" id="Send-Message">Send Message</button>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.4
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jan 05, 2021 at 04:30 PM
--- Server version: 5.6.41-84.1
--- PHP Version: 7.3.6
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 06, 2021 at 02:32 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.4.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,8 +28,9 @@ SET time_zone = "+00:00";
 -- Table structure for table `activity_logs`
 --
 
-CREATE TABLE `activity_logs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `activity_logs`;
+CREATE TABLE IF NOT EXISTS `activity_logs` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` enum('Payment','Request','Others','Login','Logout','Profile','Errors','Unauthorized') COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -37,8 +38,10 @@ CREATE TABLE `activity_logs` (
   `action_url` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `controller_action_path` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=606 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `activity_logs`
@@ -475,7 +478,6 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 (439, 77, '105.112.153.118', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'https://temp.homefix.ng/client/settings/update-profile', 'Demola Mhakinde updated his profile', '2021-01-05 13:42:47'),
 (440, 77, '105.112.153.118', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateAvatar', 'https://temp.homefix.ng/client/settings/update-avatar', 'Demola Mhakinde updated his profile avatar', '2021-01-05 13:45:26'),
 (441, 77, '105.112.153.118', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Demola Mhakinde requested Dish & Washing Machine service', '2021-01-05 14:04:48'),
-(442, 83, '154.113.72.58', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'http://test.homefix.ng/register', 'David Ogbe(anthonyjoboy2016@gmail.com) account was registered successfully.', '2021-01-05 14:08:04'),
 (443, 77, '105.112.153.118', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Demola Mhakinde requested Dish & Washing Machine service', '2021-01-05 14:11:54'),
 (444, 71, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Ireti Dauda requested Computer & Laptops service', '2021-01-05 14:19:11'),
 (445, 77, '105.112.153.118', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Demola Mhakinde requested Dish & Washing Machine service', '2021-01-05 14:21:55'),
@@ -505,7 +507,140 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 (469, 71, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Ireti Dauda requested Drainage, Shower, Soak-Away service', '2021-01-05 15:49:42'),
 (470, 71, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Ireti Dauda requested Bath-Tubs, Pipes, Kitchen Sink service', '2021-01-05 15:59:51'),
 (471, 71, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Ireti Dauda requested Computer & Laptops service', '2021-01-05 16:04:21'),
-(472, 71, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Ireti Dauda requested Computer & Laptops service', '2021-01-05 16:05:43');
+(472, 71, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Ireti Dauda requested Computer & Laptops service', '2021-01-05 16:05:43'),
+(473, 71, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/24', 'Ireti Dauda cancelled REF-5B02030C service request.', '2021-01-05 16:40:00'),
+(474, 71, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/16', 'Ireti Dauda cancelled REF-4CBA5AB0 service request.', '2021-01-05 16:46:37'),
+(475, 71, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/23', 'Ireti Dauda updated REF-48FCCAF7 service request.', '2021-01-05 16:59:29'),
+(476, 71, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/20', 'Ireti Dauda updated REF-CBE87860 service request.', '2021-01-05 17:06:45'),
+(477, 71, '197.210.65.184', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Ireti Dauda logged out with a session duration of 05:20:27(hrs:min:ss).', '2021-01-05 17:07:23'),
+(478, 72, '197.210.65.184', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Salami Bello logged in.', '2021-01-05 17:11:43'),
+(479, 72, '197.210.65.184', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateAvatar', 'https://temp.homefix.ng/client/settings/update-avatar', 'Salami Bello updated his profile avatar', '2021-01-05 17:12:17'),
+(480, 72, '197.210.65.184', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'https://temp.homefix.ng/client/settings/update-profile', 'Salami Bello updated his profile', '2021-01-05 17:13:22'),
+(481, 72, '197.210.65.184', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Salami Bello logged out with a session duration of 00:02:03(hrs:min:ss).', '2021-01-05 17:13:46'),
+(482, 73, '197.210.65.184', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Olusola Akinruntan logged in.', '2021-01-05 17:14:13'),
+(483, 73, '197.210.65.184', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateAvatar', 'https://temp.homefix.ng/client/settings/update-avatar', 'Olusola Akinruntan updated his profile avatar', '2021-01-05 17:14:43'),
+(484, 73, '197.210.65.184', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'https://temp.homefix.ng/client/settings/update-profile', 'Olusola Akinruntan updated his profile', '2021-01-05 17:15:21'),
+(485, 73, '197.210.65.184', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Olusola Akinruntan logged out with a session duration of 00:01:21(hrs:min:ss).', '2021-01-05 17:15:34'),
+(486, 74, '197.210.65.184', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Emmanuela Eze - Ego logged in.', '2021-01-05 17:15:57'),
+(487, 74, '197.210.65.184', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'https://temp.homefix.ng/client/settings/update-profile', 'Emmanuela Eze - Ego updated her profile', '2021-01-05 17:16:21'),
+(488, 74, '197.210.65.184', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateAvatar', 'https://temp.homefix.ng/client/settings/update-avatar', 'Emmanuela Eze - Ego updated her profile avatar', '2021-01-05 17:16:44'),
+(489, 74, '197.210.65.184', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Emmanuela Eze - Ego logged out with a session duration of 00:00:55(hrs:min:ss).', '2021-01-05 17:16:52'),
+(490, 75, '197.210.65.184', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Chriatiana Nnwayawun logged in.', '2021-01-05 17:17:15'),
+(491, 75, '197.210.65.184', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateAvatar', 'https://temp.homefix.ng/client/settings/update-avatar', 'Chriatiana Nnwayawun updated her profile avatar', '2021-01-05 17:18:08'),
+(492, 75, '197.210.65.184', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'https://temp.homefix.ng/client/settings/update-profile', 'Chriatiana Nnwayawun updated her profile', '2021-01-05 17:18:40'),
+(493, 75, '197.210.65.184', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'https://temp.homefix.ng/client/settings/update-profile', 'Chriatiana Nnwayawun updated her profile', '2021-01-05 17:21:43'),
+(494, 75, '197.210.65.184', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Chriatiana Nnwayawun logged out with a session duration of 00:08:16(hrs:min:ss).', '2021-01-05 17:25:31'),
+(495, 72, '197.210.65.184', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Salami Bello logged in.', '2021-01-05 17:30:44'),
+(496, 72, '197.210.65.184', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'https://temp.homefix.ng/client/settings/update-profile', 'Salami Bello updated his profile', '2021-01-05 17:44:57'),
+(497, 81, '105.112.153.196', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Etinosa Makinwa logged in.', '2021-01-05 17:48:27'),
+(498, 81, '105.112.153.196', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Etinosa Makinwa requested Computer & Laptops service', '2021-01-05 17:51:29'),
+(499, 81, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Etinosa Makinwa requested Computer & Laptops service', '2021-01-05 17:52:52'),
+(500, 81, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Etinosa Makinwa requested Computer & Laptops service', '2021-01-05 17:53:37'),
+(501, 81, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/29', 'Etinosa Makinwa cancelled REF-781E7707 service request.', '2021-01-05 17:54:18'),
+(502, 81, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/27', 'Etinosa Makinwa cancelled REF-946C9191 service request.', '2021-01-05 17:54:39'),
+(503, 81, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/26', 'Etinosa Makinwa cancelled REF-E4674993 service request.', '2021-01-05 17:54:58'),
+(504, 81, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Etinosa Makinwa requested Dish & Washing Machine service', '2021-01-05 17:58:46'),
+(505, 81, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Etinosa Makinwa requested Bath-Tubs, Pipes, Kitchen Sink service', '2021-01-05 18:00:46'),
+(506, 81, '105.112.42.30', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Etinosa Makinwa logged out with a session duration of 00:12:47(hrs:min:ss).', '2021-01-05 18:01:14'),
+(507, 80, '105.112.42.30', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Craig Ebute logged in.', '2021-01-05 18:01:43'),
+(508, 80, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Craig Ebute requested Bath-Tubs, Pipes, Kitchen Sink service', '2021-01-05 18:21:05'),
+(509, 80, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Craig Ebute requested Drainage, Shower, Soak-Away service', '2021-01-05 18:24:07'),
+(510, 80, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Craig Ebute requested Bath-Tubs, Pipes, Kitchen Sink service', '2021-01-05 18:27:26'),
+(511, 80, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Craig Ebute requested Computer & Laptops service', '2021-01-05 18:29:01'),
+(512, 80, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Craig Ebute requested Dish & Washing Machine service', '2021-01-05 18:31:31'),
+(513, 80, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/34', 'Craig Ebute cancelled REF-E602F90D service request.', '2021-01-05 18:32:02'),
+(514, 80, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/32', 'Craig Ebute cancelled REF-D5521B5F service request.', '2021-01-05 18:32:50'),
+(515, 80, '105.112.42.30', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Craig Ebute logged out with a session duration of 00:31:36(hrs:min:ss).', '2021-01-05 18:33:19'),
+(516, 79, '105.112.42.30', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Candy Mercy logged in.', '2021-01-05 18:33:46'),
+(517, 79, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Candy Mercy requested Bath-Tubs, Pipes, Kitchen Sink service', '2021-01-05 18:35:39'),
+(518, 79, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Candy Mercy requested Drainage, Shower, Soak-Away service', '2021-01-05 18:39:05'),
+(519, 79, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Candy Mercy requested Computer & Laptops service', '2021-01-05 18:41:02'),
+(520, 79, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Candy Mercy requested Drainage, Shower, Soak-Away service', '2021-01-05 18:44:46'),
+(521, 79, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Candy Mercy requested Dish & Washing Machine service', '2021-01-05 18:46:30'),
+(522, 79, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/39', 'Candy Mercy cancelled REF-8323A890 service request.', '2021-01-05 18:47:52'),
+(523, 79, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/38', 'Candy Mercy cancelled REF-023E2780 service request.', '2021-01-05 18:48:27'),
+(524, 79, '105.112.42.30', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Candy Mercy logged out with a session duration of 00:16:33(hrs:min:ss).', '2021-01-05 18:50:19'),
+(525, 78, '105.112.42.30', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Frank Brown-Coker logged in.', '2021-01-05 18:50:59'),
+(526, 78, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Frank Brown-Coker requested Computer & Laptops service', '2021-01-05 18:52:46'),
+(527, 78, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Frank Brown-Coker requested Dish & Washing Machine service', '2021-01-05 18:54:25'),
+(528, 78, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Frank Brown-Coker requested Bath-Tubs, Pipes, Kitchen Sink service', '2021-01-05 18:57:09'),
+(529, 78, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Frank Brown-Coker requested Dish & Washing Machine service', '2021-01-05 18:59:48'),
+(530, 78, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Frank Brown-Coker requested Drainage, Shower, Soak-Away service', '2021-01-05 19:03:31'),
+(531, 78, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/46', 'Frank Brown-Coker cancelled REF-05C9D56E service request.', '2021-01-05 19:04:03'),
+(532, 78, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/43', 'Frank Brown-Coker cancelled REF-282CB9FB service request.', '2021-01-05 19:04:32'),
+(533, 78, '105.112.42.30', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Frank Brown-Coker logged out with a session duration of 00:14:26(hrs:min:ss).', '2021-01-05 19:05:25'),
+(534, 77, '105.112.42.30', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Demola Mhakinde logged in.', '2021-01-05 19:05:54'),
+(535, 77, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/13', 'Demola Mhakinde updated REF-CFDA9CE8 service request.', '2021-01-05 19:09:00'),
+(536, 77, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/15', 'Demola Mhakinde updated REF-42D42C61 service request.', '2021-01-05 19:09:41'),
+(537, 77, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/10', 'Demola Mhakinde updated REF-7BEC1F70 service request.', '2021-01-05 19:12:08'),
+(538, 77, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/10', 'Demola Mhakinde updated REF-7BEC1F70 service request.', '2021-01-05 19:12:41'),
+(539, 77, '105.112.42.30', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Demola Mhakinde logged out with a session duration of 00:07:02(hrs:min:ss).', '2021-01-05 19:12:56'),
+(540, 78, '105.112.42.30', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Frank Brown-Coker logged in.', '2021-01-05 19:13:24'),
+(541, 78, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/45', 'Frank Brown-Coker updated REF-E7420AB6 service request.', '2021-01-05 19:14:20'),
+(542, 78, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/44', 'Frank Brown-Coker updated REF-062960E8 service request.', '2021-01-05 19:14:59'),
+(543, 78, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/42', 'Frank Brown-Coker updated REF-BF3FC109 service request.', '2021-01-05 19:16:08'),
+(544, 78, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/42', 'Frank Brown-Coker updated REF-BF3FC109 service request.', '2021-01-05 19:19:15'),
+(545, 78, '105.112.42.30', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Frank Brown-Coker logged out with a session duration of 00:05:53(hrs:min:ss).', '2021-01-05 19:19:17'),
+(546, 79, '105.112.42.30', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Candy Mercy logged in.', '2021-01-05 19:19:37'),
+(547, 79, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/41', 'Candy Mercy updated REF-8B6BFB56 service request.', '2021-01-05 19:20:14'),
+(548, 79, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/40', 'Candy Mercy updated REF-10B62418 service request.', '2021-01-05 19:20:45'),
+(549, 79, '105.112.42.30', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/37', 'Candy Mercy updated REF-A2A3245E service request.', '2021-01-05 19:21:45'),
+(550, 79, '105.112.42.30', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Candy Mercy logged out with a session duration of 00:02:23(hrs:min:ss).', '2021-01-05 19:22:00'),
+(551, 80, '105.112.42.30', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Craig Ebute logged in.', '2021-01-05 19:22:42'),
+(552, 72, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Salami Bello requested Bath-Tubs, Pipes, Kitchen Sink service', '2021-01-05 19:24:59'),
+(553, 80, '105.112.53.187', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/36', 'Craig Ebute updated REF-678E7789 service request.', '2021-01-05 19:37:32'),
+(554, 80, '105.112.53.187', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/35', 'Craig Ebute updated REF-201D4CDA service request.', '2021-01-05 19:40:45'),
+(555, 80, '105.112.53.187', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/33', 'Craig Ebute updated REF-538B2830 service request.', '2021-01-05 19:41:08'),
+(556, 80, '105.112.53.187', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'https://temp.homefix.ng/client/settings/update-profile', 'Craig Ebute updated his profile', '2021-01-05 19:41:58'),
+(557, 80, '105.112.53.187', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Craig Ebute logged out with a session duration of 00:19:26(hrs:min:ss).', '2021-01-05 19:42:08'),
+(558, 2, '105.112.53.187', 'Unauthorized', 'Error', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'An Unknown Intruder attempted to login with (Buchyefap1testClient4@fixmaster.com.ng and 1prospect1Fab1test128).', '2021-01-05 19:42:14'),
+(559, 81, '105.112.53.187', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Etinosa Makinwa logged in.', '2021-01-05 19:44:13'),
+(560, 81, '105.112.53.187', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/31', 'Etinosa Makinwa updated REF-A3EDB578 service request.', '2021-01-05 19:48:40'),
+(561, 81, '105.112.53.187', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/30', 'Etinosa Makinwa updated REF-93080B0A service request.', '2021-01-05 19:49:40'),
+(562, 81, '105.112.53.187', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@update', 'https://temp.homefix.ng/client/requests/update/25', 'Etinosa Makinwa updated REF-F024810F service request.', '2021-01-05 19:51:03'),
+(563, 81, '105.112.53.187', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Etinosa Makinwa logged out with a session duration of 00:07:06(hrs:min:ss).', '2021-01-05 19:51:19'),
+(564, 72, '197.210.65.184', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Salami Bello logged out with a session duration of 03:13:15(hrs:min:ss).', '2021-01-05 20:43:59'),
+(565, 2, '197.210.65.184', 'Unauthorized', 'Error', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'An Unknown Intruder attempted to login with (Davidfap1testClient2@fixmaster.com.ng and testtest).', '2021-01-06 07:26:02'),
+(566, 72, '197.210.65.184', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Salami Bello logged in.', '2021-01-06 07:26:34'),
+(567, 72, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Salami Bello requested Computer & Laptops service', '2021-01-06 07:29:05'),
+(568, 72, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Salami Bello requested Dish & Washing Machine service', '2021-01-06 07:43:37'),
+(569, 72, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/51', 'Salami Bello cancelled REF-641E3BAF service request.', '2021-01-06 07:46:10'),
+(570, 72, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/48', 'Salami Bello cancelled REF-8FF9184A service request.', '2021-01-06 08:16:08'),
+(571, 72, '197.210.65.184', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Salami Bello logged out with a session duration of 00:50:45(hrs:min:ss).', '2021-01-06 08:17:19'),
+(572, 73, '197.210.65.184', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Olusola Akinruntan logged in.', '2021-01-06 08:24:50'),
+(573, 73, '197.210.65.184', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'https://temp.homefix.ng/client/settings/update-profile', 'Olusola Akinruntan updated his profile', '2021-01-06 08:26:01'),
+(574, 73, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Olusola Akinruntan requested Computer & Laptops service', '2021-01-06 08:33:28'),
+(575, 73, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Olusola Akinruntan requested Bath-Tubs, Pipes, Kitchen Sink service', '2021-01-06 08:36:00'),
+(576, 73, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Olusola Akinruntan requested Drainage, Shower, Soak-Away service', '2021-01-06 09:03:43'),
+(577, 73, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/55', 'Olusola Akinruntan cancelled REF-3A0EFE3C service request.', '2021-01-06 09:05:04'),
+(578, 73, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/54', 'Olusola Akinruntan cancelled REF-FFDDEC32 service request.', '2021-01-06 09:05:46'),
+(579, 73, '197.210.65.184', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Olusola Akinruntan logged out with a session duration of 00:41:08(hrs:min:ss).', '2021-01-06 09:05:58'),
+(580, 74, '197.210.65.184', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Emmanuela Eze - Ego logged in.', '2021-01-06 09:06:27'),
+(581, 74, '197.210.65.184', 'Profile', 'Informational', 'App\\Http\\Controllers\\ClientDashboardController@updateProfile', 'https://temp.homefix.ng/client/settings/update-profile', 'Emmanuela Eze - Ego updated her profile', '2021-01-06 09:06:54'),
+(582, 74, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Emmanuela Eze - Ego requested Drainage, Shower, Soak-Away service', '2021-01-06 09:09:48'),
+(583, 74, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/58', 'Emmanuela Eze - Ego cancelled REF-0C8E1C14 service request.', '2021-01-06 09:11:20'),
+(584, 74, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Emmanuela Eze - Ego requested Computer & Laptops service', '2021-01-06 09:16:59'),
+(585, 74, '197.210.65.184', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Emmanuela Eze - Ego logged out with a session duration of 00:10:51(hrs:min:ss).', '2021-01-06 09:17:18'),
+(586, 74, '197.210.65.184', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Emmanuela Eze - Ego logged in.', '2021-01-06 09:17:38'),
+(587, 74, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/59', 'Emmanuela Eze - Ego cancelled REF-3FD95205 service request.', '2021-01-06 09:18:25'),
+(588, 74, '197.210.65.184', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Emmanuela Eze - Ego logged out with a session duration of 00:29:10(hrs:min:ss).', '2021-01-06 09:46:48'),
+(589, 75, '197.210.65.184', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'https://temp.homefix.ng/verify-credentials', 'Chriatiana Nnwayawun logged in.', '2021-01-06 10:00:42'),
+(590, 75, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Chriatiana Nnwayawun requested Computer & Laptops service', '2021-01-06 10:04:02'),
+(591, 75, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Chriatiana Nnwayawun requested Dish & Washing Machine service', '2021-01-06 10:07:02'),
+(592, 75, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/63', 'Chriatiana Nnwayawun cancelled REF-7C7F09DA service request.', '2021-01-06 10:07:42'),
+(593, 75, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Chriatiana Nnwayawun requested Drainage, Shower, Soak-Away service', '2021-01-06 10:12:51'),
+(594, 75, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'https://temp.homefix.ng/client/services/quote/store', 'Chriatiana Nnwayawun requested Computer & Laptops service', '2021-01-06 10:14:06'),
+(595, 75, '197.210.65.184', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'https://temp.homefix.ng/client/requests/cancel/67', 'Chriatiana Nnwayawun cancelled REF-5CB26E66 service request.', '2021-01-06 10:15:09'),
+(596, 75, '197.210.65.184', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'https://temp.homefix.ng/logout', 'Chriatiana Nnwayawun logged out with a session duration of 00:46:44(hrs:min:ss).', '2021-01-06 10:47:26'),
+(597, 1, '154.113.72.58', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://test.homefix.ng/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-06 11:00:03'),
+(598, 1, '154.113.72.58', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://test.homefix.ng/logout', 'NinthBinary Developer logged out with a session duration of 00:15:11(hrs:min:ss).', '2021-01-06 11:15:14'),
+(599, 4, '154.113.72.58', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://test.homefix.ng/verify-credentials', 'FixMaster Management logged in.', '2021-01-06 11:15:28'),
+(600, 4, '154.113.72.58', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://test.homefix.ng/logout', 'FixMaster Management logged out with a session duration of 00:00:01(hrs:min:ss).', '2021-01-06 11:15:29'),
+(601, 4, '154.113.72.58', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://test.homefix.ng/verify-credentials', 'FixMaster Management logged in.', '2021-01-06 11:15:43'),
+(602, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:35:40(hrs:min:ss).', '2021-01-06 11:24:22'),
+(603, 4, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'FixMaster Management logged in.', '2021-01-06 11:24:35'),
+(604, 4, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'FixMaster Management logged out with a session duration of 00:37:37(hrs:min:ss).', '2021-01-06 12:02:12'),
+(605, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-06 12:02:31');
 
 -- --------------------------------------------------------
 
@@ -513,16 +648,21 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 -- Table structure for table `admins`
 --
 
-CREATE TABLE `admins` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `admins`;
+CREATE TABLE IF NOT EXISTS `admins` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_by` bigint(20) UNSIGNED NOT NULL,
   `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `middle_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `designation` enum('SUPER_ADMIN_ROLE','ADMIN_ROLE') COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `designation` enum('SUPER_ADMIN_ROLE','ADMIN_ROLE') COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `admins_phone_number_unique` (`phone_number`),
+  UNIQUE KEY `user_id` (`user_id`),
+  KEY `created_by` (`created_by`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `admins`
@@ -531,8 +671,9 @@ CREATE TABLE `admins` (
 INSERT INTO `admins` (`id`, `user_id`, `created_by`, `first_name`, `middle_name`, `last_name`, `phone_number`, `designation`) VALUES
 (1, 5, 1, 'David', NULL, 'Akinsola', '08034516890', 'ADMIN_ROLE'),
 (2, 6, 1, 'Obuchi', NULL, 'Omotosho', '09032394639', 'ADMIN_ROLE'),
-(3, 7, 2, 'Isaac', 'Israel', 'John', '08032459283', 'ADMIN_ROLE'),
-(6, 8, 1, 'Emmanuel', 'Gbenga', 'Godfrey', '09066982545', 'ADMIN_ROLE');
+(3, 7, 1, 'Isaac', 'Israel', 'John', '08032459283', 'ADMIN_ROLE'),
+(6, 8, 1, 'Emmanuel', 'Gbenga', 'Godfrey', '09066982545', 'ADMIN_ROLE'),
+(7, 4, 1, 'FixMaster', '', 'Management', '08132863878', 'SUPER_ADMIN_ROLE');
 
 -- --------------------------------------------------------
 
@@ -540,8 +681,9 @@ INSERT INTO `admins` (`id`, `user_id`, `created_by`, `first_name`, `middle_name`
 -- Table structure for table `admin_permissions`
 --
 
-CREATE TABLE `admin_permissions` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `admin_permissions`;
+CREATE TABLE IF NOT EXISTS `admin_permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `administrators` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `clients` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
@@ -556,8 +698,10 @@ CREATE TABLE `admin_permissions` (
   `tools` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `utilities` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `admin_permissions_user_id_unique` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `admin_permissions`
@@ -570,7 +714,7 @@ INSERT INTO `admin_permissions` (`id`, `user_id`, `administrators`, `clients`, `
 (4, 6, '0', '0', '1', '1', '0', '1', '1', '1', '0', '1', '1', '0', '2020-11-30 22:35:09', NULL),
 (5, 7, '0', '0', '0', '1', '0', '1', '1', '1', '0', '0', '1', '0', '2020-12-03 19:35:45', NULL),
 (8, 8, '0', '0', '0', '1', '0', '1', '1', '1', '0', '1', '1', '0', '2020-12-04 06:03:06', NULL),
-(9, 4, '0', '0', '0', '1', '0', '1', '1', '1', '0', '1', '1', '0', '2020-12-04 06:03:06', NULL);
+(9, 4, '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2020-12-04 06:03:06', NULL);
 
 -- --------------------------------------------------------
 
@@ -578,11 +722,13 @@ INSERT INTO `admin_permissions` (`id`, `user_id`, `administrators`, `clients`, `
 -- Table structure for table `banks`
 --
 
-CREATE TABLE `banks` (
-  `id` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `banks`;
+CREATE TABLE IF NOT EXISTS `banks` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `code` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `code` varchar(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `banks`
@@ -619,8 +765,9 @@ INSERT INTO `banks` (`id`, `name`, `code`) VALUES
 -- Table structure for table `categories`
 --
 
-CREATE TABLE `categories` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `service_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -630,13 +777,18 @@ CREATE TABLE `categories` (
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `url` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `total_votes` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `rating` float UNSIGNED NOT NULL DEFAULT '0',
+  `total_votes` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `rating` float UNSIGNED NOT NULL DEFAULT 0,
   `is_active` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `categories_name_unique` (`name`),
+  UNIQUE KEY `url` (`url`),
+  KEY `service_id` (`service_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `categories`
@@ -654,8 +806,9 @@ INSERT INTO `categories` (`id`, `user_id`, `service_id`, `name`, `standard_fee`,
 -- Table structure for table `clients`
 --
 
-CREATE TABLE `clients` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `clients`;
+CREATE TABLE IF NOT EXISTS `clients` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `state_id` tinyint(4) UNSIGNED DEFAULT NULL,
   `lga_id` int(11) UNSIGNED DEFAULT NULL,
@@ -668,8 +821,14 @@ CREATE TABLE `clients` (
   `gender` enum('Male','Female') COLLATE utf8mb4_unicode_ci NOT NULL,
   `avatar` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `full_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `discounted` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `discounted` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `clients_phone_number_unique` (`phone_number`),
+  KEY `user_id` (`user_id`,`state_id`,`lga_id`,`town`),
+  KEY `state_id` (`state_id`),
+  KEY `lga_id` (`lga_id`),
+  KEY `profession_id` (`profession_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `clients`
@@ -727,16 +886,15 @@ INSERT INTO `clients` (`id`, `user_id`, `state_id`, `lga_id`, `profession_id`, `
 (77, 69, 25, 354, NULL, 'Lagos Island', 'Folajimi', 'Sammy', 'Adesanya', '09049760210', 'Male', NULL, 'Odogunya, ikorodu, Lagos State, Nigeria', '0'),
 (78, 70, 25, 356, NULL, 'Ikorodu', 'Folajimi', 'Sammy', 'Adesanya', '08151902534', 'Male', NULL, 'Odogunya, ikorodu, Lagos State, Nigeria', '0'),
 (79, 71, 23, 359, 3, 'Ibadan', 'Ireti', 'Adebayo', 'Dauda', '08022233557', 'Male', '289c4e7a4326b03c825fa12e3e6236c98b634f11.png', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '1'),
-(80, 72, 25, 359, NULL, 'Victoria Island', 'Salami', 'David', 'Bello', '08022233558', 'Male', NULL, '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '0'),
-(81, 73, 25, 359, NULL, 'Victoria Island', 'Olusola', 'Pitan', 'Akinruntan', '08022233559', 'Male', NULL, '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '0'),
-(82, 74, 25, 359, NULL, 'Victoria Island', 'Emmanuela', 'Lovet', 'Eze - Ego', '08022233560', 'Female', NULL, '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '0'),
-(83, 75, 25, 359, NULL, 'Victoria Island', 'Chriatiana', 'Nkem', 'Nnwayawun', '08022233561', 'Female', NULL, '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '0'),
+(80, 72, 25, 359, 14, 'Victoria Island', 'Salami', 'David', 'Bello', '08022233558', 'Male', '6213989e357d039b421f5c703ef24294bcdd72e6.png', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '1'),
+(81, 73, 25, 359, 1, 'Victoria Island', 'Olusola', 'Pantami', 'Akinruntan', '08022233559', 'Male', 'ff50f7ebdc1074c56a5723810f5005f9bdd0fbea.png', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '1'),
+(82, 74, 25, 359, 2, 'Victoria Island', 'Emmanuela', 'Love', 'Eze - Ego', '08022233560', 'Female', '48dcc6c9cbbe45c30cf36ecbd25926ffc358ae7f.png', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '1'),
+(83, 75, 25, 359, 45, 'Victoria Island', 'Chriatiana', 'Wonderfulness', 'Nnwayawun', '08022233561', 'Female', '013479106d18aa649a645976c410704b94296fcb.png', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '1'),
 (85, 77, 25, 359, 19, 'Ikoyi', 'Demola', 'Ireti', 'Mhakinde', '07069385490', 'Male', 'c5f796194684170f0cd1df6675beb1ca13a99e99.jpg', '31, Ademola Adetokunmbo Street, Road 24, Ikoyi Lagos.', '1'),
-(86, 78, 22, 359, 38, 'Victoria Island', 'Frank', 'komoplafe', 'Brown-Coker', '08059386655', 'Male', '18f9f78affea64ba50b6bf340cbda01714259c85.jpg', '361, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '0'),
-(87, 79, 25, 359, 18, 'Lekki', 'Candy', 'Johnson', 'Mercy', '0909386641', 'Female', '6881400dd5f71cdb20408a935a976371a2504c2c.jpg', '31, Eke Dipo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '0'),
-(88, 80, 25, 359, 4, 'Victoria Island', 'Craig', 'pinnock', 'Ebute', '08069386541', 'Male', '28ed2debd1fe220de490b7293e8c5c0f343cb580.jpg', '31, Adetoun Adeola, Victoria Island, Lagos.', '0'),
-(89, 81, 25, 359, 60, 'Victoria Island', 'Etinosa', 'Lovelyn', 'Makinwa', '08099384297', 'Female', '6028ae2ea8c51f2b27d01251dc04ba65626dbdca.jpg', '2004, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '0'),
-(93, 83, 7, 714, NULL, 'Agege', 'David', 'Holmes', 'Ogbe', '08034888844', 'Male', NULL, 'dfsdgsdf sdgdfg sdg', '0');
+(86, 78, 22, 359, 38, 'Victoria Island', 'Frank', 'komoplafe', 'Brown-Coker', '08059386655', 'Male', '18f9f78affea64ba50b6bf340cbda01714259c85.jpg', '361, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '1'),
+(87, 79, 25, 359, 18, 'Lekki', 'Candy', 'Johnson', 'Mercy', '0909386641', 'Female', '6881400dd5f71cdb20408a935a976371a2504c2c.jpg', '31, Eke Dipo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '1'),
+(88, 80, 25, 359, 4, 'Victoria Island', 'Craig', 'pinnock', 'Ebute', '08069386541', 'Male', '28ed2debd1fe220de490b7293e8c5c0f343cb580.jpg', '31, Adetoun Adeola, Victoria Island, Lagos.', '1'),
+(89, 81, 25, 359, 60, 'Victoria Island', 'Etinosa', 'Lovelyn', 'Makinwa', '08099384297', 'Female', '6028ae2ea8c51f2b27d01251dc04ba65626dbdca.jpg', '2004, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '1');
 
 -- --------------------------------------------------------
 
@@ -744,8 +902,9 @@ INSERT INTO `clients` (`id`, `user_id`, `state_id`, `lga_id`, `profession_id`, `
 -- Table structure for table `cses`
 --
 
-CREATE TABLE `cses` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `cses`;
+CREATE TABLE IF NOT EXISTS `cses` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_by` bigint(20) UNSIGNED NOT NULL,
   `franchise_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -760,22 +919,32 @@ CREATE TABLE `cses` (
   `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `other_phone_number` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `account_number` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `rating` decimal(1,1) NOT NULL DEFAULT '0.0',
+  `rating` decimal(1,1) NOT NULL DEFAULT 0.0,
   `avatar` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `town` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `full_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `cses_phone_number_unique` (`phone_number`),
+  UNIQUE KEY `tag_id` (`tag_id`),
+  UNIQUE KEY `cses_other_phone_number_unique` (`other_phone_number`),
+  UNIQUE KEY `cses_account_number_unique` (`account_number`),
+  KEY `lga_id` (`lga_id`),
+  KEY `state_id` (`state_id`),
+  KEY `bank_id` (`bank_id`),
+  KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`bank_id`) USING BTREE,
+  KEY `created_by` (`created_by`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `cses`
 --
 
 INSERT INTO `cses` (`id`, `user_id`, `created_by`, `franchise_id`, `state_id`, `lga_id`, `bank_id`, `tag_id`, `first_name`, `middle_name`, `last_name`, `gender`, `phone_number`, `other_phone_number`, `account_number`, `rating`, `avatar`, `town`, `full_address`, `created_at`, `updated_at`) VALUES
-(1, 12, 1, NULL, 25, 359, 23, 'CSE-23804223', 'Godrey', 'Jamal', 'Diwa', 'Male', '07066812090', NULL, '0903728292', 0.0, '64qqxSx45jgWYwBAQ3yIgVS920FJm5cj.jpg', 'Victoria Island', '2 Chevron Drive, Lekki Penninsula II 12825, Lekki', NULL, '2020-12-18 18:25:52'),
-(2, 13, 1, NULL, 25, 371, 1, 'CSE-09320093', 'Benedict', 'Mayowa', 'Olaoye', 'Male', '08126378290', NULL, '0167982579', 0.0, 'a37d90fd60bf6d2487f072d57bea4a063a73018d.jpg', 'Lawanson', '18C, Orelope Street, Lawanson-Surulere, Lagos State.', NULL, '2020-12-18 18:26:52'),
-(4, 19, 1, NULL, 25, 354, 1, 'CSE-9DEEFB56', 'Favour', 'Ngozi', 'Nnamdi', 'Female', '09069826348', NULL, '0037497234', 0.0, '1e38d05f8090b1b189b50244074151e1d02c3591.jpg', 'Egbeda', 'Egbeda Bus stop off, tipper road. Egbeda - Alimosho,  Lagos.', '2020-12-18 13:03:16', '2020-12-18 19:38:12');
+(1, 12, 1, NULL, 25, 359, 23, 'CSE-23804223', 'Godrey', 'Jamal', 'Diwa', 'Male', '07066812090', NULL, '0903728292', '0.0', '64qqxSx45jgWYwBAQ3yIgVS920FJm5cj.jpg', 'Victoria Island', '2 Chevron Drive, Lekki Penninsula II 12825, Lekki', NULL, '2020-12-18 18:25:52'),
+(2, 13, 1, NULL, 25, 371, 1, 'CSE-09320093', 'Benedict', 'Mayowa', 'Olaoye', 'Male', '08126378290', NULL, '0167982579', '0.0', 'a37d90fd60bf6d2487f072d57bea4a063a73018d.jpg', 'Lawanson', '18C, Orelope Street, Lawanson-Surulere, Lagos State.', NULL, '2020-12-18 18:26:52'),
+(4, 19, 1, NULL, 25, 354, 1, 'CSE-9DEEFB56', 'Favour', 'Ngozi', 'Nnamdi', 'Female', '09069826348', NULL, '0037497234', '0.0', '1e38d05f8090b1b189b50244074151e1d02c3591.jpg', 'Egbeda', 'Egbeda Bus stop off, tipper road. Egbeda - Alimosho,  Lagos.', '2020-12-18 13:03:16', '2020-12-18 19:38:12');
 
 -- --------------------------------------------------------
 
@@ -783,9 +952,12 @@ INSERT INTO `cses` (`id`, `user_id`, `created_by`, `franchise_id`, `state_id`, `
 -- Table structure for table `cse_category`
 --
 
-CREATE TABLE `cse_category` (
+DROP TABLE IF EXISTS `cse_category`;
+CREATE TABLE IF NOT EXISTS `cse_category` (
   `cse_id` bigint(20) UNSIGNED NOT NULL,
-  `category_id` bigint(20) UNSIGNED NOT NULL
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  KEY `category_id` (`category_id`),
+  KEY `cse_id` (`cse_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -804,14 +976,17 @@ INSERT INTO `cse_category` (`cse_id`, `category_id`) VALUES
 -- Table structure for table `failed_jobs`
 --
 
-CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `failed_jobs`;
+CREATE TABLE IF NOT EXISTS `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `uuid` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -820,11 +995,14 @@ CREATE TABLE `failed_jobs` (
 -- Table structure for table `lgas`
 --
 
-CREATE TABLE `lgas` (
-  `id` int(4) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `lgas`;
+CREATE TABLE IF NOT EXISTS `lgas` (
+  `id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT,
   `state_id` tinyint(4) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `state_id` (`state_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=775 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `lgas`
@@ -1611,8 +1789,9 @@ INSERT INTO `lgas` (`id`, `state_id`, `name`) VALUES
 -- Table structure for table `location_and_browser_infos`
 --
 
-CREATE TABLE `location_and_browser_infos` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `location_and_browser_infos`;
+CREATE TABLE IF NOT EXISTS `location_and_browser_infos` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `ip` varchar(45) DEFAULT NULL,
   `country_name` varchar(191) DEFAULT NULL,
@@ -1631,8 +1810,11 @@ CREATE TABLE `location_and_browser_infos` (
   `browser_version` varchar(50) DEFAULT NULL,
   `device_operating_system` varchar(50) DEFAULT NULL,
   `device_operating_system_version` varchar(50) DEFAULT NULL,
-  `languages` varchar(191) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `languages` varchar(191) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`),
+  UNIQUE KEY `user_id_2` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `location_and_browser_infos`
@@ -1696,8 +1878,7 @@ INSERT INTO `location_and_browser_infos` (`id`, `user_id`, `ip`, `country_name`,
 (84, 78, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
 (85, 79, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
 (86, 80, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
-(87, 81, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
-(91, 83, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en');
+(87, 81, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en');
 
 -- --------------------------------------------------------
 
@@ -1705,8 +1886,9 @@ INSERT INTO `location_and_browser_infos` (`id`, `user_id`, `ip`, `country_name`,
 -- Table structure for table `messages`
 --
 
-CREATE TABLE `messages` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `sender_id` bigint(20) UNSIGNED NOT NULL,
   `recipient_id` bigint(20) UNSIGNED NOT NULL,
   `subject` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1714,8 +1896,11 @@ CREATE TABLE `messages` (
   `is_read` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `client_messages_ibfk_1` (`sender_id`),
+  KEY `client_messages_ibfk_2` (`recipient_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `messages`
@@ -1793,7 +1978,7 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 (70, 4, 70, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Folajimi Adesanya,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-04 15:12:12', '2021-01-04 15:12:12'),
 (71, 4, 71, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Ireti Dauda,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '1', NULL, '2021-01-05 09:51:51', '2021-01-05 13:06:49'),
 (72, 4, 72, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Salami Bello,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-05 09:58:11', '2021-01-05 09:58:11'),
-(73, 4, 73, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Olusola Akinruntan,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-05 10:10:17', '2021-01-05 10:10:17'),
+(73, 4, 73, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Olusola Akinruntan,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '1', NULL, '2021-01-05 10:10:17', '2021-01-06 08:26:25'),
 (74, 4, 74, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Emmanuela Eze - Ego,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-05 10:18:12', '2021-01-05 10:18:12'),
 (75, 4, 75, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Chriatiana Nnwayawun,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-05 10:19:57', '2021-01-05 10:19:57'),
 (77, 4, 77, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Ademola Makinde,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-05 10:35:33', '2021-01-05 10:35:33'),
@@ -1803,7 +1988,6 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 (81, 4, 81, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Etinosa Aigbe,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-05 10:45:28', '2021-01-05 10:45:28'),
 (85, 71, 4, 'Urgent Attention Required', '<p>Hello Customer Care,</p>\r\n<p>Please attend to my request.</p>\r\n<p>&nbsp;</p>\r\n<p>Thank you</p>', '0', NULL, '2021-01-05 13:02:38', '2021-01-05 13:02:38'),
 (86, 4, 77, 'Service Request(REF-7BEC1F70)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-7BEC1F70</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦1,425(Standard)</p><p><strong>Date & Time:</strong> January 6th 2021, 12:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 14:04:48', '2021-01-05 14:04:48'),
-(87, 4, 83, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello David Ogbe,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-05 14:08:04', '2021-01-05 14:08:04'),
 (88, 4, 77, 'Service Request(REF-473E6826)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-473E6826</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,500(Urgent)</p><p><strong>Date & Time:</strong> January 5th 2021, 2:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 14:11:54', '2021-01-05 14:11:54'),
 (89, 4, 71, 'Service Request(REF-103203B9)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-103203B9</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,375(Standard)</p><p><strong>Date & Time:</strong> January 5th 2021, 5:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '1', NULL, '2021-01-05 14:19:11', '2021-01-05 14:28:38'),
 (90, 4, 77, 'Service Request(REF-CFDA9CE8)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-CFDA9CE8</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Out of Hours)</p><p><strong>Date & Time:</strong> January 7th 2021, 8:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 14:21:55', '2021-01-05 14:21:55'),
@@ -1814,7 +1998,39 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 (95, 4, 71, 'Service Request(REF-79A722D6)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-79A722D6</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦4,000(Out of Hours)</p><p><strong>Date & Time:</strong> January 5th 2021, 5:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 15:49:42', '2021-01-05 15:49:42'),
 (96, 4, 71, 'Service Request(REF-CBE87860)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-CBE87860</p><p><strong>Service: </strong>Plumbing(Bath-Tubs, Pipes, Kitchen Sink)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,800(Standard)</p><p><strong>Date & Time:</strong> January 6th 2021, 6:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 15:59:51', '2021-01-05 15:59:51'),
 (97, 4, 71, 'Service Request(REF-FB0B7B30)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-FB0B7B30</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Urgent)</p><p><strong>Date & Time:</strong> January 6th 2021, 9:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 16:04:21', '2021-01-05 16:04:21'),
-(98, 4, 71, 'Service Request(REF-5B02030C)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-5B02030C</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Urgent)</p><p><strong>Date & Time:</strong> January 6th 2021, 9:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 16:05:43', '2021-01-05 16:05:43');
+(98, 4, 71, 'Service Request(REF-5B02030C)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-5B02030C</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Urgent)</p><p><strong>Date & Time:</strong> January 6th 2021, 9:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 16:05:43', '2021-01-05 16:05:43'),
+(99, 4, 81, 'Service Request(REF-F024810F)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-F024810F</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,375(Standard)</p><p><strong>Date & Time:</strong> January 6th 2021, 11:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 17:51:29', '2021-01-05 17:51:29'),
+(100, 4, 81, 'Service Request(REF-946C9191)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-946C9191</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,500(Standard)</p><p><strong>Date & Time:</strong> January 6th 2021, 11:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 17:52:52', '2021-01-05 17:52:52'),
+(101, 4, 81, 'Service Request(REF-781E7707)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-781E7707</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,500(Standard)</p><p><strong>Date & Time:</strong> January 6th 2021, 11:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 17:53:37', '2021-01-05 17:53:37'),
+(102, 4, 81, 'Service Request(REF-93080B0A)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-93080B0A</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,500(Urgent)</p><p><strong>Date & Time:</strong> January 5th 2021, 6:57:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 17:58:46', '2021-01-05 17:58:46'),
+(103, 4, 81, 'Service Request(REF-A3EDB578)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-A3EDB578</p><p><strong>Service: </strong>Plumbing(Bath-Tubs, Pipes, Kitchen Sink)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦4,500(Out of Hours)</p><p><strong>Date & Time:</strong> January 7th 2021, 9:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:00:46', '2021-01-05 18:00:46'),
+(104, 4, 80, 'Service Request(REF-D5521B5F)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-D5521B5F</p><p><strong>Service: </strong>Plumbing(Bath-Tubs, Pipes, Kitchen Sink)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,135(Urgent)</p><p><strong>Date & Time:</strong> January 6th 2021, 8:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:21:05', '2021-01-05 18:21:05'),
+(105, 4, 80, 'Service Request(REF-538B2830)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-538B2830</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,000(Standard)</p><p><strong>Date & Time:</strong> January 9th 2021, 8:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:24:07', '2021-01-05 18:24:07'),
+(106, 4, 80, 'Service Request(REF-E602F90D)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-E602F90D</p><p><strong>Service: </strong>Plumbing(Bath-Tubs, Pipes, Kitchen Sink)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦4,500(Out of Hours)</p><p><strong>Date & Time:</strong> January 5th 2021, 6:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:27:26', '2021-01-05 18:27:26'),
+(107, 4, 80, 'Service Request(REF-201D4CDA)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-201D4CDA</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,500(Standard)</p><p><strong>Date & Time:</strong> January 9th 2021, 1:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:29:01', '2021-01-05 18:29:01'),
+(108, 4, 80, 'Service Request(REF-678E7789)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-678E7789</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Out of Hours)</p><p><strong>Date & Time:</strong> January 10th 2021, 7:29:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:31:31', '2021-01-05 18:31:31'),
+(109, 4, 79, 'Service Request(REF-A2A3245E)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-A2A3245E</p><p><strong>Service: </strong>Plumbing(Bath-Tubs, Pipes, Kitchen Sink)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,660(Standard)</p><p><strong>Date & Time:</strong> January 10th 2021, 8:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:35:39', '2021-01-05 18:35:39'),
+(110, 4, 79, 'Service Request(REF-023E2780)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-023E2780</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,000(Standard)</p><p><strong>Date & Time:</strong> January 9th 2021, 4:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:39:05', '2021-01-05 18:39:05'),
+(111, 4, 79, 'Service Request(REF-8323A890)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-8323A890</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦4,700(Out of Hours)</p><p><strong>Date & Time:</strong> January 7th 2021, 7:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:41:02', '2021-01-05 18:41:02'),
+(112, 4, 79, 'Service Request(REF-10B62418)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-10B62418</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Urgent)</p><p><strong>Date & Time:</strong> January 7th 2021, 7:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:44:46', '2021-01-05 18:44:46'),
+(113, 4, 79, 'Service Request(REF-8B6BFB56)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-8B6BFB56</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Out of Hours)</p><p><strong>Date & Time:</strong> January 7th 2021, 9:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:46:30', '2021-01-05 18:46:30'),
+(114, 4, 78, 'Service Request(REF-BF3FC109)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-BF3FC109</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦4,465(Out of Hours)</p><p><strong>Date & Time:</strong> January 6th 2021, 7:52:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:52:46', '2021-01-05 18:52:46'),
+(115, 4, 78, 'Service Request(REF-282CB9FB)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-282CB9FB</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Out of Hours)</p><p><strong>Date & Time:</strong> January 6th 2021, 11:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:54:25', '2021-01-05 18:54:25'),
+(116, 4, 78, 'Service Request(REF-062960E8)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-062960E8</p><p><strong>Service: </strong>Plumbing(Bath-Tubs, Pipes, Kitchen Sink)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,300(Urgent)</p><p><strong>Date & Time:</strong> January 5th 2021, 9:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:57:09', '2021-01-05 18:57:09'),
+(117, 4, 78, 'Service Request(REF-E7420AB6)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-E7420AB6</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦1,500(Standard)</p><p><strong>Date & Time:</strong> January 13th 2021, 2:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 18:59:48', '2021-01-05 18:59:48'),
+(118, 4, 78, 'Service Request(REF-05C9D56E)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-05C9D56E</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,000(Standard)</p><p><strong>Date & Time:</strong> January 6th 2021, 4:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 19:03:31', '2021-01-05 19:03:31'),
+(119, 4, 72, 'Service Request(REF-333C7AE6)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-333C7AE6</p><p><strong>Service: </strong>Plumbing(Bath-Tubs, Pipes, Kitchen Sink)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,660(Standard)</p><p><strong>Date & Time:</strong> January 7th 2021, 1:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-05 19:24:59', '2021-01-05 19:24:59'),
+(120, 4, 72, 'Service Request(REF-58471A21)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-58471A21</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,500(Standard)</p><p><strong>Date & Time:</strong> January 9th 2021, 10:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 07:29:05', '2021-01-06 07:29:05'),
+(121, 4, 72, 'Service Request(REF-1F5B3509)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-1F5B3509</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦1,500(Standard)</p><p><strong>Date & Time:</strong> January 8th 2021, 11:00:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 07:43:37', '2021-01-06 07:43:37'),
+(122, 4, 73, 'Service Request(REF-CE71FFEE)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-CE71FFEE</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦4,465(Out of Hours)</p><p><strong>Date & Time:</strong> January 6th 2021, 8:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 08:33:28', '2021-01-06 08:33:28'),
+(123, 4, 73, 'Service Request(REF-E512CA0E)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-E512CA0E</p><p><strong>Service: </strong>Plumbing(Bath-Tubs, Pipes, Kitchen Sink)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,800(Standard)</p><p><strong>Date & Time:</strong> January 6th 2021, 12:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '1', NULL, '2021-01-06 08:36:00', '2021-01-06 08:36:24'),
+(124, 4, 73, 'Service Request(REF-F50C4CC2)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-F50C4CC2</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Urgent)</p><p><strong>Date & Time:</strong> January 9th 2021, 1:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 09:03:43', '2021-01-06 09:03:43'),
+(125, 4, 74, 'Service Request(REF-9AF58AE0)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-9AF58AE0</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,850(Standard)</p><p><strong>Date & Time:</strong> January 7th 2021, 12:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 09:09:48', '2021-01-06 09:09:48'),
+(126, 4, 74, 'Service Request(REF-3FD95205)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-3FD95205</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Urgent)</p><p><strong>Date & Time:</strong> January 9th 2021, 1:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 09:16:59', '2021-01-06 09:16:59'),
+(127, 4, 75, 'Service Request(REF-3975C909)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-3975C909</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,375(Standard)</p><p><strong>Date & Time:</strong> January 9th 2021, 1:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 10:04:02', '2021-01-06 10:04:02'),
+(128, 4, 75, 'Service Request(REF-7C7F09DA)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-7C7F09DA</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Out of Hours)</p><p><strong>Date & Time:</strong> January 6th 2021, 8:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 10:07:02', '2021-01-06 10:07:02'),
+(129, 4, 75, 'Service Request(REF-DBCBEA24)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-DBCBEA24</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Urgent)</p><p><strong>Date & Time:</strong> January 6th 2021, 11:09:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 10:12:51', '2021-01-06 10:12:51'),
+(130, 4, 75, 'Service Request(REF-EA418652)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-EA418652</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,500(Standard)</p><p><strong>Date & Time:</strong> January 16th 2021, 2:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 10:14:06', '2021-01-06 10:14:06');
 
 -- --------------------------------------------------------
 
@@ -1822,11 +2038,13 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 -- Table structure for table `migrations`
 --
 
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `migrations`;
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -1860,7 +2078,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (25, '2020_12_26_024041_create_rfq_batches_table', 17),
 (26, '2020_12_26_024633_create_rfq_suppliers_table', 17),
 (27, '2021_01_01_173645_create_received__payments_table', 18),
-(28, '2021_01_02_120756_create_service_request_cancellation_reasons_table', 19);
+(28, '2021_01_02_120756_create_service_request_cancellation_reasons_table', 19),
+(29, '2021_01_06_124234_create_wallet_transactions_table', 20);
 
 -- --------------------------------------------------------
 
@@ -1868,13 +2087,16 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- Table structure for table `names`
 --
 
-CREATE TABLE `names` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `names`;
+CREATE TABLE IF NOT EXISTS `names` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `names`
@@ -1946,16 +2168,15 @@ INSERT INTO `names` (`id`, `user_id`, `name`, `created_at`, `updated_at`) VALUES
 (63, 69, 'Folajimi Adesanya', '2021-01-04 15:06:18', '2021-01-04 15:06:18'),
 (64, 70, 'Folajimi Adesanya', '2021-01-04 15:12:12', '2021-01-04 15:12:12'),
 (65, 71, 'Ireti Dauda', '2021-01-05 09:51:51', '2021-01-05 12:49:00'),
-(66, 72, 'Salami Bello', '2021-01-05 09:58:11', '2021-01-05 09:58:11'),
-(67, 73, 'Olusola Akinruntan', '2021-01-05 10:10:17', '2021-01-05 10:10:17'),
-(68, 74, 'Emmanuela Eze - Ego', '2021-01-05 10:18:12', '2021-01-05 10:18:12'),
-(69, 75, 'Chriatiana Nnwayawun', '2021-01-05 10:19:57', '2021-01-05 10:19:57'),
+(66, 72, 'Salami Bello', '2021-01-05 09:58:11', '2021-01-05 17:44:57'),
+(67, 73, 'Olusola Akinruntan', '2021-01-05 10:10:17', '2021-01-06 08:26:01'),
+(68, 74, 'Emmanuela Eze - Ego', '2021-01-05 10:18:12', '2021-01-06 09:06:54'),
+(69, 75, 'Chriatiana Nnwayawun', '2021-01-05 10:19:57', '2021-01-05 17:21:43'),
 (71, 77, 'Demola Mhakinde', '2021-01-05 10:35:33', '2021-01-05 13:42:47'),
 (72, 78, 'Frank Brown-Coker', '2021-01-05 10:38:45', '2021-01-05 15:15:02'),
 (73, 79, 'Candy Mercy', '2021-01-05 10:40:54', '2021-01-05 15:17:30'),
-(74, 80, 'Craig Ebute', '2021-01-05 10:43:15', '2021-01-05 15:23:59'),
-(75, 81, 'Etinosa Makinwa', '2021-01-05 10:45:28', '2021-01-05 15:27:18'),
-(79, 83, 'David Ogbe', '2021-01-05 14:08:04', '2021-01-05 14:08:04');
+(74, 80, 'Craig Ebute', '2021-01-05 10:43:15', '2021-01-05 19:41:58'),
+(75, 81, 'Etinosa Makinwa', '2021-01-05 10:45:28', '2021-01-05 15:27:18');
 
 -- --------------------------------------------------------
 
@@ -1963,10 +2184,12 @@ INSERT INTO `names` (`id`, `user_id`, `name`, `created_at`, `updated_at`) VALUES
 -- Table structure for table `password_resets`
 --
 
-CREATE TABLE `password_resets` (
+DROP TABLE IF EXISTS `password_resets`;
+CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1975,15 +2198,17 @@ CREATE TABLE `password_resets` (
 -- Table structure for table `payment_gateways`
 --
 
-CREATE TABLE `payment_gateways` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `payment_gateways`;
+CREATE TABLE IF NOT EXISTS `payment_gateways` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `information` mediumtext COLLATE utf8mb4_unicode_ci,
+  `information` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` tinyint(4) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `payment_gateways`
@@ -1999,13 +2224,16 @@ INSERT INTO `payment_gateways` (`id`, `name`, `information`, `keyword`, `created
 -- Table structure for table `professions`
 --
 
-CREATE TABLE `professions` (
-  `id` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `professions`;
+CREATE TABLE IF NOT EXISTS `professions` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(191) NOT NULL,
   `description` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `professions`
@@ -2079,16 +2307,21 @@ INSERT INTO `professions` (`id`, `name`, `description`, `created_at`, `updated_a
 -- Table structure for table `received_payments`
 --
 
-CREATE TABLE `received_payments` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `received_payments`;
+CREATE TABLE IF NOT EXISTS `received_payments` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
   `payment_reference` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `payment_method` enum('Online','Offline','Wallet') COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `received__payments_payment_reference_unique` (`payment_reference`),
+  KEY `received__payments_user_id_index` (`user_id`),
+  KEY `received__payments_service_request_id_index` (`service_request_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `received_payments`
@@ -2107,7 +2340,39 @@ INSERT INTO `received_payments` (`id`, `user_id`, `service_request_id`, `payment
 (11, 71, 19, '583553003', 'Online', 4000, '2021-01-05 15:49:42', '2021-01-05 15:49:42'),
 (12, 71, 20, '877878315', 'Online', 2800, '2021-01-05 15:59:51', '2021-01-05 15:59:51'),
 (13, 71, 21, '165058490', 'Online', 3500, '2021-01-05 16:04:21', '2021-01-05 16:04:21'),
-(16, 71, 24, '414379280', 'Online', 3500, '2021-01-05 16:05:43', '2021-01-05 16:05:43');
+(16, 71, 24, '414379280', 'Online', 3500, '2021-01-05 16:05:43', '2021-01-05 16:05:43'),
+(17, 81, 25, '215676596', 'Online', 2375, '2021-01-05 17:51:29', '2021-01-05 17:51:29'),
+(19, 81, 27, '18896806', 'Online', 2500, '2021-01-05 17:52:52', '2021-01-05 17:52:52'),
+(20, 81, 29, '791212433', 'Online', 2500, '2021-01-05 17:53:37', '2021-01-05 17:53:37'),
+(21, 81, 30, '269085763', 'Online', 2500, '2021-01-05 17:58:46', '2021-01-05 17:58:46'),
+(22, 81, 31, '165594599', 'Online', 4500, '2021-01-05 18:00:46', '2021-01-05 18:00:46'),
+(23, 80, 32, '555373018', 'Online', 3135, '2021-01-05 18:21:05', '2021-01-05 18:21:05'),
+(24, 80, 33, '257155850', 'Online', 3000, '2021-01-05 18:24:07', '2021-01-05 18:24:07'),
+(25, 80, 34, '838688552', 'Online', 4500, '2021-01-05 18:27:26', '2021-01-05 18:27:26'),
+(26, 80, 35, '648644767', 'Online', 2500, '2021-01-05 18:29:01', '2021-01-05 18:29:01'),
+(27, 80, 36, '92427202', 'Online', 3500, '2021-01-05 18:31:31', '2021-01-05 18:31:31'),
+(28, 79, 37, '532252195', 'Online', 2660, '2021-01-05 18:35:39', '2021-01-05 18:35:39'),
+(29, 79, 38, '707882257', 'Online', 3000, '2021-01-05 18:39:05', '2021-01-05 18:39:05'),
+(30, 79, 39, '318189798', 'Online', 4700, '2021-01-05 18:41:02', '2021-01-05 18:41:02'),
+(31, 79, 40, '758255627', 'Online', 3500, '2021-01-05 18:44:46', '2021-01-05 18:44:46'),
+(32, 79, 41, '84623047', 'Online', 3500, '2021-01-05 18:46:30', '2021-01-05 18:46:30'),
+(33, 78, 42, '129310917', 'Online', 4465, '2021-01-05 18:52:46', '2021-01-05 18:52:46'),
+(34, 78, 43, '377118283', 'Online', 3500, '2021-01-05 18:54:25', '2021-01-05 18:54:25'),
+(35, 78, 44, '364578149', 'Online', 3300, '2021-01-05 18:57:09', '2021-01-05 18:57:09'),
+(36, 78, 45, '380128491', 'Online', 1500, '2021-01-05 18:59:48', '2021-01-05 18:59:48'),
+(37, 78, 46, '18230116', 'Online', 3000, '2021-01-05 19:03:31', '2021-01-05 19:03:31'),
+(38, 72, 47, '609821578', 'Online', 2660, '2021-01-05 19:24:59', '2021-01-05 19:24:59'),
+(40, 72, 49, '319851047', 'Online', 2500, '2021-01-06 07:29:05', '2021-01-06 07:29:05'),
+(41, 72, 50, '993458039', 'Online', 1500, '2021-01-06 07:43:37', '2021-01-06 07:43:37'),
+(43, 73, 52, '875909959', 'Online', 4465, '2021-01-06 08:33:28', '2021-01-06 08:33:28'),
+(44, 73, 53, '769002988', 'Online', 2800, '2021-01-06 08:36:00', '2021-01-06 08:36:00'),
+(47, 73, 56, '523449129', 'Online', 3500, '2021-01-06 09:03:43', '2021-01-06 09:03:43'),
+(48, 74, 57, '412115262', 'Online', 2850, '2021-01-06 09:09:48', '2021-01-06 09:09:48'),
+(50, 74, 59, '936841463', 'Online', 3500, '2021-01-06 09:16:59', '2021-01-06 09:16:59'),
+(53, 75, 62, '62706597', 'Online', 2375, '2021-01-06 10:04:02', '2021-01-06 10:04:02'),
+(54, 75, 63, '536155395', 'Online', 3500, '2021-01-06 10:07:02', '2021-01-06 10:07:02'),
+(56, 75, 65, '991279553', 'Online', 3500, '2021-01-06 10:12:51', '2021-01-06 10:12:51'),
+(57, 75, 66, '821550214', 'Online', 2500, '2021-01-06 10:14:06', '2021-01-06 10:14:06');
 
 -- --------------------------------------------------------
 
@@ -2115,8 +2380,9 @@ INSERT INTO `received_payments` (`id`, `user_id`, `service_request_id`, `payment
 -- Table structure for table `rfqs`
 --
 
-CREATE TABLE `rfqs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `rfqs`;
+CREATE TABLE IF NOT EXISTS `rfqs` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `issued_by` bigint(20) UNSIGNED NOT NULL,
   `client_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
@@ -2126,8 +2392,14 @@ CREATE TABLE `rfqs` (
   `accepted` enum('Yes','No') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `total_amount` int(10) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `rfqs_batch_number_unique` (`batch_number`),
+  UNIQUE KEY `rfqs_invoice_number_unique` (`invoice_number`),
+  KEY `rfqs_issued_by_index` (`issued_by`),
+  KEY `rfqs_client_id_index` (`client_id`),
+  KEY `rfqs_service_request_id_index` (`service_request_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `rfqs`
@@ -2142,14 +2414,17 @@ INSERT INTO `rfqs` (`id`, `issued_by`, `client_id`, `service_request_id`, `batch
 -- Table structure for table `rfq_batches`
 --
 
-CREATE TABLE `rfq_batches` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `rfq_batches`;
+CREATE TABLE IF NOT EXISTS `rfq_batches` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `rfq_id` bigint(20) UNSIGNED NOT NULL,
   `component_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `quantity` int(10) UNSIGNED NOT NULL,
-  `amount` int(10) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `amount` int(10) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rfq_batches_rfq_id_index` (`rfq_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `rfq_batches`
@@ -2165,13 +2440,17 @@ INSERT INTO `rfq_batches` (`id`, `rfq_id`, `component_name`, `model_number`, `qu
 -- Table structure for table `rfq_suppliers`
 --
 
-CREATE TABLE `rfq_suppliers` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `rfq_suppliers`;
+CREATE TABLE IF NOT EXISTS `rfq_suppliers` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `rfq_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `devlivery_fee` int(10) UNSIGNED NOT NULL,
-  `delivery_time` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `delivery_time` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `rfq_id` (`rfq_id`),
+  KEY `rfq_suppliers_rfq_id_index` (`rfq_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `rfq_suppliers`
@@ -2186,15 +2465,19 @@ INSERT INTO `rfq_suppliers` (`id`, `rfq_id`, `name`, `devlivery_fee`, `delivery_
 -- Table structure for table `services`
 --
 
-CREATE TABLE `services` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `services`;
+CREATE TABLE IF NOT EXISTS `services` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `services_name_unique` (`name`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `services`
@@ -2216,8 +2499,9 @@ INSERT INTO `services` (`id`, `user_id`, `name`, `is_active`, `deleted_at`, `cre
 -- Table structure for table `service_requests`
 --
 
-CREATE TABLE `service_requests` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `service_requests`;
+CREATE TABLE IF NOT EXISTS `service_requests` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `admin_id` bigint(20) UNSIGNED DEFAULT NULL,
   `cse_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -2226,12 +2510,22 @@ CREATE TABLE `service_requests` (
   `category_id` bigint(20) UNSIGNED NOT NULL,
   `job_reference` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `security_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `service_request_status_id` bigint(20) UNSIGNED NOT NULL DEFAULT '1',
+  `service_request_status_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `total_amount` bigint(20) UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `security_code` (`security_code`),
+  UNIQUE KEY `job_reference` (`job_reference`),
+  KEY `user_id` (`user_id`,`admin_id`,`cse_id`,`technician_id`,`service_id`,`category_id`),
+  KEY `category_id` (`category_id`),
+  KEY `service_id` (`service_id`),
+  KEY `admin_id` (`admin_id`),
+  KEY `technician_id` (`technician_id`),
+  KEY `cse_id` (`cse_id`),
+  KEY `service_request_status_id` (`service_request_status_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_requests`
@@ -2250,7 +2544,7 @@ INSERT INTO `service_requests` (`id`, `user_id`, `admin_id`, `cse_id`, `technici
 (13, 77, NULL, NULL, NULL, 5, 3, 'REF-CFDA9CE8', 'SEC-D296CAF1', 1, 3500, NULL, '2021-01-05 14:21:55', '2021-01-05 14:21:55'),
 (14, 77, NULL, NULL, NULL, 5, 3, 'REF-52AF6E61', 'SEC-1CAC63AD', 2, 1500, NULL, '2021-01-05 14:34:47', '2021-01-05 15:10:07'),
 (15, 77, NULL, NULL, NULL, 7, 1, 'REF-42D42C61', 'SEC-C8861654', 1, 3500, NULL, '2021-01-05 15:07:46', '2021-01-05 15:07:46'),
-(16, 71, NULL, NULL, NULL, 5, 3, 'REF-4CBA5AB0', 'SEC-10A26400', 1, 2500, NULL, '2021-01-05 15:14:27', '2021-01-05 15:14:27'),
+(16, 71, NULL, NULL, NULL, 5, 3, 'REF-4CBA5AB0', 'SEC-10A26400', 2, 2500, NULL, '2021-01-05 15:14:27', '2021-01-05 16:46:37'),
 (17, 71, NULL, NULL, NULL, 5, 3, 'REF-525747FE', 'SEC-C8B3D428', 1, 2500, NULL, '2021-01-05 15:14:29', '2021-01-05 15:14:29'),
 (18, 71, NULL, NULL, NULL, 5, 3, 'REF-EEE7FD14', 'SEC-92F0978A', 1, 2500, NULL, '2021-01-05 15:17:16', '2021-01-05 15:17:16'),
 (19, 71, NULL, NULL, NULL, 3, 4, 'REF-79A722D6', 'SEC-02E65DEF', 1, 4000, NULL, '2021-01-05 15:49:42', '2021-01-05 15:49:42'),
@@ -2258,7 +2552,49 @@ INSERT INTO `service_requests` (`id`, `user_id`, `admin_id`, `cse_id`, `technici
 (21, 71, NULL, NULL, NULL, 7, 1, 'REF-FB0B7B30', 'SEC-8A044E7D', 1, 3500, NULL, '2021-01-05 16:04:21', '2021-01-05 16:04:21'),
 (22, 71, NULL, NULL, NULL, 7, 1, 'REF-17D33982', 'SEC-930CE8A5', 1, 3500, NULL, '2021-01-05 16:04:23', '2021-01-05 16:04:23'),
 (23, 71, NULL, NULL, NULL, 7, 1, 'REF-48FCCAF7', 'SEC-EFF284F2', 1, 3500, NULL, '2021-01-05 16:04:33', '2021-01-05 16:04:33'),
-(24, 71, NULL, NULL, NULL, 7, 1, 'REF-5B02030C', 'SEC-4A9C03A0', 1, 3500, NULL, '2021-01-05 16:05:43', '2021-01-05 16:05:43');
+(24, 71, NULL, NULL, NULL, 7, 1, 'REF-5B02030C', 'SEC-4A9C03A0', 2, 3500, NULL, '2021-01-05 16:05:43', '2021-01-05 16:40:00'),
+(25, 81, NULL, NULL, NULL, 7, 1, 'REF-F024810F', 'SEC-994F80B2', 1, 2375, NULL, '2021-01-05 17:51:29', '2021-01-05 17:51:29'),
+(26, 81, NULL, NULL, NULL, 7, 1, 'REF-E4674993', 'SEC-B523B6E0', 2, 2500, NULL, '2021-01-05 17:51:35', '2021-01-05 17:54:58'),
+(27, 81, NULL, NULL, NULL, 7, 1, 'REF-946C9191', 'SEC-859C427D', 2, 2500, NULL, '2021-01-05 17:52:52', '2021-01-05 17:54:39'),
+(29, 81, NULL, NULL, NULL, 7, 1, 'REF-781E7707', 'SEC-C9D867EC', 2, 2500, NULL, '2021-01-05 17:53:37', '2021-01-05 17:54:18'),
+(30, 81, NULL, NULL, NULL, 5, 3, 'REF-93080B0A', 'SEC-3E8B51D9', 1, 2500, NULL, '2021-01-05 17:58:46', '2021-01-05 17:58:46'),
+(31, 81, NULL, NULL, NULL, 3, 2, 'REF-A3EDB578', 'SEC-28521A20', 1, 4500, NULL, '2021-01-05 18:00:46', '2021-01-05 18:00:46'),
+(32, 80, NULL, NULL, NULL, 3, 2, 'REF-D5521B5F', 'SEC-DFF6BAD1', 2, 3135, NULL, '2021-01-05 18:21:05', '2021-01-05 18:32:50'),
+(33, 80, NULL, NULL, NULL, 3, 4, 'REF-538B2830', 'SEC-F654C049', 1, 3000, NULL, '2021-01-05 18:24:07', '2021-01-05 18:24:07'),
+(34, 80, NULL, NULL, NULL, 3, 2, 'REF-E602F90D', 'SEC-A4A597D5', 2, 4500, NULL, '2021-01-05 18:27:26', '2021-01-05 18:32:02'),
+(35, 80, NULL, NULL, NULL, 7, 1, 'REF-201D4CDA', 'SEC-7A6EA728', 1, 2500, NULL, '2021-01-05 18:29:01', '2021-01-05 18:29:01'),
+(36, 80, NULL, NULL, NULL, 5, 3, 'REF-678E7789', 'SEC-B7073B7F', 1, 3500, NULL, '2021-01-05 18:31:31', '2021-01-05 18:31:31'),
+(37, 79, NULL, NULL, NULL, 3, 2, 'REF-A2A3245E', 'SEC-CA9A3A42', 1, 2660, NULL, '2021-01-05 18:35:39', '2021-01-05 18:35:39'),
+(38, 79, NULL, NULL, NULL, 3, 4, 'REF-023E2780', 'SEC-D2B5823C', 2, 3000, NULL, '2021-01-05 18:39:05', '2021-01-05 18:48:27'),
+(39, 79, NULL, NULL, NULL, 7, 1, 'REF-8323A890', 'SEC-5932D532', 2, 4700, NULL, '2021-01-05 18:41:02', '2021-01-05 18:47:52'),
+(40, 79, NULL, NULL, NULL, 3, 4, 'REF-10B62418', 'SEC-69C237FD', 1, 3500, NULL, '2021-01-05 18:44:46', '2021-01-05 18:44:46'),
+(41, 79, NULL, NULL, NULL, 5, 3, 'REF-8B6BFB56', 'SEC-693165FD', 1, 3500, NULL, '2021-01-05 18:46:30', '2021-01-05 18:46:30'),
+(42, 78, NULL, NULL, NULL, 7, 1, 'REF-BF3FC109', 'SEC-22F07584', 1, 4465, NULL, '2021-01-05 18:52:46', '2021-01-05 18:52:46'),
+(43, 78, NULL, NULL, NULL, 5, 3, 'REF-282CB9FB', 'SEC-EB6A67AA', 2, 3500, NULL, '2021-01-05 18:54:25', '2021-01-05 19:04:32'),
+(44, 78, NULL, NULL, NULL, 3, 2, 'REF-062960E8', 'SEC-C420C4B0', 1, 3300, NULL, '2021-01-05 18:57:09', '2021-01-05 18:57:09'),
+(45, 78, NULL, NULL, NULL, 5, 3, 'REF-E7420AB6', 'SEC-AF66D6E6', 1, 1500, NULL, '2021-01-05 18:59:48', '2021-01-05 18:59:48'),
+(46, 78, NULL, NULL, NULL, 3, 4, 'REF-05C9D56E', 'SEC-42FCDBC1', 2, 3000, NULL, '2021-01-05 19:03:31', '2021-01-05 19:04:03'),
+(47, 72, NULL, NULL, NULL, 3, 2, 'REF-333C7AE6', 'SEC-E5339D31', 1, 2660, NULL, '2021-01-05 19:24:59', '2021-01-05 19:24:59'),
+(48, 72, NULL, NULL, NULL, 3, 2, 'REF-8FF9184A', 'SEC-94ED8247', 2, 2800, NULL, '2021-01-05 19:25:00', '2021-01-06 08:16:08'),
+(49, 72, NULL, NULL, NULL, 7, 1, 'REF-58471A21', 'SEC-DC6CDF0E', 1, 2500, NULL, '2021-01-06 07:29:05', '2021-01-06 07:29:05'),
+(50, 72, NULL, NULL, NULL, 5, 3, 'REF-1F5B3509', 'SEC-C7DE50E2', 1, 1500, NULL, '2021-01-06 07:43:37', '2021-01-06 07:43:37'),
+(51, 72, NULL, NULL, NULL, 5, 3, 'REF-641E3BAF', 'SEC-322AF127', 2, 1500, NULL, '2021-01-06 07:43:39', '2021-01-06 07:46:10'),
+(52, 73, NULL, NULL, NULL, 7, 1, 'REF-CE71FFEE', 'SEC-FE0872DB', 1, 4465, NULL, '2021-01-06 08:33:28', '2021-01-06 08:33:28'),
+(53, 73, NULL, NULL, NULL, 3, 2, 'REF-E512CA0E', 'SEC-744373A5', 1, 2800, NULL, '2021-01-06 08:36:00', '2021-01-06 08:36:00'),
+(54, 73, NULL, NULL, NULL, 3, 2, 'REF-FFDDEC32', 'SEC-44C3BBE6', 2, 2800, NULL, '2021-01-06 08:36:01', '2021-01-06 09:05:46'),
+(55, 73, NULL, NULL, NULL, 3, 2, 'REF-3A0EFE3C', 'SEC-72A48287', 2, 2800, NULL, '2021-01-06 08:36:08', '2021-01-06 09:05:04'),
+(56, 73, NULL, NULL, NULL, 3, 4, 'REF-F50C4CC2', 'SEC-92B32D85', 1, 3500, NULL, '2021-01-06 09:03:43', '2021-01-06 09:03:43'),
+(57, 74, NULL, NULL, NULL, 3, 4, 'REF-9AF58AE0', 'SEC-6CBFC290', 1, 2850, NULL, '2021-01-06 09:09:48', '2021-01-06 09:09:48'),
+(58, 74, NULL, NULL, NULL, 3, 4, 'REF-0C8E1C14', 'SEC-8CC1DD83', 2, 3000, NULL, '2021-01-06 09:09:49', '2021-01-06 09:11:20'),
+(59, 74, NULL, NULL, NULL, 7, 1, 'REF-3FD95205', 'SEC-3819326C', 2, 3500, NULL, '2021-01-06 09:16:59', '2021-01-06 09:18:25'),
+(60, 74, NULL, NULL, NULL, 7, 1, 'REF-6B01DE7E', 'SEC-A5D53CBA', 1, 3500, NULL, '2021-01-06 09:17:00', '2021-01-06 09:17:00'),
+(61, 74, NULL, NULL, NULL, 7, 1, 'REF-C4CE8EBC', 'SEC-133661E1', 1, 3500, NULL, '2021-01-06 09:17:08', '2021-01-06 09:17:08'),
+(62, 75, NULL, NULL, NULL, 7, 1, 'REF-3975C909', 'SEC-2C9D2447', 1, 2375, NULL, '2021-01-06 10:04:02', '2021-01-06 10:04:02'),
+(63, 75, NULL, NULL, NULL, 5, 3, 'REF-7C7F09DA', 'SEC-297A2F9E', 2, 3500, NULL, '2021-01-06 10:07:02', '2021-01-06 10:07:42'),
+(64, 75, NULL, NULL, NULL, 5, 3, 'REF-B7A427B8', 'SEC-79ED8300', 1, 3500, NULL, '2021-01-06 10:07:03', '2021-01-06 10:07:03'),
+(65, 75, NULL, NULL, NULL, 3, 4, 'REF-DBCBEA24', 'SEC-7A157DBA', 1, 3500, NULL, '2021-01-06 10:12:51', '2021-01-06 10:12:51'),
+(66, 75, NULL, NULL, NULL, 7, 1, 'REF-EA418652', 'SEC-8E47F33D', 1, 2500, NULL, '2021-01-06 10:14:06', '2021-01-06 10:14:06'),
+(67, 75, NULL, NULL, NULL, 7, 1, 'REF-5CB26E66', 'SEC-B2C27ABC', 2, 2500, NULL, '2021-01-06 10:14:07', '2021-01-06 10:15:09');
 
 -- --------------------------------------------------------
 
@@ -2266,14 +2602,18 @@ INSERT INTO `service_requests` (`id`, `user_id`, `admin_id`, `cse_id`, `technici
 -- Table structure for table `service_request_cancellation_reasons`
 --
 
-CREATE TABLE `service_request_cancellation_reasons` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `service_request_cancellation_reasons`;
+CREATE TABLE IF NOT EXISTS `service_request_cancellation_reasons` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
   `reason` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `service_request_cancellation_reasons_user_id_index` (`user_id`),
+  KEY `service_request_cancellation_reasons_service_request_id_index` (`service_request_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_request_cancellation_reasons`
@@ -2282,7 +2622,26 @@ CREATE TABLE `service_request_cancellation_reasons` (
 INSERT INTO `service_request_cancellation_reasons` (`id`, `user_id`, `service_request_id`, `reason`, `created_at`, `updated_at`) VALUES
 (1, 11, 7, 'Testin request cancellation', '2021-01-02 12:01:24', '2021-01-02 12:01:24'),
 (2, 77, 14, 'The fault has been rectified', '2021-01-05 15:10:07', '2021-01-05 15:10:07'),
-(3, 77, 11, 'Late response from CSE', '2021-01-05 15:11:45', '2021-01-05 15:11:45');
+(3, 77, 11, 'Late response from CSE', '2021-01-05 15:11:45', '2021-01-05 15:11:45'),
+(4, 71, 24, 'Performed a hard restart and computer works fine now.', '2021-01-05 16:40:00', '2021-01-05 16:40:00'),
+(5, 71, 16, 'Plug pulled out of the electric supply mains. I plugged it back in properly and machine works just fine.', '2021-01-05 16:46:37', '2021-01-05 16:46:37'),
+(6, 81, 29, 'wrong request', '2021-01-05 17:54:18', '2021-01-05 17:54:18'),
+(7, 81, 27, 'wrong request...', '2021-01-05 17:54:39', '2021-01-05 17:54:39'),
+(8, 81, 26, 'repeated request', '2021-01-05 17:54:58', '2021-01-05 17:54:58'),
+(9, 80, 34, 'not available for repairs', '2021-01-05 18:32:02', '2021-01-05 18:32:02'),
+(10, 80, 32, 'not available for repairs', '2021-01-05 18:32:50', '2021-01-05 18:32:50'),
+(11, 79, 39, 'alternative has been gotten, thanks', '2021-01-05 18:47:52', '2021-01-05 18:47:52'),
+(12, 79, 38, 'found an alternative', '2021-01-05 18:48:27', '2021-01-05 18:48:27'),
+(13, 78, 46, 'i just want to cancel', '2021-01-05 19:04:03', '2021-01-05 19:04:03'),
+(14, 78, 43, 'False alarm from my housekeepers', '2021-01-05 19:04:32', '2021-01-05 19:04:32'),
+(15, 72, 51, 'Pressed reset button. Now working', '2021-01-06 07:46:10', '2021-01-06 07:46:10'),
+(16, 72, 48, 'Fixed already', '2021-01-06 08:16:08', '2021-01-06 08:16:08'),
+(17, 73, 55, 'Fixed', '2021-01-06 09:05:04', '2021-01-06 09:05:04'),
+(18, 73, 54, 'fixed', '2021-01-06 09:05:46', '2021-01-06 09:05:46'),
+(19, 74, 58, 'Fixed', '2021-01-06 09:11:20', '2021-01-06 09:11:20'),
+(20, 74, 59, 'Fixed', '2021-01-06 09:18:25', '2021-01-06 09:18:25'),
+(21, 75, 63, 'double booking', '2021-01-06 10:07:42', '2021-01-06 10:07:42'),
+(22, 75, 67, 'Double book', '2021-01-06 10:15:09', '2021-01-06 10:15:09');
 
 -- --------------------------------------------------------
 
@@ -2290,8 +2649,9 @@ INSERT INTO `service_request_cancellation_reasons` (`id`, `user_id`, `service_re
 -- Table structure for table `service_request_details`
 --
 
-CREATE TABLE `service_request_details` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `service_request_details`;
+CREATE TABLE IF NOT EXISTS `service_request_details` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
   `state_id` tinyint(4) UNSIGNED NOT NULL,
   `lga_id` int(11) UNSIGNED NOT NULL,
@@ -2307,8 +2667,12 @@ CREATE TABLE `service_request_details` (
   `payment_method` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `service_request_id` (`service_request_id`),
+  KEY `state_id` (`state_id`),
+  KEY `lga_id` (`lga_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_request_details`
@@ -2321,21 +2685,64 @@ INSERT INTO `service_request_details` (`id`, `service_request_id`, `state_id`, `
 (4, 6, 25, 359, 'Falomo', 3500, NULL, 'Urgent', '08034516844', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'Testing 222', 'December 27th 2020, 4:00:00pm', NULL, 'Online', NULL, '2020-12-15 09:33:01', '2020-12-15 09:33:01'),
 (5, 7, 25, 359, 'Falomo', 4700, NULL, 'Out of Hours', '08034516844', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'Please I urgently need a repair for my computer, It goes off saying overheating. I think the fan is faulty. You know it\'s New Year, so I\'ll need as swift response, thanks.', 'January 1st 2021, 11:00:00am', NULL, 'Online', NULL, '2020-12-15 09:51:29', '2021-01-01 07:42:03'),
 (7, 9, 25, 359, 'Falomo', 2500, NULL, 'Standard', '09035547107', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'Testing Paystack payment gateway', 'January 5th 2021, 10:00:00am', NULL, 'Online', NULL, '2021-01-02 17:51:26', '2021-01-02 17:51:26'),
-(8, 10, 25, 359, 'Ikoyi', 1500, 1425, 'Standard', '07069385490', '31, Ademola Adetokunmbo Street, Road 24, Ikoyi Lagos.', 'the dish washer keeps cracking the porcelain dishes. Its a  Hiace product, Model 34675HZXT1 2013 version 2A brand', 'January 6th 2021, 12:00:00pm', NULL, 'Online', NULL, '2021-01-05 14:04:48', '2021-01-05 14:04:48'),
+(8, 10, 25, 359, 'Ikoyi', 1500, 1425, 'Standard', '07069385490', '31, Ademola Adetokunmbo Street, Road 24, Ikoyi Lagos.', 'the dish washer keeps cracking the porcelain dishes. Its a  Hiace product, Model 34675HZXT1 2013 version 2A brand\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while your own battery won’t charge, tethering you to your desk? Has a travel website that advertises itself as convenient and integrated caused serious problems with your travel plans? Mention any such contrasts if they apply.\r\nHoverbike’s reputation and marketing emphasize your bicycles’ durability, reliability, and safety. Before this mechanical failure, I was very pleased with my Hoverbike, and in a few years I will need to upgrade to a larger one as I grow, but now I hesitate to choose one. My brother and sister also own Hoverbikes that are functioning perfectly, and they aren’t so sure that that they will stick with the brand after watching my experiences with the mechanical failure of my Hoverbike.\r\nIf your marketing campaigns are any indication, I am your target customer, a young girl who is allowed to explore her town on her own and use her bicycle for travel and recreational rides. More importantly, I am eight years old and look forward to a future of eco-conscious commuting. I hope to have many decades of cycling ahead of me, and I want to continue riding Hoverbikes in the future. Please restore my faith in your brand, stand behind your product, and cover the cost of this repair.\r\nThank you for taking the time to read this letter.\r\nSincerely,\r\nLisa Simpson\r\n610-555-3223\r\nlsimpson@springfield.k12.us\r\nThat’s it! It can also help in some cases to give the company a reasonable deadline to respond to you, and to outline any other acceptable resolutions. Telling the company what you want is an important starting point, even if what you want is only an apology.\r\nRELATED:\r\nGet Past Executive Customer Service Gatekeepers With Letter-Writing 101\r\n8 Ways To Make Sure Your Complaint Letter Will Be Ignored\r\n5 Sample Letters That Get Debt Collectors Out Of Your Face\r\n\r\nEditor\'s Note: This article originally appeared on Consumerist.\r\n\r\n\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while your own battery won’t charge, tethering you to your desk? Has a travel website that advertises itself as convenient and integrated caused serious problems with your travel plans? Mention any such contrasts if they apply.\r\nHoverbike’s reputation and marketing emphasize your bicycles’ durability, reliability, and safety. Before this mechanical failure, I was very pleased with my Hoverbike, and in a few years I will need to upgrade to a larger one as I grow, but now I hesitate to choose one. My brother and sister also own Hoverbikes that are functioning perfectly, and they aren’t so sure that that they will stick with the brand after watching my experiences with the mechanical failure of my Hoverbike.\r\nIf your marketing campaigns are any indication, I am your target customer, a young girl who is allowed to explore her town on her own and use her bicycle for travel and recreational rides. More importantly, I am eight years old and look forward to a future of eco-conscious commuting. I hope to have many decades of cycling ahead of me, and I want to continue riding Hoverbikes in the future. Please restore my faith in your brand, stand behind your product, and cover the cost of this repair.\r\nThank you for taking the time to read this letter.\r\nSincerely,\r\nLisa Simpson\r\n610-555-3223\r\nlsimpson@springfield.k12.us\r\nThat’s it! It can also help in some cases to give the company a reasonable deadline to respond to you, and to outline any other acceptable resolutions. Telling the company what you want is an important starting point, even if what you want is only an apology.\r\nRELATED:\r\nGet Past Executive Customer Service Gatekeepers With Letter-Writing 101\r\n8 Ways To Make Sure Your Complaint Letter Will Be Ignored\r\n5 Sample Letters That Get Debt Collectors Out Of Your Face\r\n\r\nEditor\'s Note: This article originally appeared on Consumerist.', 'January 6th 2021, 12:00:00pm', NULL, 'Online', NULL, '2021-01-05 14:04:48', '2021-01-05 19:12:41'),
 (9, 11, 25, 359, 'Ikoyi', 2500, NULL, 'Urgent', '08135242726', '31, Ademola Adetokunmbo Street, Road 24, Ikoyi Lagos.', 'the wash hand basin pipe is burst and flooding the bathroom badly. water keeps gushing, the bedroom  is flooding.', 'January 5th 2021, 2:00:00pm', NULL, 'Online', NULL, '2021-01-05 14:11:54', '2021-01-05 14:11:54'),
 (10, 12, 23, 359, 'Ibadan', 2500, 2375, 'Standard', '08022233557', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Broken Laptop screen', 'January 5th 2021, 5:00:00pm', '103203b9b084f239a70b27a4ad83ac5a77c75d5e.jfif', 'Online', NULL, '2021-01-05 14:19:11', '2021-01-05 14:19:11'),
-(11, 13, 25, 359, 'Ikoyi', 3500, NULL, 'Out of Hours', '07069385490', '284, ajose adeogun street, lagos', 'Washing machine plug is sparking. the cable appears melted.. Thermocool washing machine.', 'January 7th 2021, 8:00:00pm', 'cfda9ce8a83b225f9d460ef73c146ade4f1ae7c6.jfif', 'Online', NULL, '2021-01-05 14:21:55', '2021-01-05 14:21:55'),
+(11, 13, 25, 359, 'Ikoyi', 3500, NULL, 'Out of Hours', '07069385490', '284, ajose adeogun street, lagos', 'Washing machine plug is sparking. the cable appears melted.. Thermocool washing machine.\r\nIt’s hard to know where to start when writing a complaint letter. If our inbox is any indication, this difficulty manifests itself in free-form rants and confusion about what to say. It doesn’t have to be that way: simply stating the facts and explaining why the company should help you is enough. If you aren’t much of a wordsmith, Consumerist is here to help.\r\nHere’s an example letter, based on a recent successful complaint to a car manufacturer that crossed our desk recently. We’ve obscured the details, but the overall format of the letter remains the same.', 'January 7th 2021, 8:00:00pm', 'cfda9ce8a83b225f9d460ef73c146ade4f1ae7c6.jfif', 'Online', NULL, '2021-01-05 14:21:55', '2021-01-05 19:09:00'),
 (12, 14, 25, 359, 'Ikoyi', 1500, NULL, 'Standard', '07069385490', '31, Ademola Adetokunmbo Street, Road 24, Ikoyi Lagos.', 'washing machine plug is sparking', 'January 8th 2021, 4:00:00pm', NULL, 'Online', NULL, '2021-01-05 14:34:47', '2021-01-05 14:34:47'),
-(13, 15, 25, 359, 'Ikoyi', 3500, NULL, 'Urgent', '07069385490', '31, Ademola Adetokunmbo Street, Road 24, Ikoyi Lagos.', 'my laptop screen is orange colour. the laptop is a silver HP I core i3 10th gen', 'January 7th 2021, 4:00:00pm', '42d42c617824a1d710c5817537a9be9cb3d40c2e.jpg', 'Online', NULL, '2021-01-05 15:07:46', '2021-01-05 15:07:46'),
+(13, 15, 25, 359, 'Ikoyi', 3500, NULL, 'Urgent', '07069385490', '31, Ademola Adetokunmbo Street, Road 24, Ikoyi Lagos.', 'my laptop screen is orange colour. the laptop is a silver HP I core i3 10th gen\r\nThe summary. If you can’t sum your problem up in two or three sentences, have someone else read your e-mail and do it for you. As Consumerist’s tipline reader, I cannot emphasize enough the importance of getting your point across before the letter-reader’s eyes glaze over.\r\nIn the first paragraph, put your problem and suggested resolution. Then get on with the details.\r\n742 Evergreen Terrace\r\nSpringfield, USA 23456\r\nJuly 19, 2014\r\nHoverbike Corporation of America\r\nAttn: Customer Service\r\nP.O. Box 1578\r\nKabletown, WV 25414\r\nDear Hoverbike Corporation:\r\nI am writing to your company about a problem with my Hoverbike, a 2012 Skylark model. I began to have trouble staying aloft a few months ago, and this week the height control module completely failed. While the bicycle is a few months out of warranty, I believe that this occurred because of a design flaw in the Skylark, and I am asking that your company cover or share with me the cost of the required repair.\r\nNext are the details: who, what, where, when? Include addresses, store numbers, and serial numbers if applicable to your situation. Here you can add more details about your incident or problem and elaborate on what you recounted in the opening sentences if you need to.\r\nMy parents purchased my Hoverbike (serial number 118532C423) for me on April 21, 2012 from our local authorized Hoverbike dealer, Krebs Cycles of Springfield. I have enjoyed riding my bicycle, but also taken good care of it, performing all recommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.', 'January 7th 2021, 4:00:00pm', '42d42c617824a1d710c5817537a9be9cb3d40c2e.jpg', 'Online', NULL, '2021-01-05 15:07:46', '2021-01-05 19:09:41'),
 (14, 16, 23, 359, 'Ibadan', 2500, NULL, 'Urgent', '08023412345', '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', 'Dish washer stopped suddenly', 'January 12th 2021, 5:00:00pm', NULL, 'Online', NULL, '2021-01-05 15:14:27', '2021-01-05 15:14:27'),
 (15, 17, 23, 359, 'Ibadan', 2500, NULL, 'Urgent', '08023412345', '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', 'Dish washer stopped suddenly', 'January 12th 2021, 5:00:00pm', NULL, 'Online', NULL, '2021-01-05 15:14:29', '2021-01-05 15:14:29'),
 (16, 18, 23, 359, 'Ibadan', 2500, NULL, 'Urgent', '08021233456', '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', 'Dishwasher suddenly stopped working', 'January 12th 2021, 5:00:00pm', NULL, 'Online', NULL, '2021-01-05 15:17:16', '2021-01-05 15:17:16'),
 (17, 19, 23, 359, 'Ibadan', 4000, NULL, 'Out of Hours', '08022233557', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Blocked drainage. Waste water is returning into premises', 'January 5th 2021, 5:00:00pm', NULL, 'Online', NULL, '2021-01-05 15:49:42', '2021-01-05 15:49:42'),
-(18, 20, 23, 359, 'Ibadan', 2800, NULL, 'Standard', '08012345678', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Leaking bath tub', 'January 6th 2021, 6:00:00pm', 'cbe87860537864943f1cd45fb8693dc750160485.docx', 'Online', NULL, '2021-01-05 15:59:51', '2021-01-05 15:59:51'),
+(18, 20, 23, 359, 'Ibadan', 2800, NULL, 'Standard', '08012345678', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Leaking bath tub\r\nTap not running\r\nHeater not working\r\nShower is broken\r\nWaste water returning into bath tub\r\nSmelling drainage', 'January 6th 2021, 6:00:00pm', 'cbe87860537864943f1cd45fb8693dc750160485.docx', 'Online', NULL, '2021-01-05 15:59:51', '2021-01-05 17:06:45'),
 (19, 21, 23, 359, 'Ibadan', 3500, NULL, 'Urgent', '08022233557', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'System crash error message displayed on screen', 'January 6th 2021, 9:00:00am', 'fb0b7b305ef30ba3c2cc6f393f0d896152590217.jfif', 'Online', NULL, '2021-01-05 16:04:21', '2021-01-05 16:04:21'),
 (20, 22, 23, 359, 'Ibadan', 3500, NULL, 'Urgent', '08022233557', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'System crash error message displayed on screen', 'January 6th 2021, 9:00:00am', '17d3398264884ab2ca2b1805820333bc7afdaa6c.jfif', 'Online', NULL, '2021-01-05 16:04:23', '2021-01-05 16:04:23'),
-(21, 23, 23, 359, 'Ibadan', 3500, NULL, 'Urgent', '08022233557', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'System crash error message displayed on screen', 'January 6th 2021, 9:00:00am', '48fccaf73acb8e30fd4e165dc3ca57502962c06d.jfif', 'Online', NULL, '2021-01-05 16:04:33', '2021-01-05 16:04:33'),
-(22, 24, 23, 359, 'Ibadan', 3500, NULL, 'Urgent', '08022233557', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'System crash error message displayed on screen', 'January 6th 2021, 9:00:00am', NULL, 'Online', NULL, '2021-01-05 16:05:43', '2021-01-05 16:05:43');
+(21, 23, 23, 359, 'Ibadan', 3500, NULL, 'Urgent', '08022233557', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'System crash error message displayed on screen\r\nBlinking Low battery light\r\nAudio button not responding\r\nUpdates not running\r\nAntivirus outdated\r\nSystem running slow', 'January 6th 2021, 9:00:00am', '48fccaf73acb8e30fd4e165dc3ca57502962c06d.jfif', 'Online', NULL, '2021-01-05 16:04:33', '2021-01-05 16:59:29'),
+(22, 24, 23, 359, 'Ibadan', 3500, NULL, 'Urgent', '08022233557', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'System crash error message displayed on screen', 'January 6th 2021, 9:00:00am', NULL, 'Online', NULL, '2021-01-05 16:05:43', '2021-01-05 16:05:43'),
+(23, 25, 25, 359, 'Victoria Island', 2500, 2375, 'Standard', '08099384297', '276 Adeola odeku, victoria island, Lagos', 'there is no light in the house. all sockets and switched tripped off\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while \r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability whilerecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while', 'January 6th 2021, 11:00:00am', NULL, 'Online', NULL, '2021-01-05 17:51:29', '2021-01-05 19:51:03'),
+(24, 26, 25, 359, 'Victoria Island', 2500, NULL, 'Standard', '08099384297', '276 Adeola odeku, victoria island, Lagos', 'there is no light in the house. all sockets and switched tripped off', 'January 6th 2021, 11:00:00am', NULL, 'Online', NULL, '2021-01-05 17:51:35', '2021-01-05 17:51:35'),
+(25, 27, 25, 359, 'Victoria Island', 2500, NULL, 'Standard', '08099384297', '2004, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'there is no light in the house. all sockets and switched tripped off', 'January 6th 2021, 11:00:00am', NULL, 'Online', NULL, '2021-01-05 17:52:52', '2021-01-05 17:52:52'),
+(26, 29, 25, 359, 'Victoria Island', 2500, NULL, 'Standard', '08099384297', '276 Adeola odeku, victoria island, Lagos', 'there is no light in the house. all sockets and switched tripped off', 'January 6th 2021, 11:00:00am', NULL, 'Online', NULL, '2021-01-05 17:53:37', '2021-01-05 17:53:37'),
+(27, 30, 25, 359, 'Victoria Island', 2500, NULL, 'Urgent', '08099384297', '2004, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'the washing machine is emitting shock waves\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\n\\recommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\nrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while', 'January 5th 2021, 6:57:00pm', NULL, 'Online', NULL, '2021-01-05 17:58:46', '2021-01-05 19:49:40'),
+(28, 31, 25, 359, 'Victoria Island', 4500, NULL, 'Out of Hours', '08099384297', '2004, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'the bathtub is rusty and needs to be changed\r\nRELATED:\r\nGet Past Executive Customer Service Gatekeepers With Letter-Writing 101\r\n8 Ways To Make Sure Your Complaint Letter Will Be Ignoredrecommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while\r\n5 Sample Letters That Get Debt Collectors Out Of Your Face\r\n\r\nEditor\'s Note: This article originally appeared on Consumerist.\r\n\r\nStart Getting Membership Benefits Today!\r\n\r\nUseful tools, trusted advice, important safety news.\r\nJoin\r\n    \r\nConsumer Reports\r\nMember Support\r\nContact Us\r\nAccount Settings\r\nWhat is Membership?\r\nMake a Donation\r\nNewsletters\r\nGive a Gift\r\nAbout\r\nAbout Us\r\nCareer Opportunities\r\nMedia Room\r\nAdvocacy\r\nData Intelligence\r\nDigital Lab', 'January 7th 2021, 9:00:00pm', NULL, 'Online', NULL, '2021-01-05 18:00:46', '2021-01-05 19:48:40'),
+(29, 32, 25, 359, 'Victoria Island', 3300, 3135, 'Urgent', '0815557446', '31, Adetoun Adeola, Victoria Island, Lagos.', 'arson water heater is not dispensing hot water', 'January 6th 2021, 8:00:00am', NULL, 'Online', NULL, '2021-01-05 18:21:05', '2021-01-05 18:21:05'),
+(30, 33, 25, 359, 'Victoria Island', 3000, NULL, 'Standard', '08069386541', '31, Adetoun Adeola, Victoria Island, Lagos.', 'broken cover of septic tank\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while your own battery won’t charge, tethering you to your desk? Has a travel website that advertises itself as convenient and integrated caused serious problems with your travel plans? Mention any such contrasts if they apply.\r\nHoverbike’s reputation and marketing emphasize your bicycles’ durability, reliability, and safety. Before this mechanical failure, I was very pleased with my Hoverbike, and in a few years I will need to upgrade to a larger one as I grow, but now I hesitate to choose one. My brother and sister also own Hoverbikes that are functioning perfectly, and they aren’t so sure that that they will stick with the brand after watching my experiences with the mechanical failure of my Hoverbike.\r\nIf your marketing campaigns are any indication, I am your target customer, a young girl who is allowed to explore her town on her own and use her bicycle for travel and recreational rides. More importantly, I am eight years old and look forward to a future of eco-conscious commuting. I hope to have many decades of cycling ahead of me, and I want to continue riding Hoverbikes in the future. Please restore my faith in your brand, stand behind your product, and cover the cost of this repair.\r\nThank you for taking the time to read this letter.\r\nSincerely,\r\nLisa Simpson\r\n610-555-3223', 'January 9th 2021, 8:00:00pm', NULL, 'Online', NULL, '2021-01-05 18:24:07', '2021-01-05 19:41:08'),
+(31, 34, 25, 359, 'Victoria Island', 4500, NULL, 'Out of Hours', '08069386541', '31, Adetoun Adeola, Victoria Island, Lagos.', 'Water is leaking from the kitchen wall tiles', 'January 5th 2021, 6:00:00am', 'e602f90dafa968d4e39ab2ed6f7dfdd6b384f6da.jpg', 'Online', NULL, '2021-01-05 18:27:26', '2021-01-05 18:27:26'),
+(32, 35, 25, 359, 'Victoria Island', 2500, NULL, 'Standard', '08069386541', '31, Adetoun Adeola, Victoria Island, Lagos.', 'tv screen is blurred...Panasonic 2013 grade A model\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while your own battery won’t charge, tethering you to your desk? Has a travel website that advertises itself as convenient and integrated caused serious problems with your travel plans? Mention any such contrasts if they apply.\r\nHoverbike’s reputation and marketing emphasize your bicycles’ durability, reliability, and safety. Before this mechanical failure, I was very pleased with my Hoverbike, and in a few years I will need to upgrade to a larger one as I grow, but now I hesitate to choose one. My brother and sister also own Hoverbikes that are functioning perfectly, and they aren’t so sure that that they will stick with the brand after watching my experiences with the mechanical failure of my Hoverbike.\r\nIf your marketing campaigns are any indication, I am your target customer, a young girl who is allowed to explore her town on her own and use her bicycle for travel and recreational rides. More importantly, I am eight years old and look forward to a future of eco-conscious commuting. I hope to have many decades of cycling ahead of me, and I want to continue riding Hoverbikes in the future. Please restore my faith in your brand, stand behind your product, and cover the cost of this repair.\r\nThank you for taking the time to read this letter.\r\nSincerely,\r\nLisa Simpson\r\n610-555-3223', 'January 9th 2021, 1:00:00pm', NULL, 'Online', NULL, '2021-01-05 18:29:01', '2021-01-05 19:40:45'),
+(33, 36, 25, 359, 'Victoria Island', 3500, NULL, 'Out of Hours', '08069386541', '31, Adetoun Adeola, Victoria Island, Lagos.\r\n\r\nBuchi Omotosho is inviting you to a scheduled Zoom meeting.\r\n\r\nTopic: FixMaster Test Review Zoom Meeting\r\nTime: Jan 5, 2021 09:00 PM Paris\r\n\r\nJoin Zoom Meeting\r\nhttps://us04web.zoom.us/j/78053152877?pwd=dFRDV2tRcmtVK0ZQOHVyNEhya3pWUT09\r\n\r\nMeeting ID: 780 5315 2877\r\nPasscode: 4YL56D', 'water dispenser is faulty and needs replacement\r\nBuchi Omotosho is inviting you to a scheduled Zoom meeting.\r\n\r\nTopic: FixMaster Test Review Zoom Meeting\r\nTime: Jan 5, 2021 09:00 PM Paris\r\n\r\nJoin Zoom Meeting\r\nhttps://us04web.zoom.us/j/78053152877?pwd=dFRDV2tRcmtVK0ZQOHVyNEhya3pWUT09\r\n\r\nMeeting ID: 780 5315 2877\r\nPasscode: 4YL56D\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while your own battery won’t charge, tethering you to your desk? Has a travel website that advertises itself as convenient and integrated caused serious problems with your travel plans? Mention any such contrasts if they apply.\r\nHoverbike’s reputation and marketing emphasize your bicycles’ durability, reliability, and safety. Before this mechanical failure, I was very pleased with my Hoverbike, and in a few years I will need to upgrade to a larger one as I grow, but now I hesitate to choose one. My brother and sister also own Hoverbikes that are functioning perfectly, and they aren’t so sure that that they will stick with the brand after watching my experiences with the mechanical failure of my Hoverbike.\r\nIf your marketing campaigns are any indication, I am your target customer, a young girl who is allowed to explore her town on her own and use her bicycle for travel and recreational rides. More importantly, I am eight years old and look forward to a future of eco-conscious commuting. I hope to have many decades of cycling ahead of me, and I want to continue riding Hoverbikes in the future. Please restore my faith in your brand, stand behind your product, and cover the cost of this repair.\r\nThank you for taking the time to read this letter.\r\nSincerely,\r\nLisa Simpson\r\n610-555-3223', 'January 10th 2021, 7:29:00pm', '678e7789bb62f0d447ee7e7d5cf196e07174bd63.jpg', 'Online', NULL, '2021-01-05 18:31:31', '2021-01-05 19:37:32'),
+(34, 37, 25, 359, 'Lekki', 2800, 2660, 'Standard', '0909386641', '45, Lekki phase 1 road, Victoria Island', 'the pressure from the pipes in the bathtub and kitchen are very low\r\n\r\nYet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while your own battery won’t charge, tethering you to your desk? Has a travel website that advertises itself as convenient and integrated caused serious problems with your travel plans? Mention any such contrasts if they apply.', 'January 10th 2021, 8:00:00pm', NULL, 'Online', NULL, '2021-01-05 18:35:39', '2021-01-05 19:21:45'),
+(35, 38, 25, 359, 'Lekki', 3000, NULL, 'Standard', '0909386641', '31, Eke Dipo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'the head of the shower in all the 5 bedrooms require replacement.', 'January 9th 2021, 4:00:00pm', '023e2780ae1d9710a398209013d6f92a320125e6.jpg', 'Online', NULL, '2021-01-05 18:39:05', '2021-01-05 18:39:05'),
+(36, 39, 25, 359, 'Lekki', 4700, NULL, 'Out of Hours', '0909386641', '31, Eke Dipo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'the distribution board keeps sparking. it is a Schneider product', 'January 7th 2021, 7:00:00am', '8323a890b91cac29a52e297e5b772ded09a94819.jpg', 'Online', NULL, '2021-01-05 18:41:02', '2021-01-05 18:41:02'),
+(37, 40, 25, 359, 'Lekki', 3500, NULL, 'Urgent', '0909386641', '31, Eke Dipo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'guest bathroom toilet is not flushing. when i try to flush it overflows\r\n\r\nThat’s it! It can also help in some cases to give the company a reasonable deadline to respond to you, and to outline any other acceptable resolutions. Telling the company what you want is an important starting point, even if what you want is only an apology.\r\nRELATED:\r\nGet Past Executive Customer Service Gatekeepers With Letter-Writing 101\r\n8 Ways To Make Sure Your Complaint Letter Will Be Ignored\r\n5 Sample Letters That Get Debt Collectors Out Of Your Face\r\n\r\nEditor\'s Note: This article originally appeared on Consumerist.\r\nYet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while your own battery won’t charge, tethering you to your desk? Has a travel website that advertises itself as convenient and integrated caused serious problems with your travel plans? Mention any such contrasts if they apply.', 'January 7th 2021, 7:00:00pm', NULL, 'Online', NULL, '2021-01-05 18:44:46', '2021-01-05 19:20:45'),
+(38, 41, 25, 359, 'Lekki', 3500, NULL, 'Out of Hours', '0909386641', '31, Eke Dipo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'i just need a technician, when you get here you will understand\r\nBuchyefap1testClient3@fixmaster.com.ng\r\nThat’s it! It can also help in some cases to give the company a reasonable deadline to respond to you, and to outline any other acceptable resolutions. Telling the company what you want is an important starting point, even if what you want is only an apology.\r\nRELATED:\r\nGet Past Executive Customer Service Gatekeepers With Letter-Writing 101\r\n8 Ways To Make Sure Your Complaint Letter Will Be Ignored\r\n5 Sample Letters That Get Debt Collectors Out Of Your Face\r\n\r\nEditor\'s Note: This article originally appeared on Consumerist.', 'January 7th 2021, 9:00:00pm', NULL, 'Online', NULL, '2021-01-05 18:46:30', '2021-01-05 19:20:14');
+INSERT INTO `service_request_details` (`id`, `service_request_id`, `state_id`, `lga_id`, `town`, `initial_service_fee`, `discount_service_fee`, `service_fee_name`, `phone_number`, `address`, `description`, `timestamp`, `media_file`, `payment_method`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(39, 42, 22, 359, 'Victoria Island', 4700, 4465, 'Out of Hours', '0705556777', '284b, Ajose Adeogun, VI', 'The standing fans are sparking. 5 OX industrial duty fans\r\nlogo\r\nProduct Reviews\r\nNewsIssues That MatterAbout Us\r\nsearch\r\nSign In\r\nBecome a Member\r\nDonate\r\nConsumer ReportsHere\'s A Sample Complaint Letter For When You Don\'t Know What To Say\r\nSign In\r\nBecome a Member\r\nDonate\r\nlogo\r\nHere\'s A Sample Complaint Letter For When You Don\'t Know What To Say\r\nHere\'s A Sample Complaint Letter For When You Don\'t Know What To Say\r\n\r\nby Laura Northrup\r\nLast updated: July 21, 2014\r\n    \r\nIt’s hard to know where to start when writing a complaint letter. If our inbox is any indication, this difficulty manifests itself in free-form rants and confusion about what to say. It doesn’t have to be that way: simply stating the facts and explaining why the company should help you is enough. If you aren’t much of a wordsmith, Consumerist is here to help.\r\nHere’s an example letter, based on a recent successful complaint to a car manufacturer that crossed our desk recently. We’ve obscured the details, but the overall format of the letter remains the same.\r\nThe summary. If you can’t sum your problem up in two or three sentences, have someone else read your e-mail and do it for you. As Consumerist’s tipline reader, I cannot emphasize enough the importance of getting your point across before the letter-reader’s eyes glaze over.\r\nIn the first paragraph, put your problem and suggested resolution. Then get on with the details.\r\n742 Evergreen Terrace\r\nSpringfield, USA 23456\r\nJuly 19, 2014\r\nHoverbike Corporation of America\r\nAttn: Customer Service\r\nP.O. Box 1578\r\nKabletown, WV 25414\r\nDear Hoverbike Corporation:\r\nI am writing to your company about a problem with my Hoverbike, a 2012 Skylark model. I began to have trouble staying aloft a few months ago, and this week the height control module completely failed. While the bicycle is a few months out of warranty, I believe that this occurred because of a design flaw in the Skylark, and I am asking that your company cover or share with me the cost of the required repair.\r\nNext are the details: who, what, where, when? Include addresses, store numbers, and serial numbers if applicable to your situation. Here you can add more details about your incident or problem and elaborate on what you recounted in the opening sentences if you need to.\r\nMy parents purchased my Hoverbike (serial number 118532C423) for me on April 21, 2012 from our local authorized Hoverbike dealer, Krebs Cycles of Springfield. I have enjoyed riding my bicycle, but also taken good care of it, performing all recommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while your own battery won’t charge, tethering you to your desk? Has a travel website that advertises itself as convenient and integrated caused serious problems with your travel plans? Mention any such contrasts if they apply.\r\nHoverbike’s reputation and marketing emphasize your bicycles’ durability, reliability, and safety. Before this mechanical failure, I was very pleased with my Hoverbike, and in a few years I will need to upgrade to a larger one as I grow, but now I hesitate to choose one. My brother and sister also own Hoverbikes that are functioning perfectly, and they aren’t so sure that that they will stick with the brand after watching my experiences with the mechanical failure of my Hoverbike.\r\nIf your marketing campaigns are any indication, I am your target customer, a young girl who is allowed to explore her town on her own and use her bicycle for travel and recreational rides. More importantly, I am eight years old and look forward to a future of eco-conscious commuting. I hope to have many decades of cycling ahead of me, and I want to continue riding Hoverbikes in the future. Please restore my faith in your brand, stand behind your product, and cover the cost of this repair.\r\nThank you for taking the time to read this letter.\r\nSincerely,\r\nLisa Simpson\r\n610-555-3223\r\nlsimpson@springfield.k12.us\r\nThat’s it! It can also help in some cases to give the company a reasonable deadline to respond to you, and to outline any other acceptable resolutions. Telling the company what you want is an important starting point, even if what you want is only an apology.\r\nRELATED:\r\nGet Past Executive Customer Service Gatekeepers With Letter-Writing 101\r\n8 Ways To Make Sure Your Complaint Letter Will Be Ignored\r\n5 Sample Letters That Get Debt Collectors Out Of Your Face\r\n\r\nEditor\'s Note: This article originally appeared on Consumerist.\r\n\r\nStart Getting Membership Benefits Today!\r\n\r\nUseful tools, trusted advice, important safety news.\r\nJoin\r\n    \r\nConsumer Reports\r\nMember Support\r\nContact Us\r\nAccount Settings\r\nWhat is Membership?\r\nMake a Donation\r\nNewsletters\r\nGive a Gift\r\nAbout\r\nports, Inc.', 'January 6th 2021, 7:52:00pm', NULL, 'Online', NULL, '2021-01-05 18:52:46', '2021-01-05 19:19:15'),
+(40, 43, 22, 359, 'Victoria Island', 3500, NULL, 'Out of Hours', '08059386655', '361, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'industrial washing machine AXCGT6648 Ascon phyno washing machine', 'January 6th 2021, 11:00:00pm', '282cb9fbf60ba9099e8bbff1d6ec63832926a996.jpg', 'Online', NULL, '2021-01-05 18:54:25', '2021-01-05 18:54:25'),
+(41, 44, 22, 359, 'Victoria Island', 3300, NULL, 'Urgent', '08059386655', '361, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'distribution board in my house is sparking\r\nlogo\r\nProduct Reviews\r\nNewsIssues That MatterAbout Us\r\nsearch\r\nSign In\r\nBecome a Member\r\nDonate\r\nConsumer ReportsHere\'s A Sample Complaint Letter For When You Don\'t Know What To Say\r\nSign In\r\nBecome a Member\r\nDonate\r\nlogo\r\nHere\'s A Sample Complaint Letter For When You Don\'t Know What To Say\r\nHere\'s A Sample Complaint Letter For When You Don\'t Know What To Say\r\n\r\nby Laura Northrup\r\nLast updated: July 21, 2014\r\n    \r\nIt’s hard to know where to start when writing a complaint letter. If our inbox is any indication, this difficulty manifests itself in free-form rants and confusion about what to say. It doesn’t have to be that way: simply stating the facts and explaining why the company should help you is enough. If you aren’t much of a wordsmith, Consumerist is here to help.\r\nHere’s an example letter, based on a recent successful complaint to a car manufacturer that crossed our desk recently. We’ve obscured the details, but the overall format of the letter remains the same.\r\nThe summary. If you can’t sum your problem up in two or three sentences, have someone else read your e-mail and do it for you. As Consumerist’s tipline reader, I cannot emphasize enough the importance of getting your point across before the letter-reader’s eyes glaze over.\r\nIn the first paragraph, put your problem and suggested resolution. Then get on with the details.\r\n742 Evergreen Terrace\r\nSpringfield, USA 23456\r\nJuly 19, 2014\r\nHoverbike Corporation of America\r\nAttn: Customer Service\r\nP.O. Box 1578\r\nKabletown, WV 25414\r\nDear Hoverbike Corporation:\r\nI am writing to your company about a problem with my Hoverbike, a 2012 Skylark model. I began to have trouble staying aloft a few months ago, and this week the height control module completely failed. While the bicycle is a few months out of warranty, I believe that this occurred because of a design flaw in the Skylark, and I am asking that your company cover or share with me the cost of the required repair.\r\nNext are the details: who, what, where, when? Include addresses, store numbers, and serial numbers if applicable to your situation. Here you can add more details about your incident or problem and elaborate on what you recounted in the opening sentences if you need to.\r\nMy parents purchased my Hoverbike (serial number 118532C423) for me on April 21, 2012 from our local authorized Hoverbike dealer, Krebs Cycles of Springfield. I have enjoyed riding my bicycle, but also taken good care of it, performing all recommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while your own battery won’t charge, tethering you to your desk? Has a travel website that advertises itself as convenient and integrated caused serious problems with your travel plans? Mention any such contrasts if they apply.\r\nHoverbike’s reputation and marketing emphasize your bicycles’ durability, reliability, and safety. Before this mechanical failure, I was very pleased with my Hoverbike, and in a few years I will need to upgrade to a larger one as I grow, but now I hesitate to choose one. My brother and sister also own Hoverbikes that are functioning perfectly, and they aren’t so sure that that they will stick with the brand after watching my experiences with the mechanical failure of my Hoverbike.\r\nIf your marketing campaigns are any indication, I am your target customer, a young girl who is allowed to explore her town on her own and use her bicycle for travel and recreational rides. More importantly, I am eight years old and look forward to a future of eco-conscious commuting. I hope to have many decades of cycling ahead of me, and I want to continue riding Hoverbikes in the future. Please restore my faith in your brand, stand behind your product, and cover the cost of this repair.\r\nThank you for taking the time to read this letter.\r\nSincerely,\r\nLisa Simpson\r\n610-555-3223\r\nlsimpson@springfield.k12.us\r\nThat’s it! It can also help in some cases to give the company a reasonable deadline to respond to you, and to outline any other acceptable resolutions. Telling the company what you want is an important starting point, even if what you want is only an apology.\r\nRELATED:\r\nGet Past Executive Customer Service Gatekeepers With Letter-Writing 101\r\n8 Ways To Make Sure Your Complaint Letter Will Be Ignored\r\n5 Sample Letters That Get Debt Collectors Out Of Your Face\r\n\r\nEditor\'s Note: This article originally appeared on Consumerist.\r\n\r\nStart Getting Membership Benefits Today!\r\n\r\nUseful tools, trusted advice, important safety news.\r\nJoin\r\n    \r\nConsumer Reports\r\nMember Support\r\nContact Us\r\nAccount Settings\r\nWhat is Membership?\r\nMake a Donation\r\nNewsletters\r\nGive a Gift\r\nAbout\r\nAbout Us\r\nCareer Opportunities\r\nMedia Room\r\nAdvocacy\r\nData Intelligence\r\nDigital Lab', 'January 5th 2021, 10:00:00pm', NULL, 'Online', NULL, '2021-01-05 18:57:09', '2021-01-05 19:14:59'),
+(42, 45, 22, 359, 'Victoria Island', 1500, NULL, 'Standard', '08035724540', '361, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'i need to replace my deep fryer\r\nBuchyefap1testClient2@fixmaster.com.ng\r\nlogo\r\nProduct Reviews\r\nNewsIssues That MatterAbout Us\r\nsearch\r\nSign In\r\nBecome a Member\r\nDonate\r\nConsumer ReportsHere\'s A Sample Complaint Letter For When You Don\'t Know What To Say\r\nSign In\r\nBecome a Member\r\nDonate\r\nlogo\r\nHere\'s A Sample Complaint Letter For When You Don\'t Know What To Say\r\nHere\'s A Sample Complaint Letter For When You Don\'t Know What To Say\r\n\r\nby Laura Northrup\r\nLast updated: July 21, 2014\r\n    \r\nIt’s hard to know where to start when writing a complaint letter. If our inbox is any indication, this difficulty manifests itself in free-form rants and confusion about what to say. It doesn’t have to be that way: simply stating the facts and explaining why the company should help you is enough. If you aren’t much of a wordsmith, Consumerist is here to help.\r\nHere’s an example letter, based on a recent successful complaint to a car manufacturer that crossed our desk recently. We’ve obscured the details, but the overall format of the letter remains the same.\r\nThe summary. If you can’t sum your problem up in two or three sentences, have someone else read your e-mail and do it for you. As Consumerist’s tipline reader, I cannot emphasize enough the importance of getting your point across before the letter-reader’s eyes glaze over.\r\nIn the first paragraph, put your problem and suggested resolution. Then get on with the details.\r\n742 Evergreen Terrace\r\nSpringfield, USA 23456\r\nJuly 19, 2014\r\nHoverbike Corporation of America\r\nAttn: Customer Service\r\nP.O. Box 1578\r\nKabletown, WV 25414\r\nDear Hoverbike Corporation:\r\nI am writing to your company about a problem with my Hoverbike, a 2012 Skylark model. I began to have trouble staying aloft a few months ago, and this week the height control module completely failed. While the bicycle is a few months out of warranty, I believe that this occurred because of a design flaw in the Skylark, and I am asking that your company cover or share with me the cost of the required repair.\r\nNext are the details: who, what, where, when? Include addresses, store numbers, and serial numbers if applicable to your situation. Here you can add more details about your incident or problem and elaborate on what you recounted in the opening sentences if you need to.\r\nMy parents purchased my Hoverbike (serial number 118532C423) for me on April 21, 2012 from our local authorized Hoverbike dealer, Krebs Cycles of Springfield. I have enjoyed riding my bicycle, but also taken good care of it, performing all recommended maintenance, keeping it meticulously clean, not hovering over bodies of water, and not riding recklessly.\r\nAfter researching this specific problem and talking to other Hoverbike owners, I have learned that this is a common issue with Hoverbikes manufactured before 2013. I believe that the failure of this module was not due to neglect or error on my part. I am asking that the Hoverbike Corporation cover in full or share with me the cost of this repair.\r\nI have enclosed a work order from my mechanic that details the repairs needed on my bicycle.\r\nThis next section is optional, but often helpful: discuss how your problem goes against the product’s branding and marketing, and also your relationship with the brand.\r\nOf course, don’t feel the need to explain your relationship to the brand if you don’t really have a history of using their products or friends or family who do. Yet consider the product’s branding and marketing and how it relates to your situation: does the company tout its notebook computers’ portability while your own battery won’t charge, tethering you to your desk? Has a travel website that advertises itself as convenient and integrated caused serious problems with your travel plans? Mention any such contrasts if they apply.\r\nHoverbike’s reputation and marketing emphasize your bicycles’ durability, reliability, and safety. Before this mechanical failure, I was very pleased with my Hoverbike, and in a few years I will need to upgrade to a larger one as I grow, but now I hesitate to choose one. My brother and sister also own Hoverbikes that are functioning perfectly, and they aren’t so sure that that they will stick with the brand after watching my experiences with the mechanical failure of my Hoverbike.\r\nIf your marketing campaigns are any indication, I am your target customer, a young girl who is allowed to explore her town on her own and use her bicycle for travel and recreational rides. More importantly, I am eight years old and look forward to a future of eco-conscious commuting. I hope to have many decades of cycling ahead of me, and I want to continue riding Hoverbikes in the future. Please restore my faith in your brand, stand behind your product, and cover the cost of this repair.\r\nThank you for taking the time to read this letter.\r\nSincerely,\r\nLisa Simpson\r\n610-555-3223\r\nlsimpson@springfield.k12.us\r\nThat’s it! It can also help in some cases to give the company a reasonable deadline to respond to you, and to outline any other acceptable resolutions. Telling the company what you want is an important starting point, even if what you want is only an apology.\r\nRELATED:\r\nGet Past Executive Customer Service Gatekeepers With Letter-Writing 101\r\n8 Ways To Make Sure Your Complaint Letter Will Be Ignored\r\n5 Sample Letters That Get Debt Collectors Out Of Your Face\r\n\r\nEditor\'s Note: This article originally appeared on Consumerist.\r\n\r\nStart Getting Membership Benefits Today!\r\n\r\nUseful tools, trusted advice, important safety news.\r\nJoin\r\n    \r\nConsumer Reports\r\nMember Support\r\nContact Us\r\nAccount Settings\r\nWhat is Membership?\r\nMake a Donation\r\nNewsletters\r\nGive a Gift\r\nAbout\r\nAbout Us\r\nCareer Opportunities\r\nMedia Room\r\nAdvocacy\r\nData Intelligence\r\nDigital Lab\r\nProduct Reviews\r\nAppliances\r\nBabies & Kids\r\nCars\r\nElectronics\r\nHealth\r\nHome & Garden\r\nMoney\r\nA-Z Index\r\nMagazine & Books\r\nCurrent Issue\r\nMagazine Archive\r\n5 Year Index\r\nBookstore\r\nMore\r\nVideo\r\nen Español\r\nCanada Extra\r\nReport a Safety Problem\r\nGive a Confidential News Tip\r\nBuy a New Car\r\nBuy a Used Car\r\nJoin\r\nFacebook Twitter YouTube  Pinterest\r\nPrivacy Policy User Agreement Ad Choices© 2019 Consumer Reports, Inc.', 'January 13th 2021, 2:00:00pm', 'e7420ab6bc941f5e14ae65df1f95819bfab40732.jpg', 'Online', NULL, '2021-01-05 18:59:48', '2021-01-05 19:14:20'),
+(43, 46, 22, 359, 'Victoria Island', 3000, NULL, 'Standard', '08059386655', '84a, Idowu Martins Crescent, Ikoyi', 'the water tank is flooding into the sewage tank', 'January 6th 2021, 4:00:00pm', '05c9d56eaa3d0f475a54354fdf3f2fc9aea07976.jpg', 'Online', NULL, '2021-01-05 19:03:31', '2021-01-05 19:03:31'),
+(44, 47, 25, 359, 'Victoria Island', 2800, 2660, 'Standard', '08022233558', '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos', 'Leaking kitchen sink', 'January 7th 2021, 1:00:00pm', '333c7ae64a8b8932a4923a316bf6e0e5a15323b7.png', 'Online', NULL, '2021-01-05 19:24:59', '2021-01-05 19:24:59'),
+(45, 48, 25, 359, 'Victoria Island', 2800, NULL, 'Standard', '08022233558', '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos', 'Leaking kitchen sink', 'January 7th 2021, 1:00:00pm', '8ff9184a4084222a87a05b22161d6cd1050f5b42.png', 'Online', NULL, '2021-01-05 19:25:00', '2021-01-05 19:25:00'),
+(46, 49, 25, 359, 'Victoria Island', 2500, NULL, 'Standard', '08022233558', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Computer screen broken', 'January 9th 2021, 10:00:00pm', NULL, 'Online', NULL, '2021-01-06 07:29:05', '2021-01-06 07:29:05'),
+(47, 50, 25, 359, 'Victoria Island', 1500, NULL, 'Standard', '01011123456', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Micro wave oven not working', 'January 8th 2021, 11:00:00am', '1f5b35093851f2a84bdd7d4cc38c5e515f8c4f8d.png', 'Online', NULL, '2021-01-06 07:43:37', '2021-01-06 07:43:37'),
+(48, 51, 25, 359, 'Victoria Island', 1500, NULL, 'Standard', '01011123456', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Micro wave oven not working', 'January 8th 2021, 11:00:00am', '641e3bafed82fbc38e7039d59cf0d2576bab5f74.png', 'Online', NULL, '2021-01-06 07:43:39', '2021-01-06 07:43:39'),
+(49, 52, 25, 359, 'Victoria Island', 4700, 4465, 'Out of Hours', '08022233559', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Battery not charging', 'January 6th 2021, 8:00:00pm', NULL, 'Online', NULL, '2021-01-06 08:33:28', '2021-01-06 08:33:28'),
+(50, 53, 25, 359, 'Victoria Island', 2800, NULL, 'Standard', '08022233559', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Leaking water pipe', 'January 6th 2021, 12:00:00pm', NULL, 'Online', NULL, '2021-01-06 08:36:00', '2021-01-06 08:36:00'),
+(51, 54, 25, 359, 'Victoria Island', 2800, NULL, 'Standard', '08022233559', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Leaking water pipe', 'January 6th 2021, 12:00:00pm', NULL, 'Online', NULL, '2021-01-06 08:36:01', '2021-01-06 08:36:01'),
+(52, 55, 25, 359, 'Victoria Island', 2800, NULL, 'Standard', '08022233559', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Leaking water pipe', 'January 6th 2021, 12:00:00pm', NULL, 'Online', NULL, '2021-01-06 08:36:08', '2021-01-06 08:36:08'),
+(53, 56, 25, 359, 'Victoria Island', 3500, NULL, 'Urgent', '08022233559', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Blocked drainage', 'January 9th 2021, 1:00:00pm', NULL, 'Online', NULL, '2021-01-06 09:03:43', '2021-01-06 09:03:43'),
+(54, 57, 25, 359, 'Victoria Island', 3000, 2850, 'Standard', '08022233560', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Broken shower', 'January 7th 2021, 12:00:00pm', '9af58ae0729d735c4e1587ce9324dd3f9f681aea.jfif', 'Online', NULL, '2021-01-06 09:09:48', '2021-01-06 09:09:48'),
+(55, 58, 25, 359, 'Victoria Island', 3000, NULL, 'Standard', '08022233560', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Broken shower', 'January 7th 2021, 12:00:00pm', '0c8e1c143cad65e43b4955d00786dcec1114761f.jfif', 'Online', NULL, '2021-01-06 09:09:49', '2021-01-06 09:09:49'),
+(56, 59, 25, 359, 'Victoria Island', 3500, NULL, 'Urgent', '08022233560', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Broken wire', 'January 9th 2021, 1:00:00pm', '3fd952058933187c5ff1f70ca052b03310e958c2.jfif', 'Online', NULL, '2021-01-06 09:16:59', '2021-01-06 09:16:59'),
+(57, 60, 25, 359, 'Victoria Island', 3500, NULL, 'Urgent', '08022233560', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Broken wire', 'January 9th 2021, 1:00:00pm', '6b01de7ed8142003f996aa3d22785047d5b5ac8f.jfif', 'Online', NULL, '2021-01-06 09:17:00', '2021-01-06 09:17:00'),
+(58, 61, 25, 359, 'Victoria Island', 3500, NULL, 'Urgent', '08022233560', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Broken wire', 'January 9th 2021, 1:00:00pm', 'c4ce8ebcc381c98247bb692ace584bf6f0950111.jfif', 'Online', NULL, '2021-01-06 09:17:08', '2021-01-06 09:17:08'),
+(59, 62, 25, 359, 'Victoria Island', 2500, 2375, 'Standard', '08022233561', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Broken speaker', 'January 9th 2021, 1:00:00pm', '3975c909d3c1724206c4bd043ed1fc656e849627.jfif', 'Online', NULL, '2021-01-06 10:04:02', '2021-01-06 10:04:02'),
+(60, 63, 25, 359, 'Victoria Island', 3500, NULL, 'Out of Hours', '08022233561', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Broken Dishwasher', 'January 6th 2021, 8:00:00pm', '7c7f09dac21a144ff66dc44a921e2bbbce241cb1.jfif', 'Online', NULL, '2021-01-06 10:07:02', '2021-01-06 10:07:02'),
+(61, 64, 25, 359, 'Victoria Island', 3500, NULL, 'Out of Hours', '08022233561', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Broken Dishwasher', 'January 6th 2021, 8:00:00pm', 'b7a427b83afa362a54398833a3ba1761cc626803.jfif', 'Online', NULL, '2021-01-06 10:07:03', '2021-01-06 10:07:03'),
+(62, 65, 25, 359, 'Victoria Island', 3500, NULL, 'Urgent', '08022233561', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Leaking Gas Pipe', 'January 6th 2021, 11:09:00am', 'dbcbea24a8b3c5831c467cd1ef03d5592af7ad99.jfif', 'Online', NULL, '2021-01-06 10:12:51', '2021-01-06 10:12:51'),
+(63, 66, 25, 359, 'Victoria Island', 2500, NULL, 'Standard', '08022233561', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Faulty charging port', 'January 16th 2021, 2:00:00pm', NULL, 'Online', NULL, '2021-01-06 10:14:06', '2021-01-06 10:14:06'),
+(64, 67, 25, 359, 'Victoria Island', 2500, NULL, 'Standard', '08022233561', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Faulty charging port', 'January 16th 2021, 2:00:00pm', NULL, 'Online', NULL, '2021-01-06 10:14:07', '2021-01-06 10:14:07');
 
 -- --------------------------------------------------------
 
@@ -2343,14 +2750,19 @@ INSERT INTO `service_request_details` (`id`, `service_request_id`, `state_id`, `
 -- Table structure for table `service_request_progresses`
 --
 
-CREATE TABLE `service_request_progresses` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `service_request_progresses`;
+CREATE TABLE IF NOT EXISTS `service_request_progresses` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_status_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `service_request_progress_user_id_index` (`user_id`),
+  KEY `service_request_progress_service_request_id_index` (`service_request_id`),
+  KEY `service_request_progress_service_request_status_id_index` (`service_request_status_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_request_progresses`
@@ -2364,7 +2776,26 @@ INSERT INTO `service_request_progresses` (`id`, `user_id`, `service_request_id`,
 (8, 1, 1, 6, '2021-01-02 13:55:16', '2021-01-02 13:55:16'),
 (9, 1, 1, 6, '2021-01-02 14:38:30', '2021-01-02 14:38:30'),
 (10, 77, 14, 2, '2021-01-05 15:10:07', '2021-01-05 15:10:07'),
-(11, 77, 11, 2, '2021-01-05 15:11:45', '2021-01-05 15:11:45');
+(11, 77, 11, 2, '2021-01-05 15:11:45', '2021-01-05 15:11:45'),
+(12, 71, 24, 2, '2021-01-05 16:40:00', '2021-01-05 16:40:00'),
+(13, 71, 16, 2, '2021-01-05 16:46:37', '2021-01-05 16:46:37'),
+(14, 81, 29, 2, '2021-01-05 17:54:18', '2021-01-05 17:54:18'),
+(15, 81, 27, 2, '2021-01-05 17:54:39', '2021-01-05 17:54:39'),
+(16, 81, 26, 2, '2021-01-05 17:54:58', '2021-01-05 17:54:58'),
+(17, 80, 34, 2, '2021-01-05 18:32:02', '2021-01-05 18:32:02'),
+(18, 80, 32, 2, '2021-01-05 18:32:50', '2021-01-05 18:32:50'),
+(19, 79, 39, 2, '2021-01-05 18:47:52', '2021-01-05 18:47:52'),
+(20, 79, 38, 2, '2021-01-05 18:48:27', '2021-01-05 18:48:27'),
+(21, 78, 46, 2, '2021-01-05 19:04:03', '2021-01-05 19:04:03'),
+(22, 78, 43, 2, '2021-01-05 19:04:32', '2021-01-05 19:04:32'),
+(23, 72, 51, 2, '2021-01-06 07:46:10', '2021-01-06 07:46:10'),
+(24, 72, 48, 2, '2021-01-06 08:16:08', '2021-01-06 08:16:08'),
+(25, 73, 55, 2, '2021-01-06 09:05:04', '2021-01-06 09:05:04'),
+(26, 73, 54, 2, '2021-01-06 09:05:46', '2021-01-06 09:05:46'),
+(27, 74, 58, 2, '2021-01-06 09:11:20', '2021-01-06 09:11:20'),
+(28, 74, 59, 2, '2021-01-06 09:18:25', '2021-01-06 09:18:25'),
+(29, 75, 63, 2, '2021-01-06 10:07:42', '2021-01-06 10:07:42'),
+(30, 75, 67, 2, '2021-01-06 10:15:09', '2021-01-06 10:15:09');
 
 -- --------------------------------------------------------
 
@@ -2372,15 +2803,20 @@ INSERT INTO `service_request_progresses` (`id`, `user_id`, `service_request_id`,
 -- Table structure for table `service_request_statuses`
 --
 
-CREATE TABLE `service_request_statuses` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `service_request_statuses`;
+CREATE TABLE IF NOT EXISTS `service_request_statuses` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `can_delete` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `project_statuses_name_unique` (`name`),
+  KEY `user_id` (`user_id`),
+  KEY `user_id_2` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_request_statuses`
@@ -2400,10 +2836,12 @@ INSERT INTO `service_request_statuses` (`id`, `user_id`, `name`, `can_delete`, `
 -- Table structure for table `states`
 --
 
-CREATE TABLE `states` (
-  `id` tinyint(4) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `states`;
+CREATE TABLE IF NOT EXISTS `states` (
+  `id` tinyint(4) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `states`
@@ -2454,14 +2892,18 @@ INSERT INTO `states` (`id`, `name`) VALUES
 -- Table structure for table `super_admins`
 --
 
-CREATE TABLE `super_admins` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `super_admins`;
+CREATE TABLE IF NOT EXISTS `super_admins` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `middle_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `super_admins_phone_number_unique` (`phone_number`),
+  UNIQUE KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `super_admins`
@@ -2477,8 +2919,9 @@ INSERT INTO `super_admins` (`id`, `user_id`, `first_name`, `middle_name`, `last_
 -- Table structure for table `technicians`
 --
 
-CREATE TABLE `technicians` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `technicians`;
+CREATE TABLE IF NOT EXISTS `technicians` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_by` bigint(20) UNSIGNED NOT NULL,
   `franchise_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -2493,22 +2936,32 @@ CREATE TABLE `technicians` (
   `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `other_phone_number` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `account_number` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `rating` decimal(1,1) NOT NULL DEFAULT '0.0',
+  `rating` decimal(1,1) NOT NULL DEFAULT 0.0,
   `avatar` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `town` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `full_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `technicians_phone_number_unique` (`phone_number`),
+  UNIQUE KEY `tag_id` (`tag_id`),
+  UNIQUE KEY `technicians_other_phone_number_unique` (`other_phone_number`),
+  UNIQUE KEY `technicians_account_number_unique` (`account_number`),
+  KEY `lga_id` (`lga_id`),
+  KEY `state_id` (`state_id`),
+  KEY `bank_id` (`bank_id`),
+  KEY `created_by` (`created_by`),
+  KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`bank_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `technicians`
 --
 
 INSERT INTO `technicians` (`id`, `user_id`, `created_by`, `franchise_id`, `state_id`, `lga_id`, `bank_id`, `tag_id`, `first_name`, `middle_name`, `last_name`, `gender`, `phone_number`, `other_phone_number`, `account_number`, `rating`, `avatar`, `town`, `full_address`, `created_at`, `updated_at`) VALUES
-(1, 14, 1, NULL, 25, 362, 5, 'TECH-23973', 'Andrew', 'Stephen', 'Nwankwo', 'Male', '09037827367', NULL, '0723872901', 0.0, NULL, 'Alausa', 'Badejo Close, off Shoprite, Alausa-Ikeja, Lagos. Nigeria.', NULL, NULL),
-(2, 15, 1, NULL, 25, 360, 16, 'TECH-08435', 'Taofeek', 'Kazeem', 'Adedokun', 'Male', '08124763892', NULL, '0123653289', 0.0, NULL, 'Ibeju-Lekki', 'Camsican Drive, Ibeju Lekki, Lagos State.', NULL, '2020-12-20 10:58:48'),
-(5, 23, 1, NULL, 25, 365, NULL, 'TECH-C8D94326', 'John', NULL, 'Desmond', 'Male', '08124326723', NULL, NULL, 0.0, 'd149263a8101b55710e20b7c2336d153fff66445.jpg', 'Okin-Arin', '23, Hawley street, off Igbosere, Lagos Island.', '2020-12-19 21:26:29', '2020-12-19 22:30:02');
+(1, 14, 1, NULL, 25, 362, 5, 'TECH-23973', 'Andrew', 'Stephen', 'Nwankwo', 'Male', '09037827367', NULL, '0723872901', '0.0', NULL, 'Alausa', 'Badejo Close, off Shoprite, Alausa-Ikeja, Lagos. Nigeria.', NULL, NULL),
+(2, 15, 1, NULL, 25, 360, 16, 'TECH-08435', 'Taofeek', 'Kazeem', 'Adedokun', 'Male', '08124763892', NULL, '0123653289', '0.0', NULL, 'Ibeju-Lekki', 'Camsican Drive, Ibeju Lekki, Lagos State.', NULL, '2020-12-20 10:58:48'),
+(5, 23, 1, NULL, 25, 365, NULL, 'TECH-C8D94326', 'John', NULL, 'Desmond', 'Male', '08124326723', NULL, NULL, '0.0', 'd149263a8101b55710e20b7c2336d153fff66445.jpg', 'Okin-Arin', '23, Hawley street, off Igbosere, Lagos Island.', '2020-12-19 21:26:29', '2020-12-19 22:30:02');
 
 -- --------------------------------------------------------
 
@@ -2516,7 +2969,8 @@ INSERT INTO `technicians` (`id`, `user_id`, `created_by`, `franchise_id`, `state
 -- Table structure for table `technician_category`
 --
 
-CREATE TABLE `technician_category` (
+DROP TABLE IF EXISTS `technician_category`;
+CREATE TABLE IF NOT EXISTS `technician_category` (
   `technician_id` bigint(20) UNSIGNED NOT NULL,
   `category_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -2536,16 +2990,20 @@ INSERT INTO `technician_category` (`technician_id`, `category_id`) VALUES
 -- Table structure for table `tool_inventories`
 --
 
-CREATE TABLE `tool_inventories` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tool_inventories`;
+CREATE TABLE IF NOT EXISTS `tool_inventories` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `quantity` int(10) UNSIGNED NOT NULL,
   `available` int(10) UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tool_inventories`
@@ -2563,8 +3021,9 @@ INSERT INTO `tool_inventories` (`id`, `user_id`, `name`, `quantity`, `available`
 -- Table structure for table `tool_requests`
 --
 
-CREATE TABLE `tool_requests` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tool_requests`;
+CREATE TABLE IF NOT EXISTS `tool_requests` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `requested_by` bigint(20) UNSIGNED NOT NULL,
   `approved_by` bigint(20) UNSIGNED DEFAULT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
@@ -2572,8 +3031,13 @@ CREATE TABLE `tool_requests` (
   `status` enum('Pending','Approved','Declined') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
   `is_returned` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `requested_by` (`requested_by`,`approved_by`,`service_request_id`,`batch_number`),
+  KEY `tool_requests_batch_id` (`batch_number`),
+  KEY `service_request_id` (`service_request_id`),
+  KEY `tool_requests_ibfk_4` (`approved_by`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tool_requests`
@@ -2588,12 +3052,16 @@ INSERT INTO `tool_requests` (`id`, `requested_by`, `approved_by`, `service_reque
 -- Table structure for table `tool_request_batches`
 --
 
-CREATE TABLE `tool_request_batches` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tool_request_batches`;
+CREATE TABLE IF NOT EXISTS `tool_request_batches` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tool_request_id` bigint(20) UNSIGNED NOT NULL,
   `tool_id` bigint(20) UNSIGNED NOT NULL,
-  `quantity` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `quantity` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tool_id` (`tool_id`),
+  KEY `batch_id` (`tool_request_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tool_request_batches`
@@ -2609,8 +3077,9 @@ INSERT INTO `tool_request_batches` (`id`, `tool_request_id`, `tool_id`, `quantit
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `email_verification_token` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -2620,30 +3089,32 @@ CREATE TABLE `users` (
   `designation` enum('[SUPER_ADMIN_ROLE]','[ADMIN_ROLE]','[CSE_ROLE]','[TECHNICIAN_ROLE]','[SUPPLIER_ROLE]','[TRAINEE_ROLE]','[CLIENT_ROLE]','[INTRUDER_ROLE]') COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_admin` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `login_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
+  `login_count` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
   `current_sign_in` timestamp NULL DEFAULT NULL,
   `last_sign_in` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_token`, `is_email_verified`, `password`, `remember_token`, `designation`, `is_active`, `is_admin`, `login_count`, `current_sign_in`, `last_sign_in`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 93, '2021-01-05 09:52:03', '2021-01-05 09:51:36', NULL, '2019-12-31 23:29:26', '2021-01-05 09:52:03'),
+(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 94, '2021-01-06 11:00:03', '2021-01-05 09:52:03', NULL, '2019-12-31 23:29:26', '2021-01-06 11:00:03'),
 (2, '', NULL, NULL, '0', '', NULL, '[INTRUDER_ROLE]', '0', '0', 0, NULL, NULL, NULL, NULL, NULL),
 (3, 'charles.famoriyo@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 3, '2020-12-03 19:34:43', '2020-11-30 21:34:14', NULL, '2020-11-30 06:26:42', NULL),
-(4, 'info@fixmaster.com.ng', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, NULL, NULL),
+(4, 'info@fixmaster.com.ng', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[ADMIN_ROLE]', '1', '1', 3, '2021-01-06 10:24:35', '2021-01-06 11:15:43', NULL, '2020-11-30 06:26:42', '2021-01-06 10:24:35'),
 (5, 'david.akinsola@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[ADMIN_ROLE]', '1', '1', 6, '2020-12-29 21:03:29', '2020-12-28 03:15:45', NULL, '2020-11-30 06:26:42', '2020-12-29 21:03:29'),
 (6, 'obuchi.omotosho@gmail.com', '2020-11-30 22:35:09', '565a2eab0940daa4c00ea83bc9cf1ce582dd2a7c', '1', '$2y$10$03LiG5ipILzRThbbNX1A8O4cxFlnZIgLLHqhwuUPKbaRbwnhvTp6K', NULL, '[ADMIN_ROLE]', '1', '1', 4, '2020-12-30 09:25:26', '2020-12-28 17:59:44', NULL, '2020-11-30 22:35:09', '2020-12-30 09:25:26'),
 (7, 'isaac.john@yahoo.com', '2020-12-03 19:35:45', '4fdda0314bf174ad785199f195a77adf8b10b7cd', '1', '$2y$10$pdUsx4/hazrwHDGbuMoUBuA5V/d88BSoE7UgTbfwe0tHlajWZgMem', NULL, '[ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, '2020-12-03 19:35:45', NULL),
 (8, 'godfrey.emmanuel@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (9, 'wisdom.amana@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (10, 'debo.williams@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
-(11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 43, '2021-01-05 08:33:35', '2021-01-05 08:31:39', NULL, '2020-12-11 12:43:02', '2021-01-05 08:33:35'),
+(11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 44, '2021-01-06 11:02:31', '2021-01-05 08:33:35', NULL, '2020-12-11 12:43:02', '2021-01-06 11:02:31'),
 (12, 'jamal.diwa@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', '0', 8, '2020-12-22 08:47:24', '2020-12-19 10:13:40', NULL, '2020-12-04 06:03:06', '2020-12-22 08:47:24'),
 (13, 'mayowabenedict@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$vicB3ZBUEj6YMfdk9P2ELO82xVE4X50.A6X.MqeTktkTTJMDh6PkS', NULL, '[CSE_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', '2020-12-29 19:11:23'),
 (14, 'andrew.nwankwo@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 1, '2020-12-17 09:17:14', '2020-12-17 09:17:14', NULL, '2020-12-04 06:03:06', NULL),
@@ -2698,16 +3169,15 @@ INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_tok
 (69, 'krissmn1+@gmail.com', '2021-01-04 15:06:18', '675a3758187e79bebdef2d7695f7bd69af27dcea', '1', '$2y$10$VzZftX0OKXi.4ogAY77KoedlrtwJPW6Wsx/KPW/MJybaywsLbtV7q', '54IjlvEZK4JVVJYsYQrnDPGQVTzCeTHu6bNsDUWrjUDTYxr2buSRtLI15pGK', '[CLIENT_ROLE]', '1', '0', 1, '2021-01-04 15:15:50', '2021-01-04 15:15:50', NULL, '2021-01-04 15:06:18', '2021-01-04 15:15:50'),
 (70, 'info@ninthbinary.com', '2021-01-04 15:12:12', '65abc289edb5d9c8142720476b66cf7821fd601b', '1', '$2y$10$YzXJAo5RFEXo9dovrKIeMepq9U6Wnz01mE.DMd3pbeSx0lEyA14Dq', NULL, '[CLIENT_ROLE]', '1', '0', 1, '2021-01-04 15:12:30', '2021-01-04 15:12:30', NULL, '2021-01-04 15:12:12', '2021-01-04 15:12:30'),
 (71, 'Davidfap1testClient1@fixmaster.com.ng', '2021-01-05 09:51:51', '3cc91ea5cfdfb9094b538e2acb2d7affa54e8ec2', '1', '$2y$10$.lv2xFlz3ft5XX9e1oS5P.rnKULWtkwy.mhfoPTEkzQW646mKoRPW', NULL, '[CLIENT_ROLE]', '1', '0', 1, '2021-01-05 11:46:56', '2021-01-05 11:46:56', NULL, '2021-01-05 09:51:51', '2021-01-05 12:49:00'),
-(72, 'Davidfap1testClient2@fixmaster.com.ng', '2021-01-05 09:58:11', '8a3731daf4e66cf65137ef9475d99cd71f0946f5', '1', '$2y$10$xQAmXCQpFAwjodTPCD6uT.wMjeP4dU1zDG9aWkBy9o1OdhEEjuXKO', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2021-01-05 09:58:11', '2021-01-05 09:58:11'),
-(73, 'Davidfap1testClient3@fixmaster.com.ng', '2021-01-05 10:10:17', '680b5b5a05377d37e2abfbac1ca9d284f3a5c7e7', '1', '$2y$10$dpBWDXfmDRE/6UQ97PtVNOrxTkG1FC2e/PXvWwRRUrJICC5Zf7CnO', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2021-01-05 10:10:17', '2021-01-05 10:10:17'),
-(74, 'Davidfap1testClient4@fixmaster.com.ng', '2021-01-05 10:18:12', '6246410762dacb5b8437d4906f4dede78dddcf35', '1', '$2y$10$3tky01yvRC7XJ8HxHqsgauKxpR189mdhsCMV1bWxYYq8ase8LdX4S', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2021-01-05 10:18:12', '2021-01-05 10:18:12'),
-(75, 'Davidfap1testClient5@fixmaster.com.ng', '2021-01-05 10:19:57', '04786593344c3c17b271fab0a84e0dfde5f8861f', '1', '$2y$10$.TXYm7u0FyXgqTA4ZTGP.O749S5g/ojXgwHzaDe63DZj.zxibSfT6', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2021-01-05 10:19:57', '2021-01-05 10:19:57'),
-(77, 'Buchyefap1testClient1@fixmaster.com.ng', '2021-01-05 10:35:33', 'b58effa7cf8d16439ff5a97840c8145681796c1c', '1', '$2y$10$Pn2EL4mFo91Qni3iY3XoZOx7Xz3v8UA0TM1d7tGZX5UR.VVsfKPhe', NULL, '[CLIENT_ROLE]', '1', '0', 4, '2021-01-05 14:32:40', '2021-01-05 13:33:13', NULL, '2021-01-05 10:35:33', '2021-01-05 14:32:40'),
-(78, 'Buchyefap1testClient2@fixmaster.com.ng', '2021-01-05 10:38:45', 'f02b6fd80d0a43499b3bbf21baaf33f40aac5caf', '1', '$2y$10$.uR8BDSVCp.Jkai4LjBopu1kIFyz0E6AzNHcrwgf6Tifl9kAPnM2C', NULL, '[CLIENT_ROLE]', '1', '0', 2, '2021-01-05 15:13:59', '2021-01-05 10:57:08', NULL, '2021-01-05 10:38:45', '2021-01-05 15:15:02'),
-(79, 'Buchyefap1testClient3@fixmaster.com.ng', '2021-01-05 10:40:54', 'cdb0118a779082a82f2e9bb487818f308b86ed7b', '1', '$2y$10$Y9FarzqAbm0FEny49tMUXO9onh9bFu5U6v6tHva9ALQDKSx/Unck.', NULL, '[CLIENT_ROLE]', '1', '0', 2, '2021-01-05 15:16:15', '2021-01-05 11:01:23', NULL, '2021-01-05 10:40:54', '2021-01-05 15:17:30'),
-(80, 'Buchyefap1testClient4@fixmaster.com.ng', '2021-01-05 10:43:15', '8ceecc1e65209984548f863d8a47bde727731f89', '1', '$2y$10$USZOjhpmXOlVPTj42TKqo.uUnuvL/ndFShaBnmQknLVX.ZngfTcm2', NULL, '[CLIENT_ROLE]', '1', '0', 2, '2021-01-05 15:21:50', '2021-01-05 11:03:21', NULL, '2021-01-05 10:43:15', '2021-01-05 15:23:59'),
-(81, 'Buchyefap1testClient5@fixmaster.com.ng', '2021-01-05 10:45:28', 'fcf126b56e7ee11a0b9ebafaa14f161106595d6d', '1', '$2y$10$mHRZHHNim68FHZHtEQ1.3.ILIEU0JXLwXyRqYRaJT2bOuMTytYLVu', NULL, '[CLIENT_ROLE]', '1', '0', 2, '2021-01-05 15:25:17', '2021-01-05 11:05:34', NULL, '2021-01-05 10:45:28', '2021-01-05 15:27:18'),
-(83, 'anthonyjoboy2016@gmail.com', NULL, 'a446125b3b3f6a86c4b287b9c3694539b166ec81', '0', '$2y$10$oXVotH/Yy3hkK9sCjqGbbuz2iPapAh4wQHOxf3h0JyU7XUqeSZR/G', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-05 14:08:04', '2021-01-05 14:08:04');
+(72, 'Davidfap1testClient2@fixmaster.com.ng', '2021-01-05 09:58:11', '8a3731daf4e66cf65137ef9475d99cd71f0946f5', '1', '$2y$10$xQAmXCQpFAwjodTPCD6uT.wMjeP4dU1zDG9aWkBy9o1OdhEEjuXKO', NULL, '[CLIENT_ROLE]', '1', '0', 3, '2021-01-06 07:26:34', '2021-01-05 17:30:44', NULL, '2021-01-05 09:58:11', '2021-01-06 07:26:34'),
+(73, 'Davidfap1testClient3@fixmaster.com.ng', '2021-01-05 10:10:17', '680b5b5a05377d37e2abfbac1ca9d284f3a5c7e7', '1', '$2y$10$dpBWDXfmDRE/6UQ97PtVNOrxTkG1FC2e/PXvWwRRUrJICC5Zf7CnO', NULL, '[CLIENT_ROLE]', '1', '0', 2, '2021-01-06 08:24:50', '2021-01-05 17:14:13', NULL, '2021-01-05 10:10:17', '2021-01-06 08:26:01'),
+(74, 'Davidfap1testClient4@fixmaster.com.ng', '2021-01-05 10:18:12', '6246410762dacb5b8437d4906f4dede78dddcf35', '1', '$2y$10$3tky01yvRC7XJ8HxHqsgauKxpR189mdhsCMV1bWxYYq8ase8LdX4S', NULL, '[CLIENT_ROLE]', '1', '0', 3, '2021-01-06 09:17:38', '2021-01-06 09:06:27', NULL, '2021-01-05 10:18:12', '2021-01-06 09:17:38'),
+(75, 'Davidfap1testClient5@fixmaster.com.ng', '2021-01-05 10:19:57', '04786593344c3c17b271fab0a84e0dfde5f8861f', '1', '$2y$10$.TXYm7u0FyXgqTA4ZTGP.O749S5g/ojXgwHzaDe63DZj.zxibSfT6', NULL, '[CLIENT_ROLE]', '1', '0', 2, '2021-01-06 10:00:42', '2021-01-05 17:17:15', NULL, '2021-01-05 10:19:57', '2021-01-06 10:00:42'),
+(77, 'Buchyefap1testClient1@fixmaster.com.ng', '2021-01-05 10:35:33', 'b58effa7cf8d16439ff5a97840c8145681796c1c', '1', '$2y$10$Pn2EL4mFo91Qni3iY3XoZOx7Xz3v8UA0TM1d7tGZX5UR.VVsfKPhe', NULL, '[CLIENT_ROLE]', '1', '0', 5, '2021-01-05 19:05:54', '2021-01-05 14:32:40', NULL, '2021-01-05 10:35:33', '2021-01-05 19:05:54'),
+(78, 'Buchyefap1testClient2@fixmaster.com.ng', '2021-01-05 10:38:45', 'f02b6fd80d0a43499b3bbf21baaf33f40aac5caf', '1', '$2y$10$.uR8BDSVCp.Jkai4LjBopu1kIFyz0E6AzNHcrwgf6Tifl9kAPnM2C', NULL, '[CLIENT_ROLE]', '1', '0', 4, '2021-01-05 19:13:24', '2021-01-05 18:50:59', NULL, '2021-01-05 10:38:45', '2021-01-05 19:13:24'),
+(79, 'Buchyefap1testClient3@fixmaster.com.ng', '2021-01-05 10:40:54', 'cdb0118a779082a82f2e9bb487818f308b86ed7b', '1', '$2y$10$Y9FarzqAbm0FEny49tMUXO9onh9bFu5U6v6tHva9ALQDKSx/Unck.', NULL, '[CLIENT_ROLE]', '1', '0', 4, '2021-01-05 19:19:37', '2021-01-05 18:33:46', NULL, '2021-01-05 10:40:54', '2021-01-05 19:19:37'),
+(80, 'duruobuchi@gmail.com', '2021-01-05 10:43:15', '8ceecc1e65209984548f863d8a47bde727731f89', '1', '$2y$10$USZOjhpmXOlVPTj42TKqo.uUnuvL/ndFShaBnmQknLVX.ZngfTcm2', NULL, '[CLIENT_ROLE]', '1', '0', 4, '2021-01-05 19:22:42', '2021-01-05 18:01:43', NULL, '2021-01-05 10:43:15', '2021-01-05 19:41:58'),
+(81, 'Buchyefap1testClient5@fixmaster.com.ng', '2021-01-05 10:45:28', 'fcf126b56e7ee11a0b9ebafaa14f161106595d6d', '1', '$2y$10$mHRZHHNim68FHZHtEQ1.3.ILIEU0JXLwXyRqYRaJT2bOuMTytYLVu', NULL, '[CLIENT_ROLE]', '1', '0', 4, '2021-01-05 19:44:13', '2021-01-05 17:48:27', NULL, '2021-01-05 10:45:28', '2021-01-05 19:44:13');
 
 -- --------------------------------------------------------
 
@@ -2715,14 +3185,18 @@ INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_tok
 -- Table structure for table `wallets`
 --
 
-CREATE TABLE `wallets` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `wallets`;
+CREATE TABLE IF NOT EXISTS `wallets` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `wallet_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `balance` bigint(20) NOT NULL DEFAULT '0',
+  `balance` bigint(20) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `wallets_user_id_unique` (`user_id`),
+  UNIQUE KEY `wallets_wallet_id_unique` (`wallet_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `wallets`
@@ -2730,7 +3204,7 @@ CREATE TABLE `wallets` (
 
 INSERT INTO `wallets` (`id`, `user_id`, `wallet_id`, `balance`, `created_at`, `updated_at`) VALUES
 (1, 11, 'WAL-23782382', 0, NULL, NULL),
-(2, 9, 'WAL-21780953', 45000, NULL, NULL),
+(2, 9, 'WAL-21780953', 0, NULL, NULL),
 (3, 24, 'WAL-50B6D80A', 0, '2021-01-04 02:42:28', '2021-01-04 02:42:28'),
 (4, 25, 'WAL-BFE41F23', 0, '2021-01-04 04:57:46', '2021-01-04 04:57:46'),
 (5, 26, 'WAL-DB9DBC86', 0, '2021-01-04 05:30:18', '2021-01-04 05:30:18'),
@@ -2787,511 +3261,28 @@ INSERT INTO `wallets` (`id`, `user_id`, `wallet_id`, `balance`, `created_at`, `u
 (57, 78, 'WAL-F02B6FD8', 0, '2021-01-05 10:38:45', '2021-01-05 10:38:45'),
 (58, 79, 'WAL-E3160AB5', 0, '2021-01-05 10:40:54', '2021-01-05 10:40:54'),
 (59, 80, 'WAL-8CEECC1E', 0, '2021-01-05 10:43:15', '2021-01-05 10:43:15'),
-(60, 81, 'WAL-FCF126B5', 0, '2021-01-05 10:45:28', '2021-01-05 10:45:28'),
-(64, 83, 'WAL-A446125B', 0, '2021-01-05 14:08:04', '2021-01-05 14:08:04');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `activity_logs`
---
-ALTER TABLE `activity_logs`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `admins`
---
-ALTER TABLE `admins`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `admins_phone_number_unique` (`phone_number`),
-  ADD UNIQUE KEY `user_id` (`user_id`),
-  ADD KEY `created_by` (`created_by`);
-
---
--- Indexes for table `admin_permissions`
---
-ALTER TABLE `admin_permissions`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `admin_permissions_user_id_unique` (`user_id`);
-
---
--- Indexes for table `banks`
---
-ALTER TABLE `banks`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `categories_name_unique` (`name`),
-  ADD UNIQUE KEY `url` (`url`),
-  ADD KEY `service_id` (`service_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `clients`
---
-ALTER TABLE `clients`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `clients_phone_number_unique` (`phone_number`),
-  ADD KEY `user_id` (`user_id`,`state_id`,`lga_id`,`town`),
-  ADD KEY `state_id` (`state_id`),
-  ADD KEY `lga_id` (`lga_id`),
-  ADD KEY `profession_id` (`profession_id`);
-
---
--- Indexes for table `cses`
---
-ALTER TABLE `cses`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `cses_phone_number_unique` (`phone_number`),
-  ADD UNIQUE KEY `tag_id` (`tag_id`),
-  ADD UNIQUE KEY `cses_other_phone_number_unique` (`other_phone_number`),
-  ADD UNIQUE KEY `cses_account_number_unique` (`account_number`),
-  ADD KEY `lga_id` (`lga_id`),
-  ADD KEY `state_id` (`state_id`),
-  ADD KEY `bank_id` (`bank_id`),
-  ADD KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`bank_id`) USING BTREE,
-  ADD KEY `created_by` (`created_by`);
-
---
--- Indexes for table `cse_category`
---
-ALTER TABLE `cse_category`
-  ADD KEY `category_id` (`category_id`),
-  ADD KEY `cse_id` (`cse_id`);
-
---
--- Indexes for table `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
-
---
--- Indexes for table `lgas`
---
-ALTER TABLE `lgas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `state_id` (`state_id`);
-
---
--- Indexes for table `location_and_browser_infos`
---
-ALTER TABLE `location_and_browser_infos`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user_id` (`user_id`),
-  ADD UNIQUE KEY `user_id_2` (`user_id`);
-
---
--- Indexes for table `messages`
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `client_messages_ibfk_1` (`sender_id`),
-  ADD KEY `client_messages_ibfk_2` (`recipient_id`);
-
---
--- Indexes for table `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `names`
---
-ALTER TABLE `names`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user_id` (`user_id`);
-
---
--- Indexes for table `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
-
---
--- Indexes for table `payment_gateways`
---
-ALTER TABLE `payment_gateways`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `professions`
---
-ALTER TABLE `professions`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`);
-
---
--- Indexes for table `received_payments`
---
-ALTER TABLE `received_payments`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `received__payments_payment_reference_unique` (`payment_reference`),
-  ADD KEY `received__payments_user_id_index` (`user_id`),
-  ADD KEY `received__payments_service_request_id_index` (`service_request_id`);
-
---
--- Indexes for table `rfqs`
---
-ALTER TABLE `rfqs`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `rfqs_batch_number_unique` (`batch_number`),
-  ADD UNIQUE KEY `rfqs_invoice_number_unique` (`invoice_number`),
-  ADD KEY `rfqs_issued_by_index` (`issued_by`),
-  ADD KEY `rfqs_client_id_index` (`client_id`),
-  ADD KEY `rfqs_service_request_id_index` (`service_request_id`);
-
---
--- Indexes for table `rfq_batches`
---
-ALTER TABLE `rfq_batches`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `rfq_batches_rfq_id_index` (`rfq_id`);
-
---
--- Indexes for table `rfq_suppliers`
---
-ALTER TABLE `rfq_suppliers`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `rfq_id` (`rfq_id`),
-  ADD KEY `rfq_suppliers_rfq_id_index` (`rfq_id`);
-
---
--- Indexes for table `services`
---
-ALTER TABLE `services`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `services_name_unique` (`name`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `service_requests`
---
-ALTER TABLE `service_requests`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `security_code` (`security_code`),
-  ADD UNIQUE KEY `job_reference` (`job_reference`),
-  ADD KEY `user_id` (`user_id`,`admin_id`,`cse_id`,`technician_id`,`service_id`,`category_id`),
-  ADD KEY `category_id` (`category_id`),
-  ADD KEY `service_id` (`service_id`),
-  ADD KEY `admin_id` (`admin_id`),
-  ADD KEY `technician_id` (`technician_id`),
-  ADD KEY `cse_id` (`cse_id`),
-  ADD KEY `service_request_status_id` (`service_request_status_id`);
-
---
--- Indexes for table `service_request_cancellation_reasons`
---
-ALTER TABLE `service_request_cancellation_reasons`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `service_request_cancellation_reasons_user_id_index` (`user_id`),
-  ADD KEY `service_request_cancellation_reasons_service_request_id_index` (`service_request_id`);
-
---
--- Indexes for table `service_request_details`
---
-ALTER TABLE `service_request_details`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `service_request_id` (`service_request_id`),
-  ADD KEY `state_id` (`state_id`),
-  ADD KEY `lga_id` (`lga_id`);
-
---
--- Indexes for table `service_request_progresses`
---
-ALTER TABLE `service_request_progresses`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `service_request_progress_user_id_index` (`user_id`),
-  ADD KEY `service_request_progress_service_request_id_index` (`service_request_id`),
-  ADD KEY `service_request_progress_service_request_status_id_index` (`service_request_status_id`);
-
---
--- Indexes for table `service_request_statuses`
---
-ALTER TABLE `service_request_statuses`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `project_statuses_name_unique` (`name`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `user_id_2` (`user_id`);
-
---
--- Indexes for table `states`
---
-ALTER TABLE `states`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `super_admins`
---
-ALTER TABLE `super_admins`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `super_admins_phone_number_unique` (`phone_number`),
-  ADD UNIQUE KEY `user_id` (`user_id`);
-
---
--- Indexes for table `technicians`
---
-ALTER TABLE `technicians`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `technicians_phone_number_unique` (`phone_number`),
-  ADD UNIQUE KEY `tag_id` (`tag_id`),
-  ADD UNIQUE KEY `technicians_other_phone_number_unique` (`other_phone_number`),
-  ADD UNIQUE KEY `technicians_account_number_unique` (`account_number`),
-  ADD KEY `lga_id` (`lga_id`),
-  ADD KEY `state_id` (`state_id`),
-  ADD KEY `bank_id` (`bank_id`),
-  ADD KEY `created_by` (`created_by`),
-  ADD KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`bank_id`) USING BTREE;
-
---
--- Indexes for table `tool_inventories`
---
-ALTER TABLE `tool_inventories`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `tool_requests`
---
-ALTER TABLE `tool_requests`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `requested_by` (`requested_by`,`approved_by`,`service_request_id`,`batch_number`),
-  ADD KEY `tool_requests_batch_id` (`batch_number`),
-  ADD KEY `service_request_id` (`service_request_id`),
-  ADD KEY `tool_requests_ibfk_4` (`approved_by`);
-
---
--- Indexes for table `tool_request_batches`
---
-ALTER TABLE `tool_request_batches`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `tool_id` (`tool_id`),
-  ADD KEY `batch_id` (`tool_request_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
-
---
--- Indexes for table `wallets`
---
-ALTER TABLE `wallets`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `wallets_user_id_unique` (`user_id`),
-  ADD UNIQUE KEY `wallets_wallet_id_unique` (`wallet_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `activity_logs`
---
-ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=473;
-
---
--- AUTO_INCREMENT for table `admins`
---
-ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `admin_permissions`
---
-ALTER TABLE `admin_permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `banks`
---
-ALTER TABLE `banks`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `clients`
---
-ALTER TABLE `clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
-
---
--- AUTO_INCREMENT for table `cses`
---
-ALTER TABLE `cses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `lgas`
---
-ALTER TABLE `lgas`
-  MODIFY `id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=775;
-
---
--- AUTO_INCREMENT for table `location_and_browser_infos`
---
-ALTER TABLE `location_and_browser_infos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
-
---
--- AUTO_INCREMENT for table `messages`
---
-ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
-
---
--- AUTO_INCREMENT for table `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
---
--- AUTO_INCREMENT for table `names`
---
-ALTER TABLE `names`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
-
---
--- AUTO_INCREMENT for table `payment_gateways`
---
-ALTER TABLE `payment_gateways`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `professions`
---
-ALTER TABLE `professions`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
---
--- AUTO_INCREMENT for table `received_payments`
---
-ALTER TABLE `received_payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `rfqs`
---
-ALTER TABLE `rfqs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `rfq_batches`
---
-ALTER TABLE `rfq_batches`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `rfq_suppliers`
---
-ALTER TABLE `rfq_suppliers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `services`
---
-ALTER TABLE `services`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `service_requests`
---
-ALTER TABLE `service_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT for table `service_request_cancellation_reasons`
---
-ALTER TABLE `service_request_cancellation_reasons`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `service_request_details`
---
-ALTER TABLE `service_request_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT for table `service_request_progresses`
---
-ALTER TABLE `service_request_progresses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `service_request_statuses`
---
-ALTER TABLE `service_request_statuses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `states`
---
-ALTER TABLE `states`
-  MODIFY `id` tinyint(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
-
---
--- AUTO_INCREMENT for table `super_admins`
---
-ALTER TABLE `super_admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `technicians`
---
-ALTER TABLE `technicians`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `tool_inventories`
---
-ALTER TABLE `tool_inventories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `tool_requests`
---
-ALTER TABLE `tool_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tool_request_batches`
---
-ALTER TABLE `tool_request_batches`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
-
---
--- AUTO_INCREMENT for table `wallets`
---
-ALTER TABLE `wallets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+(60, 81, 'WAL-FCF126B5', 0, '2021-01-05 10:45:28', '2021-01-05 10:45:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wallet_transactions`
+--
+
+DROP TABLE IF EXISTS `wallet_transactions`;
+CREATE TABLE IF NOT EXISTS `wallet_transactions` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `wallet_id` bigint(20) UNSIGNED NOT NULL,
+  `service_request_id` bigint(20) UNSIGNED NOT NULL,
+  `payment_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`,`wallet_id`,`service_request_id`),
+  KEY `wallet_id` (`wallet_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Constraints for dumped tables
@@ -3484,6 +3475,13 @@ ALTER TABLE `tool_request_batches`
 --
 ALTER TABLE `wallets`
   ADD CONSTRAINT `wallets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `wallet_transactions`
+--
+ALTER TABLE `wallet_transactions`
+  ADD CONSTRAINT `wallet_transactions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `wallet_transactions_ibfk_2` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

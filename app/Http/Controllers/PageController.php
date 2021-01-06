@@ -60,17 +60,17 @@ class PageController extends Controller
             $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
             $mail->isSMTP();  
             $mail->CharSet = 'utf-8';                                         // Send using SMTP
-            $mail->Host       = 'mail.ninthbinary.com';               // Set the SMTP server to send through
+            $mail->Host       = 'mail.homefix.ng';               // Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'test@ninthbinary.com';                     // SMTP username
-            $mail->Password   = 'testingpassword24';                               // SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            // $mail->SMTPSecure = env('MAIL_ENCRYPTION');         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $mail->Port       = 26;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            $mail->Username   = 'testhome@homefix.ng';                     // SMTP username
+            $mail->Password   = 'cP@Pas5w0rd!';                               // SMTP password
+            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Recipients
-            $mail->setFrom($email, $name);
-            $mail->addAddress('info@fixmaster.com.ng');     // Add a recipient
+            $mail->setFrom('info@homefix.ng', 'FixMaster');
+            $mail->addAddress($email, $name);     // Add a recipient
             // $mail->addAddress('ellen@example.com');               // Name is optional
             // $mail->addReplyTo('info@example.com', 'Information');
             // $mail->addCC('cc@example.com');
@@ -90,12 +90,12 @@ class PageController extends Controller
             $mail->clearAddresses();
             // echo 'Message has been sent';
 
-            return redirect()->route('page.contact')->with('success', 'Message has been sent');
+            return redirect()->route('page.contact')->with('success','Message has been sent' );
 
         } catch (Exception $e) {
             // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 
-            return back()->with('error', "Message could not be sent. Mailer Error: {$mail->ErrorInfo}")->withInput();
+            return back()->with('error', "Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
         }
 
         return back()->withInput();
@@ -111,60 +111,5 @@ class PageController extends Controller
             'category'  =>   'required',
             'message'   =>   'required',
         ]);
-    }
-
-    public function serviceDetails($url){
-
-        $urlExists = Category::where('url', $url)->first();
-
-        if(!empty($urlExists)){
-
-            $data = [
-                'service' =>  $urlExists,
-            ];
-
-            return view('page.service_details', $data);
-        }else{
-            return back();
-        }
-    }
-
-    public function searchCategories(Request $request){
-        if($request->ajax()){
-
-            $query = $request->get('query');
-            $query2 = $request->get('query');
-            $type = $request->type;
-
-            if($type == 'Name'){
-                $services = Category::select('id', 'name', 'url', 'image', 'service_id')
-                ->where('name', 'LIKE', '%'.$query.'%')
-                ->orWhere('description', 'LIKE', '%'.$query.'%')
-                ->get();
-
-            }
-
-            if($type == 'ID'){
-
-                $services = Category::select('id', 'name', 'url', 'image', 'service_id')
-                ->where('service_id', $query)
-                ->with(['service'    =>  function($query){
-                    return $query->select('name', 'id');
-                }])->get();
-
-                if(count($services) == 0){
-                    $query = Service::where('id', $query2)->first()->name;
-                }
-            }
-
-            $data = [
-                'services'  =>  $services,
-                'query'     =>  $query,
-                'type'      =>  $type,
-            ];
-
-            return view('page._service_search', $data);
-        }
-
     }
 }

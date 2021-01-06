@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-6 col-12 d-lg-block d-none">
                 <div class="sidebar sticky-bar p-4 rounded shadow">
-                    <h5 class="widget-title">E-Wallet :</h5>
+                    <h5 class="widget-title">E-Wallet: <strong>{{ $user->user->wallet->wallet_id }}</strong></h5>
                     <div class="widget">
                         <div class="row mt-4  text-center">
                             <div class="card event-schedule rounded border">
@@ -23,7 +23,7 @@
                                     </div>
                                     <div class="mt-1">
                                         <small>Last Login: <br>
-                                            @if(!empty($user->last_sign_in)) {{ Carbon\Carbon::parse($user->last_sign_in, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }} @else Never @endif
+                                            <strong>@if(!empty($user->last_sign_in)) {{ Carbon\Carbon::parse($user->last_sign_in, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }} @else Never @endif</strong>
                                         </small>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
 
                             <div class="col-6 mt-4 pt-2">
                             <a href="{{ route('client.messages') }}" class="accounts rounded d-block shadow text-center py-3 {{ Route::currentRouteNamed('client.messages') ? 'active' : '' }}">
-                                    <span class="pro-icons h3 text-muted"><i class="uil uil-envelope-star"></i></span>
+                                    <span class="pro-icons h3 text-muted"><i class="uil uil-envelope-star @if($user->receivedMessages()->where('is_read', '0')->count()) text-danger" @endif data-toggle="tooltip" title="You have {{ $user->receivedMessages()->where('is_read', '0')->count() }} unread messages"></i></span>
                                     <h6 class="title text-dark h6 my-0">Messages</h6>
                                 </a>
                             </div><!--end col-->

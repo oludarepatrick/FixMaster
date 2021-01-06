@@ -129,9 +129,9 @@ class RegisterController extends Controller
                 'email_verification_token'      =>   $token,
                 'designation'                   =>   '[CLIENT_ROLE]',
 
-                'is_email_verified'             =>  '1',
-                'email_verified_at'             =>  \Carbon\Carbon::now(),
-                'is_active'                     =>  '1',
+                // 'is_email_verified'             =>  '1',
+                // 'email_verified_at'             =>  \Carbon\Carbon::now(),
+                // 'is_active'                     =>  '1',
 
             ]);
 
@@ -156,7 +156,7 @@ class RegisterController extends Controller
 
                 $subject = 'Welcome to FixMaster';
 
-                // PHPMailerController::sendMail($createClientProfile->email, $mailBody, $subject);
+                PHPMailerController::sendMail($createClientProfile->email, $mailBody, $subject);
 
                 // MailController::clientEmailVerification($createClientProfile->email, $createClientProfile->email_verification_token, $clientName);
 
@@ -200,7 +200,7 @@ class RegisterController extends Controller
                 $message = $clientName.'('.$request->input('email').') account was registered successfully.';
                 $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 
-                return redirect()->route('login');
+                // return redirect()->route('login')->with('success', 'Dear '.$clientName.', your account has been created. Please login. Thanks.');
 
                 return view('mail.client_email_verification', $data);
             }

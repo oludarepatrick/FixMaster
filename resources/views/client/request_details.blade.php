@@ -127,6 +127,13 @@
         <ul class="list-unstyled">
             <li class="text-muted"><i data-feather="arrow-right" class="fea icon-sm text-primary mr-2"></i> {{ $requestDetail->serviceRequestDetail->description }}</li>
         </ul>
+
+        @if(!empty($requestDetail->serviceRequestCancellationReason->reason))
+        <h5>Cancellation Reason</h5>
+        <ul class="list-unstyled">
+            <li class="text-muted"><i data-feather="arrow-right" class="fea icon-sm text-primary mr-2"></i> {{ $requestDetail->serviceRequestCancellationReason->reason }}</li>
+        </ul>
+        @endif
     </div>
 </div>
 <!--end col-->

@@ -108,7 +108,7 @@
                     </ul>
                 </li>
 
-                <li title="Logout"><a href="{{ route('logout') }}" class="text-danger"><i class="uil uil-sign-out-alt text-danger" style="font-size: 20px" ></i></a></li>
+                <li title="Logout"><a href="{{ route('logout') }}"><i class="uil uil-sign-out-alt" style="font-size: 20px" ></i></a></li>
 
             </ul><!--end navigation menu-->
         </div><!--end navigation-->
@@ -153,7 +153,12 @@
                                     <div class="col-md-5 text-md-right text-center">
                                         <ul class="list-unstyled social-icon social mb-0 mt-4">
                                             <li class="list-inline-item"><a href="{{ route('client.wallet') }}" class="rounded" data-toggle="tooltip" data-placement="bottom" title="E-Wallet"><i data-feather="credit-card" class="fea icon-sm fea-social"></i></a></li>
-                                            <li class="list-inline-item"><a href="{{ route('client.messages') }}" class="rounded" data-toggle="tooltip" data-placement="bottom" title="Messages"><i data-feather="message-circle" class="fea icon-sm fea-social"></i></a></li>
+                                            <li class="list-inline-item">
+                                                <a href="{{ route('client.messages') }}" class="rounded" data-toggle="tooltip" title="You have {{ $user->receivedMessages()->where('is_read', '0')->count() }} unread messages" data-placement="bottom">
+                                                    @if($user->receivedMessages()->where('is_read', '0')->count()) <sup class="ml-3" >{{ $user->receivedMessages()->where('is_read', '0')->count() }}<sup> @endif
+                                                    <i data-feather="message-circle" class="fea icon-sm fea-social" style="margin-top: -32px !important;"></i>
+                                                </a>
+                                            </li>
                                             <li class="list-inline-item"><a href="{{ route('client.services') }}" class="rounded" data-toggle="tooltip" data-placement="bottom" title="Book a Service"><i data-feather="layers" class="fea icon-sm fea-social"></i></a></li>
                                             <li class="list-inline-item"><a href="{{ route('client.settings') }}" class="rounded" data-toggle="tooltip" data-placement="bottom" title="Settings"><i data-feather="settings" class="fea icon-sm fea-social"></i></a></li>
                                         </ul><!--end icon-->

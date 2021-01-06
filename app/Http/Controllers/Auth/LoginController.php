@@ -91,6 +91,11 @@ class LoginController extends Controller
 
         if(Auth::attempt($userCredentials, $rememberMe)){
 
+            //For maintenance mode
+            // Auth::logout(); //Unset user session
+            // return back()->with('error','We\'re sorry, but we are upgrading our system. Please try again in a few hours');
+
+
             $user = User::findorFail(Auth::id());
 
             $isActive = Auth::user()->is_active;

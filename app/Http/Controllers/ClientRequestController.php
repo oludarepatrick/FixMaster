@@ -23,6 +23,8 @@ use App\Models\Service;
 use App\Models\Name;
 use App\Models\Message;
 use App\Models\ReceivedPayment;
+use App\Models\Wallet;
+use App\Models\WalletTransaction;
 
 class ClientRequestController extends Controller
 {
@@ -378,13 +380,23 @@ class ClientRequestController extends Controller
             return back()->with('error', 'Sorry! This service request('.$requestExists->job_reference.') has already been completed.');
         }
 
-        //Validat user input fields
+        //Validate user input fields
         $request->validate([
             'reason'       =>   'required',
         ]);
 
+        if(!empty($requestExists->serviceRequestDetail->discount_service_fee)){
+            $refundAmount = $requestExists->serviceRequestDetail->discount_service_fee;
+        }else{
+            $refundAmount = $requestExists->serviceRequestDetail->initial_service_fee;
+        }
+
+        $walletbalance = Auth::user()->user->wallet->balance;
+
+        $NewWalletbalance = $refundAmount + $walletbalance;
+
         //service_request_status_id = Pending(1), Ongoing(4), Completed(3), Cancelled(2) 
-        $markAsCompleted = ServiceRequest::where('id', $id)->update([
+        $cancelRequest = ServiceRequest::where('id', $id)->update([
             'service_request_status_id' =>  '2',
         ]);
 
@@ -403,8 +415,20 @@ class ClientRequestController extends Controller
             'reason'                        =>  $request->reason,
         ]);
 
+        Wallet:where('user_id', Auth::id())->update([
+            'balance'   =>    $NewWalletbalance,
+        ]);
 
-        if($markAsCompleted AND $recordServiceProgress AND $recordCancellation){
+        WalletTransaction::create([
+            'user_id'               =>  Auth::id(), 
+            'wallet_id'             =>  Auth::user()->user->wallet->id, 
+            'service_request_id'    =>  $id, 
+            'payment_type'          =>  'Service request refund', 
+            'amount'                =>  $refundAmount,
+        ]);
+
+
+        if($cancelRequest AND $recordServiceProgress AND $recordCancellation){
 
             //Record crurrenlty logged in user activity
             $this->addRecord = new RecordActivityLogController();

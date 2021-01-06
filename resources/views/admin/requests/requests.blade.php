@@ -68,7 +68,7 @@
                     <td class="tx-medium">{{ $serviceRequest->job_reference }}</td>
                     <td class="tx-medium">{{ $serviceRequest->user->fullName->name }}</td>
                     <td class="tx-medium">{{ $serviceRequest->serviceRequestDetail->phone_number }}</td>
-                    <td class="text-medium text-center">
+                    <td class="tx-medium text-center">
                       @if(!empty($serviceRequest->serviceRequestDetail->discount_service_fee))
                           ₦{{ number_format($serviceRequest->serviceRequestDetail->discount_service_fee) }}
                           <br><span style="font-size: 10px;" class="text-success">Discount</span>
@@ -76,8 +76,8 @@
                           ₦{{ number_format($serviceRequest->serviceRequestDetail->initial_service_fee) }}
                       @endif
                     </td>
-                    <td class="text-medium text-success">{{ $serviceRequest->serviceRequestStatus->name }}</td>
-                    <td class="text-medium">{{ $serviceRequest->serviceRequestDetail->timestamp ?? '' }}</td>
+                    <td class="tx-medium text-success">{{ $serviceRequest->serviceRequestStatus->name }}</td>
+                    <td class="tx-medium">{{ $serviceRequest->serviceRequestDetail->timestamp ?? '' }}</td>
                     <td class=" text-center">
                       <div class="dropdown-file">
                         <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>

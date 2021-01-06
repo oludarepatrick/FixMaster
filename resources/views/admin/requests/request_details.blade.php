@@ -10,8 +10,8 @@
         <div>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-            <li class="breadcrumb-item"><a href="{{ route('cse.home') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('cse.requests') }}">New Requests</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.requests') }}">New Requests</a></li>
               <li class="breadcrumb-item active" aria-current="page">New Request Details</li>
             </ol>
           </nav>

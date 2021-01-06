@@ -49,39 +49,41 @@
               </thead>
               <tbody>
                 @foreach ($admins as $admin)
-                @foreach ($admin->admins as $item)@endforeach
-                <tr>
-                <td class="tx-color-03 tx-center">{{ ++$i }}</td>
-                <td class="tx-medium">{{ $admin->fullName->name }}</td>
-                <td class="tx-medium">{{ $admin->email }}</td>
-                <td class="tx-medium">{{ $createdBy->find($item->created_by)->name }}</td>
-                <td class="tx-medium">{{ $item->phone_number }}</td>
-                  <td class="text-medium text-info">
-                    @if($item->designation == 'ADMIN_ROLE') Admin @else Super Admin @endif
-                  </td>
-                  @if($admin->is_active == '1') 
-                    <td class="text-medium text-success">Active</td>
-                  @else 
-                    <td class="text-medium text-danger">Inactive</td>
-                  @endif
-                <td class="text-medium">{{ Carbon\Carbon::parse($admin->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.summary_admin', $admin->id) }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
-                      <a href="{{ route('admin.edit_admin', $admin->id) }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
-                      <a href="{{ route('admin.activity_log_admin', $admin->id) }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a>
-                      @if($admin->is_active == '1')
-                        <a href="{{ route('admin.deactivate_admin', $admin->id) }}" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
-                      @else
-                        <a href="{{ route('admin.reinstate_admin', $admin->id) }}" class="dropdown-item details text-success"><i class="fas fa-undo"></i> Reinstate</a>
-                      @endif
-                      <a href="{{ route('admin.delete_admin', $admin->id) }}" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+                  @foreach ($admin->admins as $item)@endforeach
+                    @if($admin->id != Auth::id())
+                    <tr>
+                      <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                      <td class="tx-medium">{{ $admin->fullName->name }}</td>
+                      <td class="tx-medium">{{ $admin->email }}</td>
+                      <td class="tx-medium">{{ $createdBy->find($item->created_by)->name }}</td>
+                      <td class="tx-medium">{{ $item->phone_number }}</td>
+                        <td class="text-medium text-info">
+                          @if($item->designation == 'ADMIN_ROLE') Admin @else Super Admin @endif
+                        </td>
+                        @if($admin->is_active == '1') 
+                          <td class="text-medium text-success">Active</td>
+                        @else 
+                          <td class="text-medium text-danger">Inactive</td>
+                        @endif
+                      <td class="text-medium">{{ Carbon\Carbon::parse($admin->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
+                      <td class=" text-center">
+                        <div class="dropdown-file">
+                          <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                          <a href="{{ route('admin.summary_admin', $admin->id) }}" class="dropdown-item details text-primary"><i class="far fa-user"></i> Summary</a>
+                          <a href="{{ route('admin.edit_admin', $admin->id) }}" class="dropdown-item details text-info"><i class="far fa-edit"></i> Edit</a>
+                          <a href="{{ route('admin.activity_log_admin', $admin->id) }}" class="dropdown-item details"><i class="fas fa-address-card"></i> Activitiy Log</a>
+                          @if($admin->is_active == '1')
+                            <a href="{{ route('admin.deactivate_admin', $admin->id) }}" class="dropdown-item details text-warning"><i class="fas fa-ban"></i> Deactivate</a>
+                          @else
+                            <a href="{{ route('admin.reinstate_admin', $admin->id) }}" class="dropdown-item details text-success"><i class="fas fa-undo"></i> Reinstate</a>
+                          @endif
+                          <a href="{{ route('admin.delete_admin', $admin->id) }}" class="dropdown-item details text-danger"><i class="fas fa-trash"></i> Delete</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    @endif
                 @endforeach
                 
 

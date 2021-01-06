@@ -141,9 +141,12 @@ class CSEMessageController extends Controller
         $message = Message::findOrFail($id);
 
         if($message->is_read == '0'){
-            Message::where('id', $id)->update([
-                'is_read'   =>  '1',
-            ]);
+
+            if($message->recipient_id == Auth::id()){
+                Message::where('id', $id)->update([
+                    'is_read'   =>  '1',
+                ]);
+            }
         }
 
         $data = [
@@ -170,12 +173,6 @@ class CSEMessageController extends Controller
     public function outboxMessageDetails($id){
 
         $message = Message::findOrFail($id);
-
-        if($message->is_read == '0'){
-            Message::where('id', $id)->update([
-                'is_read'   =>  '1',
-            ]);
-        }
 
         $data = [
             'message'  =>  $message

@@ -19,19 +19,19 @@ class PHPMailerController extends Controller
 
         try {
             //Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
             $mail->isSMTP();  
             $mail->CharSet = 'utf-8';                                         // Send using SMTP
-            $mail->Host       = 'mail.ninthbinary.com';               // Set the SMTP server to send through
+            $mail->Host       = 'mail.homefix.ng';               // Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'test@ninthbinary.com';                     // SMTP username
-            $mail->Password   = 'testingpassword24';                               // SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            // $mail->SMTPSecure = env('MAIL_ENCRYPTION');         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $mail->Port       = 26;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            $mail->Username   = 'testhome@homefix.ng';                     // SMTP username
+            $mail->Password   = 'cP@Pas5w0rd!';                               // SMTP password
+            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Recipients
-            $mail->setFrom('test@ninthbinary.com', 'FixMaster - We Fix, You Relax!');
+            $mail->setFrom('info@homefix.ng', 'FixMaster - We Fix, You Relax!');
             $mail->addAddress($email);     // Add a recipient
             // $mail->addAddress('ellen@example.com');               // Name is optional
             // $mail->addReplyTo('info@example.com', 'Information');

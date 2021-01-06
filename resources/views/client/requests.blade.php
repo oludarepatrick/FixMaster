@@ -95,7 +95,7 @@
                 {{-- {{ dd($userServiceRequest->serviceRequestDetail->timestamp) }} --}}
                     <tr>
                         <td class="text-center">{{ ++$i }}</td>
-                        <td>{{ $userServiceRequest->job_reference }}</td>
+                        <td class="font-weight-bold">{{ $userServiceRequest->job_reference }}</td>
                         <td>@if(!empty($userServiceRequest->cse_id)) {{ $userServiceRequest->cse->first_name.' '.$userServiceRequest->cse->last_name }} @else Not Assigned @endif</td>
                         <td>{{ $userServiceRequest->serviceRequestDetail->timestamp ?? '' }}</td>
                         <td class="font-weight-bold text-center">
@@ -115,7 +115,7 @@
                         @elseif($userServiceRequest->serviceRequestStatus->name == 'Cancelled')
                             <td class="text-danger">Cancelled</td>
                         @endif
-                        <td>{{ $userServiceRequest->serviceRequestDetail->service_fee_name }}</td>
+                        <td class="font-weight-bold">{{ $userServiceRequest->serviceRequestDetail->service_fee_name }}</td>
                         <td>
                             
                             <div class="btn-group dropdown-primary mr-2 mt-2">
