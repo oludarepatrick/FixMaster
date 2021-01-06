@@ -20,7 +20,7 @@
         @if($user->is_active == 0)
           <a href="{{ route('admin.reinstate_client', $user->id) }}" class="btn btn-success"><i class="fas fa-undo"></i> Reinstate</a>
         @endif
-        <a href="{{ route('admin.delete_client', $user->id) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+        {{-- <a href="{{ route('admin.delete_client', $user->id) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a> --}}
       </div>
     </div>
 
