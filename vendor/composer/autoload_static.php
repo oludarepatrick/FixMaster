@@ -687,6 +687,7 @@ class ComposerStaticInit0258898968c5a94c6296c7b8653b99d8
         'App\\Models\\ToolsRequestBatch' => __DIR__ . '/../..' . '/app/Models/ToolsRequestBatch.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\Wallet' => __DIR__ . '/../..' . '/app/Models/Wallet.php',
+        'App\\Models\\WalletTransaction' => __DIR__ . '/../..' . '/app/Models/WalletTransaction.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

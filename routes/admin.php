@@ -161,8 +161,11 @@ Route::middleware(['adminRole'])->group(function() {
 
                 Route::get('/payments/received', 
                 [App\Http\Controllers\PaymentsController::class, 'receivedPayments'])->name('received_payments');
-
-                Route::view('/payments/disbursed', 	                'admin.payments.disbursed')->name('disbursed_payments');
+                Route::get('/payments/disbursed', 
+                [App\Http\Controllers\PaymentsController::class, 'disbursedPayments'])->name('disbursed_payments');
+                Route::post('/payments/record-payment', 
+                [App\Http\Controllers\PaymentsController::class, 'recordPayment'])->name('record_payments');
+                Route::get('/payments/ongoing-service-request/{id}', [App\Http\Controllers\PaymentsController::class, 'getOngoingServiceRequestDetail'])->name('ongoing_service_request_detail');
 
                 Route::view('/ratings/category', 	                'admin.ratings.category')->name('category_ratings');
                 Route::view('/ratings/job', 	                    'admin.ratings.job')->name('job_ratings');

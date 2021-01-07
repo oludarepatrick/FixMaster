@@ -23,8 +23,8 @@
         <div class="card mg-b-10">
           <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
             <div>
-              <h6 class="mg-b-5">Your Most Recent Requets</h6>
-              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>Completed Requests</strong> assigned  by FixMaster Admin and has been marked as completed.</p>
+              <h6 class="mg-b-5">Your Recently Completed Requests</h6>
+              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>Completed Requests</strong> assigned by FixMaster Admin and has been marked as completed.</p>
             </div>
             
           </div><!-- card-header -->
@@ -69,7 +69,7 @@
                   <td class="tx-medium">@if(!empty($serviceRequest->technician)) {{ $serviceRequest->technician->first_name.' '.$serviceRequest->technician->last_name }} @endif</td>
                   <td class="tx-medium text-center">₦{{ number_format($serviceRequest->total_amount) }}</td>
                   <td class="tx-medium tx-center text-success">{{ $serviceRequest->serviceRequestStatus->name }}</td>
-                  <td class="tx-medium text-center">{{ $serviceRequest->serviceRequestDetail->timestamp ?? '' }}</td>
+                  <td class="tx-medium text-center">{{ Carbon\Carbon::parse($serviceRequest->updated_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                   <td class="text-center">
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>

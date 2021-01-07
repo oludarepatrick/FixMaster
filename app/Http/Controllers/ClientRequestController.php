@@ -415,7 +415,7 @@ class ClientRequestController extends Controller
             'reason'                        =>  $request->reason,
         ]);
 
-        Wallet:where('user_id', Auth::id())->update([
+        Wallet::where('user_id', Auth::id())->update([
             'balance'   =>    $NewWalletbalance,
         ]);
 
