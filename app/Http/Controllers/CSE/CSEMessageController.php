@@ -125,7 +125,7 @@ class CSEMessageController extends Controller
 
     public function inbox(){
 
-        $messages = Message::orderBy('created_at', 'DESC')->get()
+        $messages = Auth::user()->receivedMessage()->orderBy('created_at', 'DESC')->get()
         ->groupBy(function ($val) {
             return \Carbon\Carbon::parse($val->created_at)->format('l d, F Y');
         });
