@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 06, 2021 at 02:32 PM
+-- Generation Time: Jan 07, 2021 at 09:22 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.4.0
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `activity_logs` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=606 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=624 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `activity_logs`
@@ -640,7 +640,25 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 (602, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:35:40(hrs:min:ss).', '2021-01-06 11:24:22'),
 (603, 4, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'FixMaster Management logged in.', '2021-01-06 11:24:35'),
 (604, 4, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'FixMaster Management logged out with a session duration of 00:37:37(hrs:min:ss).', '2021-01-06 12:02:12'),
-(605, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-06 12:02:31');
+(605, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-06 12:02:31'),
+(606, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-06 17:16:24'),
+(607, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'http://localhost:8000/client/requests/cancel/9', 'Adekola Adeleke cancelled REF-E1C71A87 service request.', '2021-01-06 17:42:49'),
+(608, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 01:03:08(hrs:min:ss).', '2021-01-06 18:19:32'),
+(609, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-06 18:19:45'),
+(610, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:25:30(hrs:min:ss).', '2021-01-06 18:45:15'),
+(611, 12, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Godrey Diwa logged in.', '2021-01-06 18:45:27'),
+(612, 12, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Godrey Diwa logged out with a session duration of 00:05:20(hrs:min:ss).', '2021-01-06 18:50:47'),
+(613, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-06 18:50:59'),
+(614, 1, '127.0.0.1', 'Payment', 'Informational', 'App\\Http\\Controllers\\PaymentsController@recordPayment', 'http://localhost:8000/admin/payments/record-payment', 'NinthBinary Developer recorded Favour Nnamdi payment for REF-27D2F0BE service request.', '2021-01-06 21:53:37'),
+(615, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 03:03:17(hrs:min:ss).', '2021-01-06 21:54:16'),
+(616, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-07 05:54:50'),
+(617, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:54:23(hrs:min:ss).', '2021-01-07 06:49:13'),
+(618, 12, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Godrey Diwa logged in.', '2021-01-07 08:24:29'),
+(619, 12, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Godrey Diwa logged out with a session duration of 00:24:22(hrs:min:ss).', '2021-01-07 08:48:51'),
+(620, 15, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Taofeek Adedokun logged in.', '2021-01-07 08:49:32'),
+(621, 15, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Taofeek Adedokun logged out with a session duration of 00:23:55(hrs:min:ss).', '2021-01-07 09:13:27'),
+(622, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-07 09:13:39'),
+(623, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:07:57(hrs:min:ss).', '2021-01-07 09:21:36');
 
 -- --------------------------------------------------------
 
@@ -969,6 +987,38 @@ INSERT INTO `cse_category` (`cse_id`, `category_id`) VALUES
 (2, 3),
 (4, 2),
 (4, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `disbursed_payments`
+--
+
+DROP TABLE IF EXISTS `disbursed_payments`;
+CREATE TABLE IF NOT EXISTS `disbursed_payments` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `recipient_id` bigint(20) UNSIGNED NOT NULL,
+  `service_request_id` bigint(20) UNSIGNED NOT NULL,
+  `payment_mode` enum('1','2','3','4') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` int(10) UNSIGNED NOT NULL,
+  `payment_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `disbursed_payments_user_id_index` (`user_id`),
+  KEY `disbursed_payments_recipient_id_index` (`recipient_id`),
+  KEY `disbursed_payments_service_request_id_index` (`service_request_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `disbursed_payments`
+--
+
+INSERT INTO `disbursed_payments` (`id`, `user_id`, `recipient_id`, `service_request_id`, `payment_mode`, `payment_reference`, `amount`, `payment_date`, `comment`, `created_at`, `updated_at`) VALUES
+(1, 1, 19, 5, '2', '239482347372', 1500, '2020-12-31', 'No comment', '2021-01-06 20:53:37', '2021-01-06 20:53:37');
 
 -- --------------------------------------------------------
 
@@ -2044,7 +2094,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -2079,7 +2129,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (26, '2020_12_26_024633_create_rfq_suppliers_table', 17),
 (27, '2021_01_01_173645_create_received__payments_table', 18),
 (28, '2021_01_02_120756_create_service_request_cancellation_reasons_table', 19),
-(29, '2021_01_06_124234_create_wallet_transactions_table', 20);
+(29, '2021_01_06_124234_create_wallet_transactions_table', 20),
+(30, '2021_01_06_205101_create_disbursed_payments_table', 21);
 
 -- --------------------------------------------------------
 
@@ -2536,8 +2587,8 @@ INSERT INTO `service_requests` (`id`, `user_id`, `admin_id`, `cse_id`, `technici
 (2, 10, NULL, NULL, NULL, 3, 2, 'REF-330CB862', 'SEC-88AC1B19', 1, 3300, NULL, '2020-12-14 12:48:20', NULL),
 (5, 11, 6, 19, 15, 5, 3, 'REF-27D2F0BE', 'SEC-35FA9E28', 4, 2500, NULL, '2020-12-14 15:36:58', '2021-01-02 10:54:18'),
 (6, 9, NULL, NULL, NULL, 3, 4, 'REF-1FC50FCC', 'SEC-EBC1D654', 1, 3500, NULL, '2020-12-15 09:33:01', NULL),
-(7, 11, NULL, NULL, NULL, 7, 1, 'REF-131D985E', 'SEC-A62C515E', 2, 4700, NULL, '2020-12-15 09:51:29', '2021-01-02 12:01:24'),
-(9, 11, NULL, NULL, NULL, 7, 1, 'REF-E1C71A87', 'SEC-6B5B72A2', 1, 2500, NULL, '2021-01-02 17:51:26', '2021-01-02 17:51:26'),
+(7, 11, NULL, NULL, NULL, 7, 1, 'REF-131D985E', 'SEC-A62C515E', 1, 4700, NULL, '2020-12-15 09:51:29', '2021-01-02 12:01:24'),
+(9, 11, NULL, NULL, NULL, 7, 1, 'REF-E1C71A87', 'SEC-6B5B72A2', 2, 2500, NULL, '2021-01-02 17:51:26', '2021-01-06 16:42:49'),
 (10, 77, NULL, NULL, NULL, 5, 3, 'REF-7BEC1F70', 'SEC-DB2A0659', 1, 1425, NULL, '2021-01-05 14:04:48', '2021-01-05 14:04:48'),
 (11, 77, NULL, NULL, NULL, 5, 3, 'REF-473E6826', 'SEC-18D80EE7', 2, 2500, NULL, '2021-01-05 14:11:54', '2021-01-05 15:11:45'),
 (12, 71, NULL, NULL, NULL, 7, 1, 'REF-103203B9', 'SEC-BA62A4E5', 1, 2375, NULL, '2021-01-05 14:19:11', '2021-01-05 14:19:11'),
@@ -2613,14 +2664,13 @@ CREATE TABLE IF NOT EXISTS `service_request_cancellation_reasons` (
   PRIMARY KEY (`id`),
   KEY `service_request_cancellation_reasons_user_id_index` (`user_id`),
   KEY `service_request_cancellation_reasons_service_request_id_index` (`service_request_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_request_cancellation_reasons`
 --
 
 INSERT INTO `service_request_cancellation_reasons` (`id`, `user_id`, `service_request_id`, `reason`, `created_at`, `updated_at`) VALUES
-(1, 11, 7, 'Testin request cancellation', '2021-01-02 12:01:24', '2021-01-02 12:01:24'),
 (2, 77, 14, 'The fault has been rectified', '2021-01-05 15:10:07', '2021-01-05 15:10:07'),
 (3, 77, 11, 'Late response from CSE', '2021-01-05 15:11:45', '2021-01-05 15:11:45'),
 (4, 71, 24, 'Performed a hard restart and computer works fine now.', '2021-01-05 16:40:00', '2021-01-05 16:40:00'),
@@ -2641,7 +2691,9 @@ INSERT INTO `service_request_cancellation_reasons` (`id`, `user_id`, `service_re
 (19, 74, 58, 'Fixed', '2021-01-06 09:11:20', '2021-01-06 09:11:20'),
 (20, 74, 59, 'Fixed', '2021-01-06 09:18:25', '2021-01-06 09:18:25'),
 (21, 75, 63, 'double booking', '2021-01-06 10:07:42', '2021-01-06 10:07:42'),
-(22, 75, 67, 'Double book', '2021-01-06 10:15:09', '2021-01-06 10:15:09');
+(22, 75, 67, 'Double book', '2021-01-06 10:15:09', '2021-01-06 10:15:09'),
+(23, 11, 9, 'Testing cancellation update', '2021-01-06 16:38:55', '2021-01-06 16:38:55'),
+(24, 11, 9, 'Testing cancellation update', '2021-01-06 16:42:49', '2021-01-06 16:42:49');
 
 -- --------------------------------------------------------
 
@@ -2762,7 +2814,7 @@ CREATE TABLE IF NOT EXISTS `service_request_progresses` (
   KEY `service_request_progress_user_id_index` (`user_id`),
   KEY `service_request_progress_service_request_id_index` (`service_request_id`),
   KEY `service_request_progress_service_request_status_id_index` (`service_request_status_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_request_progresses`
@@ -2772,7 +2824,6 @@ INSERT INTO `service_request_progresses` (`id`, `user_id`, `service_request_id`,
 (1, 6, 1, 4, '2020-12-27 16:20:17', '2020-12-27 16:20:17'),
 (2, 5, 1, 5, '2020-12-28 15:58:54', '2020-12-28 15:58:54'),
 (4, 6, 5, 4, '2020-12-30 09:30:18', '2020-12-30 09:30:18'),
-(7, 11, 7, 2, '2021-01-02 12:01:24', '2021-01-02 12:01:24'),
 (8, 1, 1, 6, '2021-01-02 13:55:16', '2021-01-02 13:55:16'),
 (9, 1, 1, 6, '2021-01-02 14:38:30', '2021-01-02 14:38:30'),
 (10, 77, 14, 2, '2021-01-05 15:10:07', '2021-01-05 15:10:07'),
@@ -2795,7 +2846,9 @@ INSERT INTO `service_request_progresses` (`id`, `user_id`, `service_request_id`,
 (27, 74, 58, 2, '2021-01-06 09:11:20', '2021-01-06 09:11:20'),
 (28, 74, 59, 2, '2021-01-06 09:18:25', '2021-01-06 09:18:25'),
 (29, 75, 63, 2, '2021-01-06 10:07:42', '2021-01-06 10:07:42'),
-(30, 75, 67, 2, '2021-01-06 10:15:09', '2021-01-06 10:15:09');
+(30, 75, 67, 2, '2021-01-06 10:15:09', '2021-01-06 10:15:09'),
+(31, 11, 9, 2, '2021-01-06 16:38:55', '2021-01-06 16:38:55'),
+(32, 11, 9, 2, '2021-01-06 16:42:49', '2021-01-06 16:42:49');
 
 -- --------------------------------------------------------
 
@@ -3104,7 +3157,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_token`, `is_email_verified`, `password`, `remember_token`, `designation`, `is_active`, `is_admin`, `login_count`, `current_sign_in`, `last_sign_in`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 94, '2021-01-06 11:00:03', '2021-01-05 09:52:03', NULL, '2019-12-31 23:29:26', '2021-01-06 11:00:03'),
+(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 98, '2021-01-07 08:13:39', '2021-01-07 04:54:50', NULL, '2019-12-31 23:29:26', '2021-01-07 08:13:39'),
 (2, '', NULL, NULL, '0', '', NULL, '[INTRUDER_ROLE]', '0', '0', 0, NULL, NULL, NULL, NULL, NULL),
 (3, 'charles.famoriyo@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 3, '2020-12-03 19:34:43', '2020-11-30 21:34:14', NULL, '2020-11-30 06:26:42', NULL),
 (4, 'info@fixmaster.com.ng', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[ADMIN_ROLE]', '1', '1', 3, '2021-01-06 10:24:35', '2021-01-06 11:15:43', NULL, '2020-11-30 06:26:42', '2021-01-06 10:24:35'),
@@ -3114,11 +3167,11 @@ INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_tok
 (8, 'godfrey.emmanuel@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (9, 'wisdom.amana@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (10, 'debo.williams@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
-(11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 44, '2021-01-06 11:02:31', '2021-01-05 08:33:35', NULL, '2020-12-11 12:43:02', '2021-01-06 11:02:31'),
-(12, 'jamal.diwa@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', '0', 8, '2020-12-22 08:47:24', '2020-12-19 10:13:40', NULL, '2020-12-04 06:03:06', '2020-12-22 08:47:24'),
+(11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 45, '2021-01-06 16:16:24', '2021-01-06 11:02:31', NULL, '2020-12-11 12:43:02', '2021-01-06 16:16:24'),
+(12, 'jamal.diwa@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', '0', 10, '2021-01-07 07:24:29', '2021-01-06 17:45:27', NULL, '2020-12-04 06:03:06', '2021-01-07 07:24:29'),
 (13, 'mayowabenedict@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$vicB3ZBUEj6YMfdk9P2ELO82xVE4X50.A6X.MqeTktkTTJMDh6PkS', NULL, '[CSE_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', '2020-12-29 19:11:23'),
 (14, 'andrew.nwankwo@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 1, '2020-12-17 09:17:14', '2020-12-17 09:17:14', NULL, '2020-12-04 06:03:06', NULL),
-(15, 'taofeek.adedokun@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
+(15, 'taofeek.adedokun@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 1, '2021-01-07 07:49:32', '2021-01-07 07:49:32', NULL, '2020-12-04 06:03:06', '2021-01-07 07:49:32'),
 (19, 'nnamdi.favour@yahoo.com', '2020-12-18 13:03:16', '3d08886310a72ef0fc0c208cd284fa79c9a82c50', '1', '$2y$10$Vo7etNylNWzJ3DMafi7kTuCfWe7qEkvPkJPGBYy6q4jJ26lnMKLG.', NULL, '[CSE_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-18 13:03:16', NULL),
 (23, 'desmond.john@outlook.co.uk', '2020-12-19 21:26:29', 'b6b463cdd2a85be2742d37f500dc10f4d67e8368', '1', '$2y$10$Rxe6TJzIiztAaOewBTr.pehGQrl/qoRbwia/OXQ8gOUVMV8yqAoP2', NULL, '[TECHNICIAN_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-19 21:26:29', NULL),
 (24, '1prospect1Fab1test@gmail.com', '2021-01-04 15:36:59', '1d18ae5f22d5ab9999a1e1c4da365f91c7d8274c', '1', '$2y$10$WjMh57456HoHaOIp4Njmo.MettVALtDO1dMDPXkd9ZitFKWRlyFsO', NULL, '[CLIENT_ROLE]', '1', '0', 0, '2021-01-04 03:56:25', '2021-01-04 03:53:58', NULL, '2021-01-04 02:42:27', '2021-01-04 03:56:25'),
@@ -3203,7 +3256,7 @@ CREATE TABLE IF NOT EXISTS `wallets` (
 --
 
 INSERT INTO `wallets` (`id`, `user_id`, `wallet_id`, `balance`, `created_at`, `updated_at`) VALUES
-(1, 11, 'WAL-23782382', 0, NULL, NULL),
+(1, 11, 'WAL-23782382', 2500, NULL, '2021-01-06 16:42:49'),
 (2, 9, 'WAL-21780953', 0, NULL, NULL),
 (3, 24, 'WAL-50B6D80A', 0, '2021-01-04 02:42:28', '2021-01-04 02:42:28'),
 (4, 25, 'WAL-BFE41F23', 0, '2021-01-04 04:57:46', '2021-01-04 04:57:46'),
@@ -3281,8 +3334,16 @@ CREATE TABLE IF NOT EXISTS `wallet_transactions` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`,`wallet_id`,`service_request_id`),
-  KEY `wallet_id` (`wallet_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `wallet_id` (`wallet_id`),
+  KEY `wallet_transactions_ibfk_3` (`service_request_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `wallet_transactions`
+--
+
+INSERT INTO `wallet_transactions` (`id`, `user_id`, `wallet_id`, `service_request_id`, `payment_type`, `amount`, `created_at`, `updated_at`) VALUES
+(1, 11, 1, 9, 'Service request refund', 2500, '2021-01-06 16:42:49', '2021-01-06 16:42:49');
 
 --
 -- Constraints for dumped tables
@@ -3339,6 +3400,14 @@ ALTER TABLE `cses`
 ALTER TABLE `cse_category`
   ADD CONSTRAINT `cse_category_ibfk_1` FOREIGN KEY (`cse_id`) REFERENCES `cses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cse_category_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `disbursed_payments`
+--
+ALTER TABLE `disbursed_payments`
+  ADD CONSTRAINT `disbursed_payments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `disbursed_payments_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `disbursed_payments_ibfk_3` FOREIGN KEY (`service_request_id`) REFERENCES `service_requests` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `lgas`
@@ -3481,7 +3550,8 @@ ALTER TABLE `wallets`
 --
 ALTER TABLE `wallet_transactions`
   ADD CONSTRAINT `wallet_transactions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `wallet_transactions_ibfk_2` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `wallet_transactions_ibfk_2` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `wallet_transactions_ibfk_3` FOREIGN KEY (`service_request_id`) REFERENCES `service_requests` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

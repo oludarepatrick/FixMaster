@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ReceivedPayment extends Model
+class DisbursedPayment extends Model
 {
     use HasFactory;
-    
-    public $table = "received_payments";
+
+    public $table = "disbursed_payments";
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +17,7 @@ class ReceivedPayment extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'service_request_id', 'payment_reference', 'payment_method', 'amount'
+        'user_id', 'recipient_id', 'service_request_id', 'payment_mode', 'payment_reference', 'amount', 'payment_date', 'comment'	
     ];
 
     public function user()
@@ -30,6 +30,16 @@ class ReceivedPayment extends Model
         return $this->hasMany(User::class, 'user_id')->withTrashed();
     }
 
+    public function recipient()
+    {
+        return $this->belongsTo(User::class, 'recipient_id')->withTrashed();
+    }
+
+    public function recipients()
+    {
+        return $this->hasMany(User::class, 'recipient_id')->withTrashed();
+    }
+
     public function serviceRequest()
     {
         return $this->belongsTo(ServiceRequest::class, 'service_request_id');
@@ -40,14 +50,5 @@ class ReceivedPayment extends Model
         return $this->hasMany(ServiceRequest::class, 'service_request_id');
     }
 
-    /** 
-     * Scope a query to only include active banches
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */    
-    //Function to return all active clients  
-    public function scopeAllReceivedPayments($query){
-        return $query->select('id');
-    }
 }
+

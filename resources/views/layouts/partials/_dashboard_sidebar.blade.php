@@ -32,7 +32,7 @@
           <i data-feather="chevron-down"></i>
         </a>
         {{-- <p class="tx-color-03 tx-12 mg-b-0">Ludwig Enterprise (CSE)</p> --}}
-        <p class="tx-color-03 tx-12 mg-b-0">CSE</p>
+        <p class="tx-color-03 tx-12 mg-b-0">Client Service Executive(CSE)</p>
       </div>
       <div class="collapse" id="loggedinMenu">
         <ul class="nav nav-aside mg-b-0">

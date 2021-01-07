@@ -34,7 +34,7 @@
         <div class="card mg-b-10">
           <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
             <div>
-              <h6 class="mg-b-5">Your Most Recent Requets</h6>
+              <h6 class="mg-b-5">Your Most Recent Requests</h6>
             {{-- <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of Location Requests made by <span>You</span> to a Technician paired with on a job as of <strong>{{ date('l jS F Y') }}</strong>.</p> --}}
             </div>
             

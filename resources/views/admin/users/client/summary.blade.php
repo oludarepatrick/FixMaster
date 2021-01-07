@@ -315,8 +315,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($user->receivedPayments as $receivedPayment)
                     <?php $x = 0; ?>
+                    @foreach($user->receivedPayments as $receivedPayment)
                       <tr>
                         <td class="tx-color-03 tx-center">{{ ++$x }}</td>
                         <td class="tx-medium">{{ $receivedPayment->serviceRequest->job_reference }}</td>

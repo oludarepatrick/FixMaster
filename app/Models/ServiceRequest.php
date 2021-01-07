@@ -191,6 +191,6 @@ class ServiceRequest extends Model
     //Function to return all active clients  
     public function scopeCancelledRequests($query){
         return $query->where('service_request_status_id', '=', 2)
-        ->orderBy('created_at', 'DESC');
+        ->orderBy('updated_at', 'DESC');
     }
 }

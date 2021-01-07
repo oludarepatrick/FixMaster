@@ -23,8 +23,8 @@
         <div class="card mg-b-10">
           <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
             <div>
-              <h6 class="mg-b-5">Your Most Recent Requets</h6>
-              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>Cancelled Requests</strong> assigned  by FixMaster Admin.</p>
+              <h6 class="mg-b-5">Your Most Recent Cancelled Requests</h6>
+              <p class="tx-13 tx-color-03 mg-b-0">This table displays a list of <strong>Cancelled Requests</strong> assigned by FixMaster Admin.</p>
             </div>
             
           </div><!-- card-header -->
@@ -36,7 +36,7 @@
                 </div>
                 <div class="media-body">
                   <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold tx-nowrap mg-b-5 mg-md-b-8">Total Requests</h6>
-                  <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">{{ $serviceRequests->where('service_request_status_id', '>', '2')->count() }}</h4>
+                  <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">{{ $serviceRequests->where('service_request_status_id', '2')->count() }}</h4>
                 </div>
               </div>
               
@@ -69,7 +69,7 @@
                   <td class="tx-medium">@if(!empty($serviceRequest->technician)) {{ $serviceRequest->technician->first_name.' '.$serviceRequest->technician->last_name }} @else Not Assigned @endif</td>
                   <td class="tx-medium text-center">₦{{ number_format($serviceRequest->total_amount) }}</td>
                   <td class="tx-medium tx-center text-danger">{{ $serviceRequest->serviceRequestStatus->name }}</td>
-                  <td class="tx-medium text-center">{{ $serviceRequest->serviceRequestDetail->timestamp ?? '' }}</td>
+                  <td class="tx-medium text-center">{{ Carbon\Carbon::parse($serviceRequest->serviceRequestCancellationReason->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                   <td class="text-center">
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>

@@ -103,6 +103,7 @@ return array(
     'App\\Models\\ToolsRequestBatch' => $baseDir . '/app/Models/ToolsRequestBatch.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\Wallet' => $baseDir . '/app/Models/Wallet.php',
+    'App\\Models\\WalletTransaction' => $baseDir . '/app/Models/WalletTransaction.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

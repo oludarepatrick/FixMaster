@@ -55,23 +55,32 @@ class AdminDashboardController extends Controller
         $totalUsers = User::where('designation', '!=', '[INTRUDER_ROLE]')->get()->count();
 
         //Get Total Amount earned from service requests
-        $totalAmountReceived = ServiceRequest::select('total_amount')->get();
+        $totalAmountReceived = ServiceRequest::select('total_amount')->where('service_request_status_id', '!=', 2)->get();
 
+        $cancelledAmountReceived = ServiceRequest::select('total_amount')->where('service_request_status_id', '=', 2)->get();
+        
         $totalAmount = 0;
         foreach($totalAmountReceived as $amount){ $totalAmount += $amount->total_amount; }
+        $cancelledTotalAmount = 0;
+        foreach($cancelledAmountReceived as $amount){ $cancelledTotalAmount += $amount->total_amount; }
 
         $highestReturningJobs = ServiceRequest::select('user_id', 'job_reference', 'total_amount', 'created_at')->orderBy('total_amount', 'DESC')->limit(3)->get();
 
         $receivedPayments = ReceivedPayment::limit(5)->get();
 
-        $cses = User::where('users.designation', '[CSE_ROLE]')
-        ->orderBy('users.is_active', 'DESC')
-        ->latest('users.created_at')
-        ->limit(5)
-        ->get();
+        // $cses = User::where('users.designation', '[CSE_ROLE]')
+        // ->orderBy('users.is_active', 'DESC')
+        // ->latest('users.created_at')
+        // ->limit(5)
+        // ->get();
+
+        $cses = User::ActiveCses()->with('cseRequests')->limit(5)->get()->sortBy(function($cse)
+        {
+            return $cse->cseRequests()->where('service_request_status_id', '=', 3)->count();
+        })->reverse();
 
 
-        // return $highestReturningJobs;
+        // return $cses;
 
         $data = [
             'totalRequests'             =>  $totalRequests,
@@ -88,7 +97,7 @@ class AdminDashboardController extends Controller
             'highestReturningJobs'      =>  $highestReturningJobs,
             'receivedPayments'          =>  $receivedPayments,
             'cses'                      =>  $cses,
-
+            'cancelledTotalAmount'      =>  $cancelledTotalAmount,
         ];
         
         return view('admin.home', $data)->with('i');

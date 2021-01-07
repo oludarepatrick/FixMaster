@@ -39,7 +39,7 @@
                 </div>
                 <div class="media-body">
                   <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold tx-nowrap mg-b-5 mg-md-b-8">Total Payments</h6>
-                  <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">8</h4>
+                  <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">{{ $disbursedPayments->count() }}</h4>
                 </div>
               </div>
               
@@ -119,53 +119,35 @@
                   <th class="text-center">#</th>
                   <th>Job Reference</th>
                   <th>Reference No</th>
-                  <th>Paid By</th>
-                  <th>Recipient Name</th>
+                  <th>Recorded By</th>
+                  <th>Recipient</th>
                   <th>Job Role</th>
                   <th>Amount</th>
-                  <th>Status</th>
+                  {{-- <th>Status</th> --}}
                   <th class="text-center">Payment Date</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="tx-color-03 tx-center">1</td>
-                  <td class="tx-medium">REF-234094623496</td>
-                  <td class="tx-medium">234092734623496</td>
-                  <td class="tx-medium">David Akinsola</td>
-                  <td class="tx-medium">Godfrey Diwa</td>
-                  <td class="tx-medium">CSE</td>
-                  <td class="tx-medium">₦7,000</td>
-                  <td class="text-medium text-success">Paid</td>
-                  <td class="text-medium tx-center">Apr 3, 2020, 12:56pm</td>
-                </tr>
-
-                <tr>
-                    <td class="tx-color-03 tx-center">2</td>
-                    <td class="tx-medium">REF-094009623412</td>
-                    <td class="tx-medium">4352927346209232</td>
-                    <td class="tx-medium">Obuchi Omotosho</td>
-                    <td class="tx-medium">Andrew Nwankwo</td>
-                    <td class="tx-medium">Technician</td>
-                    <td class="tx-medium">₦4,800</td>
-                    <td class="text-medium text-success">Paid</td>
-                    <td class="text-medium tx-center">Mar 21, 2020, 3:30pm</td>
-                </tr>
-
-                <tr>
-                    <td class="tx-color-03 tx-center">3</td>
-                    <td class="tx-medium">REF-237290223123</td>
-                    <td class="tx-medium">1234527346092372</td>
-                    <td class="tx-medium">Adewale Balogun</td>
-                    <td class="tx-medium">Rilwan Bello</td>
-                    <td class="tx-medium">CSE</td>
-                    <td class="tx-medium">₦2,500</td>
-                    <td class="text-medium text-success">Paid</td>
-                    <td class="text-medium tx-center">Feb 25, 2020, 8:17am</td>
-                </tr>
-
-             
-
+                @foreach($disbursedPayments as $disbursedPayment)
+                  <tr>
+                    <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                    <td class="tx-medium">{{ $disbursedPayment->serviceRequest->job_reference }}</td>
+                    <td class="tx-medium">{{ $disbursedPayment->payment_reference }}</td>
+                    <td class="tx-medium">{{ $disbursedPayment->user->fullName->name }}</td>
+                    <td class="tx-medium">{{ $disbursedPayment->recipient->fullName->name }}</td>
+                    <td class="tx-medium">
+                      @if($disbursedPayment->recipient->designation == '[CSE_ROLE]')
+                        CSE
+                      @else 
+                        Technician
+                      @endif
+                      
+                    </td>
+                    <td class="tx-medium">₦{{ number_format($disbursedPayment->amount) }}</td>
+                    {{-- <td class="text-medium text-success">Paid</td> --}}
+                    <td class="text-medium tx-center">{{ Carbon\Carbon::parse($disbursedPayment->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
+                  </tr>
+                @endforeach
                 
               </tbody>
             </table>
@@ -180,7 +162,7 @@
 </div>
 
 <div class="modal fade" id="recordPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content tx-14">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel2">Record Payment</h5>
@@ -189,89 +171,93 @@
         </button>
       </div>
       <div class="modal-body" id="modal-body">
-        <form method="POST" action="{{ route('admin.store_admin') }}">
+        <form method="POST" action="{{ route('admin.record_payments') }}">
           @csrf
           <div class="col-md-12">
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="first_name">First Name</label>
-                    <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name" name="first_name" value="{{ old('first_name') }}" placeholder="First Name" autocomplete="off">
-                    @error('first_name')
+                <div class="form-group col-md-12 remove-class">
+                  <label>Ongoing Service Requests</label>
+                  <select class="custom-select @error('service_request_id') is-invalid @enderror" id="ongoing_requests" name="service_request_id">
+                      <option value="" selected>Select...</option>
+                      @foreach ($ongoingServiceRequests as $ongoingServiceRequest)
+                          <option value="{{ $ongoingServiceRequest->id }}" {{ old('service_request_id') == $ongoingServiceRequest->id ? 'selected' : ''}} data-url="{{ route('admin.ongoing_service_request_detail', $ongoingServiceRequest->id) }}">{{ $ongoingServiceRequest->job_reference }}</option>
+                      @endforeach
+                  </select>
+                  @error('service_request_id')
                       <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                       </span>
-                    @enderror
+                  @enderror
                 </div>
-                <div class="form-group col-md-4">
-                    <label for="middle_name">Middle Name</label>
-                    <input type="text" class="form-control" id="middle_name" name="middle_name" value="{{ old('middle_name') }}" autocomplete="off" placeholder="Middle Name">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="last_name">Last Name</label>
-                    <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name" name="last_name" value="{{ old('last_name') }}" autocomplete="off" placeholder="Last Name">
-                    @error('last_name')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                    @enderror
-                </div>
+                <div class="form-group col-md-6 request-detail" id="request-list"><div id="spinner-icon-request"></div></div>
+                
+                
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <label for="inputEmail4">Email</label>
-                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" autocomplete="off"  placeholder="Email">
-                @error('email')
-                  <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                  </span>
-                @enderror
-              </div>
-              <div class="form-group col-md-4">
-                <label for="phone_number">Phone Number</label>
-                <input type="tel" maxlength="11" class="form-control @error('phone_number') is-invalid @enderror" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" placeholder="Phone Number" autocomplete="off">
-                @error('phone_number')
-                  <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                  </span>
-                @enderror
-              </div>
-              <div class="form-group col-md-4">
-                <label for="designation">Designation</label>
-                <select class="custom-select @error('designation') is-invalid @enderror" id="designation" name="designation">
-                  <option selected value="">Select...</option>
-                  <option value="ADMIN_ROLE" {{ old('designation') == 'ADMIN_ROLE' ? 'selected' : ''}}>Administrator</option>
-                  <option value="SUPER_ADMIN_ROLE" {{ old('designation') == 'SUPER_ADMIN_ROLE' ? 'selected' : ''}}>Super Admin</option>
-                </select>
-                @error('designation')
-                  <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                  </span>
-                @enderror
-              </div>
-            </div>
+
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="password">Password</label>
-                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
-                <small id="passwordHelpBlock" class="form-text text-muted">
-                  Password must be 8 characters at least.
-                </small>
-                @error('password')
+                <label for="payment_mode">Payment Mode</label>
+                <select class="custom-select @error('payment_mode') is-invalid @enderror" id="payment_mode" name="payment_mode">
+                  <option selected value="">Select...</option>
+                  <option value="1" {{ old('payment_mode') == '1' ? 'selected' : ''}}>ATM Transfer</option>
+                  <option value="2" {{ old('payment_mode') == '2' ? 'selected' : ''}}>Bank Transfer</option>
+                  <option value="3" {{ old('payment_mode') == '3' ? 'selected' : ''}}>Internet Banking</option>
+                  <option value="4" {{ old('payment_mode') == '4' ? 'selected' : ''}}>USSD Transfer</option>
+                </select>
+                @error('payment_mode')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
+
+              <div class="form-group col-md-6">
+                  <label for="payment_reference">Reference No.</label>
+                  <input type="text" class="form-control @error('payment_reference') is-invalid @enderror" id="payment_reference" name="payment_reference" value="{{ old('amount') }}" autocomplete="off" placeholder="Reference Number">
+                  @error('payment_reference')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+              </div>
+
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                  <label for="amount">Amount</label>
+                  <input type="tel" class="form-control amount @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount') }}" maxlength="10" autocomplete="off" placeholder="Amount">
+                  @error('amount')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="payment_date">Payment Date</label>
+                <input type="date" class="form-control @error('payment_date') is-invalid @enderror" id="service-date-time" max="{{ \Carbon\Carbon::now()->isoFormat('MMMM Do YYYY, h:mm') }}" name="payment_date" value="{{ old('payment_date') }}">
+                @error('payment_date')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
+              
+            </div>
+           
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="comment">Comments (Optional)</label>
+                <textarea class="form-control @error('comment') is-invalid @enderror" rows="3" name="comment" id="comment">{{ old('comment') }}</textarea>
+                @error('comment')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
               </div>
-              <div class="form-group col-md-6">
-                <label for="confirm_password">Confirm Password</label>
-                <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
-                @error('confirm_password')
-                  <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                  </span>
-                @enderror
-              </div>
             </div>
+            
           </div>
 
           <div class="col-md-12 mt-4">
@@ -285,35 +271,54 @@
   </div>
 </div>
 
-@section('scripts')
+@push('scripts')
+
+<script src="{{ asset('assets/dashboard/assets/js/dashforge.mail.js') }}"></script>
+
 <script>
-    $(document).ready(function() {
+  $(document).ready(function (){
 
-        $('#request-sorting').on('change', function (){        
-                let option = $("#request-sorting").find("option:selected").val();
+    //Get list of users by a particular service request reference
+    // $('#ongoing_requests').on('change',function () {
+    $(document).on('change', '#ongoing_requests', function () {
 
-                if(option === 'None'){
-                    $('.specific-date, .sort-by-year, .date-range').addClass('d-none');
-                }
+        let user = $(this).find('option:selected').text();
+        let route = $(this).find('option:selected').data('url');
 
-                if(option === 'Date'){
-                    $('.specific-date').removeClass('d-none');
-                    $('.sort-by-year, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Month'){
-                    $('.sort-by-year').removeClass('d-none');
-                    $('.specific-date, .date-range').addClass('d-none');
-                }
-
-                if(option === 'Date Range'){
-                    $('.date-range').removeClass('d-none');
-                    $('.specific-date, .sort-by-year').addClass('d-none');
-                }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF_TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
         });
+
+        $.ajax({
+            url: route,
+            beforeSend: function() {
+                $("#spinner-icon-admin").html('<div class="d-flex justify-content-center mt-4 mb-4" style="margin-left: 40px !important"><span class="loadingspinner"></span></div>');
+            },
+            // return the result
+            success: function(result) {
+                $('.remove-class').removeClass('col-md-12');
+                $('.remove-class').addClass('col-md-6');
+                $('#request-list').html('');
+                $('#request-list').html(result);
+            },
+            complete: function() {
+                $("#spinner-icon").hide();
+            },
+            error: function(jqXHR, testStatus, error) {
+                var message = error+ ' An error occured while trying to retireve '+ user +' detail.';
+                var type = 'error';
+                displayMessage(message, type);
+                $("#spinner-icon-admin").hide();
+            },
+            timeout: 8000
+        })  
     });
-   
+
+  });
 </script>
-@endsection
+
+@endpush
 
 @endsection
