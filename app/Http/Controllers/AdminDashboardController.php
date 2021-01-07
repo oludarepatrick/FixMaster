@@ -11,6 +11,7 @@ use App\Models\CSE;
 use App\Models\Technician;
 use App\Models\ServiceRequest;
 use App\Models\ReceivedPayment;
+use App\Models\DisbursedPayment;
 
 class AdminDashboardController extends Controller
 {
@@ -58,21 +59,24 @@ class AdminDashboardController extends Controller
         $totalAmountReceived = ServiceRequest::select('total_amount')->where('service_request_status_id', '!=', 2)->get();
 
         $cancelledAmountReceived = ServiceRequest::select('total_amount')->where('service_request_status_id', '=', 2)->get();
+
+        $disbursedPayments = DisbursedPayment::select('amount')->orderBy('created_at', 'DESC')->get();
+
         
         $totalAmount = 0;
         foreach($totalAmountReceived as $amount){ $totalAmount += $amount->total_amount; }
+
         $cancelledTotalAmount = 0;
         foreach($cancelledAmountReceived as $amount){ $cancelledTotalAmount += $amount->total_amount; }
+
+        $disbursedTotalAmount = 0;
+        foreach($disbursedPayments as $amount){ $disbursedTotalAmount += $amount->amount; }
+
+        $profitLossAmount = $totalAmount - ($cancelledTotalAmount + $disbursedTotalAmount);
 
         $highestReturningJobs = ServiceRequest::select('user_id', 'job_reference', 'total_amount', 'created_at')->orderBy('total_amount', 'DESC')->limit(3)->get();
 
         $receivedPayments = ReceivedPayment::limit(5)->get();
-
-        // $cses = User::where('users.designation', '[CSE_ROLE]')
-        // ->orderBy('users.is_active', 'DESC')
-        // ->latest('users.created_at')
-        // ->limit(5)
-        // ->get();
 
         $cses = User::ActiveCses()->with('cseRequests')->limit(5)->get()->sortBy(function($cse)
         {
@@ -98,6 +102,8 @@ class AdminDashboardController extends Controller
             'receivedPayments'          =>  $receivedPayments,
             'cses'                      =>  $cses,
             'cancelledTotalAmount'      =>  $cancelledTotalAmount,
+            'disbursedTotalAmount'      =>  $disbursedTotalAmount,
+            'profitLossAmount'          =>  $profitLossAmount,
         ];
         
         return view('admin.home', $data)->with('i');

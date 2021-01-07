@@ -89,6 +89,10 @@
             document.getElementById("Send-Message").style.display = "block";
             document.getElementById("job-ref").style.display = "none";
             document.getElementById("Recipient").style.display = "none";
+
+            //set select box value to first option
+            $('#assigned, #Recipient, #jobReference').prop('selectedIndex',0);
+
         } else{ 
             document.getElementById("Send-Message").style.display = "block"; 
             document.getElementById("job-ref").style.display = "block";

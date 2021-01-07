@@ -31,10 +31,10 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::get('/requests/ongoing/details/{id}',        [App\Http\Controllers\AdminRequestController::class, 'ongoingRequestDetails'])->name('request_ongoing_details');
                 Route::post('/requests/ongoing/update',             [App\Http\Controllers\AdminRequestController::class, 'updateOngoingProgress'])->name('request_ongoing_update');
                 Route::get('/requests/ongoing/completed/{id}',      [App\Http\Controllers\AdminRequestController::class, 'markRequestAsCompleted'])->name('mark_request_as_completed');
-                Route::get('/requests/completed/details/{id}',        [App\Http\Controllers\AdminRequestController::class, 'completedRequestDetails'])->name('request_completed_details');
+                Route::get('/requests/completed/details/{id}',      [App\Http\Controllers\AdminRequestController::class, 'completedRequestDetails'])->name('request_completed_details');
                 Route::get('/requests/completed', 	                [App\Http\Controllers\AdminRequestController::class, 'completedRequests'])->name('requests_completed');
                 Route::get('/requests/cancelled', 	                [App\Http\Controllers\AdminRequestController::class, 'cancelledRequests'])->name('requests_cancelled');
-                Route::get('/requests/cancelled/details/{id}',        [App\Http\Controllers\AdminRequestController::class, 'cancelledRequestDetails'])->name('request_cancelled_details');
+                Route::get('/requests/cancelled/details/{id}',      [App\Http\Controllers\AdminRequestController::class, 'cancelledRequestDetails'])->name('request_cancelled_details');
 
                 Route::view('/technicians', 	                    'admin.technicians')->name('technicians');
                 Route::view('/technicians/profile', 	            'admin.technicians_profile')->name('technicians_profile');
@@ -148,14 +148,11 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::put('/category/update/{id}',                 [App\Http\Controllers\CategoryController::class, 'update'])->name('update_category');
 
                 //Admin payment Routes
-                Route::get('/payment-gateway/list', 
-                [App\Http\Controllers\GatewayController::class, 'index'])->name('list_payment_gateway');
+                Route::get('/payment-gateway/list',                 [App\Http\Controllers\GatewayController::class, 'index'])->name('list_payment_gateway');
                 
-                Route::post('/paystack/update', 
-                [App\Http\Controllers\GatewayController::class, 'paystackUpdate'])->name('paystack_update');
+                Route::post('/paystack/update',                     [App\Http\Controllers\GatewayController::class, 'paystackUpdate'])->name('paystack_update');
 
-                Route::post('/flutter/update', 
-                [App\Http\Controllers\GatewayController::class, 'flutterUpdate'])->name('flutter_update');
+                Route::post('/flutter/update',                      [App\Http\Controllers\GatewayController::class, 'flutterUpdate'])->name('flutter_update');
 
                 Route::view('/category/review', 	                'admin.services.review_category')->name('review_category');
 
@@ -170,9 +167,8 @@ Route::middleware(['adminRole'])->group(function() {
                 Route::view('/ratings/category', 	                'admin.ratings.category')->name('category_ratings');
                 Route::view('/ratings/job', 	                    'admin.ratings.job')->name('job_ratings');
                 Route::view('/location-request', 	                'admin.location_request')->name('location_request');
-                // Route::view('/payment-gateway/add', 	            'admin.payment_gateways.add')->name('add_payment_gateway');
-                // Route::view('/payment-gateway/edit', 	            'admin.payment_gateways.edit')->name('edit_payment_gateway');
-                // Route::view('/payment-gateway/list', 	            'admin.payment_gateways.list')->name('list_payment_gateway');
+
+                Route::get('/location-request',                    [App\Http\Controllers\AdminLocationRequestController::class, 'index'])->name('location_request');
                 
             });
         });

@@ -313,6 +313,88 @@ class CSERequestController extends Controller
             'intiate_trf'               =>   'required', 
         ]);
     }
+
+    public function completedRequests(){
+
+        $cseServiceRequests = Auth::user()->cseRequests()->where('service_request_status_id', '=', '3')->orderBy('created_at', 'DESC')->get();
+
+        $data = [
+            'cseServiceRequests'   =>  $cseServiceRequests,
+        ];
+
+        return view('cse.requests.requests_completed', $data)->with('i');
+    }
+
+    public function completedRequestDetails($id){
+
+        $requestDetail = ServiceRequest::findOrFail($id);
+
+        $serviceRequestProgreses =  $requestDetail->serviceRequestProgreses;
+
+        $serviceRequestStatuses = ServiceRequestStatus::RequestUpdateStatuses()->get();
+
+        $tools = ToolsInventory::AvalaibleTools()->get();
+
+        $data = [
+            'requestDetail'             =>  $requestDetail,
+            'serviceRequestProgreses'   =>  $serviceRequestProgreses,
+            'serviceRequestStatuses'    =>  $serviceRequestStatuses,
+            'tools'                     =>  $tools,
+        ];
+
+        return view('cse.requests.request_completed_details', $data)->with('i');
+    }
+
+    public function cancelledRequests(){
+
+        $cseServiceRequests = Auth::user()->cseRequests()->where('service_request_status_id', '=', '3')->orderBy('created_at', 'DESC')->get();
+
+        $data = [
+            'cseServiceRequests'   =>  $cseServiceRequests,
+        ];
+
+        return view('cse.requests.requests_cancelled', $data)->with('i');
+    }
+
+    public function cancelledRequestDetails($ref){
+
+        $requestDetail = ServiceRequest::findOrFail($ref);
+
+        $cses = User::select('id', 'created_at', 'email', 'is_active')
+        ->with(['cses' => function($query){
+            return $query->select('tag_id', 'gender', 'phone_number', 'town', 'user_id');
+        }])
+        ->with(['fullName' => function($name){
+            return $name->select(['name', 'user_id']);
+        }])
+        ->where('users.designation', '[CSE_ROLE]')
+        ->where('users.is_active', '1')
+        ->latest('users.created_at')
+        ->get();
+
+        $technicians = User::select('id', 'created_at', 'email', 'is_active')
+        ->with(['technicians' => function($query){
+            return $query->select('tag_id', 'gender', 'phone_number', 'town', 'user_id');
+        }])
+        ->with(['fullName' => function($name){
+            return $name->select(['name', 'user_id']);
+        }])
+        ->where('users.designation', '[TECHNICIAN_ROLE]')
+        ->where('users.is_active', '1')
+        ->latest('users.created_at')
+        ->get();
+
+        // return $cses;
+
+        $data = [
+            'requestDetail' =>  $requestDetail,
+            'cses'          =>  $cses,
+            'technicians'   =>  $technicians,
+        ];
+
+        return view('cse.requests.request_cancelled_details', $data);
+    }
+
 }
 
 

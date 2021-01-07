@@ -38,7 +38,7 @@ Route::middleware(['technicianRole'])->group(function() {
 
             Route::post('/add-message',                  [App\Http\Controllers\Technician\TechnicianMessageController::class, 'sendMessage' ])->name('add-message');
             Route::get('/getUserAssigned/{id}',          [App\Http\Controllers\Technician\TechnicianMessageController::class, 'getUserAssigned' ])->name('get-userAssigned');
-            Route::post('save-message-data',             [App\Http\Controllers\Technician\TechnicianMessageController::class, 'saveMessageData' ])->name('cse.save-message-data');
+            Route::post('save-message-data',             [App\Http\Controllers\Technician\TechnicianMessageController::class, 'saveMessageData' ])->name('technician.save-message-data');
 
             Route::get('/messages/inbox',                [App\Http\Controllers\Technician\TechnicianMessageController::class, 'inbox'])->name('inbox_messages');
             Route::get('/messages/inbox/details/{id}',   [App\Http\Controllers\Technician\TechnicianMessageController::class, 'inboxMessageDetails'])->name('inbox_message_details');

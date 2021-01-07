@@ -21,7 +21,7 @@
       <div class="d-flex align-items-center justify-content-start">
         <a href="" class="avatar"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt="Male Avatar"></a>
         <div class="aside-alert-link">
-        <a href="{{ route('cse.messages') }}" @if($user->receivedMessages()->where('is_read', '0')->count()) class="new" @endif data-toggle="tooltip" title="You have {{ $user->receivedMessages()->where('is_read', '0')->count() }} unread messages"><i data-feather="message-square"></i></a>
+        <a href="{{ route('cse.inbox_messages') }}" @if($user->receivedMessages()->where('is_read', '0')->count()) class="new" @endif data-toggle="tooltip" title="You have {{ $user->receivedMessages()->where('is_read', '0')->count() }} unread messages" data-count="{{ $user->receivedMessages()->where('is_read', '0')->count() }}"><i data-feather="message-square"></i></a>
           {{-- <a href="" class="new" data-toggle="tooltip" title="You have 4 new notifications"><i data-feather="bell"></i></a> --}}
           <a href="{{ route('logout') }}" data-toggle="tooltip" title="Sign out"><i data-feather="log-out"></i></a>
         </div>

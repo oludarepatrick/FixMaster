@@ -66,27 +66,45 @@ class TechnicianMessageController extends Controller
     
 
     public function saveMessageData(Request $request){
-        // return $request;
+        
         $validatedData = $request->validate([
-            'jobReference' => 'required|max:255',
-            'subject'   => 'required|max:255',
-            'message'   => 'required',
-          ]);
+            'subject'       => 'required|max:191',
+            'message'       => 'required',
+        ]);
           
-          $message = new Message;
-          $message->sender_id  = Auth::id();
-          $message->recipient_id = $request->selectedReciever;
-          $message->subject = $request->subject; 
-          $message->body = $request->message;
+        $message = new Message;
+        $message->sender_id  = Auth::id();
 
-          $recipientName = Name::findOrFail($request->selectedReciever);
-          $recipientName = $recipientName->name;
+        if(!empty($request->selectedReciever)){
 
-        // echo $message;
-        // return;
-         $saveMessage = $message->save(); 
+            $validatedData = $request->validate([
+                'selectedReciever'  => 'required',
+            ]);
 
-         if($saveMessage){
+            $message->recipient_id = $request->selectedReciever;
+            $recipientName = Name::findOrFail($request->selectedReciever);
+
+        }
+        if(!empty($request->recipient_id)){
+
+            $validatedData = $request->validate([
+                'recipient_id'  => 'required',
+            ]);
+
+            $message->recipient_id = $request->recipient_id;
+            $recipientName = Name::findOrFail($request->recipient_id);
+
+        }
+
+        $message->subject = $request->subject; 
+        $message->body = $request->message;
+        //   $message->created_at = date('Y-m-d');
+
+        $recipientName = $recipientName->name;
+
+        $saveMessage = $message->save(); 
+
+        if($saveMessage){
 
             //Record crurrenlty logged in user activity
             $this->addRecord = new RecordActivityLogController();
@@ -112,9 +130,8 @@ class TechnicianMessageController extends Controller
 
             return back()->with('error', 'An error occurred while trying to send Message.');
         }
-
         //   echo $message;
-        // return back()->with('success','Message sent successfully!');
+        return back()->with('success','Message sent successfully!');
 
     }
 

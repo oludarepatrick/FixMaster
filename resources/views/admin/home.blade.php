@@ -322,7 +322,7 @@
                 </div>
                 <div class="media-body">
                   <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold mg-b-5 mg-md-b-8"> Disbursed</h6>
-                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0">₦0</h4>
+                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0">₦{{ $disbursedTotalAmount }}</h4>
                 </div>
               </div>
               
@@ -334,7 +334,7 @@
                 </div>
                 <div class="media-body">
                   <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold mg-b-5 mg-md-b-8">Profit/Loss</h6>
-                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0 @if($totalAmount > $cancelledTotalAmount) text-success @else text-danger @endif ">₦{{ number_format($totalAmount - $cancelledTotalAmount) }}</h4>
+                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0 @if($totalAmount > $profitLossAmount) text-success @else text-danger @endif ">₦{{ number_format($profitLossAmount) }}</h4>
                 </div>
               </div>
             </div>

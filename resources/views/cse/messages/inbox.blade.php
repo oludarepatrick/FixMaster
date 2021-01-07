@@ -34,7 +34,7 @@
       <label class="mail-group-label">{{ $message }}</label>
         <ul class="list-unstyled media-list mg-b-0">
           @foreach ($values as $value) 
-          <li class="media @if($value->is_read == '0') unread @endif" data-url="{{ route('inbox_message_details', $value->id) }}">
+          <li class="media @if($value->is_read == '0') unread @endif" data-url="{{ route('cse.inbox_message_details', $value->id) }}">
             @if($value->sender_id == '4' || $value->userSentMessage->designation == '[SUPER_ADMIN_ROLE]' || $value->userSentMessage->designation == '[ADMIN_ROLE]')
               <div class="avatar"><img src="{{ asset('assets/images/home-fix-logo-coloredd.png') }}" class="rounded-circle" alt=""></div>
             @elseif($value->userSentMessage->designation == '[CSE_ROLE]')

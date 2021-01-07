@@ -8,13 +8,15 @@ use App\Models\User;
 use App\Models\CSE;
 use Auth;
 use Session;
+use Route;
+
 use Illuminate\Support\Facades\URL; 
 use App\Models\ActivityLog;
 use App\Models\Technician;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\RecordActivityLogController;
 use App\Models\Message;
-use Route;
+use App\Models\Name;
 
 class CSEMessageController extends Controller
 {
@@ -68,26 +70,44 @@ class CSEMessageController extends Controller
         };
         return $data;
 
-       }
-
-    
+    }
 
     public function saveMessageData(Request $request){
         // return $request;
+        
         $validatedData = $request->validate([
-            'jobReference' => 'required|max:255',
-            'subject'   => 'required|max:255',
-            'message'   => 'required',
-          ]);
+            'subject'       => 'required|max:191',
+            'message'       => 'required',
+        ]);
           
-          $message = new Message;
-          $message->sender_id  = Auth::id();
-          $message->recipient_id = $request->selectedReciever;
-          $message->subject = $request->subject; 
-          $message->body = $request->message;
+        $message = new Message;
+        $message->sender_id  = Auth::id();
+
+        if(!empty($request->selectedReciever)){
+
+            $validatedData = $request->validate([
+                'selectedReciever'  => 'required',
+            ]);
+
+            $message->recipient_id = $request->selectedReciever;
+            $recipientName = Name::findOrFail($request->selectedReciever);
+
+        }
+        if(!empty($request->recipient_id)){
+
+            $validatedData = $request->validate([
+                'recipient_id'  => 'required',
+            ]);
+
+            $message->recipient_id = $request->recipient_id;
+            $recipientName = Name::findOrFail($request->recipient_id);
+
+        }
+
+        $message->subject = $request->subject; 
+        $message->body = $request->message;
         //   $message->created_at = date('Y-m-d');
 
-        $recipientName = Name::findOrFail($request->selectedReciever);
         $recipientName = $recipientName->name;
 
         $saveMessage = $message->save(); 
@@ -129,7 +149,7 @@ class CSEMessageController extends Controller
         ->groupBy(function ($val) {
             return \Carbon\Carbon::parse($val->created_at)->format('l d, F Y');
         });
-        
+
         $data = [
             'messages'  =>  $messages
         ];
