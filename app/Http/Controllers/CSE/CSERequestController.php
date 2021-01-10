@@ -347,7 +347,7 @@ class CSERequestController extends Controller
 
     public function cancelledRequests(){
 
-        $cseServiceRequests = Auth::user()->cseRequests()->where('service_request_status_id', '=', '3')->orderBy('created_at', 'DESC')->get();
+        $cseServiceRequests = Auth::user()->cseRequests()->where('service_request_status_id', '=', '2')->orderBy('created_at', 'DESC')->get();
 
         $data = [
             'cseServiceRequests'   =>  $cseServiceRequests,

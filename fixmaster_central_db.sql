@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jan 07, 2021 at 03:22 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.4.0
+-- Host: localhost
+-- Generation Time: Jan 10, 2021 at 07:31 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,9 +28,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `activity_logs`
 --
 
-DROP TABLE IF EXISTS `activity_logs`;
-CREATE TABLE IF NOT EXISTS `activity_logs` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `activity_logs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` enum('Payment','Request','Others','Login','Logout','Profile','Errors','Unauthorized') COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -38,10 +37,8 @@ CREATE TABLE IF NOT EXISTS `activity_logs` (
   `action_url` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `controller_action_path` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=630 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `activity_logs`
@@ -643,29 +640,66 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 (605, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-06 12:02:31'),
 (606, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-06 17:16:24'),
 (607, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@cancelRequest', 'http://localhost:8000/client/requests/cancel/9', 'Adekola Adeleke cancelled REF-E1C71A87 service request.', '2021-01-06 17:42:49'),
-(608, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 01:03:08(hrs:min:ss).', '2021-01-06 18:19:32'),
-(609, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-06 18:19:45'),
-(610, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:25:30(hrs:min:ss).', '2021-01-06 18:45:15'),
-(611, 12, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Godrey Diwa logged in.', '2021-01-06 18:45:27'),
-(612, 12, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Godrey Diwa logged out with a session duration of 00:05:20(hrs:min:ss).', '2021-01-06 18:50:47'),
-(613, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-06 18:50:59'),
-(614, 1, '127.0.0.1', 'Payment', 'Informational', 'App\\Http\\Controllers\\PaymentsController@recordPayment', 'http://localhost:8000/admin/payments/record-payment', 'NinthBinary Developer recorded Favour Nnamdi payment for REF-27D2F0BE service request.', '2021-01-06 21:53:37'),
-(615, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 03:03:17(hrs:min:ss).', '2021-01-06 21:54:16'),
-(616, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-07 05:54:50'),
-(617, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:54:23(hrs:min:ss).', '2021-01-07 06:49:13'),
-(618, 12, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Godrey Diwa logged in.', '2021-01-07 08:24:29'),
-(619, 12, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Godrey Diwa logged out with a session duration of 00:24:22(hrs:min:ss).', '2021-01-07 08:48:51'),
-(620, 15, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Taofeek Adedokun logged in.', '2021-01-07 08:49:32'),
-(621, 15, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Taofeek Adedokun logged out with a session duration of 00:23:55(hrs:min:ss).', '2021-01-07 09:13:27'),
-(622, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-07 09:13:39'),
-(623, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 00:07:57(hrs:min:ss).', '2021-01-07 09:21:36'),
-(624, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-07 10:35:37'),
-(625, 12, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Godrey Diwa logged in.', '2021-01-07 10:45:50'),
-(626, 12, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\CSE\\CSEMessageController@saveMessageData', 'http://localhost:8000/cse/save-message-data', 'Godrey Diwa sent a message to Taofeek Adedokun', '2021-01-07 12:06:30');
+(608, 11, '197.210.64.150', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://temp.homefix.ng/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-06 18:11:08'),
+(609, 11, '197.210.64.150', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://temp.homefix.ng/logout', 'Adekola Adeleke logged out with a session duration of 00:06:17(hrs:min:ss).', '2021-01-06 18:17:25'),
+(610, 1, '197.210.64.150', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://temp.homefix.ng/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-06 18:17:41'),
+(611, 1, '197.210.64.150', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://temp.homefix.ng/logout', 'NinthBinary Developer logged out with a session duration of 00:01:14(hrs:min:ss).', '2021-01-06 18:18:55'),
+(612, 1, '154.113.72.58', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://temp.homefix.ng/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-07 08:59:36'),
+(613, 1, '154.113.72.58', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://temp.homefix.ng/logout', 'NinthBinary Developer logged out with a session duration of 00:09:42(hrs:min:ss).', '2021-01-07 09:09:18'),
+(614, 85, '197.210.84.205', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Funmilewa Ogunsulayan(FabTestGenericUser1@fixmaster.com.ng) account was registered successfully.', '2021-01-07 18:16:52'),
+(615, 86, '197.210.84.205', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Funmide Adekoyanu(FabTestGenericUser2@fixmaster.com.ng) account was registered successfully.', '2021-01-07 18:19:58'),
+(616, 87, '102.89.3.240', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Oyinlolu Adewalemi(FabTestGenericUser3@fixmaster.com.ng) account was registered successfully.', '2021-01-07 18:34:29'),
+(617, 88, '102.89.3.64', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Titilayomi Owoyelesan(FabTestGenericUser4@fixmaster.com.ng) account was registered successfully.', '2021-01-07 18:37:48'),
+(618, 89, '102.89.3.221', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Salewami Soworele(FabTestGenericUser5@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:18:58'),
+(619, 90, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Sobolanle Abideen(FabTestGenericUser31@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:20:42'),
+(620, 91, '102.89.3.18', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Funmike Ogunwusinmi(FabTestGenericUser6@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:22:48'),
+(621, 92, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Yemidesola Abidogunn(FabTestGenericUser32@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:22:51'),
+(622, 93, '102.89.3.18', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Folakemi Adegbemirole(FabTestGenericUser7@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:25:08'),
+(623, 94, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Akinfemiwa Abiodunlosan(FabTestGenericUser33@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:25:10'),
+(624, 95, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Jideolu Omoworareju(FabTestGenericUser34@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:26:50');
 INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, `action_url`, `controller_action_path`, `message`, `created_at`) VALUES
-(627, 12, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\CSE\\CSEMessageController@saveMessageData', 'http://localhost:8000/cse/save-message-data', 'Godrey Diwa sent a message to Obuchi Omotosho', '2021-01-07 12:23:11'),
-(628, 12, '127.0.0.1', 'Profile', 'Informational', 'App\\Http\\Controllers\\CSE\\CSEMessageController@saveMessageData', 'http://localhost:8000/cse/save-message-data', 'Godrey Diwa sent a message to Adekola Adeleke', '2021-01-07 12:34:23'),
-(629, 12, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Godrey Diwa logged out with a session duration of 04:36:31(hrs:min:ss).', '2021-01-07 15:22:21');
+(625, 96, '102.89.3.240', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Folukewale Omoworaredele(FabTestGenericUser8@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:27:26'),
+(626, 97, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Suleiman Gumeliddin(FabTestGenericUser35@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:28:43'),
+(627, 98, '102.89.3.240', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Olafadeketan	wosan Ranmilo(FabTestGenericUser9@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:30:09'),
+(628, 99, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Ganiyudeen Okorodudugan(FabTestGenericUser36@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:30:52'),
+(629, 100, '102.89.3.240', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Olabisimi Ogunsakinnu(FabTestGenericUser10@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:32:18'),
+(630, 101, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Ilemobayowa Banirepo(FabTestGenericUser37@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:32:26'),
+(631, 102, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Lookmanulai Agagu(FabTestGenericUser38@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:34:39'),
+(632, 103, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Gbengasoke Agagu(FabTestGenericUser39@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:36:14'),
+(633, 104, '102.89.3.240', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Folorunsomi Alakijagba(FabTestGenericUser11@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:41:25'),
+(634, 105, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Tayonye Agagu(FabTestGenericUser40@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:54:39'),
+(635, 106, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Ayobamipo Agagu(FabTestGenericUser41@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:56:00'),
+(636, 107, '102.89.3.240', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Folusholo Alalubosagbajo(FabTestGenericUser12@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:57:23'),
+(637, 108, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Akinwolemiwa Akinsalejo(FabTestGenericUser42@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:57:43'),
+(638, 109, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Akingbemiga Akinsalejo(FabTestGenericUser43@fixmaster.com.ng) account was registered successfully.', '2021-01-07 19:59:05'),
+(639, 110, '102.89.3.221', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Omotarawaye Elegushitele(FabTestGenericUser13@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:01:11'),
+(640, 111, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Akindemi Akinsalejo(FabTestGenericUser44@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:01:24'),
+(641, 112, '102.89.3.221', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Olayinka Fakayode(FabTestGenericUser14@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:03:56'),
+(642, 113, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Akinfemitan Akinsalejo(FabTestGenericUser45@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:04:29'),
+(643, 114, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Akinruntan Akinsalejo(FabTestGenericUser46@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:05:53'),
+(644, 115, '102.89.3.18', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Yemisiola Ibrahim-Nupe(FabTestGenericUser15@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:06:12'),
+(645, 116, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Akinfela Akinsalejo(FabTestGenericUser47@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:07:33'),
+(646, 117, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Oluwasegun Amusan(FabTestGenericUser48@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:08:58'),
+(647, 118, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Albert Ibhareboi(FabTestGenericUser49@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:10:26'),
+(648, 119, '102.89.3.18', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Oluwaseun Akintadenu(FabTestGenericUser16@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:11:48'),
+(649, 120, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Uyi Esuare(FabTestGenericUser50@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:12:18'),
+(650, 121, '102.89.3.240', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Boluwatife Ogunwalesan(FabTestGenericUser17@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:13:46'),
+(651, 122, '102.89.3.240', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Solape Ogunwalaja(FabTestGenericUser18@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:15:46'),
+(652, 123, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Olugbenga Adedugbegaja(FabTestGenericUser26@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:17:48'),
+(653, 124, '102.89.3.240', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Abikelomo Ogunwalemisi(FabTestGenericUser19@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:19:13'),
+(654, 125, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Oyinwale Adedugbejunu(FabTestGenericUser27@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:19:16'),
+(655, 126, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Olowoyele Adedugbelo(FabTestGenericUser28@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:20:36'),
+(656, 127, '102.89.3.18', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Abiodun Ogunwalesehin(FabTestGenericUser20@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:21:15'),
+(657, 128, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'AdeFemi Adedugbagbe(FabTestGenericUser29@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:21:54'),
+(658, 129, '197.210.8.152', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'OmoLaja Abiodun-Ogunbi(FabTestGenericUser30@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:23:19'),
+(659, 130, '102.89.3.18', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Gbemisola Saraki-Mamade(FabTestGenericUser21@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:23:39'),
+(660, 131, '102.89.3.18', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Olusola Saraki-Oloye(FabTestGenericUser22@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:31:12'),
+(661, 132, '102.89.3.221', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Akintunde Fajabila(FabTestGenericUser23@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:34:21'),
+(662, 133, '102.89.3.240', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'AdeWole Famakinwalo(FabTestGenericUser24@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:37:00'),
+(663, 134, '102.89.3.221', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Oluwole Famakinwatajobo(FabTestGenericUser25@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:39:11'),
+(664, 1, '102.36.160.146', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://temp.homefix.ng/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-08 05:40:22'),
+(665, 1, '102.89.3.21', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://temp.homefix.ng/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-09 00:36:51'),
+(666, 1, '102.89.3.145', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://temp.homefix.ng/logout', 'NinthBinary Developer logged out with a session duration of 00:10:58(hrs:min:ss).', '2021-01-09 00:47:49');
 
 -- --------------------------------------------------------
 
@@ -673,21 +707,16 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 -- Table structure for table `admins`
 --
 
-DROP TABLE IF EXISTS `admins`;
-CREATE TABLE IF NOT EXISTS `admins` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admins` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_by` bigint(20) UNSIGNED NOT NULL,
   `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `middle_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `designation` enum('SUPER_ADMIN_ROLE','ADMIN_ROLE') COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `admins_phone_number_unique` (`phone_number`),
-  UNIQUE KEY `user_id` (`user_id`),
-  KEY `created_by` (`created_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `designation` enum('SUPER_ADMIN_ROLE','ADMIN_ROLE') COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `admins`
@@ -706,9 +735,8 @@ INSERT INTO `admins` (`id`, `user_id`, `created_by`, `first_name`, `middle_name`
 -- Table structure for table `admin_permissions`
 --
 
-DROP TABLE IF EXISTS `admin_permissions`;
-CREATE TABLE IF NOT EXISTS `admin_permissions` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admin_permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `administrators` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `clients` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
@@ -723,10 +751,8 @@ CREATE TABLE IF NOT EXISTS `admin_permissions` (
   `tools` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `utilities` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `admin_permissions_user_id_unique` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `admin_permissions`
@@ -747,13 +773,11 @@ INSERT INTO `admin_permissions` (`id`, `user_id`, `administrators`, `clients`, `
 -- Table structure for table `banks`
 --
 
-DROP TABLE IF EXISTS `banks`;
-CREATE TABLE IF NOT EXISTS `banks` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `banks` (
+  `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL,
-  `code` varchar(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+  `code` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `banks`
@@ -790,9 +814,8 @@ INSERT INTO `banks` (`id`, `name`, `code`) VALUES
 -- Table structure for table `categories`
 --
 
-DROP TABLE IF EXISTS `categories`;
-CREATE TABLE IF NOT EXISTS `categories` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `service_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -807,13 +830,8 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `is_active` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `categories_name_unique` (`name`),
-  UNIQUE KEY `url` (`url`),
-  KEY `service_id` (`service_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `categories`
@@ -831,9 +849,8 @@ INSERT INTO `categories` (`id`, `user_id`, `service_id`, `name`, `standard_fee`,
 -- Table structure for table `clients`
 --
 
-DROP TABLE IF EXISTS `clients`;
-CREATE TABLE IF NOT EXISTS `clients` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `clients` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `state_id` tinyint(4) UNSIGNED DEFAULT NULL,
   `lga_id` int(11) UNSIGNED DEFAULT NULL,
@@ -846,14 +863,8 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `gender` enum('Male','Female') COLLATE utf8mb4_unicode_ci NOT NULL,
   `avatar` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `full_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `discounted` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `clients_phone_number_unique` (`phone_number`),
-  KEY `user_id` (`user_id`,`state_id`,`lga_id`,`town`),
-  KEY `state_id` (`state_id`),
-  KEY `lga_id` (`lga_id`),
-  KEY `profession_id` (`profession_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `discounted` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `clients`
@@ -919,7 +930,57 @@ INSERT INTO `clients` (`id`, `user_id`, `state_id`, `lga_id`, `profession_id`, `
 (86, 78, 22, 359, 38, 'Victoria Island', 'Frank', 'komoplafe', 'Brown-Coker', '08059386655', 'Male', '18f9f78affea64ba50b6bf340cbda01714259c85.jpg', '361, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '1'),
 (87, 79, 25, 359, 18, 'Lekki', 'Candy', 'Johnson', 'Mercy', '0909386641', 'Female', '6881400dd5f71cdb20408a935a976371a2504c2c.jpg', '31, Eke Dipo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '1'),
 (88, 80, 25, 359, 4, 'Victoria Island', 'Craig', 'pinnock', 'Ebute', '08069386541', 'Male', '28ed2debd1fe220de490b7293e8c5c0f343cb580.jpg', '31, Adetoun Adeola, Victoria Island, Lagos.', '1'),
-(89, 81, 25, 359, 60, 'Victoria Island', 'Etinosa', 'Lovelyn', 'Makinwa', '08099384297', 'Female', '6028ae2ea8c51f2b27d01251dc04ba65626dbdca.jpg', '2004, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '1');
+(89, 81, 25, 359, 60, 'Victoria Island', 'Etinosa', 'Lovelyn', 'Makinwa', '08099384297', 'Female', '6028ae2ea8c51f2b27d01251dc04ba65626dbdca.jpg', '2004, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', '1'),
+(95, 85, 25, 359, NULL, 'Victoria Island', 'Funmilewa', 'Rebecca', 'Ogunsulayan', '08044693866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(96, 86, 25, 359, NULL, 'Victoria Island', 'Funmide', 'Regina', 'Adekoyanu', '08055693866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(97, 87, 25, 359, NULL, 'Victoria Island', 'Oyinlolu', 'Racheal', 'Adewalemi', '08064493866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(98, 88, 25, 359, NULL, 'Victoria Island', 'Titilayomi', 'Rhianna', 'Owoyelesan', '08023693866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(99, 89, 25, 359, NULL, 'Victoria Island', 'Salewami', 'Rociline', 'Soworele', '08058693866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(100, 90, 25, 359, NULL, 'Victoria Island', 'Sobolanle', 'Jayjay', 'Abideen', '08069386671', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(101, 91, 25, 359, NULL, 'Victoria Island', 'Funmike', 'Agnes', 'Ogunwusinmi', '08067993866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(102, 92, 25, 359, NULL, 'Victoria Island', 'Yemidesola', 'Gabriel', 'Abidogunn', '08069386672', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(103, 93, 25, 359, NULL, 'Victoria Island', 'Folakemi', 'Flossy', 'Adegbemirole', '08022693866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(104, 94, 25, 359, NULL, 'Victoria Island', 'Akinfemiwa', 'Mike', 'Abiodunlosan', '08069386673', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(105, 95, 25, 359, NULL, 'Victoria Island', 'Jideolu', 'Jude', 'Omoworareju', '08069386674', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(106, 96, 25, 359, NULL, 'Victoria Island', 'Folukewale', 'Flavour', 'Omoworaredele', '09033693866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(107, 97, 25, 359, NULL, 'Victoria Island', 'Suleiman', 'Mohammed', 'Gumeliddin', '08069386675', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(108, 98, 25, 359, NULL, 'Victoria Island', 'Olafadeketan	wosan', 'Regina', 'Ranmilo', '09077693866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(109, 99, 25, 359, NULL, 'Victoria Island', 'Ganiyudeen', 'Yinusa', 'Okorodudugan', '08069386676', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(110, 100, 25, 359, NULL, 'Victoria Island', 'Olabisimi', 'Glorie', 'Ogunsakinnu', '09058693866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(111, 101, 25, 359, NULL, 'Victoria Island', 'Ilemobayowa', 'Rasheed', 'Banirepo', '08069386677', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(112, 102, 25, 359, NULL, 'Victoria Island', 'Lookmanulai', 'Abdul', 'Agagu', '08069386678', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(113, 103, 25, 359, NULL, 'Victoria Island', 'Gbengasoke', 'Sumail', 'Agagu', '08069386679', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(114, 104, 25, 359, NULL, 'Victoria Island', 'Folorunsomi', 'Angelina', 'Alakijagba', '09066693866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(115, 105, 25, 359, NULL, 'Victoria Island', 'Tayonye', 'Lateef', 'Agagu', '08069386680', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(116, 106, 25, 359, NULL, 'Victoria Island', 'Ayobamipo', 'Yunus', 'Agagu', '08069386681', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(117, 107, 25, 359, NULL, 'Victoria Island', 'Folusholo', 'Maryjane', 'Alalubosagbajo', '09064293866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(118, 108, 25, 359, NULL, 'Victoria Island', 'Akinwolemiwa', 'Blaise', 'Akinsalejo', '08069386682', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(119, 109, 25, 359, NULL, 'Victoria Island', 'Akingbemiga', 'Winston', 'Akinsalejo', '08069386683', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(120, 110, 25, 359, NULL, 'Victoria Island', 'Omotarawaye', 'Taraline', 'Elegushitele', '08069093866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(121, 111, 25, 359, NULL, 'Victoria Island', 'Akindemi', 'William', 'Akinsalejo', '08069386684', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(122, 112, 25, 359, NULL, 'Victoria Island', 'Olayinka', 'Faith', 'Fakayode', '08069113866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(123, 113, 25, 359, NULL, 'Victoria Island', 'Akinfemitan', 'Winston', 'Akinsalejo', '08069386685', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(124, 114, 25, 359, NULL, 'Victoria Island', 'Akinruntan', 'Wyoming', 'Akinsalejo', '08069386686', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(125, 115, 25, 359, NULL, 'Victoria Island', 'Yemisiola', 'Parmelia', 'Ibrahim-Nupe', '08070693866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(126, 116, 25, 359, NULL, 'Victoria Island', 'Akinfela', 'Wonderbaar', 'Akinsalejo', '08069386687', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(127, 117, 25, 359, NULL, 'Victoria Island', 'Oluwasegun', 'Plantation', 'Amusan', '08069386688', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(128, 118, 25, 359, NULL, 'Victoria Island', 'Albert', 'Ewuare', 'Ibhareboi', '08069386689', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(129, 119, 25, 359, NULL, 'Victoria Island', 'Oluwaseun', 'Blessing', 'Akintadenu', '09057693866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(130, 120, 25, 359, NULL, 'Victoria Island', 'Uyi', 'Owomika', 'Esuare', '08069386690', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(131, 121, 25, 359, NULL, 'Victoria Island', 'Boluwatife', 'Favour', 'Ogunwalesan', '07062293866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(132, 122, 25, 359, NULL, 'Victoria Island', 'Solape', 'Mercy', 'Ogunwalaja', '08069433866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(133, 123, 25, 359, NULL, 'Victoria Island', 'Olugbenga', 'Charles', 'Adedugbegaja', '08069386666', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(134, 124, 25, 359, NULL, 'Victoria Island', 'Abikelomo', 'Whitney', 'Ogunwalemisi', '09069883866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(135, 125, 25, 359, NULL, 'Victoria Island', 'Oyinwale', 'Christopher', 'Adedugbejunu', '08069386667', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(136, 126, 25, 359, NULL, 'Victoria Island', 'Olowoyele', 'Kingston', 'Adedugbelo', '08069386668', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(137, 127, 25, 359, NULL, 'Victoria Island', 'Abiodun', 'Morrisette', 'Ogunwalesehin', '07069348866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(138, 128, 25, 359, NULL, 'Victoria Island', 'AdeFemi', 'Joshua', 'Adedugbagbe', '08069386669', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(139, 129, 25, 359, NULL, 'Victoria Island', 'OmoLaja', 'Johnson', 'Abiodun-Ogunbi', '08069386670', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(140, 130, 25, 359, NULL, 'Victoria Island', 'Gbemisola', 'Mercy', 'Saraki-Mamade', '09069348866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(141, 131, 25, 359, NULL, 'Victoria Island', 'Olusola', 'Bobo', 'Saraki-Oloye', '09069337866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(142, 132, 25, 359, NULL, 'Victoria Island', 'Akintunde', 'Bernhard', 'Fajabila', '08061193866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(143, 133, 25, 359, NULL, 'Victoria Island', 'AdeWole', 'Fighter', 'Famakinwalo', '08069380066', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0'),
+(144, 134, 25, 359, NULL, 'Victoria Island', 'Oluwole', 'George', 'Famakinwatajobo', '08011693866', 'Female', NULL, '24, Abiodun Johnson Street, Road 14, Lekki Phase 1. Lagos.', '0');
 
 -- --------------------------------------------------------
 
@@ -927,9 +988,8 @@ INSERT INTO `clients` (`id`, `user_id`, `state_id`, `lga_id`, `profession_id`, `
 -- Table structure for table `cses`
 --
 
-DROP TABLE IF EXISTS `cses`;
-CREATE TABLE IF NOT EXISTS `cses` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_by` bigint(20) UNSIGNED NOT NULL,
   `franchise_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -949,18 +1009,8 @@ CREATE TABLE IF NOT EXISTS `cses` (
   `town` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `full_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `cses_phone_number_unique` (`phone_number`),
-  UNIQUE KEY `tag_id` (`tag_id`),
-  UNIQUE KEY `cses_other_phone_number_unique` (`other_phone_number`),
-  UNIQUE KEY `cses_account_number_unique` (`account_number`),
-  KEY `lga_id` (`lga_id`),
-  KEY `state_id` (`state_id`),
-  KEY `bank_id` (`bank_id`),
-  KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`bank_id`) USING BTREE,
-  KEY `created_by` (`created_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `cses`
@@ -977,12 +1027,9 @@ INSERT INTO `cses` (`id`, `user_id`, `created_by`, `franchise_id`, `state_id`, `
 -- Table structure for table `cse_category`
 --
 
-DROP TABLE IF EXISTS `cse_category`;
-CREATE TABLE IF NOT EXISTS `cse_category` (
+CREATE TABLE `cse_category` (
   `cse_id` bigint(20) UNSIGNED NOT NULL,
-  `category_id` bigint(20) UNSIGNED NOT NULL,
-  KEY `category_id` (`category_id`),
-  KEY `cse_id` (`cse_id`)
+  `category_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -1001,9 +1048,8 @@ INSERT INTO `cse_category` (`cse_id`, `category_id`) VALUES
 -- Table structure for table `disbursed_payments`
 --
 
-DROP TABLE IF EXISTS `disbursed_payments`;
-CREATE TABLE IF NOT EXISTS `disbursed_payments` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `disbursed_payments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `recipient_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
@@ -1013,19 +1059,15 @@ CREATE TABLE IF NOT EXISTS `disbursed_payments` (
   `payment_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `comment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `disbursed_payments_user_id_index` (`user_id`),
-  KEY `disbursed_payments_recipient_id_index` (`recipient_id`),
-  KEY `disbursed_payments_service_request_id_index` (`service_request_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `disbursed_payments`
 --
 
 INSERT INTO `disbursed_payments` (`id`, `user_id`, `recipient_id`, `service_request_id`, `payment_mode`, `payment_reference`, `amount`, `payment_date`, `comment`, `created_at`, `updated_at`) VALUES
-(1, 1, 19, 5, '2', '239482347372', 1500, '2020-12-31', 'No comment', '2021-01-06 20:53:37', '2021-01-06 20:53:37');
+(1, 1, 19, 5, '2', '239482347372', 1500, '2020-12-31', 'No comment', '2021-01-06 19:53:37', '2021-01-06 19:53:37');
 
 -- --------------------------------------------------------
 
@@ -1033,17 +1075,14 @@ INSERT INTO `disbursed_payments` (`id`, `user_id`, `recipient_id`, `service_requ
 -- Table structure for table `failed_jobs`
 --
 
-DROP TABLE IF EXISTS `failed_jobs`;
-CREATE TABLE IF NOT EXISTS `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `uuid` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1052,14 +1091,11 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 -- Table structure for table `lgas`
 --
 
-DROP TABLE IF EXISTS `lgas`;
-CREATE TABLE IF NOT EXISTS `lgas` (
-  `id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `lgas` (
+  `id` int(4) UNSIGNED NOT NULL,
   `state_id` tinyint(4) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `state_id` (`state_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=775 DEFAULT CHARSET=utf8;
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `lgas`
@@ -1846,9 +1882,8 @@ INSERT INTO `lgas` (`id`, `state_id`, `name`) VALUES
 -- Table structure for table `location_and_browser_infos`
 --
 
-DROP TABLE IF EXISTS `location_and_browser_infos`;
-CREATE TABLE IF NOT EXISTS `location_and_browser_infos` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `location_and_browser_infos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `ip` varchar(45) DEFAULT NULL,
   `country_name` varchar(191) DEFAULT NULL,
@@ -1867,11 +1902,8 @@ CREATE TABLE IF NOT EXISTS `location_and_browser_infos` (
   `browser_version` varchar(50) DEFAULT NULL,
   `device_operating_system` varchar(50) DEFAULT NULL,
   `device_operating_system_version` varchar(50) DEFAULT NULL,
-  `languages` varchar(191) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id` (`user_id`),
-  UNIQUE KEY `user_id_2` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4;
+  `languages` varchar(191) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `location_and_browser_infos`
@@ -1935,7 +1967,57 @@ INSERT INTO `location_and_browser_infos` (`id`, `user_id`, `ip`, `country_name`,
 (84, 78, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
 (85, 79, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
 (86, 80, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
-(87, 81, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en');
+(87, 81, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(93, 85, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(94, 86, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(95, 87, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(96, 88, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(97, 89, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(98, 90, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(99, 91, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(100, 92, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(101, 93, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(102, 94, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(103, 95, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(104, 96, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(105, 97, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(106, 98, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(107, 99, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(108, 100, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(109, 101, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(110, 102, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(111, 103, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(112, 104, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(113, 105, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(114, 106, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(115, 107, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(116, 108, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(117, 109, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(118, 110, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(119, 111, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(120, 112, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(121, 113, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(122, 114, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(123, 115, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(124, 116, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(125, 117, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(126, 118, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(127, 119, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(128, 120, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(129, 121, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(130, 122, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(131, 123, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(132, 124, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(133, 125, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(134, 126, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(135, 127, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(136, 128, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(137, 129, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(138, 130, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(139, 131, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(140, 132, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(141, 133, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en'),
+(142, 134, '197.210.8.101', 'Nigeria', 'NG', 'LA', 'Lagos', 'Lagos', '', NULL, NULL, '6.4474', '3.3903', NULL, 'LA', 'Chrome', '87.0.4280.88', 'Windows', '10.0', 'en-us, en');
 
 -- --------------------------------------------------------
 
@@ -1943,9 +2025,8 @@ INSERT INTO `location_and_browser_infos` (`id`, `user_id`, `ip`, `country_name`,
 -- Table structure for table `messages`
 --
 
-DROP TABLE IF EXISTS `messages`;
-CREATE TABLE IF NOT EXISTS `messages` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `messages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `sender_id` bigint(20) UNSIGNED NOT NULL,
   `recipient_id` bigint(20) UNSIGNED NOT NULL,
   `subject` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1953,11 +2034,8 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `is_read` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `client_messages_ibfk_1` (`sender_id`),
-  KEY `client_messages_ibfk_2` (`recipient_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `messages`
@@ -1975,7 +2053,7 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 (10, 4, 23, 'Welcome to FixMaster!', '<h1>Welcome to FixMaster, John Desmond!</h1><p>We are very excited you joined the most compelling community of FixMaster to satisfy customer\'s need.</p><p>As a <strong>Technician</strong> you will be assigned to jobs and you are expected to deliver excellent quality service which has always been a vital part of FixMaster\'s success.</p><p>Having said so, we constantly cater to our customer\'s best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>Remember to change your password to a more convenient one asides the one given to you by FixMaster Admin.</p><p><span style=\"text-decoration: underline;\"><strong>Login Credentials</strong></span></p><p><strong>E-Mail</strong>: desmond.john@outlook.co.uk</p><p><strong>Password:</strong> admin12345</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-19 21:26:29', '2020-12-19 21:26:29'),
 (11, 5, 19, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Hello Favour Nnamdi</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to critically reviewing the client\'s request.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-25 23:23:19', '2020-12-29 23:17:28'),
 (12, 4, 15, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Taofeek Adedokun</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>Favour Nnamdi</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-25 23:23:19', '2020-12-25 23:23:19'),
-(13, 4, 12, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Hello Godrey Diwa</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to critically reviewing the client\'s request.</p><br /><p>Thanks,<br />FixMaster Management</p>', '1', NULL, '2020-12-27 16:20:17', '2021-01-07 09:52:12'),
+(13, 4, 12, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Hello Godrey Diwa</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to critically reviewing the client\'s request.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-27 16:20:17', '2020-12-30 08:31:53'),
 (14, 5, 15, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Taofeek Adedokun</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>Godrey Diwa</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-27 16:20:17', '2020-12-29 23:17:42'),
 (15, 9, 5, 'Tool Request Approval for Job(REF-66EB5A26)', '<p>Hello <strong>David Akinsola</strong>, your Tool request(<strong>TRF-C85BEA04</strong>) for Job(<strong>REF-66EB5A26</strong>) has been approved.&nbsp;</p><p>&nbsp;</p><div><div>Thanks,</div><div>FixMaster Management</div></div>', '0', NULL, '2020-12-29 14:03:21', '2020-12-29 23:05:01'),
 (16, 19, 5, 'Tool Request Approval for Job(REF-66EB5A26)', '<p>Hello <strong>David Akinsola</strong>, your Tool request(<strong>TRF-C85BEA04</strong>) for Job(<strong>REF-66EB5A26</strong>) has been approved.&nbsp;</p><p>&nbsp;</p><div><div>Thanks,</div><div>FixMaster Management</div></div>', '0', NULL, '2020-12-29 14:06:08', '2020-12-30 09:09:01'),
@@ -2088,9 +2166,57 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 (128, 4, 75, 'Service Request(REF-7C7F09DA)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-7C7F09DA</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Out of Hours)</p><p><strong>Date & Time:</strong> January 6th 2021, 8:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 10:07:02', '2021-01-06 10:07:02'),
 (129, 4, 75, 'Service Request(REF-DBCBEA24)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-DBCBEA24</p><p><strong>Service: </strong>Plumbing(Drainage, Shower, Soak-Away)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦3,500(Urgent)</p><p><strong>Date & Time:</strong> January 6th 2021, 11:09:00am</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 10:12:51', '2021-01-06 10:12:51'),
 (130, 4, 75, 'Service Request(REF-EA418652)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-EA418652</p><p><strong>Service: </strong>Electronics(Computer & Laptops)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦2,500(Standard)</p><p><strong>Date & Time:</strong> January 16th 2021, 2:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '0', NULL, '2021-01-06 10:14:06', '2021-01-06 10:14:06'),
-(131, 12, 15, 'Message to Taofeek', '<p>This is a test to FixMaster\'s Adminstrators</p>\r\n<p>&nbsp;</p>\r\n<p>Thanks,</p>\r\n<p>Godfrey Diwa</p>', '0', NULL, '2021-01-07 11:06:30', '2021-01-07 11:06:30'),
-(132, 12, 4, 'Message To FixMaster', '<p>This is a test to <strong>FixMaster\'s</strong> Adminstrators</p>\r\n<p>&nbsp;</p>\r\n<p>Thanks,</p>\r\n<p><strong>Godfrey Diwa</strong></p>', '0', NULL, '2021-01-07 11:23:11', '2021-01-07 11:23:11'),
-(133, 12, 11, 'Message to Client', '<p>This is a test to <strong>Mr. Adekola Adeleke</strong>.</p>\r\n<p>Thanks,</p>\r\n<p><strong>Godfrey Diwa</strong></p>', '0', NULL, '2021-01-07 11:34:23', '2021-01-07 11:34:23');
+(131, 4, 85, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Funmilewa Ogunsulayan,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 18:16:52', '2021-01-07 18:16:52'),
+(132, 4, 86, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Funmide Adekoyanu,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 18:19:58', '2021-01-07 18:19:58'),
+(133, 4, 87, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Oyinlolu Adewalemi,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 18:34:29', '2021-01-07 18:34:29'),
+(134, 4, 88, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Titilayomi Owoyelesan,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 18:37:48', '2021-01-07 18:37:48'),
+(135, 4, 89, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Salewami Soworele,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:18:58', '2021-01-07 19:18:58'),
+(136, 4, 90, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Sobolanle Abideen,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:20:42', '2021-01-07 19:20:42'),
+(137, 4, 91, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Funmike Ogunwusinmi,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:22:48', '2021-01-07 19:22:48'),
+(138, 4, 92, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Yemidesola Abidogunn,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:22:51', '2021-01-07 19:22:51'),
+(139, 4, 93, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Folakemi Adegbemirole,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:25:08', '2021-01-07 19:25:08'),
+(140, 4, 94, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Akinfemiwa Abiodunlosan,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:25:10', '2021-01-07 19:25:10');
+INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `is_read`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(141, 4, 95, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Jideolu Omoworareju,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:26:50', '2021-01-07 19:26:50'),
+(142, 4, 96, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Folukewale Omoworaredele,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:27:26', '2021-01-07 19:27:26'),
+(143, 4, 97, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Suleiman Gumeliddin,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:28:43', '2021-01-07 19:28:43'),
+(144, 4, 98, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Olafadeketan	wosan Ranmilo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:30:09', '2021-01-07 19:30:09'),
+(145, 4, 99, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Ganiyudeen Okorodudugan,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:30:52', '2021-01-07 19:30:52'),
+(146, 4, 100, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Olabisimi Ogunsakinnu,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:32:18', '2021-01-07 19:32:18'),
+(147, 4, 101, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Ilemobayowa Banirepo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:32:26', '2021-01-07 19:32:26'),
+(148, 4, 102, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Lookmanulai Agagu,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:34:39', '2021-01-07 19:34:39'),
+(149, 4, 103, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Gbengasoke Agagu,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:36:14', '2021-01-07 19:36:14'),
+(150, 4, 104, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Folorunsomi Alakijagba,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:41:25', '2021-01-07 19:41:25'),
+(151, 4, 105, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Tayonye Agagu,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:54:39', '2021-01-07 19:54:39'),
+(152, 4, 106, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Ayobamipo Agagu,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:56:00', '2021-01-07 19:56:00'),
+(153, 4, 107, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Folusholo Alalubosagbajo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:57:23', '2021-01-07 19:57:23'),
+(154, 4, 108, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Akinwolemiwa Akinsalejo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:57:43', '2021-01-07 19:57:43'),
+(155, 4, 109, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Akingbemiga Akinsalejo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 19:59:05', '2021-01-07 19:59:05'),
+(156, 4, 110, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Omotarawaye Elegushitele,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:01:11', '2021-01-07 20:01:11'),
+(157, 4, 111, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Akindemi Akinsalejo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:01:24', '2021-01-07 20:01:24'),
+(158, 4, 112, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Olayinka Fakayode,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:03:56', '2021-01-07 20:03:56'),
+(159, 4, 113, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Akinfemitan Akinsalejo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:04:29', '2021-01-07 20:04:29'),
+(160, 4, 114, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Akinruntan Akinsalejo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:05:53', '2021-01-07 20:05:53'),
+(161, 4, 115, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Yemisiola Ibrahim-Nupe,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:06:12', '2021-01-07 20:06:12'),
+(162, 4, 116, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Akinfela Akinsalejo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:07:33', '2021-01-07 20:07:33'),
+(163, 4, 117, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Oluwasegun Amusan,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:08:58', '2021-01-07 20:08:58'),
+(164, 4, 118, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Albert Ibhareboi,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:10:26', '2021-01-07 20:10:26'),
+(165, 4, 119, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Oluwaseun Akintadenu,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:11:48', '2021-01-07 20:11:48'),
+(166, 4, 120, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Uyi Esuare,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:12:18', '2021-01-07 20:12:18'),
+(167, 4, 121, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Boluwatife Ogunwalesan,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:13:46', '2021-01-07 20:13:46'),
+(168, 4, 122, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Solape Ogunwalaja,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:15:46', '2021-01-07 20:15:46'),
+(169, 4, 123, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Olugbenga Adedugbegaja,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:17:48', '2021-01-07 20:17:48'),
+(170, 4, 124, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Abikelomo Ogunwalemisi,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:19:13', '2021-01-07 20:19:13'),
+(171, 4, 125, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Oyinwale Adedugbejunu,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:19:16', '2021-01-07 20:19:16'),
+(172, 4, 126, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Olowoyele Adedugbelo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:20:36', '2021-01-07 20:20:36'),
+(173, 4, 127, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Abiodun Ogunwalesehin,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:21:15', '2021-01-07 20:21:15'),
+(174, 4, 128, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello AdeFemi Adedugbagbe,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:21:54', '2021-01-07 20:21:54'),
+(175, 4, 129, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello OmoLaja Abiodun-Ogunbi,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:23:19', '2021-01-07 20:23:19'),
+(176, 4, 130, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Gbemisola Saraki-Mamade,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:23:39', '2021-01-07 20:23:39'),
+(177, 4, 131, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Olusola Saraki-Oloye,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:31:12', '2021-01-07 20:31:12'),
+(178, 4, 132, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Akintunde Fajabila,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:34:21', '2021-01-07 20:34:21'),
+(179, 4, 133, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello AdeWole Famakinwalo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:37:00', '2021-01-07 20:37:00'),
+(180, 4, 134, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Oluwole Famakinwatajobo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:39:11', '2021-01-07 20:39:11');
 
 -- --------------------------------------------------------
 
@@ -2098,13 +2224,11 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 -- Table structure for table `migrations`
 --
 
-DROP TABLE IF EXISTS `migrations`;
-CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `batch` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -2139,8 +2263,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (26, '2020_12_26_024633_create_rfq_suppliers_table', 17),
 (27, '2021_01_01_173645_create_received__payments_table', 18),
 (28, '2021_01_02_120756_create_service_request_cancellation_reasons_table', 19),
-(29, '2021_01_06_124234_create_wallet_transactions_table', 20),
-(30, '2021_01_06_205101_create_disbursed_payments_table', 21);
+(29, '2021_01_06_124234_create_wallet_transactions_table', 20);
 
 -- --------------------------------------------------------
 
@@ -2148,16 +2271,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- Table structure for table `names`
 --
 
-DROP TABLE IF EXISTS `names`;
-CREATE TABLE IF NOT EXISTS `names` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `names` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `names`
@@ -2237,7 +2357,57 @@ INSERT INTO `names` (`id`, `user_id`, `name`, `created_at`, `updated_at`) VALUES
 (72, 78, 'Frank Brown-Coker', '2021-01-05 10:38:45', '2021-01-05 15:15:02'),
 (73, 79, 'Candy Mercy', '2021-01-05 10:40:54', '2021-01-05 15:17:30'),
 (74, 80, 'Craig Ebute', '2021-01-05 10:43:15', '2021-01-05 19:41:58'),
-(75, 81, 'Etinosa Makinwa', '2021-01-05 10:45:28', '2021-01-05 15:27:18');
+(75, 81, 'Etinosa Makinwa', '2021-01-05 10:45:28', '2021-01-05 15:27:18'),
+(80, 85, 'Funmilewa Ogunsulayan', '2021-01-07 18:16:52', '2021-01-07 18:16:52'),
+(81, 86, 'Funmide Adekoyanu', '2021-01-07 18:19:58', '2021-01-07 18:19:58'),
+(82, 87, 'Oyinlolu Adewalemi', '2021-01-07 18:34:29', '2021-01-07 18:34:29'),
+(83, 88, 'Titilayomi Owoyelesan', '2021-01-07 18:37:48', '2021-01-07 18:37:48'),
+(84, 89, 'Salewami Soworele', '2021-01-07 19:18:58', '2021-01-07 19:18:58'),
+(85, 90, 'Sobolanle Abideen', '2021-01-07 19:20:42', '2021-01-07 19:20:42'),
+(86, 91, 'Funmike Ogunwusinmi', '2021-01-07 19:22:48', '2021-01-07 19:22:48'),
+(87, 92, 'Yemidesola Abidogunn', '2021-01-07 19:22:51', '2021-01-07 19:22:51'),
+(88, 93, 'Folakemi Adegbemirole', '2021-01-07 19:25:08', '2021-01-07 19:25:08'),
+(89, 94, 'Akinfemiwa Abiodunlosan', '2021-01-07 19:25:10', '2021-01-07 19:25:10'),
+(90, 95, 'Jideolu Omoworareju', '2021-01-07 19:26:50', '2021-01-07 19:26:50'),
+(91, 96, 'Folukewale Omoworaredele', '2021-01-07 19:27:26', '2021-01-07 19:27:26'),
+(92, 97, 'Suleiman Gumeliddin', '2021-01-07 19:28:43', '2021-01-07 19:28:43'),
+(93, 98, 'Olafadeketan	wosan Ranmilo', '2021-01-07 19:30:09', '2021-01-07 19:30:09'),
+(94, 99, 'Ganiyudeen Okorodudugan', '2021-01-07 19:30:52', '2021-01-07 19:30:52'),
+(95, 100, 'Olabisimi Ogunsakinnu', '2021-01-07 19:32:18', '2021-01-07 19:32:18'),
+(96, 101, 'Ilemobayowa Banirepo', '2021-01-07 19:32:26', '2021-01-07 19:32:26'),
+(97, 102, 'Lookmanulai Agagu', '2021-01-07 19:34:39', '2021-01-07 19:34:39'),
+(98, 103, 'Gbengasoke Agagu', '2021-01-07 19:36:14', '2021-01-07 19:36:14'),
+(99, 104, 'Folorunsomi Alakijagba', '2021-01-07 19:41:25', '2021-01-07 19:41:25'),
+(100, 105, 'Tayonye Agagu', '2021-01-07 19:54:39', '2021-01-07 19:54:39'),
+(101, 106, 'Ayobamipo Agagu', '2021-01-07 19:56:00', '2021-01-07 19:56:00'),
+(102, 107, 'Folusholo Alalubosagbajo', '2021-01-07 19:57:23', '2021-01-07 19:57:23'),
+(103, 108, 'Akinwolemiwa Akinsalejo', '2021-01-07 19:57:43', '2021-01-07 19:57:43'),
+(104, 109, 'Akingbemiga Akinsalejo', '2021-01-07 19:59:05', '2021-01-07 19:59:05'),
+(105, 110, 'Omotarawaye Elegushitele', '2021-01-07 20:01:11', '2021-01-07 20:01:11'),
+(106, 111, 'Akindemi Akinsalejo', '2021-01-07 20:01:24', '2021-01-07 20:01:24'),
+(107, 112, 'Olayinka Fakayode', '2021-01-07 20:03:56', '2021-01-07 20:03:56'),
+(108, 113, 'Akinfemitan Akinsalejo', '2021-01-07 20:04:29', '2021-01-07 20:04:29'),
+(109, 114, 'Akinruntan Akinsalejo', '2021-01-07 20:05:53', '2021-01-07 20:05:53'),
+(110, 115, 'Yemisiola Ibrahim-Nupe', '2021-01-07 20:06:12', '2021-01-07 20:06:12'),
+(111, 116, 'Akinfela Akinsalejo', '2021-01-07 20:07:33', '2021-01-07 20:07:33'),
+(112, 117, 'Oluwasegun Amusan', '2021-01-07 20:08:58', '2021-01-07 20:08:58'),
+(113, 118, 'Albert Ibhareboi', '2021-01-07 20:10:26', '2021-01-07 20:10:26'),
+(114, 119, 'Oluwaseun Akintadenu', '2021-01-07 20:11:48', '2021-01-07 20:11:48'),
+(115, 120, 'Uyi Esuare', '2021-01-07 20:12:18', '2021-01-07 20:12:18'),
+(116, 121, 'Boluwatife Ogunwalesan', '2021-01-07 20:13:46', '2021-01-07 20:13:46'),
+(117, 122, 'Solape Ogunwalaja', '2021-01-07 20:15:46', '2021-01-07 20:15:46'),
+(118, 123, 'Olugbenga Adedugbegaja', '2021-01-07 20:17:48', '2021-01-07 20:17:48'),
+(119, 124, 'Abikelomo Ogunwalemisi', '2021-01-07 20:19:13', '2021-01-07 20:19:13'),
+(120, 125, 'Oyinwale Adedugbejunu', '2021-01-07 20:19:16', '2021-01-07 20:19:16'),
+(121, 126, 'Olowoyele Adedugbelo', '2021-01-07 20:20:36', '2021-01-07 20:20:36'),
+(122, 127, 'Abiodun Ogunwalesehin', '2021-01-07 20:21:15', '2021-01-07 20:21:15'),
+(123, 128, 'AdeFemi Adedugbagbe', '2021-01-07 20:21:54', '2021-01-07 20:21:54'),
+(124, 129, 'OmoLaja Abiodun-Ogunbi', '2021-01-07 20:23:19', '2021-01-07 20:23:19'),
+(125, 130, 'Gbemisola Saraki-Mamade', '2021-01-07 20:23:39', '2021-01-07 20:23:39'),
+(126, 131, 'Olusola Saraki-Oloye', '2021-01-07 20:31:12', '2021-01-07 20:31:12'),
+(127, 132, 'Akintunde Fajabila', '2021-01-07 20:34:21', '2021-01-07 20:34:21'),
+(128, 133, 'AdeWole Famakinwalo', '2021-01-07 20:37:00', '2021-01-07 20:37:00'),
+(129, 134, 'Oluwole Famakinwatajobo', '2021-01-07 20:39:11', '2021-01-07 20:39:11');
 
 -- --------------------------------------------------------
 
@@ -2245,12 +2415,10 @@ INSERT INTO `names` (`id`, `user_id`, `name`, `created_at`, `updated_at`) VALUES
 -- Table structure for table `password_resets`
 --
 
-DROP TABLE IF EXISTS `password_resets`;
-CREATE TABLE IF NOT EXISTS `password_resets` (
+CREATE TABLE `password_resets` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  KEY `password_resets_email_index` (`email`)
+  `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2259,17 +2427,15 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 -- Table structure for table `payment_gateways`
 --
 
-DROP TABLE IF EXISTS `payment_gateways`;
-CREATE TABLE IF NOT EXISTS `payment_gateways` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `payment_gateways` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `information` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
-  `status` tinyint(4) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `status` tinyint(4) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `payment_gateways`
@@ -2285,16 +2451,13 @@ INSERT INTO `payment_gateways` (`id`, `name`, `information`, `keyword`, `created
 -- Table structure for table `professions`
 --
 
-DROP TABLE IF EXISTS `professions`;
-CREATE TABLE IF NOT EXISTS `professions` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `professions` (
+  `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(191) NOT NULL,
   `description` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `professions`
@@ -2368,21 +2531,16 @@ INSERT INTO `professions` (`id`, `name`, `description`, `created_at`, `updated_a
 -- Table structure for table `received_payments`
 --
 
-DROP TABLE IF EXISTS `received_payments`;
-CREATE TABLE IF NOT EXISTS `received_payments` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `received_payments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
   `payment_reference` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `payment_method` enum('Online','Offline','Wallet') COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `received__payments_payment_reference_unique` (`payment_reference`),
-  KEY `received__payments_user_id_index` (`user_id`),
-  KEY `received__payments_service_request_id_index` (`service_request_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `received_payments`
@@ -2441,9 +2599,8 @@ INSERT INTO `received_payments` (`id`, `user_id`, `service_request_id`, `payment
 -- Table structure for table `rfqs`
 --
 
-DROP TABLE IF EXISTS `rfqs`;
-CREATE TABLE IF NOT EXISTS `rfqs` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rfqs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `issued_by` bigint(20) UNSIGNED NOT NULL,
   `client_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
@@ -2453,14 +2610,8 @@ CREATE TABLE IF NOT EXISTS `rfqs` (
   `accepted` enum('Yes','No') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `total_amount` int(10) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `rfqs_batch_number_unique` (`batch_number`),
-  UNIQUE KEY `rfqs_invoice_number_unique` (`invoice_number`),
-  KEY `rfqs_issued_by_index` (`issued_by`),
-  KEY `rfqs_client_id_index` (`client_id`),
-  KEY `rfqs_service_request_id_index` (`service_request_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `rfqs`
@@ -2475,17 +2626,14 @@ INSERT INTO `rfqs` (`id`, `issued_by`, `client_id`, `service_request_id`, `batch
 -- Table structure for table `rfq_batches`
 --
 
-DROP TABLE IF EXISTS `rfq_batches`;
-CREATE TABLE IF NOT EXISTS `rfq_batches` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rfq_batches` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `rfq_id` bigint(20) UNSIGNED NOT NULL,
   `component_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `quantity` int(10) UNSIGNED NOT NULL,
-  `amount` int(10) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `rfq_batches_rfq_id_index` (`rfq_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `amount` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `rfq_batches`
@@ -2501,17 +2649,13 @@ INSERT INTO `rfq_batches` (`id`, `rfq_id`, `component_name`, `model_number`, `qu
 -- Table structure for table `rfq_suppliers`
 --
 
-DROP TABLE IF EXISTS `rfq_suppliers`;
-CREATE TABLE IF NOT EXISTS `rfq_suppliers` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rfq_suppliers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `rfq_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `devlivery_fee` int(10) UNSIGNED NOT NULL,
-  `delivery_time` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `rfq_id` (`rfq_id`),
-  KEY `rfq_suppliers_rfq_id_index` (`rfq_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `delivery_time` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `rfq_suppliers`
@@ -2526,19 +2670,15 @@ INSERT INTO `rfq_suppliers` (`id`, `rfq_id`, `name`, `devlivery_fee`, `delivery_
 -- Table structure for table `services`
 --
 
-DROP TABLE IF EXISTS `services`;
-CREATE TABLE IF NOT EXISTS `services` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `services` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `services_name_unique` (`name`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `services`
@@ -2560,9 +2700,8 @@ INSERT INTO `services` (`id`, `user_id`, `name`, `is_active`, `deleted_at`, `cre
 -- Table structure for table `service_requests`
 --
 
-DROP TABLE IF EXISTS `service_requests`;
-CREATE TABLE IF NOT EXISTS `service_requests` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `service_requests` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `admin_id` bigint(20) UNSIGNED DEFAULT NULL,
   `cse_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -2575,25 +2714,15 @@ CREATE TABLE IF NOT EXISTS `service_requests` (
   `total_amount` bigint(20) UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `security_code` (`security_code`),
-  UNIQUE KEY `job_reference` (`job_reference`),
-  KEY `user_id` (`user_id`,`admin_id`,`cse_id`,`technician_id`,`service_id`,`category_id`),
-  KEY `category_id` (`category_id`),
-  KEY `service_id` (`service_id`),
-  KEY `admin_id` (`admin_id`),
-  KEY `technician_id` (`technician_id`),
-  KEY `cse_id` (`cse_id`),
-  KEY `service_request_status_id` (`service_request_status_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_requests`
 --
 
 INSERT INTO `service_requests` (`id`, `user_id`, `admin_id`, `cse_id`, `technician_id`, `service_id`, `category_id`, `job_reference`, `security_code`, `service_request_status_id`, `total_amount`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 11, 6, 12, 15, 7, 1, 'REF-66EB5A26', 'SEC-27AEC73E', 3, 3325, NULL, '2020-12-14 12:39:55', '2021-01-02 14:38:30'),
+(1, 11, 6, 12, 15, 7, 1, 'REF-66EB5A26', 'SEC-27AEC73E', 6, 3325, NULL, '2020-12-14 12:39:55', '2021-01-02 14:38:30'),
 (2, 10, NULL, NULL, NULL, 3, 2, 'REF-330CB862', 'SEC-88AC1B19', 1, 3300, NULL, '2020-12-14 12:48:20', NULL),
 (5, 11, 6, 19, 15, 5, 3, 'REF-27D2F0BE', 'SEC-35FA9E28', 4, 2500, NULL, '2020-12-14 15:36:58', '2021-01-02 10:54:18'),
 (6, 9, NULL, NULL, NULL, 3, 4, 'REF-1FC50FCC', 'SEC-EBC1D654', 1, 3500, NULL, '2020-12-15 09:33:01', NULL),
@@ -2663,18 +2792,14 @@ INSERT INTO `service_requests` (`id`, `user_id`, `admin_id`, `cse_id`, `technici
 -- Table structure for table `service_request_cancellation_reasons`
 --
 
-DROP TABLE IF EXISTS `service_request_cancellation_reasons`;
-CREATE TABLE IF NOT EXISTS `service_request_cancellation_reasons` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `service_request_cancellation_reasons` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
   `reason` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `service_request_cancellation_reasons_user_id_index` (`user_id`),
-  KEY `service_request_cancellation_reasons_service_request_id_index` (`service_request_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_request_cancellation_reasons`
@@ -2711,9 +2836,8 @@ INSERT INTO `service_request_cancellation_reasons` (`id`, `user_id`, `service_re
 -- Table structure for table `service_request_details`
 --
 
-DROP TABLE IF EXISTS `service_request_details`;
-CREATE TABLE IF NOT EXISTS `service_request_details` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `service_request_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
   `state_id` tinyint(4) UNSIGNED NOT NULL,
   `lga_id` int(11) UNSIGNED NOT NULL,
@@ -2729,12 +2853,8 @@ CREATE TABLE IF NOT EXISTS `service_request_details` (
   `payment_method` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `service_request_id` (`service_request_id`),
-  KEY `state_id` (`state_id`),
-  KEY `lga_id` (`lga_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_request_details`
@@ -2812,19 +2932,14 @@ INSERT INTO `service_request_details` (`id`, `service_request_id`, `state_id`, `
 -- Table structure for table `service_request_progresses`
 --
 
-DROP TABLE IF EXISTS `service_request_progresses`;
-CREATE TABLE IF NOT EXISTS `service_request_progresses` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `service_request_progresses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_status_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `service_request_progress_user_id_index` (`user_id`),
-  KEY `service_request_progress_service_request_id_index` (`service_request_id`),
-  KEY `service_request_progress_service_request_status_id_index` (`service_request_status_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_request_progresses`
@@ -2866,20 +2981,15 @@ INSERT INTO `service_request_progresses` (`id`, `user_id`, `service_request_id`,
 -- Table structure for table `service_request_statuses`
 --
 
-DROP TABLE IF EXISTS `service_request_statuses`;
-CREATE TABLE IF NOT EXISTS `service_request_statuses` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `service_request_statuses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `can_delete` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `project_statuses_name_unique` (`name`),
-  KEY `user_id` (`user_id`),
-  KEY `user_id_2` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `service_request_statuses`
@@ -2899,12 +3009,10 @@ INSERT INTO `service_request_statuses` (`id`, `user_id`, `name`, `can_delete`, `
 -- Table structure for table `states`
 --
 
-DROP TABLE IF EXISTS `states`;
-CREATE TABLE IF NOT EXISTS `states` (
-  `id` tinyint(4) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+CREATE TABLE `states` (
+  `id` tinyint(4) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `states`
@@ -2955,18 +3063,14 @@ INSERT INTO `states` (`id`, `name`) VALUES
 -- Table structure for table `super_admins`
 --
 
-DROP TABLE IF EXISTS `super_admins`;
-CREATE TABLE IF NOT EXISTS `super_admins` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `super_admins` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `middle_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `super_admins_phone_number_unique` (`phone_number`),
-  UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `phone_number` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `super_admins`
@@ -2982,9 +3086,8 @@ INSERT INTO `super_admins` (`id`, `user_id`, `first_name`, `middle_name`, `last_
 -- Table structure for table `technicians`
 --
 
-DROP TABLE IF EXISTS `technicians`;
-CREATE TABLE IF NOT EXISTS `technicians` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `technicians` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_by` bigint(20) UNSIGNED NOT NULL,
   `franchise_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -3004,18 +3107,8 @@ CREATE TABLE IF NOT EXISTS `technicians` (
   `town` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `full_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `technicians_phone_number_unique` (`phone_number`),
-  UNIQUE KEY `tag_id` (`tag_id`),
-  UNIQUE KEY `technicians_other_phone_number_unique` (`other_phone_number`),
-  UNIQUE KEY `technicians_account_number_unique` (`account_number`),
-  KEY `lga_id` (`lga_id`),
-  KEY `state_id` (`state_id`),
-  KEY `bank_id` (`bank_id`),
-  KEY `created_by` (`created_by`),
-  KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`bank_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `technicians`
@@ -3032,8 +3125,7 @@ INSERT INTO `technicians` (`id`, `user_id`, `created_by`, `franchise_id`, `state
 -- Table structure for table `technician_category`
 --
 
-DROP TABLE IF EXISTS `technician_category`;
-CREATE TABLE IF NOT EXISTS `technician_category` (
+CREATE TABLE `technician_category` (
   `technician_id` bigint(20) UNSIGNED NOT NULL,
   `category_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -3053,20 +3145,16 @@ INSERT INTO `technician_category` (`technician_id`, `category_id`) VALUES
 -- Table structure for table `tool_inventories`
 --
 
-DROP TABLE IF EXISTS `tool_inventories`;
-CREATE TABLE IF NOT EXISTS `tool_inventories` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tool_inventories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `quantity` int(10) UNSIGNED NOT NULL,
   `available` int(10) UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tool_inventories`
@@ -3084,9 +3172,8 @@ INSERT INTO `tool_inventories` (`id`, `user_id`, `name`, `quantity`, `available`
 -- Table structure for table `tool_requests`
 --
 
-DROP TABLE IF EXISTS `tool_requests`;
-CREATE TABLE IF NOT EXISTS `tool_requests` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tool_requests` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `requested_by` bigint(20) UNSIGNED NOT NULL,
   `approved_by` bigint(20) UNSIGNED DEFAULT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
@@ -3094,13 +3181,8 @@ CREATE TABLE IF NOT EXISTS `tool_requests` (
   `status` enum('Pending','Approved','Declined') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
   `is_returned` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `requested_by` (`requested_by`,`approved_by`,`service_request_id`,`batch_number`),
-  KEY `tool_requests_batch_id` (`batch_number`),
-  KEY `service_request_id` (`service_request_id`),
-  KEY `tool_requests_ibfk_4` (`approved_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tool_requests`
@@ -3115,16 +3197,12 @@ INSERT INTO `tool_requests` (`id`, `requested_by`, `approved_by`, `service_reque
 -- Table structure for table `tool_request_batches`
 --
 
-DROP TABLE IF EXISTS `tool_request_batches`;
-CREATE TABLE IF NOT EXISTS `tool_request_batches` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tool_request_batches` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `tool_request_id` bigint(20) UNSIGNED NOT NULL,
   `tool_id` bigint(20) UNSIGNED NOT NULL,
-  `quantity` int(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tool_id` (`tool_id`),
-  KEY `batch_id` (`tool_request_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `quantity` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tool_request_batches`
@@ -3140,9 +3218,8 @@ INSERT INTO `tool_request_batches` (`id`, `tool_request_id`, `tool_id`, `quantit
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `email_verification_token` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -3157,17 +3234,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_sign_in` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_token`, `is_email_verified`, `password`, `remember_token`, `designation`, `is_active`, `is_admin`, `login_count`, `current_sign_in`, `last_sign_in`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 99, '2021-01-07 09:35:37', '2021-01-07 08:13:39', NULL, '2019-12-31 23:29:26', '2021-01-07 09:35:37'),
+(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 98, '2021-01-09 01:14:25', '2021-01-09 00:36:51', NULL, '2019-12-31 23:29:26', '2021-01-09 01:14:25'),
 (2, '', NULL, NULL, '0', '', NULL, '[INTRUDER_ROLE]', '0', '0', 0, NULL, NULL, NULL, NULL, NULL),
 (3, 'charles.famoriyo@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 3, '2020-12-03 19:34:43', '2020-11-30 21:34:14', NULL, '2020-11-30 06:26:42', NULL),
 (4, 'info@fixmaster.com.ng', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[ADMIN_ROLE]', '1', '1', 3, '2021-01-06 10:24:35', '2021-01-06 11:15:43', NULL, '2020-11-30 06:26:42', '2021-01-06 10:24:35'),
@@ -3177,11 +3252,11 @@ INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_tok
 (8, 'godfrey.emmanuel@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (9, 'wisdom.amana@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (10, 'debo.williams@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
-(11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 45, '2021-01-06 16:16:24', '2021-01-06 11:02:31', NULL, '2020-12-11 12:43:02', '2021-01-06 16:16:24'),
-(12, 'jamal.diwa@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', '0', 11, '2021-01-07 09:45:50', '2021-01-07 07:24:29', NULL, '2020-12-04 06:03:06', '2021-01-07 09:45:50'),
+(11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 46, '2021-01-06 18:11:08', '2021-01-06 16:16:24', NULL, '2020-12-11 12:43:02', '2021-01-06 18:11:08'),
+(12, 'jamal.diwa@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', '0', 8, '2020-12-22 08:47:24', '2020-12-19 10:13:40', NULL, '2020-12-04 06:03:06', '2020-12-22 08:47:24'),
 (13, 'mayowabenedict@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$vicB3ZBUEj6YMfdk9P2ELO82xVE4X50.A6X.MqeTktkTTJMDh6PkS', NULL, '[CSE_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', '2020-12-29 19:11:23'),
 (14, 'andrew.nwankwo@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 1, '2020-12-17 09:17:14', '2020-12-17 09:17:14', NULL, '2020-12-04 06:03:06', NULL),
-(15, 'taofeek.adedokun@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 1, '2021-01-07 07:49:32', '2021-01-07 07:49:32', NULL, '2020-12-04 06:03:06', '2021-01-07 07:49:32'),
+(15, 'taofeek.adedokun@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (19, 'nnamdi.favour@yahoo.com', '2020-12-18 13:03:16', '3d08886310a72ef0fc0c208cd284fa79c9a82c50', '1', '$2y$10$Vo7etNylNWzJ3DMafi7kTuCfWe7qEkvPkJPGBYy6q4jJ26lnMKLG.', NULL, '[CSE_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-18 13:03:16', NULL),
 (23, 'desmond.john@outlook.co.uk', '2020-12-19 21:26:29', 'b6b463cdd2a85be2742d37f500dc10f4d67e8368', '1', '$2y$10$Rxe6TJzIiztAaOewBTr.pehGQrl/qoRbwia/OXQ8gOUVMV8yqAoP2', NULL, '[TECHNICIAN_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-19 21:26:29', NULL),
 (24, '1prospect1Fab1test@gmail.com', '2021-01-04 15:36:59', '1d18ae5f22d5ab9999a1e1c4da365f91c7d8274c', '1', '$2y$10$WjMh57456HoHaOIp4Njmo.MettVALtDO1dMDPXkd9ZitFKWRlyFsO', NULL, '[CLIENT_ROLE]', '1', '0', 0, '2021-01-04 03:56:25', '2021-01-04 03:53:58', NULL, '2021-01-04 02:42:27', '2021-01-04 03:56:25'),
@@ -3240,7 +3315,57 @@ INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_tok
 (78, 'Buchyefap1testClient2@fixmaster.com.ng', '2021-01-05 10:38:45', 'f02b6fd80d0a43499b3bbf21baaf33f40aac5caf', '1', '$2y$10$.uR8BDSVCp.Jkai4LjBopu1kIFyz0E6AzNHcrwgf6Tifl9kAPnM2C', NULL, '[CLIENT_ROLE]', '1', '0', 4, '2021-01-05 19:13:24', '2021-01-05 18:50:59', NULL, '2021-01-05 10:38:45', '2021-01-05 19:13:24'),
 (79, 'Buchyefap1testClient3@fixmaster.com.ng', '2021-01-05 10:40:54', 'cdb0118a779082a82f2e9bb487818f308b86ed7b', '1', '$2y$10$Y9FarzqAbm0FEny49tMUXO9onh9bFu5U6v6tHva9ALQDKSx/Unck.', NULL, '[CLIENT_ROLE]', '1', '0', 4, '2021-01-05 19:19:37', '2021-01-05 18:33:46', NULL, '2021-01-05 10:40:54', '2021-01-05 19:19:37'),
 (80, 'duruobuchi@gmail.com', '2021-01-05 10:43:15', '8ceecc1e65209984548f863d8a47bde727731f89', '1', '$2y$10$USZOjhpmXOlVPTj42TKqo.uUnuvL/ndFShaBnmQknLVX.ZngfTcm2', NULL, '[CLIENT_ROLE]', '1', '0', 4, '2021-01-05 19:22:42', '2021-01-05 18:01:43', NULL, '2021-01-05 10:43:15', '2021-01-05 19:41:58'),
-(81, 'Buchyefap1testClient5@fixmaster.com.ng', '2021-01-05 10:45:28', 'fcf126b56e7ee11a0b9ebafaa14f161106595d6d', '1', '$2y$10$mHRZHHNim68FHZHtEQ1.3.ILIEU0JXLwXyRqYRaJT2bOuMTytYLVu', NULL, '[CLIENT_ROLE]', '1', '0', 4, '2021-01-05 19:44:13', '2021-01-05 17:48:27', NULL, '2021-01-05 10:45:28', '2021-01-05 19:44:13');
+(81, 'Buchyefap1testClient5@fixmaster.com.ng', '2021-01-05 10:45:28', 'fcf126b56e7ee11a0b9ebafaa14f161106595d6d', '1', '$2y$10$mHRZHHNim68FHZHtEQ1.3.ILIEU0JXLwXyRqYRaJT2bOuMTytYLVu', NULL, '[CLIENT_ROLE]', '1', '0', 4, '2021-01-05 19:44:13', '2021-01-05 17:48:27', NULL, '2021-01-05 10:45:28', '2021-01-05 19:44:13'),
+(85, 'FabTestGenericUser1@fixmaster.com.ng', NULL, '8515f6bcaf1b35f72af88cc1c5a78d8456e9b1e9', '0', '$2y$10$u/PzSDasZ2yxLdUiastHUeVSwFF1LNFQFm8oM88hjzHz2TH5vNnaG', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 18:16:51', '2021-01-07 18:16:51'),
+(86, 'FabTestGenericUser2@fixmaster.com.ng', NULL, '075ddafe5ba031a99963656ed65c893faa99f2d2', '0', '$2y$10$q5V.iWlDno5cmhpnfaR8/.KKx0eBc5nqUDYDBvh5d5KedzfuPz0ji', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 18:19:58', '2021-01-07 18:19:58'),
+(87, 'FabTestGenericUser3@fixmaster.com.ng', NULL, '3bdaea4b87964eeb2cc1ac45b7db9f411dd3aa40', '0', '$2y$10$tDYvgdkFLHpUgT/qAYTq.OI7nRUg/SPOP4kyYWaDhSmn0YzbWg3S.', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 18:34:28', '2021-01-07 18:34:28'),
+(88, 'FabTestGenericUser4@fixmaster.com.ng', NULL, '475865a7098a4598c648cd18e7fbfc5479aba2e3', '0', '$2y$10$4rjrrB71QFiTAjb/XNE/BuE.s/scZ9.7GEN9o8GtMtnpaqOeoKwdG', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 18:37:48', '2021-01-07 18:37:48'),
+(89, 'FabTestGenericUser5@fixmaster.com.ng', NULL, 'daf975a91ce461bdfb6bf0a3c5228e8fd8945f92', '0', '$2y$10$nhs8TCSHAlXfRV6h7h81C.up1AjgHegNSHOrsBFlqDIwudARAi65y', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:18:58', '2021-01-07 19:18:58'),
+(90, 'FabTestGenericUser31@fixmaster.com.ng', NULL, '071f68c5b2cd926fe393f0d2eaf04b424ab56884', '0', '$2y$10$GDINZBlMrkgkrBjFxCbAQ.9LUzz0uN9zgGkRJz/Hc8sBh6KqG.MYC', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:20:42', '2021-01-07 19:20:42'),
+(91, 'FabTestGenericUser6@fixmaster.com.ng', NULL, '75c73ce9fb4825d13080b541af6a99687643d289', '0', '$2y$10$lrMYuMfKBImxUZ/qbXYDReQFsSNveIEh1iUG2hsT.0IarQaTe4o2q', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:22:48', '2021-01-07 19:22:48'),
+(92, 'FabTestGenericUser32@fixmaster.com.ng', NULL, '1645ab682b901d6aaa9a1653cd77c113f0f1890e', '0', '$2y$10$D9ovXnkJWssskllEU2wk.uKmBBhv5rlBkQCzCoz3xgWFnoaaX0mUG', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:22:51', '2021-01-07 19:22:51'),
+(93, 'FabTestGenericUser7@fixmaster.com.ng', NULL, 'c1d849b2864a565c656bb96920898a4030ddedbe', '0', '$2y$10$dfw4QUUYKGjDCEcH45oTeejLsGP18G.fVoh9M7cnhBvowmqsrAQE.', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:25:08', '2021-01-07 19:25:08'),
+(94, 'FabTestGenericUser33@fixmaster.com.ng', NULL, '93d90f9fb03f9a736d39d2c19851b826b1d3b34a', '0', '$2y$10$Gg2Qp.43BCqDNbGOvA6T9OMK5biCC0AyXUH5l.FVnMicDNTkaQPXK', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:25:09', '2021-01-07 19:25:09'),
+(95, 'FabTestGenericUser34@fixmaster.com.ng', NULL, '1c527a60bcd67822f3523082cb615236d4531880', '0', '$2y$10$XHiG2iRQJ3gPpwhAAA1rjen7H9gjmnvzazmqppJLLTRnHAkUuEAsu', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:26:50', '2021-01-07 19:26:50'),
+(96, 'FabTestGenericUser8@fixmaster.com.ng', NULL, '3362f935749aa4a54a40a7577d2864637e7d9fa1', '0', '$2y$10$NiiRtmkukUbCGmIrw84MEevi5YR03Zi5guzwLMyVtPN2Ryvdl.Ylq', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:27:26', '2021-01-07 19:27:26'),
+(97, 'FabTestGenericUser35@fixmaster.com.ng', NULL, '858871b3be15e0dad9971fb0c60f305a1011057e', '0', '$2y$10$JnYqOF3C5lwafC/FKbW2we3YN/.jMHS00rW1rTuXA3JizpP0XTVH.', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:28:43', '2021-01-07 19:28:43'),
+(98, 'FabTestGenericUser9@fixmaster.com.ng', NULL, 'df7db151e7e57fd8fb640d2421a3e406e059ddc9', '0', '$2y$10$dDiuZMvnbv5zZfRvXRfKte8MfcVfM7N4r8vBXO6zYyf.nsgcUcALO', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:30:09', '2021-01-07 19:30:09'),
+(99, 'FabTestGenericUser36@fixmaster.com.ng', NULL, '2e4da600b605a3f9e95be4e72baf2444b38ff043', '0', '$2y$10$rFLPbd.1F0o1B52IZ/EkJ.kT3UUvTpd85G7ChrNKRbd4mhXej0NTm', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:30:52', '2021-01-07 19:30:52'),
+(100, 'FabTestGenericUser10@fixmaster.com.ng', NULL, 'ede32e891c371a5ed2978c33755a04cd7d057272', '0', '$2y$10$J9Rjue19e1ts5ofit0LjLeHaX9vwBE8j6HeGakfbDiOstAm15L6Zi', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:32:17', '2021-01-07 19:32:17'),
+(101, 'FabTestGenericUser37@fixmaster.com.ng', NULL, '208e871e1bfb9834e4fc79c42ed23a49f424a757', '0', '$2y$10$qAa6XwgQ8RBDG/1o7DfObO5FAzWnqPpqrFafeIK/J0BBOD1jqavmG', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:32:26', '2021-01-07 19:32:26'),
+(102, 'FabTestGenericUser38@fixmaster.com.ng', NULL, '254dccf8671ffc9ec4e08aab638e00fac8f7d607', '0', '$2y$10$nqKARZaftNxXaf4m4NQaZ.fgzC3RYUjVjpPkYMGbCnM1PnIqyZ/pC', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:34:39', '2021-01-07 19:34:39'),
+(103, 'FabTestGenericUser39@fixmaster.com.ng', NULL, 'bcfb39d3ac2b6ef250ae49d1486facda6ccc9fb6', '0', '$2y$10$MJNX39y64jjW15Tkqfy2eewNDw7znwBAS9LE6GqRSfFbQXCE8oPFW', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:36:14', '2021-01-07 19:36:14'),
+(104, 'FabTestGenericUser11@fixmaster.com.ng', NULL, '49575576d43ffe7270252b6d992d3eb8f6a5b4d7', '0', '$2y$10$MK6XZqC6JZNJeqZ4zlS2QOx/Cp8Ks/fqnbqlzd8EivJzHaAAQhL5y', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:41:25', '2021-01-07 19:41:25'),
+(105, 'FabTestGenericUser40@fixmaster.com.ng', NULL, '2c0ff5b04e868c3b880deadd5f813fac4aa2ca0e', '0', '$2y$10$bwkmZ.7olmMvfnKDny6un.rxEOB.h.6KoOCZBBUkMMSDhs4yZjnii', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:54:39', '2021-01-07 19:54:39'),
+(106, 'FabTestGenericUser41@fixmaster.com.ng', NULL, '97e53a254230ac367615f51f20bfba3d248e05b6', '0', '$2y$10$2bOmqmpqEIZxdeiK4HE97.EHGtKWF2ZnlqE7TRlQALOYH37lhIAZi', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:56:00', '2021-01-07 19:56:00'),
+(107, 'FabTestGenericUser12@fixmaster.com.ng', NULL, 'de354457dfa137cd9172e09e2608696274978b4c', '0', '$2y$10$o6LEZxEZE6F5qVsta2/rVu9zuaEYoFanpwD4h5oGpL5uNg0pkox0S', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:57:22', '2021-01-07 19:57:22'),
+(108, 'FabTestGenericUser42@fixmaster.com.ng', NULL, 'cc9d46ba7f811f7e8342d3a11eb00a6c55f38a0d', '0', '$2y$10$8aaffE3WuKW0Iocyu5X6puZBiSjJY7Esxzt42qXq.UfJmGyV7AeTy', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:57:43', '2021-01-07 19:57:43'),
+(109, 'FabTestGenericUser43@fixmaster.com.ng', NULL, '17c3ea119276ae4a83df5a922d7dc91c181bc1fb', '0', '$2y$10$uN3ZGJ13pl6fHgwUXFTwAeHsAgUIs8G7SW6427mo6mSxgsRLL3MWG', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 19:59:05', '2021-01-07 19:59:05'),
+(110, 'FabTestGenericUser13@fixmaster.com.ng', NULL, 'f54dc1ba0e15a126e695c2b6cdcf1ecc4efcda7c', '0', '$2y$10$90nUp.xslklHd5kYWFXtoOoI/zlR2aFWLK8wQyVUFBeAFO9.jViA6', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:01:11', '2021-01-07 20:01:11'),
+(111, 'FabTestGenericUser44@fixmaster.com.ng', NULL, '8ae1cfa2c889c1168cd7bb59461227e964b4ca7d', '0', '$2y$10$/mDPpkGBAP/ohxC0TntbFOEIABs8kLkTdRvRaAgobD.JGIN6jW6S.', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:01:23', '2021-01-07 20:01:23'),
+(112, 'FabTestGenericUser14@fixmaster.com.ng', NULL, 'd5496a71830588488ea6e058b15ae26046c7f524', '0', '$2y$10$g/06nqy2bBJRBLwwnmQeZuEWIGx1HyOyXQBc6A9DKXojYy.NG0AXC', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:03:56', '2021-01-07 20:03:56'),
+(113, 'FabTestGenericUser45@fixmaster.com.ng', NULL, '36eaf0f8734d41dadd2a00358dbe43a12576ff66', '0', '$2y$10$1AikLW4faetUhSCNkwZPke9wCJ21TDk.RlnF6QDDvI2O9c3mPBE1q', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:04:29', '2021-01-07 20:04:29'),
+(114, 'FabTestGenericUser46@fixmaster.com.ng', NULL, '0e0a8c7e8361d4a30df423a45f5be5efc2e5ebf4', '0', '$2y$10$EM1zfSZ.js9J2FEIulXzuewFxOqKEVJ/TEUtpwdrFf09SE11S8hDK', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:05:53', '2021-01-07 20:05:53'),
+(115, 'FabTestGenericUser15@fixmaster.com.ng', NULL, '6f160bb3fce7ae752ef1fa7f718347678db2ddb8', '0', '$2y$10$8f/y.HQfmsZU0.WM65490OQ88m1GLCyRXgyVJhhmmYBpJ5FqeEnae', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:06:12', '2021-01-07 20:06:12'),
+(116, 'FabTestGenericUser47@fixmaster.com.ng', NULL, '68925e23b8b3e86a041a5a4a8b03c3aa897018aa', '0', '$2y$10$QeFXDBosJP6NKuwCtD4EcO.yjjtI3xxBookpjXLNnZr9smZcbgDJe', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:07:33', '2021-01-07 20:07:33'),
+(117, 'FabTestGenericUser48@fixmaster.com.ng', NULL, '08199fb063ffa1058b7963edcf7ab1f84a4ec7c0', '0', '$2y$10$MlOZ6dWEQxla8juzPVhJEu7zi3gsU1R2usrOXOp9biXfAYLHPGFnm', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:08:58', '2021-01-07 20:08:58'),
+(118, 'FabTestGenericUser49@fixmaster.com.ng', NULL, '2e0efca94e13bf899c46e7d7f04cc183cc4b8429', '0', '$2y$10$.gg.mey2gpCfS4BJgnuRSeYiqBXfB16GS.XhdJfQM2DVezAmNme1e', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:10:26', '2021-01-07 20:10:26'),
+(119, 'FabTestGenericUser16@fixmaster.com.ng', NULL, 'afb62c04a89cb44cc4bca720d76cec9e1fdd249d', '0', '$2y$10$NTZJrgrC8b/qnJMVJjxXGe2KGeXBtLqeqImq1oNcrS8P4p2ocOvLO', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:11:48', '2021-01-07 20:11:48'),
+(120, 'FabTestGenericUser50@fixmaster.com.ng', NULL, 'ce7363f184c5c5937e1e8c380a686489f6400663', '0', '$2y$10$hvAdoPabZ4dkWSeWgeRwDeCgLglLlNSCT4eB5KcRYsQG6ng2AU1AO', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:12:18', '2021-01-07 20:12:18'),
+(121, 'FabTestGenericUser17@fixmaster.com.ng', NULL, 'da2f4b4e05464da27cd74b63c4e2b3fe8df4fd46', '0', '$2y$10$bSt7ksf4SpxTFiZ2./UC7ucJp/ZBLunbknNiGtg.JqQAYlUF7IzcC', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:13:46', '2021-01-07 20:13:46'),
+(122, 'FabTestGenericUser18@fixmaster.com.ng', NULL, '0598ca0db1ce52609410a0e323b794cbe20f100a', '0', '$2y$10$iXVO15ioeyGpHu.6xJfO/eYHPQ6FFw/YtI/8Fb7lL3A.DPzsyKXGW', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:15:45', '2021-01-07 20:15:45'),
+(123, 'FabTestGenericUser26@fixmaster.com.ng', NULL, '8538023b49b25c74832b81f20311c92ac0d803d3', '0', '$2y$10$MgDSkrp0chx4NH.BMQdyq.sfXYA1FNKj7dkR4Al1uKdjsAo/pCCrW', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:17:48', '2021-01-07 20:17:48'),
+(124, 'FabTestGenericUser19@fixmaster.com.ng', NULL, '474952942b7d5912bf789ad0a432301356cf205c', '0', '$2y$10$cGyqTpadTkzQimKrc7DXUeP.68yUADl3CahkItZ/wfZuBHlXLiBn6', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:19:13', '2021-01-07 20:19:13'),
+(125, 'FabTestGenericUser27@fixmaster.com.ng', NULL, 'd5712367fd15a86a02d6440e3989b73e65e02338', '0', '$2y$10$3yzCkjnkP.UAZmp4Wecgbu3yAmNSSE0OJqjkXCR6KU5p2rVheVEsW', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:19:16', '2021-01-07 20:19:16'),
+(126, 'FabTestGenericUser28@fixmaster.com.ng', NULL, '7539264905684080ffc7604ff9af12724ea7932d', '0', '$2y$10$SGs2lIVdyxAZ3pHM9uBJJODb51pIf167hbwmWg3p5WDxIXTr7WkjO', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:20:36', '2021-01-07 20:20:36'),
+(127, 'FabTestGenericUser20@fixmaster.com.ng', NULL, '6b7bff2e427fdf45980eb8c2713b0b1abd482038', '0', '$2y$10$on90RO3On314zCGcOxMdeu3Jx/P8fDg9FHw11gj/mBvMNiz08x.6a', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:21:14', '2021-01-07 20:21:14'),
+(128, 'FabTestGenericUser29@fixmaster.com.ng', NULL, 'ec0aaa93b1347603b2a6f448c592b1eecaeb10a2', '0', '$2y$10$uvYINS86ifiWIEL9m7mOn..CisZ5VZ8c5IW8puKUR79NytRB7ZoTu', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:21:53', '2021-01-07 20:21:53'),
+(129, 'FabTestGenericUser30@fixmaster.com.ng', NULL, 'ef1fc83cdad01ea798b79b49730c1632c30f30ea', '0', '$2y$10$4bHLlgdU1hcTElYGHRxSF.JYQTZ5wJAQS8g/FFBuGCunjoZmq2pAu', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:23:19', '2021-01-07 20:23:19'),
+(130, 'FabTestGenericUser21@fixmaster.com.ng', NULL, '3c35e2dfa3f7e7557304f47865bd524e6725b09b', '0', '$2y$10$9OjxiZJ9cctTpPtoL0wAFeYBZGzUoWy9u.G20YpyZGwiJPcuSstN.', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:23:39', '2021-01-07 20:23:39'),
+(131, 'FabTestGenericUser22@fixmaster.com.ng', NULL, '2ad7396ada963a42ddb865ccade18b19df537dfd', '0', '$2y$10$ZIwidLCU2M17JYjCx8qTreEaP416.hggUJQv5e2XqHEaa0pc8a4Em', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:31:11', '2021-01-07 20:31:11'),
+(132, 'FabTestGenericUser23@fixmaster.com.ng', NULL, 'b48862f39fa19ead6e8294caf51ed9ea8716e0fe', '0', '$2y$10$6ZK6SCOVNXRgOb9KHEThE.Ryd83H2SpKFax/1Kur9F.l/BnTyWiEK', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:34:21', '2021-01-07 20:34:21'),
+(133, 'FabTestGenericUser24@fixmaster.com.ng', NULL, 'a5b4b21fc3627c2705d5cb035cef50c24d523e42', '0', '$2y$10$q/3ovHKdgtI2sFoyvws4o.b2zAGLKJem2XthSDskEvrhJWSAj93du', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:37:00', '2021-01-07 20:37:00'),
+(134, 'FabTestGenericUser25@fixmaster.com.ng', NULL, 'a4f393dcc7c1347b378885ade313758814c1d8f0', '0', '$2y$10$PGTtKDfnb6QS1xGTwT3mmetUIqHYV7S9zjQy9oxnIZFo44ciePYIa', NULL, '[CLIENT_ROLE]', '0', '0', 0, NULL, NULL, NULL, '2021-01-07 20:39:11', '2021-01-07 20:39:11');
 
 -- --------------------------------------------------------
 
@@ -3248,18 +3373,14 @@ INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_tok
 -- Table structure for table `wallets`
 --
 
-DROP TABLE IF EXISTS `wallets`;
-CREATE TABLE IF NOT EXISTS `wallets` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wallets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `wallet_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `balance` bigint(20) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `wallets_user_id_unique` (`user_id`),
-  UNIQUE KEY `wallets_wallet_id_unique` (`wallet_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `wallets`
@@ -3324,7 +3445,57 @@ INSERT INTO `wallets` (`id`, `user_id`, `wallet_id`, `balance`, `created_at`, `u
 (57, 78, 'WAL-F02B6FD8', 0, '2021-01-05 10:38:45', '2021-01-05 10:38:45'),
 (58, 79, 'WAL-E3160AB5', 0, '2021-01-05 10:40:54', '2021-01-05 10:40:54'),
 (59, 80, 'WAL-8CEECC1E', 0, '2021-01-05 10:43:15', '2021-01-05 10:43:15'),
-(60, 81, 'WAL-FCF126B5', 0, '2021-01-05 10:45:28', '2021-01-05 10:45:28');
+(60, 81, 'WAL-FCF126B5', 0, '2021-01-05 10:45:28', '2021-01-05 10:45:28'),
+(65, 85, 'WAL-EFF94E91', 0, '2021-01-07 18:16:52', '2021-01-07 18:16:52'),
+(66, 86, 'WAL-0F78ACC3', 0, '2021-01-07 18:19:58', '2021-01-07 18:19:58'),
+(67, 87, 'WAL-37A09906', 0, '2021-01-07 18:34:29', '2021-01-07 18:34:29'),
+(68, 88, 'WAL-475865A7', 0, '2021-01-07 18:37:48', '2021-01-07 18:37:48'),
+(69, 89, 'WAL-05F5C32D', 0, '2021-01-07 19:18:58', '2021-01-07 19:18:58'),
+(70, 90, 'WAL-071F68C5', 0, '2021-01-07 19:20:42', '2021-01-07 19:20:42'),
+(71, 91, 'WAL-75C73CE9', 0, '2021-01-07 19:22:48', '2021-01-07 19:22:48'),
+(72, 92, 'WAL-1645AB68', 0, '2021-01-07 19:22:51', '2021-01-07 19:22:51'),
+(73, 93, 'WAL-D1EEAF1A', 0, '2021-01-07 19:25:08', '2021-01-07 19:25:08'),
+(74, 94, 'WAL-B11B3923', 0, '2021-01-07 19:25:10', '2021-01-07 19:25:10'),
+(75, 95, 'WAL-1C527A60', 0, '2021-01-07 19:26:50', '2021-01-07 19:26:50'),
+(76, 96, 'WAL-3362F935', 0, '2021-01-07 19:27:26', '2021-01-07 19:27:26'),
+(77, 97, 'WAL-858871B3', 0, '2021-01-07 19:28:43', '2021-01-07 19:28:43'),
+(78, 98, 'WAL-DF7DB151', 0, '2021-01-07 19:30:09', '2021-01-07 19:30:09'),
+(79, 99, 'WAL-2E4DA600', 0, '2021-01-07 19:30:52', '2021-01-07 19:30:52'),
+(80, 100, 'WAL-0622974B', 0, '2021-01-07 19:32:18', '2021-01-07 19:32:18'),
+(81, 101, 'WAL-208E871E', 0, '2021-01-07 19:32:26', '2021-01-07 19:32:26'),
+(82, 102, 'WAL-254DCCF8', 0, '2021-01-07 19:34:39', '2021-01-07 19:34:39'),
+(83, 103, 'WAL-BCFB39D3', 0, '2021-01-07 19:36:14', '2021-01-07 19:36:14'),
+(84, 104, 'WAL-49575576', 0, '2021-01-07 19:41:25', '2021-01-07 19:41:25'),
+(85, 105, 'WAL-FA26160B', 0, '2021-01-07 19:54:39', '2021-01-07 19:54:39'),
+(86, 106, 'WAL-1A87D49F', 0, '2021-01-07 19:56:00', '2021-01-07 19:56:00'),
+(87, 107, 'WAL-442597A2', 0, '2021-01-07 19:57:23', '2021-01-07 19:57:23'),
+(88, 108, 'WAL-CC9D46BA', 0, '2021-01-07 19:57:43', '2021-01-07 19:57:43'),
+(89, 109, 'WAL-17C3EA11', 0, '2021-01-07 19:59:05', '2021-01-07 19:59:05'),
+(90, 110, 'WAL-F54DC1BA', 0, '2021-01-07 20:01:11', '2021-01-07 20:01:11'),
+(91, 111, 'WAL-00933B7C', 0, '2021-01-07 20:01:24', '2021-01-07 20:01:24'),
+(92, 112, 'WAL-7C036A61', 0, '2021-01-07 20:03:56', '2021-01-07 20:03:56'),
+(93, 113, 'WAL-36EAF0F8', 0, '2021-01-07 20:04:29', '2021-01-07 20:04:29'),
+(94, 114, 'WAL-0E0A8C7E', 0, '2021-01-07 20:05:53', '2021-01-07 20:05:53'),
+(95, 115, 'WAL-6F160BB3', 0, '2021-01-07 20:06:12', '2021-01-07 20:06:12'),
+(96, 116, 'WAL-68925E23', 0, '2021-01-07 20:07:33', '2021-01-07 20:07:33'),
+(97, 117, 'WAL-D40125A8', 0, '2021-01-07 20:08:58', '2021-01-07 20:08:58'),
+(98, 118, 'WAL-5265193F', 0, '2021-01-07 20:10:26', '2021-01-07 20:10:26'),
+(99, 119, 'WAL-AFB62C04', 0, '2021-01-07 20:11:48', '2021-01-07 20:11:48'),
+(100, 120, 'WAL-CE7363F1', 0, '2021-01-07 20:12:18', '2021-01-07 20:12:18'),
+(101, 121, 'WAL-DA2F4B4E', 0, '2021-01-07 20:13:46', '2021-01-07 20:13:46'),
+(102, 122, 'WAL-DDB43D9A', 0, '2021-01-07 20:15:46', '2021-01-07 20:15:46'),
+(103, 123, 'WAL-8538023B', 0, '2021-01-07 20:17:48', '2021-01-07 20:17:48'),
+(104, 124, 'WAL-47495294', 0, '2021-01-07 20:19:13', '2021-01-07 20:19:13'),
+(105, 125, 'WAL-D5712367', 0, '2021-01-07 20:19:16', '2021-01-07 20:19:16'),
+(106, 126, 'WAL-75392649', 0, '2021-01-07 20:20:36', '2021-01-07 20:20:36'),
+(107, 127, 'WAL-F0E7BC08', 0, '2021-01-07 20:21:15', '2021-01-07 20:21:15'),
+(108, 128, 'WAL-4FDD8ADF', 0, '2021-01-07 20:21:54', '2021-01-07 20:21:54'),
+(109, 129, 'WAL-D44971A0', 0, '2021-01-07 20:23:19', '2021-01-07 20:23:19'),
+(110, 130, 'WAL-3C35E2DF', 0, '2021-01-07 20:23:39', '2021-01-07 20:23:39'),
+(111, 131, 'WAL-8CC9622E', 0, '2021-01-07 20:31:12', '2021-01-07 20:31:12'),
+(112, 132, 'WAL-B48862F3', 0, '2021-01-07 20:34:21', '2021-01-07 20:34:21'),
+(113, 133, 'WAL-A5B4B21F', 0, '2021-01-07 20:37:00', '2021-01-07 20:37:00'),
+(114, 134, 'WAL-A4F393DC', 0, '2021-01-07 20:39:11', '2021-01-07 20:39:11');
 
 -- --------------------------------------------------------
 
@@ -3332,21 +3503,16 @@ INSERT INTO `wallets` (`id`, `user_id`, `wallet_id`, `balance`, `created_at`, `u
 -- Table structure for table `wallet_transactions`
 --
 
-DROP TABLE IF EXISTS `wallet_transactions`;
-CREATE TABLE IF NOT EXISTS `wallet_transactions` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wallet_transactions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `wallet_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
   `payment_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`,`wallet_id`,`service_request_id`),
-  KEY `wallet_id` (`wallet_id`),
-  KEY `wallet_transactions_ibfk_3` (`service_request_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `wallet_transactions`
@@ -3354,6 +3520,538 @@ CREATE TABLE IF NOT EXISTS `wallet_transactions` (
 
 INSERT INTO `wallet_transactions` (`id`, `user_id`, `wallet_id`, `service_request_id`, `payment_type`, `amount`, `created_at`, `updated_at`) VALUES
 (1, 11, 1, 9, 'Service request refund', 2500, '2021-01-06 16:42:49', '2021-01-06 16:42:49');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `activity_logs`
+--
+ALTER TABLE `activity_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `admins_phone_number_unique` (`phone_number`),
+  ADD UNIQUE KEY `user_id` (`user_id`),
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Indexes for table `admin_permissions`
+--
+ALTER TABLE `admin_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `admin_permissions_user_id_unique` (`user_id`);
+
+--
+-- Indexes for table `banks`
+--
+ALTER TABLE `banks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `categories_name_unique` (`name`),
+  ADD UNIQUE KEY `url` (`url`),
+  ADD KEY `service_id` (`service_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `clients`
+--
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `clients_phone_number_unique` (`phone_number`),
+  ADD KEY `user_id` (`user_id`,`state_id`,`lga_id`,`town`),
+  ADD KEY `state_id` (`state_id`),
+  ADD KEY `lga_id` (`lga_id`),
+  ADD KEY `profession_id` (`profession_id`);
+
+--
+-- Indexes for table `cses`
+--
+ALTER TABLE `cses`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cses_phone_number_unique` (`phone_number`),
+  ADD UNIQUE KEY `tag_id` (`tag_id`),
+  ADD UNIQUE KEY `cses_other_phone_number_unique` (`other_phone_number`),
+  ADD UNIQUE KEY `cses_account_number_unique` (`account_number`),
+  ADD KEY `lga_id` (`lga_id`),
+  ADD KEY `state_id` (`state_id`),
+  ADD KEY `bank_id` (`bank_id`),
+  ADD KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`bank_id`) USING BTREE,
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Indexes for table `cse_category`
+--
+ALTER TABLE `cse_category`
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `cse_id` (`cse_id`);
+
+--
+-- Indexes for table `disbursed_payments`
+--
+ALTER TABLE `disbursed_payments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `disbursed_payments_user_id_index` (`user_id`),
+  ADD KEY `disbursed_payments_recipient_id_index` (`recipient_id`),
+  ADD KEY `disbursed_payments_service_request_id_index` (`service_request_id`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `lgas`
+--
+ALTER TABLE `lgas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `state_id` (`state_id`);
+
+--
+-- Indexes for table `location_and_browser_infos`
+--
+ALTER TABLE `location_and_browser_infos`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`),
+  ADD UNIQUE KEY `user_id_2` (`user_id`);
+
+--
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `client_messages_ibfk_1` (`sender_id`),
+  ADD KEY `client_messages_ibfk_2` (`recipient_id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `names`
+--
+ALTER TABLE `names`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `payment_gateways`
+--
+ALTER TABLE `payment_gateways`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `professions`
+--
+ALTER TABLE `professions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `received_payments`
+--
+ALTER TABLE `received_payments`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `received__payments_payment_reference_unique` (`payment_reference`),
+  ADD KEY `received__payments_user_id_index` (`user_id`),
+  ADD KEY `received__payments_service_request_id_index` (`service_request_id`);
+
+--
+-- Indexes for table `rfqs`
+--
+ALTER TABLE `rfqs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `rfqs_batch_number_unique` (`batch_number`),
+  ADD UNIQUE KEY `rfqs_invoice_number_unique` (`invoice_number`),
+  ADD KEY `rfqs_issued_by_index` (`issued_by`),
+  ADD KEY `rfqs_client_id_index` (`client_id`),
+  ADD KEY `rfqs_service_request_id_index` (`service_request_id`);
+
+--
+-- Indexes for table `rfq_batches`
+--
+ALTER TABLE `rfq_batches`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `rfq_batches_rfq_id_index` (`rfq_id`);
+
+--
+-- Indexes for table `rfq_suppliers`
+--
+ALTER TABLE `rfq_suppliers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `rfq_id` (`rfq_id`),
+  ADD KEY `rfq_suppliers_rfq_id_index` (`rfq_id`);
+
+--
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `services_name_unique` (`name`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `service_requests`
+--
+ALTER TABLE `service_requests`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `security_code` (`security_code`),
+  ADD UNIQUE KEY `job_reference` (`job_reference`),
+  ADD KEY `user_id` (`user_id`,`admin_id`,`cse_id`,`technician_id`,`service_id`,`category_id`),
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `service_id` (`service_id`),
+  ADD KEY `admin_id` (`admin_id`),
+  ADD KEY `technician_id` (`technician_id`),
+  ADD KEY `cse_id` (`cse_id`),
+  ADD KEY `service_request_status_id` (`service_request_status_id`);
+
+--
+-- Indexes for table `service_request_cancellation_reasons`
+--
+ALTER TABLE `service_request_cancellation_reasons`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `service_request_cancellation_reasons_user_id_index` (`user_id`),
+  ADD KEY `service_request_cancellation_reasons_service_request_id_index` (`service_request_id`);
+
+--
+-- Indexes for table `service_request_details`
+--
+ALTER TABLE `service_request_details`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `service_request_id` (`service_request_id`),
+  ADD KEY `state_id` (`state_id`),
+  ADD KEY `lga_id` (`lga_id`);
+
+--
+-- Indexes for table `service_request_progresses`
+--
+ALTER TABLE `service_request_progresses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `service_request_progress_user_id_index` (`user_id`),
+  ADD KEY `service_request_progress_service_request_id_index` (`service_request_id`),
+  ADD KEY `service_request_progress_service_request_status_id_index` (`service_request_status_id`);
+
+--
+-- Indexes for table `service_request_statuses`
+--
+ALTER TABLE `service_request_statuses`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `project_statuses_name_unique` (`name`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `user_id_2` (`user_id`);
+
+--
+-- Indexes for table `states`
+--
+ALTER TABLE `states`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `super_admins`
+--
+ALTER TABLE `super_admins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `super_admins_phone_number_unique` (`phone_number`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `technicians`
+--
+ALTER TABLE `technicians`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `technicians_phone_number_unique` (`phone_number`),
+  ADD UNIQUE KEY `tag_id` (`tag_id`),
+  ADD UNIQUE KEY `technicians_other_phone_number_unique` (`other_phone_number`),
+  ADD UNIQUE KEY `technicians_account_number_unique` (`account_number`),
+  ADD KEY `lga_id` (`lga_id`),
+  ADD KEY `state_id` (`state_id`),
+  ADD KEY `bank_id` (`bank_id`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `user_id` (`user_id`,`franchise_id`,`state_id`,`lga_id`,`bank_id`) USING BTREE;
+
+--
+-- Indexes for table `tool_inventories`
+--
+ALTER TABLE `tool_inventories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `tool_requests`
+--
+ALTER TABLE `tool_requests`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `requested_by` (`requested_by`,`approved_by`,`service_request_id`,`batch_number`),
+  ADD KEY `tool_requests_batch_id` (`batch_number`),
+  ADD KEY `service_request_id` (`service_request_id`),
+  ADD KEY `tool_requests_ibfk_4` (`approved_by`);
+
+--
+-- Indexes for table `tool_request_batches`
+--
+ALTER TABLE `tool_request_batches`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tool_id` (`tool_id`),
+  ADD KEY `batch_id` (`tool_request_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indexes for table `wallets`
+--
+ALTER TABLE `wallets`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `wallets_user_id_unique` (`user_id`),
+  ADD UNIQUE KEY `wallets_wallet_id_unique` (`wallet_id`);
+
+--
+-- Indexes for table `wallet_transactions`
+--
+ALTER TABLE `wallet_transactions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`,`wallet_id`,`service_request_id`),
+  ADD KEY `wallet_id` (`wallet_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `activity_logs`
+--
+ALTER TABLE `activity_logs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=667;
+
+--
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `admin_permissions`
+--
+ALTER TABLE `admin_permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `banks`
+--
+ALTER TABLE `banks`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+
+--
+-- AUTO_INCREMENT for table `cses`
+--
+ALTER TABLE `cses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `disbursed_payments`
+--
+ALTER TABLE `disbursed_payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `lgas`
+--
+ALTER TABLE `lgas`
+  MODIFY `id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=775;
+
+--
+-- AUTO_INCREMENT for table `location_and_browser_infos`
+--
+ALTER TABLE `location_and_browser_infos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `names`
+--
+ALTER TABLE `names`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+
+--
+-- AUTO_INCREMENT for table `payment_gateways`
+--
+ALTER TABLE `payment_gateways`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `professions`
+--
+ALTER TABLE `professions`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
+-- AUTO_INCREMENT for table `received_payments`
+--
+ALTER TABLE `received_payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+
+--
+-- AUTO_INCREMENT for table `rfqs`
+--
+ALTER TABLE `rfqs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `rfq_batches`
+--
+ALTER TABLE `rfq_batches`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `rfq_suppliers`
+--
+ALTER TABLE `rfq_suppliers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `service_requests`
+--
+ALTER TABLE `service_requests`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+
+--
+-- AUTO_INCREMENT for table `service_request_cancellation_reasons`
+--
+ALTER TABLE `service_request_cancellation_reasons`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `service_request_details`
+--
+ALTER TABLE `service_request_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
+--
+-- AUTO_INCREMENT for table `service_request_progresses`
+--
+ALTER TABLE `service_request_progresses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `service_request_statuses`
+--
+ALTER TABLE `service_request_statuses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `states`
+--
+ALTER TABLE `states`
+  MODIFY `id` tinyint(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `super_admins`
+--
+ALTER TABLE `super_admins`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `technicians`
+--
+ALTER TABLE `technicians`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tool_inventories`
+--
+ALTER TABLE `tool_inventories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tool_requests`
+--
+ALTER TABLE `tool_requests`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tool_request_batches`
+--
+ALTER TABLE `tool_request_batches`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+
+--
+-- AUTO_INCREMENT for table `wallets`
+--
+ALTER TABLE `wallets`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+
+--
+-- AUTO_INCREMENT for table `wallet_transactions`
+--
+ALTER TABLE `wallet_transactions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -3415,7 +4113,7 @@ ALTER TABLE `cse_category`
 -- Constraints for table `disbursed_payments`
 --
 ALTER TABLE `disbursed_payments`
-  ADD CONSTRAINT `disbursed_payments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `disbursed_payments_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `disbursed_payments_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `disbursed_payments_ibfk_3` FOREIGN KEY (`service_request_id`) REFERENCES `service_requests` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
@@ -3560,8 +4258,7 @@ ALTER TABLE `wallets`
 --
 ALTER TABLE `wallet_transactions`
   ADD CONSTRAINT `wallet_transactions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `wallet_transactions_ibfk_2` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `wallet_transactions_ibfk_3` FOREIGN KEY (`service_request_id`) REFERENCES `service_requests` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `wallet_transactions_ibfk_2` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

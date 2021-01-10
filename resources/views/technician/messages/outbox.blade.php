@@ -3,6 +3,7 @@
 @include('layouts.partials._messages')
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/dashboard/assets/css/dashforge.mail.css') }}">
+@include('layouts.partials._technician_message_composer')
 
 <div class="mail-wrapper ml-2">
   <div class="mail-sidebar">
@@ -12,23 +13,27 @@
 
   <div class="mail-group">
     <div class="mail-group-header">
-      <i data-feather="search"></i>
+      {{-- <i data-feather="search"></i>
       <div class="search-form">
         <input type="search" class="form-control" placeholder="Search mail">
-      </div><!-- search-form -->
+      </div><!-- search-form --> --}}
+      <div class="pd-10">
+        <a href="#technicianMessageComposer" data-toggle="modal" class="btn btn-primary btn-block tx-uppercase tx-10 tx-medium tx-sans tx-spacing-4">Compose</a>
+      </div>
+
     </div><!-- mail-group-header -->
     <div class="mail-group-body">
       <div class="pd-y-15 pd-x-20 d-flex justify-content-between align-items-center">
-        <h6 class="tx-uppercase tx-semibold mg-b-0">Inbox</h6>
+        <h6 class="tx-uppercase tx-semibold mg-b-0">Outbox</h6>
         <div class="dropdown tx-13">
-          <span class="tx-color-03">Sort:</span> <a href="" class="dropdown-link link-02">Date</a>
+          {{-- <span class="tx-color-03">Sort:</span> <a href="" class="dropdown-link link-02">Date</a> --}}
         </div><!-- dropdown -->
       </div>
       @foreach ($messages as $message => $values)
       <label class="mail-group-label">{{ $message }}</label>
         <ul class="list-unstyled media-list mg-b-0">
           @foreach ($values as $value) 
-          <li class="media @if($value->is_read == '0') unread @endif" data-url="{{ route('admin.outbox_message_details', $value->id) }}">
+          <li class="media @if($value->is_read == '0') unread @endif" data-url="{{ route('outbox_message_details', $value->id) }}">
             @if($value->sender_id == '4' || $value->userReceivedMessage->designation == '[SUPER_ADMIN_ROLE]' || $value->userReceivedMessage->designation == '[ADMIN_ROLE]')
               <div class="avatar"><img src="{{ asset('assets/images/home-fix-logo-coloredd.png') }}" class="rounded-circle" alt=""></div>
             @elseif($value->userReceivedMessage->designation == '[CSE_ROLE]')

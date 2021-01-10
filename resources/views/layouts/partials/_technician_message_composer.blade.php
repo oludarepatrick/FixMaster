@@ -15,7 +15,7 @@ use App\Models\Technician;
   }
 </style>
 
-<div class="modal fade" id="cseMessageComposer" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="technicianMessageComposer" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg wd-sm-650" role="document">
       <div class="modal-content">
         <div class="modal-body pd-x-25 pd-sm-x-30 pd-t-40 pd-sm-t-20 pd-b-15 pd-sm-b-20">
@@ -23,7 +23,7 @@ use App\Models\Technician;
             <span aria-hidden="true">&times;</span>
           </a>
           <h5 class="mg-b-2"><strong>Send Message</strong></h5>
-          <form method="POST" action="{{route('cse.save-message-data')}}" accept-charset="UTF-8" class="form-horizontal" >
+          <form method="POST" action="{{ route('technician.save-message-data') }}" accept-charset="UTF-8" class="form-horizontal" >
             {{ csrf_field() }}
           <div class="form-row">
             <div class="col-md-12">
@@ -40,7 +40,7 @@ use App\Models\Technician;
             <div class="col-md-12 specific-date hideDiv" id="job-ref" >
                 <div class="form-group position-relative ">
                     <label>Ongoing Jobs List</label>
-                    <select class="custom-select" id="jobReference" name="jobReference" onchange="updateRecieverList(this.value)">
+                    <select class="custom-select" id="jobReference" name="jobReference" onchange="updateRecieverListTech(this.value)">
                       <option value="" selected>Select Job Reference</option>
                       @foreach ($ongoingJobs as $item)
                         <option value="{{$item->id}}">{{$item->job_reference}} </option>

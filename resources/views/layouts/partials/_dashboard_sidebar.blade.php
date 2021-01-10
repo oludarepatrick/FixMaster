@@ -62,13 +62,13 @@
         </ul>
       </li>
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('cse.requests', 'cse.requests_ongoing', 'cse.requests_completed', 'cse.requests_cancelled', 'cse.request_details', 'cse.request_ongoing_details', 'cse.request_completed_details') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('cse.requests', 'cse.requests_ongoing', 'cse.requests_completed', 'cse.requests_cancelled', 'cse.request_details', 'cse.request_ongoing_details', 'cse.request_completed_details', 'cse.request_cancelled_details') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="git-pull-request"></i> <span>Requests</span></a>
         <ul>
         <li class="{{ Route::currentRouteNamed('cse.requests', 'cse.request_details') ? 'active' : '' }}"><a href="{{ route('cse.requests') }}">New</a></li>
           <li class="{{ Route::currentRouteNamed('cse.requests_ongoing', 'cse.request_ongoing_details') ? 'active' : '' }}"><a href="{{ route('cse.requests_ongoing') }}">Ongoing</a></li>
           <li class="{{ Route::currentRouteNamed('cse.requests_completed', 'cse.request_completed_details') ? 'active' : '' }}"><a href="{{ route('cse.requests_completed') }}">Completed</a></li>
-          <li class="{{ Route::currentRouteNamed('cse.requests_cancelled') ? 'active' : '' }}"><a href="{{ route('cse.requests_cancelled') }}">Cancelled</a></li>
+          <li class="{{ Route::currentRouteNamed('cse.requests_cancelled', 'cse.request_cancelled_details') ? 'active' : '' }}"><a href="{{ route('cse.requests_cancelled') }}">Cancelled</a></li>
         </ul>
       </li>
 
@@ -112,7 +112,7 @@
       <div class="d-flex align-items-center justify-content-start">
         <a href="" class="avatar"><img src="{{ asset('assets/images/default-male-avatar.png') }}" class="rounded-circle" alt="Male Avatar"></a>
         <div class="aside-alert-link">
-        <a href="{{ route('technician.messages') }}" @if($user->receivedMessages()->where('is_read', '0')->count()) class="new" @endif data-toggle="tooltip" title="You have {{ $user->receivedMessages()->where('is_read', '0')->count() }} unread messages"><i data-feather="message-square"></i></a>
+        <a href="{{ route('inbox_messages') }}" @if($user->receivedMessages()->where('is_read', '0')->count()) class="new" @endif data-toggle="tooltip" title="You have {{ $user->receivedMessages()->where('is_read', '0')->count() }} unread messages"><i data-feather="message-square"></i></a>
           {{-- <a href="" class="new" data-toggle="tooltip" title="You have 4 new notifications"><i data-feather="bell"></i></a> --}}
           <a href="{{ route('logout') }}" data-toggle="tooltip" title="Sign out"><i data-feather="log-out"></i></a>
         </div>
@@ -141,11 +141,11 @@
       
       <li class="nav-label mg-t-25">Adminstration</li>
 
-      <li class="nav-item with-sub {{ Route::currentRouteNamed('inbox_messages', 'technician.messages_sent') ? 'active show' : '' }}">
+      <li class="nav-item with-sub {{ Route::currentRouteNamed('inbox_messages', 'outbox_messages') ? 'active show' : '' }}">
         <a href="" class="nav-link"><i data-feather="message-circle"></i> <span>Messages</span></a>
         <ul> 
           <li class="{{ Route::currentRouteNamed('inbox_messages') ? 'active' : '' }}"><a href="{{ route('inbox_messages') }}">Inbox</a></li>
-          <li class="{{ Route::currentRouteNamed('technician.messages_sent') ? 'active' : '' }}"><a href="{{ route('technician.messages_sent') }}">Sent</a></li>
+          <li class="{{ Route::currentRouteNamed('outbox_messages') ? 'active' : '' }}"><a href="{{ route('outbox_messages') }}">Sent</a></li>
           {{-- <li><a href="#cseMessageComposer" data-toggle="modal">Compose</a></li> --}}
         </ul>
       </li>

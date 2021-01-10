@@ -236,7 +236,7 @@
 
               <div class="form-group col-md-6">
                 <label for="payment_date">Payment Date</label>
-                <input type="date" class="form-control @error('payment_date') is-invalid @enderror" id="service-date-time" max="{{ \Carbon\Carbon::now()->isoFormat('MMMM Do YYYY, h:mm') }}" name="payment_date" value="{{ old('payment_date') }}">
+                <input type="date" class="form-control @error('payment_date') is-invalid @enderror" id="payment_date" max="{{ \Carbon\Carbon::now()->isoFormat('MMMM Do YYYY, h:mm') }}" name="payment_date" value="{{ old('payment_date') }}">
                 @error('payment_date')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -278,8 +278,15 @@
 <script>
   $(document).ready(function (){
 
+    //Set Payment max date to Today's date
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    $('#payment_date').attr('max', today);
+
     //Get list of users by a particular service request reference
-    // $('#ongoing_requests').on('change',function () {
     $(document).on('change', '#ongoing_requests', function () {
 
         let user = $(this).find('option:selected').text();

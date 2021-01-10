@@ -36,7 +36,7 @@
                 </div>
                 <div class="media-body">
                   <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold tx-nowrap mg-b-5 mg-md-b-8">Total Requests</h6>
-                  <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">2</h4>
+                <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">{{ $cseServiceRequests->count() }}</h4>
                 </div>
               </div>
               
@@ -49,6 +49,8 @@
                   <th class="text-center">#</th>
                   <th>Job Ref.</th>
                   <th>Client</th>
+                  <th>Admin</th>
+                  <th>Technician</th>
                   <th class="text-center">Amount</th>
                   <th>Status</th>
                   <th class="text-center">Date Cancelled</th>
@@ -56,41 +58,26 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ($cseServiceRequests as $serviceRequest)
                 <tr>
-                  <td class="tx-color-03 tx-center">1</td>
-                  <td class="tx-medium">REF-234094623496</td>
-                  <td class="tx-medium">Femi Joseph</td>
-                  <td class="text-medium text-center">₦14,000</td>
-                  <td class="text-medium text-danger">Cancelled</td>
-                  <td class="text-medium text-center">May 15th 2020 at 11:30am</td>
-                  <td class=" text-center">
+                  <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                  <td class="tx-medium">{{ $serviceRequest->job_reference }}</td>
+                  <td class="tx-medium">{{ $serviceRequest->user->fullName->name }}</td>
+                  <td class="tx-medium">@if(!empty($serviceRequest->admin)) {{ $serviceRequest->admin->first_name.' '.$serviceRequest->admin->last_name }} @else Not Assigned @endif</td>
+                  <td class="tx-medium">@if(!empty($serviceRequest->technician)) {{ $serviceRequest->technician->first_name.' '.$serviceRequest->technician->last_name }} @else Not Assigned @endif</td>
+                  <td class="tx-medium text-center">₦{{ number_format($serviceRequest->total_amount) }}</td>
+                  <td class="tx-medium tx-center text-danger">{{ $serviceRequest->serviceRequestStatus->name }}</td>
+                  <td class="tx-medium text-center">@if(!empty($serviceRequest->serviceRequestCancellationReason->created_at)){{ Carbon\Carbon::parse($serviceRequest->serviceRequestCancellationReason->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }} @else Never @endif</td>
+                  <td class="text-center">
                     <div class="dropdown-file">
                       <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#modalDetails" data-toggle="modal" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
+                      <a href="{{ route('cse.request_cancelled_details', $serviceRequest->id) }}"class="dropdown-item details"><i class="fas fa-clipboard"></i> Details</a>
                       </div>
                     </div>
                   </td>
                 </tr>
-
-                <tr>
-                  <td class="tx-color-03 tx-center">2</td>
-                  <td class="tx-medium">REF-234094623496</td>
-                  <td class="tx-medium">Mobolaji Adetoun</td>
-                  <td class="text-medium text-center">₦6,500</td>
-                  <td class="text-medium text-danger">Cancelled</td>
-                  <td class="text-medium text-center">May 11th 2020 at 8:19am</td>
-                  <td class=" text-center">
-                    <div class="dropdown-file">
-                      <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#modalDetails" data-toggle="modal" class="dropdown-item details"><i class="far fa-clipboard"></i> Details</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-
-                
+                @endforeach
               </tbody>
             </table>
           </div><!-- table-responsive -->
@@ -98,74 +85,6 @@
 
       </div><!-- col -->
     </div><!-- row -->
-
-    <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-body pd-x-25 pd-sm-x-30 pd-t-40 pd-sm-t-20 pd-b-15 pd-sm-b-20">
-            <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </a>
-            <h5 class="mg-b-2"><strong>Job Description</strong></h5>
-
-            <div class="row row-sm mt-4 mb-4">
-              <div class="col-lg-12 col-xl-12">                
-                <table class="table table-striped table-sm mg-b-0">
-                  <tbody>
-                    <tr>
-                      <td class="tx-medium">Client</td>
-                      <td class="tx-color-03">Femi Joseph</td>
-                    </tr>
-                    <tr>
-                      <td class="tx-medium">Job Reference</td>
-                      <td class="tx-color-03">REF-234094623496</td>
-                    </tr>
-                    <tr>
-                      <td class="tx-medium">Service Required</td>
-                      <td class="tx-color-03">Mechanical (Generator)</td>
-                    </tr>
-                    <tr>
-                      <td class="tx-medium">Scheduled Date & Time</td>
-                      <td class="tx-color-03">May 15th 2020 at 11:30am</td>
-                    </tr>
-                    <tr>
-                      <td class="tx-medium">Total Service Charge</td>
-                      <td class="tx-color-03">₦14,000 (Urgent Fee)</td>
-                    </tr>
-                    <tr>
-                      <td class="tx-medium">L.G.A</td>
-                      <td class="tx-color-03">Ibeju-Lekki</td>
-                    </tr>
-                    <tr>
-                      <td class="tx-medium">Town/City</td>
-                      <td class="tx-color-03">Ibeju-Lekki</td>
-                    </tr>
-                    <tr>
-                      <td class="tx-medium">Request Address</td>
-                      <td class="tx-color-03">7, Abagbo Close, Victoria Island, Lagos, Nigeria</td>
-                    </tr>
-                    <tr>
-                      <td class="tx-medium">Request Description</td>
-                      <td class="tx-color-03">My generator just stopped working and it's refusing to come on. I need urgent repairs today.</td>
-                    </tr>
-                    <tr>
-                      <td class="tx-medium">Cancelled By</td>
-                      <td class="tx-color-03">Femi Joseph</td>
-                    </tr>
-                    <tr>
-                      <td class="tx-medium">Reason</td>
-                      <td class="tx-color-03">My generator began working again after manual observance. Thanks.</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
-
-              </div>
-            </div>
-          </div><!-- modal-body -->
-        </div><!-- modal-content -->
-      </div><!-- modal-dialog -->
-    </div><!-- modal -->
 
   </div><!-- container -->
 </div>

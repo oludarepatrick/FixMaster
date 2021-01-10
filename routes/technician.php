@@ -16,8 +16,13 @@ Route::middleware(['technicianRole'])->group(function() {
     Route::prefix('technician')->group(function () {
         // Route::name('technician.')->group(function () {
             Route::view('/', 			                'technician.home')->name('technician.home');
-            Route::view('/requests', 	                'technician.requests')->name('technician.requests');
-            Route::view('/requests/details/', 	        'technician.request_details')->name('technician.request_details');
+
+            Route::get('/requests',                       [App\Http\Controllers\Technician\TechnicianRequestController::class, 'requests'])->name('technician.requests');
+
+            Route::get('/requests/details/{id}',          [App\Http\Controllers\Technician\TechnicianRequestController::class, 'requestDetails'])->name('technician.request_details');
+
+            // Route::view('/requests', 	                'technician.requests')->name('technician.requests');
+            // Route::view('/requests/details/', 	        'technician.request_details')->name('technician.request_details');
             Route::view('/profile', 	                'technician.view_profile')->name('technician.view_profile');
             Route::view('/profile/edit', 	            'technician.edit_profile')->name('technician.edit_profile');
             Route::view('/payments', 	                'technician.payments')->name('technician.payments');
@@ -32,8 +37,7 @@ Route::middleware(['technicianRole'])->group(function() {
             Route::get('/view-profile',                 [App\Http\Controllers\Technician\TechnicianProfileController::class, 'view_profile' ])->name('technician.view_profile');
 
             Route::view('/payments', 	                'technician.payments')->name('technician.payments');
-            Route::view('/messages', 	                'technician.messages')->name('technician.messages');
-            Route::view('/messages/sent', 	            'technician.messages_sent')->name('technician.messages_sent');
+            
             Route::view('/location-request', 	        'technician.location_request')->name('technician.location_request');
 
             Route::post('/add-message',                  [App\Http\Controllers\Technician\TechnicianMessageController::class, 'sendMessage' ])->name('add-message');
@@ -45,6 +49,8 @@ Route::middleware(['technicianRole'])->group(function() {
             Route::get('/messages/outbox',               [App\Http\Controllers\Technician\TechnicianMessageController::class, 'outbox'])->name('outbox_messages');
             Route::get('/messages/outbox/details/{id}',  [App\Http\Controllers\Technician\TechnicianMessageController::class, 'outboxMessageDetails'])->name('outbox_message_details');
 
+            Route::get('/getUserAssigned/{id}',                   [App\Http\Controllers\Technician\TechnicianMessageController::class, 'getUserAssigned' ])->name('get-userAssigned');
+            Route::post('save-message-data',                      [App\Http\Controllers\Technician\TechnicianMessageController::class, 'saveMessageData' ])->name('technician.save-message-data');
 
         // });
     });

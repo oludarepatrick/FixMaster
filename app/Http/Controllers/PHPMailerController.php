@@ -52,7 +52,7 @@ class PHPMailerController extends Controller
             $mail->clearAddresses();
             // echo 'Message has been sent';
 
-            return redirect()->route('page.contact')->with('success', 'Message has been sent');
+            // return redirect()->route('page.contact')->with('success', 'Message has been sent');
 
         } catch (Exception $e) {
             // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
@@ -61,4 +61,5 @@ class PHPMailerController extends Controller
         }
 
     }
+    
 }

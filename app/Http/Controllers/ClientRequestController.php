@@ -200,9 +200,9 @@ class ClientRequestController extends Controller
 
                 $this->sendMessage->successServiceRequestMessage($createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
 
-                // MailController::clientServiceBookingMail(Auth::user()->email, Auth::user()->fullName->name, $createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
+                MailController::clientServiceBookingMail(Auth::user()->email, Auth::user()->fullName->name, $createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
 
-                // MailController::adminServiceBookingMailNotification('info@fixmaster.com.ng', Auth::user()->fullName->name, $createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
+                MailController::adminServiceBookingMailNotification('info@fixmaster.com.ng', Auth::user()->fullName->name, $createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
 
                 $this->addRecord = new RecordActivityLogController();
                 $id = Auth::id();

@@ -119,6 +119,7 @@ class AdminRequestController extends Controller
 
         $clientId = $requestExists->user_id;
         $clientName = $requestExists->user->fullName->name;
+        $clientEmail = $requestExists->user->email;
         $securityCode = $requestExists->security_code;
 
         // return [
@@ -151,6 +152,9 @@ class AdminRequestController extends Controller
             /*
             * Code to send email goes here...
             */
+            MailController::assignCseEmailNotification($cseEmail, $cseName, $jobReference);
+            MailController::assignTechnicianEmailNotification($technicianEmail, $technicianName, $cseName, $jobReference);
+            MailController::notifyClientOfCSETechnicianAssigning($clientEmail, $clientName, $securityCode, $jobReference);
 
             //Record crurrenlty logged in user activity
             $this->addRecord = new RecordActivityLogController();

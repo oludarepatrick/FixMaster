@@ -10,8 +10,8 @@
         <div>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-            <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('admin.requests') }}">New Requests</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('cse.home') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('cse.requests') }}">New Requests</a></li>
               <li class="breadcrumb-item active" aria-current="page">Cancelled Request Details</li>
             </ol>
           </nav>
@@ -27,7 +27,7 @@
           </div><!-- media -->
         </div>
         <div class="d-md-block">
-          <a href="{{ route('admin.requests_cancelled') }}" class="btn btn-primary"><i data-feather="git-pull-request"></i> Cancelled Requests</a>
+          <a href="{{ route('cse.requests_cancelled') }}" class="btn btn-primary"><i data-feather="git-pull-request"></i> Cancelled Requests</a>
         </div>
       </div>
 
@@ -86,7 +86,7 @@
 
               <tr>
                 <td class="tx-medium">Reason for Cancellation</td>
-                <td class="tx-color-03">{{ $requestDetail->serviceRequestCancellationReason->reason }}</td>
+                <td class="tx-color-03">@if(!empty($requestDetail->serviceRequestCancellationReason->reason)){{ $requestDetail->serviceRequestCancellationReason->reason }} @else None @endif</td>
               </tr>
             </tbody>
           </table>

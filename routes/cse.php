@@ -26,7 +26,7 @@ Route::middleware(['cseRole'])->group(function() {
         Route::get('/requests/cancelled', 	                  [App\Http\Controllers\CSE\CSERequestController::class, 'cancelledRequests'])->name('cse.requests_cancelled');
         Route::get('/requests/cancelled/details/{id}',        [App\Http\Controllers\CSE\CSERequestController::class, 'cancelledRequestDetails'])->name('cse.request_cancelled_details');
    
-        Route::view('/requests/cancelled', 	                  'cse.requests_cancelled')->name('cse.requests_cancelled');
+        // Route::view('/requests/cancelled', 	                  'cse.requests_cancelled')->name('cse.requests_cancelled');
         Route::view('/technicians', 	                      'cse.technicians')->name('cse.technicians');
         Route::view('/technicians/profile', 	              'cse.technicians_profile')->name('cse.technicians_profile');
   

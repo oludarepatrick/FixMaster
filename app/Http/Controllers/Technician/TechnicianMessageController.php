@@ -56,14 +56,12 @@ class TechnicianMessageController extends Controller
 
             $data .= '<option value='.$item->user_id.'>'.$item->user->fullName->name. '(Client)</option>';
             $data .= '<option value='.$item->admin_id.'>'.$item->admin->first_name.' '.$item->admin->last_name. '(Admin)</option>';
-            $data .= '<option value='.$item->technician_id.'>'.$item->technician->first_name.' '.$item->technician->last_name. '(Technician)</option>';
+            $data .= '<option value='.$item->cse_id.'>'.$item->cse->first_name.' '.$item->cse->last_name. '(CSE)</option>';
 
         };
         return $data;
 
-       }
-
-    
+    }
 
     public function saveMessageData(Request $request){
         
@@ -137,10 +135,11 @@ class TechnicianMessageController extends Controller
 
     public function inbox(){
 
-        $messages = Message::orderBy('created_at', 'DESC')->get()
+        $messages =  Auth::user()->receivedMessages()->orderBy('created_at', 'DESC')->get()
         ->groupBy(function ($val) {
             return \Carbon\Carbon::parse($val->created_at)->format('l d, F Y');
         });
+
         $data = [
             'messages'  =>  $messages
         ];
@@ -162,7 +161,7 @@ class TechnicianMessageController extends Controller
             'message'  =>  $message
         ];
 
-        return view('cse.messages._inbox_message_body', $data);
+        return view('technician.messages._inbox_message_body', $data);
     }
 
     public function outbox(){
@@ -176,7 +175,7 @@ class TechnicianMessageController extends Controller
             'messages'  =>  $messages
         ];
 
-        return view('cse.messages.outbox', $data);
+        return view('technician.messages.outbox', $data);
     }
 
     public function outboxMessageDetails($id){
@@ -193,7 +192,7 @@ class TechnicianMessageController extends Controller
             'message'  =>  $message
         ];
 
-        return view('cse.messages._outbox_message_body', $data);
+        return view('technician.messages._outbox_message_body', $data);
     }
 
     /**
