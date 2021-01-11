@@ -264,7 +264,7 @@ class AdminCSEController extends Controller
             }
         }
 
-        // return $activityLogs;
+        $payments = $cse->cseTechnicianDisbursedPayments()->latest()->get();
 
         $years = array_unique($yearList);
 
@@ -282,6 +282,9 @@ class AdminCSEController extends Controller
             'years'             =>  $years,
             'userId'            =>  $user,
             'totalFee'          =>  0,
+            'totalPaymentAmount'=>  0,
+            'payments'          =>  $payments,
+
         ];
 
         return view('admin.users.cse.summary', $data)->with('i');

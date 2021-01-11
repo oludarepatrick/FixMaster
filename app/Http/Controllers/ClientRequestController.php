@@ -60,7 +60,6 @@ class ClientRequestController extends Controller
 
         return view('client.request_details', $data);
 
-
     }
 
     /**
@@ -143,9 +142,6 @@ class ClientRequestController extends Controller
             $mediaFileName = null;
         }
 
-
-        //IF payment was successful
-        if(!empty($request->input('payment_reference')) == 'success'){
             //Generate security code
             $this->randomStringGenerator = new EssentialsController();
 
@@ -175,14 +171,64 @@ class ClientRequestController extends Controller
                 'payment_method'            =>  $request->input('payment_method'),
             ]);
 
-            $paymentRecord = ReceivedPayment::create([
-                'user_id'               =>  Auth::id(), 
-                'service_request_id'    =>  $createServiceRequest->id,
-                'payment_reference'     =>  $request->input('payment_reference'), 
-                'payment_method'        =>  $request->input('payment_method'), 
-                'amount'                =>  $amount,
-            ]);
+            if($request->input('payment_method') == 'Wallet'){
+                if(Auth::user()->wallet->balance < $serviceFee){
+                    return back()->withInput()->with('error', 'Sorry, you do not have sufficient fund in yout E-Wallet. Please select another Payment option.');
+                }else{
+            
+                    $walletbalance = Auth::user()->user->wallet->balance;
+            
+                    $NewWalletbalance = $walletbalance - $amount;
 
+                    $paymentRecord = ReceivedPayment::create([
+                        'user_id'               =>  Auth::id(), 
+                        'service_request_id'    =>  $createServiceRequest->id,
+                        'payment_reference'     =>  'E-WAL-'.strtoupper(substr(md5(time()), 0, 6)), 
+                        'payment_method'        =>  $request->input('payment_method'), 
+                        'amount'                =>  $amount,
+                    ]);
+
+                    Wallet::where('user_id', Auth::id())->update([
+                        'balance'   =>    $NewWalletbalance,
+                    ]);
+            
+                    WalletTransaction::create([
+                        'user_id'               =>  Auth::id(), 
+                        'wallet_id'             =>  Auth::user()->user->wallet->id, 
+                        'service_request_id'    =>  $createServiceRequest->id, 
+                        'payment_type'          =>  'Service request payment', 
+                        'amount'                =>  $amount,
+                    ]);
+                }
+            }elseif($request->input('payment_method') == 'Offline'){
+
+                $paymentRecord = ReceivedPayment::create([
+                    'user_id'               =>  Auth::id(), 
+                    'service_request_id'    =>  $createServiceRequest->id,
+                    'payment_reference'     =>  'Pending bank teller', 
+                    'payment_method'        =>  $request->input('payment_method'), 
+                    'amount'                =>  $amount,
+                ]);
+            }else{
+                //IF payment was successful
+                $request->validate([
+                    'payment_reference'    =>  'required',
+                ]);
+
+                if(!empty($request->input('payment_reference'))){
+
+                    $paymentRecord = ReceivedPayment::create([
+                        'user_id'               =>  Auth::id(), 
+                        'service_request_id'    =>  $createServiceRequest->id,
+                        'payment_reference'     =>  $request->input('payment_reference'), 
+                        'payment_method'        =>  $request->input('payment_method'), 
+                        'amount'                =>  $amount,
+                    ]);
+                }else{
+                    return back()->withInput()->with('error', 'Sorry, Payment was not successful. Please select another Payment option.');
+                }
+            }
+            
             if($createServiceRequest AND $createServiceRequestDetail){
 
                 if(Auth::user()->client->discounted == 0){
@@ -230,15 +276,9 @@ class ClientRequestController extends Controller
                 return back()->with('error', 'An error occurred while trying to book a service.')->withInput();
 
             }
-            
 
-        }else{
-            return back()->withInput()->with('error', 'Sorry, Payment was not successful. Please select another Payment option.');
-        }
-        
 
         return back()->withInput();
-
 
     }
 
@@ -253,8 +293,8 @@ class ClientRequestController extends Controller
             'phone_number'              =>   'required',
             'address'                   =>   'required',
             'payment_method'            =>   'required',
-            'payment_reference'         =>   'required',
-            'payment_response_message'  =>  'required',
+            // 'payment_reference'         =>   'required',
+            // 'payment_response_message'  =>  'required',
         ]);
     }
 
@@ -428,7 +468,27 @@ class ClientRequestController extends Controller
         ]);
 
 
+        $clientId = $requestExists->user_id;
+        $clientName = $requestExists->user->fullName->name;
+        $clientEmail = $requestExists->user->email;
+        $reason = $request->reason;
+        $jobReference = $requestExists->job_reference;
+        $supervisorId = $requestExists->admin_id;
+
+
         if($cancelRequest AND $recordServiceProgress AND $recordCancellation){
+
+            /*
+            * Code to send email goes here...
+            */
+
+            //Notify CSE and Technician with messages
+            $this->cancellationMessage = new EssentialsController();
+            $this->cancellationMessage->clientServiceRequestCancellationMessage($clientName, $clientId, $jobReference, $reason);
+            $this->cancellationMessage->adminServiceRequestCancellationMessage($clientName, $clientId, $jobReference, $reason, $supervisorId);
+
+            MailController::clientServiceRequestCancellationEmailNotification($clientEmail, $clientName,$jobReference, $reason);
+            MailController::adminServiceRequestCancellationEmailNotification('info@fixmaster.com.ng', $clientName,$jobReference, $reason);
 
             //Record crurrenlty logged in user activity
             $this->addRecord = new RecordActivityLogController();
@@ -459,4 +519,6 @@ class ClientRequestController extends Controller
 
         return back()->withInput();
     }
+
+    
 }

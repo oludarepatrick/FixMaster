@@ -205,7 +205,7 @@ class EssentialsController extends Controller
 
     public function successServiceRequestMessage($jobReference, $securityCode, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp){
 
-        $body = '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>'.$jobReference.'</p><p><strong>Service: </strong>'.$serviceName.'('.$categoryName.')</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦'.number_format($amount).'('.$serviceFeeName.')</p><p><strong>Date & Time:</strong> '.$timestamp.'</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>';
+        $body = '<p>Thank you for booking your job on FixMaster, a dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>'.$jobReference.'</p><p><strong>Service: </strong>'.$serviceName.'('.$categoryName.')</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦'.number_format($amount).'('.$serviceFeeName.')</p><p><strong>Date & Time:</strong> '.$timestamp.'</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>';
 
         Message::create([
             'sender_id'         =>  4, 
@@ -304,5 +304,36 @@ class EssentialsController extends Controller
             'body'              =>  $body, 
             'is_read'           =>  '0'
         ]); 
+    }
+
+    public function clientServiceRequestCancellationMessage($clientName, $clientId, $jobReference, $reason){
+
+        $body = '<p>Hello <strong>'.$clientName.'</strong>, this is to inform you that your Service Request (<strong>'.$jobReference.'</strong>) has been cancelled.</p><p><strong>Reason</strong>: '.$reason.'</p><div>Thanks,</div><div>FixMaster Management</div></div>';
+
+        Message::create([
+            'sender_id'         =>  4, 
+            'recipient_id'      =>  $clientId, 
+            'subject'           =>  'Service Request('.$jobReference.') cancellation.', 
+            'body'              =>  $body, 
+            'is_read'           =>  '0'
+        ]); 
+    }
+
+    public function adminServiceRequestCancellationMessage($clientName, $clientId, $jobReference, $reason, $supervisorId){
+
+        $body = '<p>Hello Administrator, this is to inform you that <strong>Mr/Mrs '.$clientName.'</strong> cancelled his/her Service Request (<strong>'.$jobReference.'</strong>).</p><p><strong>Reason</strong>: '.$reason.'</p><div>Thanks,</div><div>FixMaster Management</div></div>';
+
+        if(empty($supervisorId)){
+            $supervisorId = 4;
+        }
+
+        Message::create([
+            'sender_id'         =>  4, 
+            'recipient_id'      =>  $supervisorId, 
+            'subject'           =>  'Service Request('.$jobReference.') cancellation.', 
+            'body'              =>  $body, 
+            'is_read'           =>  '0'
+        ]); 
+
     }
 }

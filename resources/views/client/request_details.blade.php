@@ -213,7 +213,8 @@
                     <div class="form-group position-relative">
                         <label>Security Code:<span class="text-danger">*</span></label>
                         <i data-feather="file-text" class="fea icon-sm icons"></i>
-                        <input name="security_code" type="text" class="form-control pl-5" placeholder="Click to select :" id="security_code" value="" required />
+                        <input name="security_code" type="text" class="form-control pl-5" placeholder="Security Code :" id="security_code" value="" required />
+                        <small>Securoty Code must be in uppercase.<small>
                     </div>
                 </div>
                 <!--end col-->

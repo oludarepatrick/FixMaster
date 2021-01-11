@@ -140,6 +140,23 @@ class TechnicianProfileController extends Controller
         // return redirect()->back();
     }
 
+    public function payments(){
+
+        $technician = User::findOrFail(Auth::id());
+
+        $payments = $technician->cseTechnicianDisbursedPayments()->latest()->get();
+
+        // return $payments;
+
+        $data = [
+            'technician'   =>  $technician,
+            'payments'  =>  $payments,
+        ];
+
+        return view('cse.payments', $data)->with('i');
+
+    }
+
     /**
      * Display a listing of the resource.
      *

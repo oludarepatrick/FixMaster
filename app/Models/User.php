@@ -168,6 +168,16 @@ class User extends Authenticatable
         return $this->hasOne(Wallet::class);
     }
 
+    public function walletTransaction()
+    {
+        return $this->hasOne(WalletTransaction::class, 'user_id');
+    }
+
+    public function walletTransactions()
+    {
+        return $this->hasMany(WalletTransaction::class, 'user_id');
+    }
+
     public function cse()
     {
         return $this->hasOne(CSE::class);
@@ -236,6 +246,16 @@ class User extends Authenticatable
     public function receivedPayments()
     {
         return $this->hasMany(ReceivedPayment::class, 'user_id');
+    }
+
+    public function cseTechnicianDisbursedPayment()
+    {
+        return $this->hasOne(DisbursedPayment::class, 'recipient_id');
+    }
+
+    public function cseTechnicianDisbursedPayments()
+    {
+        return $this->hasMany(DisbursedPayment::class, 'recipient_id');
     }
     
 

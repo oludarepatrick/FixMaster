@@ -266,6 +266,23 @@ class CSEProfileController extends Controller
     	return view('cse.view_profile', $data);
     }
 
+    public function payments(){
+
+        $cse = User::findOrFail(Auth::id());
+
+        $payments = $cse->cseTechnicianDisbursedPayments()->latest()->get();
+
+        // return $payments;
+
+        $data = [
+            'cse'   =>  $cse,
+            'payments'  =>  $payments,
+        ];
+
+        return view('cse.payments', $data)->with('i');
+
+    }
+    
     /**
      * Display a listing of the resource.
      *

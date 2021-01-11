@@ -127,7 +127,7 @@
                                     @if($userServiceRequest->service_request_status_id == '1')
                                         <a href="#editRequest" id="edit-request" data-toggle="modal" class="dropdown-item text-info" data-url="{{ route('client.edit_request', $userServiceRequest->id) }}" data-job-reference="{{ $userServiceRequest->job_reference }}"><i data-feather="edit" class="fea icon-sm"></i> Edit Request</a>
                                     @endif
-                                    {{-- <a href="{{ route('client.request_invoice') }}" class="dropdown-item text-success"><i data-feather="file-text" class="fea icon-sm"></i> View Invoice</a> --}}
+                                    
                                     @if($userServiceRequest->service_request_status_id != '3')
                                         <div class="dropdown-divider"></div>
                                         @if($userServiceRequest->service_request_status_id != '2')
@@ -139,6 +139,13 @@
 
                                     @if($userServiceRequest->service_request_status_id > '3')
                                         <a href="{{ route('client.mark_request_as_completed', $userServiceRequest->id) }}" class="dropdown-item details text-success"><i data-feather="check" class="fea icon-sm"></i> Mark as Completed</a>
+                                    @endif
+
+                                    @if($userServiceRequest->rfq()->count() > 0)
+                                    <hr>
+                                        @foreach($userServiceRequest->rfqs as $rfq)
+                                            <a href="{{ route('client.request_invoice', $rfq->id) }}" class="dropdown-item text-info"><i data-feather="file-text" class="fea icon-sm"></i> {{ $rfq->invoice_number }} Invoice</a>
+                                        @endforeach
                                     @endif
 
                                 </div>

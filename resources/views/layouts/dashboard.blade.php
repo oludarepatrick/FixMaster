@@ -199,7 +199,7 @@
       $(document).ready(function () {
 
         // Basic DataTable
-        $('#basicExample').DataTable({
+        $('#basicExample, #demoRequests #paymentExample').DataTable({
           'iDisplayLength': 10,
           language: {
                 searchPlaceholder: 'Search...',

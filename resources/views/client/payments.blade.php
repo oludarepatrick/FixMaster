@@ -80,66 +80,27 @@
             <thead>
                 <tr>
                     <th class="py-3">#</th>
-                    <th class="py-3">Type</th>
+                    <th class="py-3">Job Reference</th>
+                    <th class="py-3">Reference No.</th>
+                    <th class="py-3">Payment Method</th>
                     <th class="py-3">Amount</th>
-                    <th class="py-3">Date</th>
-                    <th class="py-3">Status</th>
-                    <th class="py-3">Action</th>
+                    <th class="py-3">Payment Date</th>
                 </tr>
             </thead>
 
             <tbody>
+                @foreach ($payments as $payment)
                 <tr>
-                    <td>1</td>
-                    <td>Service Payment</td>
-                    <td>15/05/2020</td>
-                    <td class="font-weight-bold">₦14,000</td>
-                    <td class="text-warning">Pending</td>
-                    <td><a class="btn btn-primary popup-modal btn-sm text-danger" href="#payment-modal">Details</a></td>
+                    <td>{{ ++$i }}</td>
+                    <td>{{ $payment->serviceRequest->job_reference }}</td>
+                    <td>{{ $payment->payment_reference }}</td>
+                    <td> {{ $payment->payment_method }}</td>
+                    <td class="font-weight-bold">₦{{ number_format($payment->amount) }}</td>
+                    <td>{{ Carbon\Carbon::parse($payment->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>E-Wallet Credit</td>
-                    <td>12/03/2020</td>
-                    <td class="font-weight-bold">₦11,450</td>
-                    <td class="text-success">Paid</td>
-                    <td><a class="btn btn-primary popup-modal btn-sm text-danger" href="#payment-modal">Details</a></td>
-
-                </tr>
-
-                <tr>
-                    <td>3</td>
-                    <td>E-Wallet Debit (Service Payment)</td>
-                    <td>26/02/2020</td>
-                    <td class="font-weight-bold">₦7,500</td>
-                    <td class="text-success">Paid</td>
-                    <td><a class="btn btn-primary popup-modal btn-sm text-danger" href="#payment-modal">Details</a></td>
-                </tr>
-               
+                @endforeach
             </tbody>
         </table>
-
-        <div class="example gc3 mb-4">
-            <div class="html-code">
-        
-              <div id="payment-modal" class="mfp-hide white-popup-block">
-                <h3>Payment Details</h3>
-                
-                <p>
-                    Depositor Name: <strong>Femi Joseph</strong><br>
-                    Payment Mode: <strong>Online Payment</strong><br>
-                    Bank Name: <strong>FCMB</strong><br> 
-                    Account Name: <strong>FixMaster NG</strong><br> 
-                    Account Number: <strong>1234567890</strong><br> 
-                    Amount: <strong>₦14,000</strong><br> 
-                    Reference No.: <strong>234092734623496</strong><br> 
-                    Status: <strong class="text-success">Paid</strong><br> 
-                </p>
-
-                <a class="btn btn-primary btn-sm popup-modal-dismiss" href="#">Close</a></p>
-              </div>
-            </div>
-        </div>
     </div>
 </div><!--end col-->
 

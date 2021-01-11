@@ -445,7 +445,7 @@ class AdminTechnicianController extends Controller
             }
         }
 
-        // return $activityLogs;
+        $payments = $technician->cseTechnicianDisbursedPayments()->latest()->get();
 
         $years = array_unique($yearList);
 
@@ -463,6 +463,8 @@ class AdminTechnicianController extends Controller
             'years'             =>  $years,
             'userId'            =>  $user,
             'totalFee'          =>  0,
+            'totalPaymentAmount'=>  0,
+            'payments'          =>  $payments,
         ];
 
         return view('admin.users.technician.summary', $data)->with('i');

@@ -41,9 +41,8 @@ Route::middleware(['cseRole'])->group(function() {
         Route::get('/getUserAssigned/{id}',                   [App\Http\Controllers\CSE\CSEMessageController::class, 'getUserAssigned' ])->name('get-userAssigned');
         Route::post('save-message-data',                      [App\Http\Controllers\CSE\CSEMessageController::class, 'saveMessageData' ])->name('cse.save-message-data');
 
-        Route::view('/payments', 	                          'cse.payments')->name('cse.payments');
-        Route::view('/messages', 	                          'cse.messages')->name('cse.messages');
-        Route::view('/messages/sent', 	                      'cse.messages_sent')->name('cse.messages_sent');
+        Route::get('/payments',                           [App\Http\Controllers\CSE\CSEProfileController::class, 'payments' ])->name('cse.payments');
+        
         Route::view('/location-request', 	                  'cse.location_request')->name('cse.location_request');
 
 

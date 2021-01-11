@@ -144,6 +144,16 @@ class ServiceRequest extends Model
         return $this->hasMany(ReceivedPayment::class, 'service_request_id');
     }
 
+    public function cseTechnicianDisbursedPayment()
+    {
+        return $this->hasOne(DisbursedPayment::class, 'service_request_id');
+    }
+
+    public function cseTechnicianDisbursedPayments()
+    {
+        return $this->hasMany(DisbursedPayment::class, 'service_request_id');
+    }
+
     
     
      /** 
