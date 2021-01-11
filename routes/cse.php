@@ -41,7 +41,10 @@ Route::middleware(['cseRole'])->group(function() {
         Route::get('/getUserAssigned/{id}',                   [App\Http\Controllers\CSE\CSEMessageController::class, 'getUserAssigned' ])->name('get-userAssigned');
         Route::post('save-message-data',                      [App\Http\Controllers\CSE\CSEMessageController::class, 'saveMessageData' ])->name('cse.save-message-data');
 
-        Route::view('/payments', 	                          'cse.payments')->name('cse.payments');
+        Route::post('save-message-data',                      [App\Http\Controllers\CSE\CSEMessageController::class, 'saveMessageData' ])->name('cse.save-message-data');
+        Route::post('save-message-data',                      [App\Http\Controllers\CSE\CSEMessageController::class, 'saveMessageData' ])->name('cse.save-message-data');
+        Route::post('save-message-data',                      [App\Http\Controllers\CSE\CSEMessageController::class, 'saveMessageData' ])->name('cse.save-message-data');
+        // Route::view('/payments', 	                          'cse.payments')->name('cse.payments');
         Route::view('/messages', 	                          'cse.messages')->name('cse.messages');
         Route::view('/messages/sent', 	                      'cse.messages_sent')->name('cse.messages_sent');
         Route::view('/location-request', 	                  'cse.location_request')->name('cse.location_request');
@@ -52,6 +55,6 @@ Route::middleware(['cseRole'])->group(function() {
         Route::get('/messages/outbox',                      [App\Http\Controllers\CSE\CSEMessageController::class, 'outbox'])->name('cse.outbox_messages');
         Route::get('/messages/outbox/details/{id}',         [App\Http\Controllers\CSE\CSEMessageController::class, 'outboxMessageDetails'])->name('cse.outbox_message_details');
 
-
+        Route::get('/payments/received', [App\Http\Controllers\CSE\PaymentsController::class, 'receivedPayments'])->name('cse.payments');
     });
 });
