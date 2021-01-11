@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 10, 2021 at 07:31 AM
+-- Generation Time: Jan 11, 2021 at 07:50 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -699,7 +699,18 @@ INSERT INTO `activity_logs` (`id`, `user_id`, `ip_address`, `type`, `severity`, 
 (663, 134, '102.89.3.221', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\RegisterController@registerClient', 'https://temp.homefix.ng/register', 'Oluwole Famakinwatajobo(FabTestGenericUser25@fixmaster.com.ng) account was registered successfully.', '2021-01-07 20:39:11'),
 (664, 1, '102.36.160.146', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://temp.homefix.ng/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-08 05:40:22'),
 (665, 1, '102.89.3.21', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://temp.homefix.ng/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-09 00:36:51'),
-(666, 1, '102.89.3.145', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://temp.homefix.ng/logout', 'NinthBinary Developer logged out with a session duration of 00:10:58(hrs:min:ss).', '2021-01-09 00:47:49');
+(666, 1, '102.89.3.145', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://temp.homefix.ng/logout', 'NinthBinary Developer logged out with a session duration of 00:10:58(hrs:min:ss).', '2021-01-09 00:47:49'),
+(667, 12, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Godrey Diwa logged in.', '2021-01-10 22:52:27'),
+(668, 12, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Godrey Diwa logged out with a session duration of 01:04:10(hrs:min:ss).', '2021-01-10 23:56:37'),
+(669, 15, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Taofeek Adedokun logged in.', '2021-01-10 23:56:46'),
+(670, 15, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Taofeek Adedokun logged out with a session duration of 00:00:55(hrs:min:ss).', '2021-01-10 23:57:41'),
+(671, 1, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'NinthBinary Developer logged in.', '2021-01-11 00:00:51'),
+(672, 1, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'NinthBinary Developer logged out with a session duration of 01:15:43(hrs:min:ss).', '2021-01-11 01:16:34'),
+(673, 2, '127.0.0.1', 'Unauthorized', 'Error', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'An Unknown Intruder attempted to login with (anthonyjoboy2016@gmail.com and admin12345).', '2021-01-11 01:16:45'),
+(674, 2, '127.0.0.1', 'Unauthorized', 'Error', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'An Unknown Intruder attempted to login with (anthonyjoboy2016@gmail.com and admin12345).', '2021-01-11 01:16:55'),
+(675, 11, '127.0.0.1', 'Login', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@verifyCredentials', 'http://localhost:8000/verify-credentials', 'Adekola Adeleke logged in.', '2021-01-11 01:17:04'),
+(676, 11, '127.0.0.1', 'Request', 'Informational', 'App\\Http\\Controllers\\ClientRequestController@store', 'http://localhost:8000/client/services/quote/store', 'Adekola Adeleke requested Dish & Washing Machine service', '2021-01-11 01:40:44'),
+(677, 11, '127.0.0.1', 'Logout', 'Informational', 'App\\Http\\Controllers\\Auth\\LoginController@logout', 'http://localhost:8000/logout', 'Adekola Adeleke logged out with a session duration of 02:00:27(hrs:min:ss).', '2021-01-11 03:17:31');
 
 -- --------------------------------------------------------
 
@@ -1054,7 +1065,7 @@ CREATE TABLE `disbursed_payments` (
   `recipient_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
   `payment_mode` enum('1','2','3','4') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payment_reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_reference` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` int(10) UNSIGNED NOT NULL,
   `payment_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `comment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1067,7 +1078,8 @@ CREATE TABLE `disbursed_payments` (
 --
 
 INSERT INTO `disbursed_payments` (`id`, `user_id`, `recipient_id`, `service_request_id`, `payment_mode`, `payment_reference`, `amount`, `payment_date`, `comment`, `created_at`, `updated_at`) VALUES
-(1, 1, 19, 5, '2', '239482347372', 1500, '2020-12-31', 'No comment', '2021-01-06 19:53:37', '2021-01-06 19:53:37');
+(1, 1, 19, 5, '2', '239482347372', 1500, '2020-12-31', 'No comment', '2021-01-06 19:53:37', '2021-01-06 19:53:37'),
+(2, 1, 19, 5, '3', '898582347097', 1500, '2020-12-31', 'Payment for additional supervison', '2021-01-06 19:53:37', '2021-01-06 19:53:37');
 
 -- --------------------------------------------------------
 
@@ -2053,7 +2065,7 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 (10, 4, 23, 'Welcome to FixMaster!', '<h1>Welcome to FixMaster, John Desmond!</h1><p>We are very excited you joined the most compelling community of FixMaster to satisfy customer\'s need.</p><p>As a <strong>Technician</strong> you will be assigned to jobs and you are expected to deliver excellent quality service which has always been a vital part of FixMaster\'s success.</p><p>Having said so, we constantly cater to our customer\'s best interests in terms of choice, quality, affordability, and unmatchable service!</p><p>Remember to change your password to a more convenient one asides the one given to you by FixMaster Admin.</p><p><span style=\"text-decoration: underline;\"><strong>Login Credentials</strong></span></p><p><strong>E-Mail</strong>: desmond.john@outlook.co.uk</p><p><strong>Password:</strong> admin12345</p><p>&nbsp;</p><p>Yours Faithfully,</p><p>FixMaster management</p>', '0', NULL, '2020-12-19 21:26:29', '2020-12-19 21:26:29'),
 (11, 5, 19, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Hello Favour Nnamdi</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to critically reviewing the client\'s request.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-25 23:23:19', '2020-12-29 23:17:28'),
 (12, 4, 15, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Taofeek Adedokun</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>Favour Nnamdi</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-25 23:23:19', '2020-12-25 23:23:19'),
-(13, 4, 12, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Hello Godrey Diwa</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to critically reviewing the client\'s request.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-27 16:20:17', '2020-12-30 08:31:53'),
+(13, 4, 12, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Hello Godrey Diwa</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to critically reviewing the client\'s request.</p><br /><p>Thanks,<br />FixMaster Management</p>', '1', NULL, '2020-12-27 16:20:17', '2021-01-10 21:52:38'),
 (14, 5, 15, 'New Job(REF-66EB5A26) Assignment', '<p><strong>Taofeek Adedokun</strong>, you have been assigned to <strong>REF-66EB5A26</strong> job. Kindly proceed to reviewing the client\'s request and await further instructions from the <strong>Godrey Diwa</strong>(CSE) assigned to you.</p><br /><p>Thanks,<br />FixMaster Management</p>', '0', NULL, '2020-12-27 16:20:17', '2020-12-29 23:17:42'),
 (15, 9, 5, 'Tool Request Approval for Job(REF-66EB5A26)', '<p>Hello <strong>David Akinsola</strong>, your Tool request(<strong>TRF-C85BEA04</strong>) for Job(<strong>REF-66EB5A26</strong>) has been approved.&nbsp;</p><p>&nbsp;</p><div><div>Thanks,</div><div>FixMaster Management</div></div>', '0', NULL, '2020-12-29 14:03:21', '2020-12-29 23:05:01'),
 (16, 19, 5, 'Tool Request Approval for Job(REF-66EB5A26)', '<p>Hello <strong>David Akinsola</strong>, your Tool request(<strong>TRF-C85BEA04</strong>) for Job(<strong>REF-66EB5A26</strong>) has been approved.&nbsp;</p><p>&nbsp;</p><div><div>Thanks,</div><div>FixMaster Management</div></div>', '0', NULL, '2020-12-29 14:06:08', '2020-12-30 09:09:01'),
@@ -2216,7 +2228,8 @@ INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`, `i
 (177, 4, 131, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Olusola Saraki-Oloye,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:31:12', '2021-01-07 20:31:12'),
 (178, 4, 132, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Akintunde Fajabila,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:34:21', '2021-01-07 20:34:21'),
 (179, 4, 133, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello AdeWole Famakinwalo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:37:00', '2021-01-07 20:37:00'),
-(180, 4, 134, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Oluwole Famakinwatajobo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:39:11', '2021-01-07 20:39:11');
+(180, 4, 134, 'Welcome to FixMaster!', '<p class=\"p1\"><strong>Hello Oluwole Famakinwatajobo,</strong></p><p class=\"p1\"><strong>Welcome to Fix<span style=\"color: #E97D1F;\">Master</span>! </strong>We&rsquo;re thrilled to see you <span class=\"s1\">here</span>!</p><p class=\"p1\">We&rsquo;re confident that our services will help you achieve your home fixes with <strong>the best professionals we will provide you.</strong></p><p class=\"p1\">Our system is designed in a simple, yet elegant manner to ensure you get the very best out of our service.</p><p class=\"p1\">You can also find more of our guides in the <a href=\"/faq\" target=\"_blank\"> Frequently Asked Questions</a> section.</p><p class=\"p2\">&nbsp;</p><p class=\"p1\">Thanks,</p><p class=\"p1\"><strong>FixMaster Management.</strong></p>', '0', NULL, '2021-01-07 20:39:11', '2021-01-07 20:39:11'),
+(181, 4, 11, 'Service Request(REF-364C34DF)', '<p>Thank you for booking your job on FixMaster.</p><p>A dedicated Customer Service Executive(CSE) will be assigned to your request and will be in touch with you soon.</p><p><strong>Job Reference: </strong>REF-364C34DF</p><p><strong>Service: </strong>Household Appliances(Dish & Washing Machine)</p><p><strong>CSE Security Code: </strong>SEC-478923</p><p><strong>Amount:</strong> ₦1,500(Standard)</p><p><strong>Date & Time:</strong> January 13th 2021, 7:00:00pm</p><p>We thank you for your patronage and look forward to pleasing you with our service quality.</p><p>&nbsp;</p>', '1', NULL, '2021-01-11 00:39:56', '2021-01-11 00:45:00');
 
 -- --------------------------------------------------------
 
@@ -2591,7 +2604,8 @@ INSERT INTO `received_payments` (`id`, `user_id`, `service_request_id`, `payment
 (53, 75, 62, '62706597', 'Online', 2375, '2021-01-06 10:04:02', '2021-01-06 10:04:02'),
 (54, 75, 63, '536155395', 'Online', 3500, '2021-01-06 10:07:02', '2021-01-06 10:07:02'),
 (56, 75, 65, '991279553', 'Online', 3500, '2021-01-06 10:12:51', '2021-01-06 10:12:51'),
-(57, 75, 66, '821550214', 'Online', 2500, '2021-01-06 10:14:06', '2021-01-06 10:14:06');
+(57, 75, 66, '821550214', 'Online', 2500, '2021-01-06 10:14:06', '2021-01-06 10:14:06'),
+(59, 11, 68, 'E-WAL-773B33', 'Wallet', 1500, '2021-01-11 00:39:56', '2021-01-11 00:39:56');
 
 -- --------------------------------------------------------
 
@@ -2618,7 +2632,7 @@ CREATE TABLE `rfqs` (
 --
 
 INSERT INTO `rfqs` (`id`, `issued_by`, `client_id`, `service_request_id`, `batch_number`, `invoice_number`, `status`, `accepted`, `total_amount`, `created_at`, `updated_at`) VALUES
-(1, 5, 11, 1, 'RFQ-C85BEA04', 'INV-E6572521', '2', 'Yes', 5800, '2020-12-28 15:58:54', '2021-01-02 14:38:30');
+(1, 5, 11, 1, 'RFQ-C85BEA04', 'INV-E6572521', '0', 'Yes', 5800, '2020-12-28 15:58:54', '2021-01-02 14:38:30');
 
 -- --------------------------------------------------------
 
@@ -2784,7 +2798,8 @@ INSERT INTO `service_requests` (`id`, `user_id`, `admin_id`, `cse_id`, `technici
 (64, 75, NULL, NULL, NULL, 5, 3, 'REF-B7A427B8', 'SEC-79ED8300', 1, 3500, NULL, '2021-01-06 10:07:03', '2021-01-06 10:07:03'),
 (65, 75, NULL, NULL, NULL, 3, 4, 'REF-DBCBEA24', 'SEC-7A157DBA', 1, 3500, NULL, '2021-01-06 10:12:51', '2021-01-06 10:12:51'),
 (66, 75, NULL, NULL, NULL, 7, 1, 'REF-EA418652', 'SEC-8E47F33D', 1, 2500, NULL, '2021-01-06 10:14:06', '2021-01-06 10:14:06'),
-(67, 75, NULL, NULL, NULL, 7, 1, 'REF-5CB26E66', 'SEC-B2C27ABC', 2, 2500, NULL, '2021-01-06 10:14:07', '2021-01-06 10:15:09');
+(67, 75, NULL, NULL, NULL, 7, 1, 'REF-5CB26E66', 'SEC-B2C27ABC', 2, 2500, NULL, '2021-01-06 10:14:07', '2021-01-06 10:15:09'),
+(68, 11, NULL, NULL, NULL, 5, 3, 'REF-364C34DF', 'SEC-773B334E', 1, 1500, NULL, '2021-01-11 00:39:56', '2021-01-11 00:39:56');
 
 -- --------------------------------------------------------
 
@@ -2924,7 +2939,8 @@ INSERT INTO `service_request_details` (`id`, `service_request_id`, `state_id`, `
 (61, 64, 25, 359, 'Victoria Island', 3500, NULL, 'Out of Hours', '08022233561', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Broken Dishwasher', 'January 6th 2021, 8:00:00pm', 'b7a427b83afa362a54398833a3ba1761cc626803.jfif', 'Online', NULL, '2021-01-06 10:07:03', '2021-01-06 10:07:03'),
 (62, 65, 25, 359, 'Victoria Island', 3500, NULL, 'Urgent', '08022233561', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Leaking Gas Pipe', 'January 6th 2021, 11:09:00am', 'dbcbea24a8b3c5831c467cd1ef03d5592af7ad99.jfif', 'Online', NULL, '2021-01-06 10:12:51', '2021-01-06 10:12:51'),
 (63, 66, 25, 359, 'Victoria Island', 2500, NULL, 'Standard', '08022233561', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Faulty charging port', 'January 16th 2021, 2:00:00pm', NULL, 'Online', NULL, '2021-01-06 10:14:06', '2021-01-06 10:14:06'),
-(64, 67, 25, 359, 'Victoria Island', 2500, NULL, 'Standard', '08022233561', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Faulty charging port', 'January 16th 2021, 2:00:00pm', NULL, 'Online', NULL, '2021-01-06 10:14:07', '2021-01-06 10:14:07');
+(64, 67, 25, 359, 'Victoria Island', 2500, NULL, 'Standard', '08022233561', '30, Sobo Arobieke Street, Road 24, Lekki Phase 1. Lagos.', 'Faulty charging port', 'January 16th 2021, 2:00:00pm', NULL, 'Online', NULL, '2021-01-06 10:14:07', '2021-01-06 10:14:07'),
+(65, 68, 25, 359, 'Falomo', 1500, NULL, 'Standard', '07036722889', '27B, Bourdillon Road off Falomo, Ikoyi-Lagos.', 'Localhost email, e-wallet transaction test', 'January 13th 2021, 7:00:00pm', NULL, 'Wallet', NULL, '2021-01-11 00:39:56', '2021-01-11 00:39:56');
 
 -- --------------------------------------------------------
 
@@ -3242,7 +3258,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_token`, `is_email_verified`, `password`, `remember_token`, `designation`, `is_active`, `is_admin`, `login_count`, `current_sign_in`, `last_sign_in`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 98, '2021-01-09 01:14:25', '2021-01-09 00:36:51', NULL, '2019-12-31 23:29:26', '2021-01-09 01:14:25'),
+(1, 'developer@ninthbinary.com', '2020-11-11 23:00:00', '4a7ad6cc6b5042a04ca5b49d8891addf1b86542b', '1', '$2y$10$TyaYqcpSh9fWWiW63q6mVenWe8myqbqSVQk37XP2alC1Nph0lriqa', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 99, '2021-01-10 23:00:51', '2021-01-09 01:14:25', NULL, '2019-12-31 23:29:26', '2021-01-10 23:00:51'),
 (2, '', NULL, NULL, '0', '', NULL, '[INTRUDER_ROLE]', '0', '0', 0, NULL, NULL, NULL, NULL, NULL),
 (3, 'charles.famoriyo@gmail.com', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[SUPER_ADMIN_ROLE]', '1', '1', 3, '2020-12-03 19:34:43', '2020-11-30 21:34:14', NULL, '2020-11-30 06:26:42', NULL),
 (4, 'info@fixmaster.com.ng', '2020-11-30 06:26:42', 'e611c2f59fb21fcdf4b2ac7c8754c9e54ec66569', '1', '$2y$10$oi6eKa68yOPcZeNFIDfOv.H4F4Yy6AtTwA3rP6tlhvSLfU2ix6mkC', NULL, '[ADMIN_ROLE]', '1', '1', 3, '2021-01-06 10:24:35', '2021-01-06 11:15:43', NULL, '2020-11-30 06:26:42', '2021-01-06 10:24:35'),
@@ -3252,11 +3268,11 @@ INSERT INTO `users` (`id`, `email`, `email_verified_at`, `email_verification_tok
 (8, 'godfrey.emmanuel@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[ADMIN_ROLE]', '1', '1', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (9, 'wisdom.amana@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
 (10, 'debo.williams@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CLIENT_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
-(11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 46, '2021-01-06 18:11:08', '2021-01-06 16:16:24', NULL, '2020-12-11 12:43:02', '2021-01-06 18:11:08'),
-(12, 'jamal.diwa@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', '0', 8, '2020-12-22 08:47:24', '2020-12-19 10:13:40', NULL, '2020-12-04 06:03:06', '2020-12-22 08:47:24'),
+(11, 'chris@ninthbinary.com', '2020-12-14 12:06:25', '642d9e56a634a1093fbf51353c149dea92e1289e', '1', '$2y$10$fqPNeMW6XtaFInJm.mHc1eJGbvYFuKkTB2/TxRIVWzHmci6RAWz8O', NULL, '[CLIENT_ROLE]', '1', '0', 47, '2021-01-11 00:17:04', '2021-01-06 18:11:08', NULL, '2020-12-11 12:43:02', '2021-01-11 00:17:04'),
+(12, 'jamal.diwa@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[CSE_ROLE]', '1', '0', 9, '2021-01-10 21:52:27', '2020-12-22 08:47:24', NULL, '2020-12-04 06:03:06', '2021-01-10 21:52:27'),
 (13, 'mayowabenedict@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$vicB3ZBUEj6YMfdk9P2ELO82xVE4X50.A6X.MqeTktkTTJMDh6PkS', NULL, '[CSE_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', '2020-12-29 19:11:23'),
 (14, 'andrew.nwankwo@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 1, '2020-12-17 09:17:14', '2020-12-17 09:17:14', NULL, '2020-12-04 06:03:06', NULL),
-(15, 'taofeek.adedokun@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-04 06:03:06', NULL),
+(15, 'taofeek.adedokun@gmail.com', '2020-12-04 06:03:06', '6196ce294e3a2ddb70c9faa0cda18b3049404d79', '1', '$2y$10$ii4UEMBJA00/5y.59.bjp.fm4kU5.sHtoL6Cd/gaK0TdrMo5ZmBrm', NULL, '[TECHNICIAN_ROLE]', '1', '0', 1, '2021-01-10 22:56:46', '2021-01-10 22:56:46', NULL, '2020-12-04 06:03:06', '2021-01-10 22:56:46'),
 (19, 'nnamdi.favour@yahoo.com', '2020-12-18 13:03:16', '3d08886310a72ef0fc0c208cd284fa79c9a82c50', '1', '$2y$10$Vo7etNylNWzJ3DMafi7kTuCfWe7qEkvPkJPGBYy6q4jJ26lnMKLG.', NULL, '[CSE_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-18 13:03:16', NULL),
 (23, 'desmond.john@outlook.co.uk', '2020-12-19 21:26:29', 'b6b463cdd2a85be2742d37f500dc10f4d67e8368', '1', '$2y$10$Rxe6TJzIiztAaOewBTr.pehGQrl/qoRbwia/OXQ8gOUVMV8yqAoP2', NULL, '[TECHNICIAN_ROLE]', '1', '0', 0, NULL, NULL, NULL, '2020-12-19 21:26:29', NULL),
 (24, '1prospect1Fab1test@gmail.com', '2021-01-04 15:36:59', '1d18ae5f22d5ab9999a1e1c4da365f91c7d8274c', '1', '$2y$10$WjMh57456HoHaOIp4Njmo.MettVALtDO1dMDPXkd9ZitFKWRlyFsO', NULL, '[CLIENT_ROLE]', '1', '0', 0, '2021-01-04 03:56:25', '2021-01-04 03:53:58', NULL, '2021-01-04 02:42:27', '2021-01-04 03:56:25'),
@@ -3387,7 +3403,7 @@ CREATE TABLE `wallets` (
 --
 
 INSERT INTO `wallets` (`id`, `user_id`, `wallet_id`, `balance`, `created_at`, `updated_at`) VALUES
-(1, 11, 'WAL-23782382', 2500, NULL, '2021-01-06 16:42:49'),
+(1, 11, 'WAL-23782382', 2500, NULL, '2021-01-11 00:39:56'),
 (2, 9, 'WAL-21780953', 0, NULL, NULL),
 (3, 24, 'WAL-50B6D80A', 0, '2021-01-04 02:42:28', '2021-01-04 02:42:28'),
 (4, 25, 'WAL-BFE41F23', 0, '2021-01-04 04:57:46', '2021-01-04 04:57:46'),
@@ -3508,7 +3524,7 @@ CREATE TABLE `wallet_transactions` (
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `wallet_id` bigint(20) UNSIGNED NOT NULL,
   `service_request_id` bigint(20) UNSIGNED NOT NULL,
-  `payment_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_type` enum('Payment','Refund','Wallet') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `amount` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -3519,7 +3535,8 @@ CREATE TABLE `wallet_transactions` (
 --
 
 INSERT INTO `wallet_transactions` (`id`, `user_id`, `wallet_id`, `service_request_id`, `payment_type`, `amount`, `created_at`, `updated_at`) VALUES
-(1, 11, 1, 9, 'Service request refund', 2500, '2021-01-06 16:42:49', '2021-01-06 16:42:49');
+(1, 11, 1, 9, 'Refund', 2500, '2021-01-06 16:42:49', '2021-01-06 16:42:49'),
+(2, 11, 1, 68, 'Payment', 1500, '2021-01-11 00:39:56', '2021-01-11 00:39:56');
 
 --
 -- Indexes for dumped tables
@@ -3602,6 +3619,7 @@ ALTER TABLE `cse_category`
 --
 ALTER TABLE `disbursed_payments`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `payment_reference` (`payment_reference`),
   ADD KEY `disbursed_payments_user_id_index` (`user_id`),
   ADD KEY `disbursed_payments_recipient_id_index` (`recipient_id`),
   ADD KEY `disbursed_payments_service_request_id_index` (`service_request_id`);
@@ -3837,7 +3855,8 @@ ALTER TABLE `wallets`
 ALTER TABLE `wallet_transactions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`,`wallet_id`,`service_request_id`),
-  ADD KEY `wallet_id` (`wallet_id`);
+  ADD KEY `wallet_id` (`wallet_id`),
+  ADD KEY `wallet_transactions_ibfk_3` (`service_request_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -3847,7 +3866,7 @@ ALTER TABLE `wallet_transactions`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=667;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=678;
 
 --
 -- AUTO_INCREMENT for table `admins`
@@ -3889,7 +3908,7 @@ ALTER TABLE `cses`
 -- AUTO_INCREMENT for table `disbursed_payments`
 --
 ALTER TABLE `disbursed_payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -3913,7 +3932,7 @@ ALTER TABLE `location_and_browser_infos`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -3943,7 +3962,7 @@ ALTER TABLE `professions`
 -- AUTO_INCREMENT for table `received_payments`
 --
 ALTER TABLE `received_payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `rfqs`
@@ -3973,7 +3992,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `service_requests`
 --
 ALTER TABLE `service_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `service_request_cancellation_reasons`
@@ -3985,7 +4004,7 @@ ALTER TABLE `service_request_cancellation_reasons`
 -- AUTO_INCREMENT for table `service_request_details`
 --
 ALTER TABLE `service_request_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `service_request_progresses`
@@ -4051,7 +4070,7 @@ ALTER TABLE `wallets`
 -- AUTO_INCREMENT for table `wallet_transactions`
 --
 ALTER TABLE `wallet_transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -4113,7 +4132,7 @@ ALTER TABLE `cse_category`
 -- Constraints for table `disbursed_payments`
 --
 ALTER TABLE `disbursed_payments`
-  ADD CONSTRAINT `disbursed_payments_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `disbursed_payments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `disbursed_payments_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `disbursed_payments_ibfk_3` FOREIGN KEY (`service_request_id`) REFERENCES `service_requests` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
@@ -4258,7 +4277,8 @@ ALTER TABLE `wallets`
 --
 ALTER TABLE `wallet_transactions`
   ADD CONSTRAINT `wallet_transactions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `wallet_transactions_ibfk_2` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `wallet_transactions_ibfk_2` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `wallet_transactions_ibfk_3` FOREIGN KEY (`service_request_id`) REFERENCES `service_requests` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
