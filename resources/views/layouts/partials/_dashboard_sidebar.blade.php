@@ -1,6 +1,5 @@
 <!-- START CSE SIDEBAR MENU -->
 @if($user->designation === '[CSE_ROLE]')
-
 <aside class="aside aside-fixed" id="sidebarMenu">
   <div class="aside-header">
       <a href="{{ route('cse.home')}}" class="aside-logo">
@@ -357,8 +356,4 @@
     </ul>
 </aside>
 @endif
-
-
-
-  
 <!-- END ADMIN SIDEBAR MENU -->
