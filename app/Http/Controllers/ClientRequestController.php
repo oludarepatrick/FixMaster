@@ -540,6 +540,8 @@ class ClientRequestController extends Controller
 
         $invoiceDetails = $invoiceExists->rfqBatches;
 
+        // return $invoiceExists;
+
         $email = Auth::user()->email;
         $clientDiscount = Auth::user()->client->discounted;
         $clientPhoneNumber = Auth::user()->client->phone_number;
@@ -563,6 +565,7 @@ class ClientRequestController extends Controller
 
     public function RFQPayment(Request $request){
 
+        return $request;
         //Check if client has internect connected
         $this->isConnected = new EssentialsController();
 
@@ -570,6 +573,15 @@ class ClientRequestController extends Controller
             return back()->withInput()->with('error', 'You are currently offline. Please connect to the internet to continue.');
         }
         
+
+        $paymentRecord = ReceivedPayment::create([
+            'user_id'               =>  Auth::id(), 
+            'service_request_id'    =>  $createServiceRequest->id,
+            'payment_reference'     =>  $paymentReference, 
+            'payment_method'        =>  'Online', 
+            'amount'                =>  $request-input('service_fee'),
+        ]);
     }
+
     
 }

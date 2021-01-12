@@ -143,8 +143,10 @@
 
                                 <input type="hidden" class="d-none" value="{{ old('service_fee') ?? $invoiceExists->total_amount + $tax + ($invoiceExists->rfqSupplier->devlivery_fee) ?? '0' }}" id="serviceFee" name="service_fee">
 
+                                
+                                <input type="hidden" class="d-none" value="{{ old('service_request_id') ?? $invoiceExists->service_request_id }}" id="service_request_id" name="service_request_id">
 
-                                <button type="submit" class="submitBnt btn btn-primary">Submit</button>
+                                <button type="submit" class="submitBnt btn btn-primary d-none">Submit</button>
 
 
                             </form>
