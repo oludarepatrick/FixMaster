@@ -157,7 +157,7 @@
                                     <p class="answer text-muted mb-0">
                                         1. Call Us on <strong>08132863878</strong><br>
                                         2. Send an SMS of your service Reference Code <strong>(REF-2E3487AAF23)</strong> and amount paid to <strong>08132863878</strong><br>
-                                        3. E-Mail Us on <a href="mailto:info@FixMaster.ng">info@FixMaster.ng</a> with your service Reference Code and amount paid.<br>
+                                        3. E-Mail Us on <a href="mailto:info@fixmaster.com.ng">info@fixmaster.com.ng</a> with your service Reference Code and amount paid.<br>
                                         4. <a class="btn btn-primary btn-sm"> Notify Us Online</a>
                                     </p>
                                 </div>

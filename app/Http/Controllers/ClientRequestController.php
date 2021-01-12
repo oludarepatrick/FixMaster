@@ -25,6 +25,8 @@ use App\Models\Message;
 use App\Models\ReceivedPayment;
 use App\Models\Wallet;
 use App\Models\WalletTransaction;
+use App\Models\RFQ;
+use App\Models\PaymentGateway;
 
 class ClientRequestController extends Controller
 {
@@ -104,12 +106,15 @@ class ClientRequestController extends Controller
 
             $address = $request->input('alternate_address');
         }
-        
+
+        //Prerequisites for Email and Message body styling
         $serviceName = Service::where('id', $request->input('service_id'))->first()->name;
         $categoryName = Category::where('id', $request->input('category_id'))->first()->name;
         $serviceFee = $request->input('service_fee');
         $serviceFeeName = $request->input('service_fee_name');
         $timestamp = \Carbon\Carbon::parse($request->input('timestamp'), 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa');
+        $paymentMethod =  $request->input('payment_method');
+
         //Determine if User has a discount of 5%
         if(Auth::user()->client->discounted == 1){
             $discountServiceFee = null;
@@ -173,17 +178,19 @@ class ClientRequestController extends Controller
 
             if($request->input('payment_method') == 'Wallet'){
                 if(Auth::user()->wallet->balance < $serviceFee){
-                    return back()->withInput()->with('error', 'Sorry, you do not have sufficient fund in yout E-Wallet. Please select another Payment option.');
+                    return back()->withInput()->with('error', 'Sorry, you do not have sufficient fund in your E-Wallet. Please select another Payment option.');
                 }else{
             
                     $walletbalance = Auth::user()->user->wallet->balance;
             
                     $NewWalletbalance = $walletbalance - $amount;
 
+                    $paymentReference = 'E-WAL-'.strtoupper(substr(md5(time()), 0, 6));
+
                     $paymentRecord = ReceivedPayment::create([
                         'user_id'               =>  Auth::id(), 
                         'service_request_id'    =>  $createServiceRequest->id,
-                        'payment_reference'     =>  'E-WAL-'.strtoupper(substr(md5(time()), 0, 6)), 
+                        'payment_reference'     =>  $paymentReference, 
                         'payment_method'        =>  $request->input('payment_method'), 
                         'amount'                =>  $amount,
                     ]);
@@ -196,16 +203,18 @@ class ClientRequestController extends Controller
                         'user_id'               =>  Auth::id(), 
                         'wallet_id'             =>  Auth::user()->user->wallet->id, 
                         'service_request_id'    =>  $createServiceRequest->id, 
-                        'payment_type'          =>  'Service request payment', 
+                        'payment_type'          =>  'Payment', 
                         'amount'                =>  $amount,
                     ]);
                 }
             }elseif($request->input('payment_method') == 'Offline'){
 
+                $paymentReference = 'Pending Bank Teller';
+
                 $paymentRecord = ReceivedPayment::create([
                     'user_id'               =>  Auth::id(), 
                     'service_request_id'    =>  $createServiceRequest->id,
-                    'payment_reference'     =>  'Pending bank teller', 
+                    'payment_reference'     =>  $paymentReference, 
                     'payment_method'        =>  $request->input('payment_method'), 
                     'amount'                =>  $amount,
                 ]);
@@ -224,10 +233,14 @@ class ClientRequestController extends Controller
                         'payment_method'        =>  $request->input('payment_method'), 
                         'amount'                =>  $amount,
                     ]);
+
+                    $paymentReference = $request->input('payment_reference');
+
                 }else{
                     return back()->withInput()->with('error', 'Sorry, Payment was not successful. Please select another Payment option.');
                 }
             }
+
             
             if($createServiceRequest AND $createServiceRequestDetail){
 
@@ -246,9 +259,10 @@ class ClientRequestController extends Controller
 
                 $this->sendMessage->successServiceRequestMessage($createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
 
-                MailController::clientServiceBookingMail(Auth::user()->email, Auth::user()->fullName->name, $createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
+                MailController::clientServiceBookingMail(Auth::user()->email, Auth::user()->fullName->name, $createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp, $paymentMethod, $paymentReference);
 
-                MailController::adminServiceBookingMailNotification('info@fixmaster.com.ng', Auth::user()->fullName->name, $createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp);
+
+                MailController::adminServiceBookingMailNotification('info@fixmaster.com.ng', Auth::user()->fullName->name, $createServiceRequest->job_reference, $createServiceRequest->security_code, $serviceName, $categoryName, $amount, $serviceFeeName, $timestamp, $paymentMethod, $paymentReference);
 
                 $this->addRecord = new RecordActivityLogController();
                 $id = Auth::id();
@@ -463,7 +477,7 @@ class ClientRequestController extends Controller
             'user_id'               =>  Auth::id(), 
             'wallet_id'             =>  Auth::user()->user->wallet->id, 
             'service_request_id'    =>  $id, 
-            'payment_type'          =>  'Service request refund', 
+            'payment_type'          =>  'Refund', 
             'amount'                =>  $refundAmount,
         ]);
 
@@ -520,5 +534,42 @@ class ClientRequestController extends Controller
         return back()->withInput();
     }
 
+    public function invoiceDetails($id){
+
+        $invoiceExists = RFQ::findOrFail($id);
+
+        $invoiceDetails = $invoiceExists->rfqBatches;
+
+        $email = Auth::user()->email;
+        $clientDiscount = Auth::user()->client->discounted;
+        $clientPhoneNumber = Auth::user()->client->phone_number;
+        $paystack = PaymentGateway::find(1);
+        $flutter = PaymentGateway::find(2);
+
+        $data = [
+            'invoiceExists'     =>  $invoiceExists,
+            'invoiceDetails'    =>  $invoiceDetails,
+            'tax'               =>  0,
+            'email'             =>  $email,
+            'clientDiscount'    =>  $clientDiscount,
+            'paystack'          =>  $paystack,
+            'flutter'           =>  $flutter,
+            'clientPhoneNumber' =>  $clientPhoneNumber,
+        ];
+
+        return view('client.request_invoice', $data)->with('i');
+
+    }
+
+    public function RFQPayment(Request $request){
+
+        //Check if client has internect connected
+        $this->isConnected = new EssentialsController();
+
+        if($this->isConnected->internetConnection() == false){
+            return back()->withInput()->with('error', 'You are currently offline. Please connect to the internet to continue.');
+        }
+        
+    }
     
 }

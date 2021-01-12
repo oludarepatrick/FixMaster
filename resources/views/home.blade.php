@@ -9,7 +9,7 @@
                                 align="center"
                                 valign="top"
                                 bgcolor="#66809b"
-                                background="https://fixmaster.com.ng/wp-content/uploads/2020/11/handyman.jpg"
+                                background="https://www.fixmaster.com.ng/wp-content/uploads/2020/11/handyman.jpg"
                                 style="filter: brightness(95%); background-size: cover; background-position: top;"
                                 height="200"
                             >
@@ -22,7 +22,7 @@
                                             <td align="center" style="line-height: 0px;">
                                                 <img
                                                     style="display: block; line-height: 0px; font-size: 0px; border: 0px; line-height: 24px;"
-                                                    src="https://fixmaster.com.ng/wp-content/uploads/2020/11/fix-master-logo-straight.png"
+                                                    src="https://www.fixmaster.com.ng/wp-content/uploads/2020/11/fix-master-logo-straight.png"
                                                     width="170"
                                                     alt="FixMaster logo"
                                                 />

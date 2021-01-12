@@ -133,7 +133,7 @@
                                         @if($userServiceRequest->service_request_status_id != '2')
                                             <a href="#cancelRequest" id="cancel-request" data-toggle="modal" data-url="{{ route('client.cancel_request', $userServiceRequest->id) }}" data-job-reference="{{ $userServiceRequest->job_reference }}" class="dropdown-item text-danger cancel_reques"><i data-feather="x" class="fea icon-sm"></i> Cancel Request</a>
                                         @else
-                                            <a href="javascript:void(0)" class="dropdown-item text-success cancel_request"><i data-feather="corner-up-left" class="fea icon-sm"></i> Reinstate Request</a>
+                                            <a href="javascript:void(0)" class="dropdown-item text-success"><i data-feather="corner-up-left" class="fea icon-sm"></i> Reinstate Request</a>
                                         @endif
                                     @endif
 
@@ -141,7 +141,7 @@
                                         <a href="{{ route('client.mark_request_as_completed', $userServiceRequest->id) }}" class="dropdown-item details text-success"><i data-feather="check" class="fea icon-sm"></i> Mark as Completed</a>
                                     @endif
 
-                                    @if($userServiceRequest->rfq()->count() > 0)
+                                    @if($userServiceRequest->rfq()->where('status', '>', '0')->count() > 0)
                                     <hr>
                                         @foreach($userServiceRequest->rfqs as $rfq)
                                             <a href="{{ route('client.request_invoice', $rfq->id) }}" class="dropdown-item text-info"><i data-feather="file-text" class="fea icon-sm"></i> {{ $rfq->invoice_number }} Invoice</a>

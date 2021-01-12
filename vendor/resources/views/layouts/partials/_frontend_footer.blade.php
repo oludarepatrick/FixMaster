@@ -52,7 +52,7 @@
                     <p class="mt-4">284 Ajose Adeogun Street, Victoria Island, Lagos, Nigeria</p>
                     <p style="font-size:20px; font-weight:700; color:#ffffff; margin:15px 0px 2px 0px;">
                         <a href="tel:+2348132863878">(+234) 0813-286-3878</a></p>
-                    <p style="font-size:20px; font-weight:700; color:#ffffff; margin:15px 0px 2px 0px;"><a href="mailto:info@FixMaster.ng" style="color: grey;">info@FixMaster.ng</a></p>
+                    <p style="font-size:20px; font-weight:700; color:#ffffff; margin:15px 0px 2px 0px;"><a href="mailto:info@fixmaster.com.ng" style="color: grey;">info@fixmaster.com.ng</a></p>
                     
                 </div>
                 <!--end col-->

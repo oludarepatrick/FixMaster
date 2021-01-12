@@ -18,7 +18,7 @@
                         {{-- <div class="align-items-center text-center justify-content-center">   
                             <img src="{{ asset('assets/images/home-fix-logo-colored.png')}}" class="img-fluid d-block mx-auto" alt="FixMaster Logo" style="width: 8em; height: auto; margin-top: -70px !important; margin-bottom: -60px !important;">
                         </div> --}}
-                        <h4 class="card-title text-center texty"> <img src="{{ asset('assets/images/home-fix-logo-colored.png')}}" class="img-fluid d-block mx-auto" alt="FixMaster Logo" style="width: 6em; height: auto;">Registeration</h4>
+                        <h4 class="card-title text-center texty"> <img src="{{ asset('assets/images/home-fix-logo-colored.png')}}" class="img-fluid d-block mx-auto" alt="FixMaster Logo" style="width: 6em; height: auto;">Registration</h4>
                         <form class="login-form mt-4" method="POST" action="{{ route('client.register') }}">
                             @csrf
                             <div class="row">
