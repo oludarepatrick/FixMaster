@@ -565,22 +565,80 @@ class ClientRequestController extends Controller
 
     public function RFQPayment(Request $request){
 
-        return $request;
         //Check if client has internect connected
-        $this->isConnected = new EssentialsController();
+        // $this->isConnected = new EssentialsController();
 
-        if($this->isConnected->internetConnection() == false){
-            return back()->withInput()->with('error', 'You are currently offline. Please connect to the internet to continue.');
-        }
-        
+        // if($this->isConnected->internetConnection() == false){
+        //     return back()->withInput()->with('error', 'You are currently offline. Please connect to the internet to continue.');
+        // }
+
+        $serviceRequestId = $request->service_request_id;
+        $requestExists = ServiceRequest::findOrFail($serviceRequestId);
+        $initialServiceFee = $requestExists->total_amount;
+        $paidRFQFee = $requestExists->service_fee;
+        $totalAmount = $initialServiceFee + $paidRFQFee;
+        $rfqId = $request->rfq_id;
+        $clientName = $requestExists->user->fullName->name;
+        $jobReference = $requestExists->job_reference;
+
+        return [
+             $clientName, $jobReference
+        ];
 
         $paymentRecord = ReceivedPayment::create([
             'user_id'               =>  Auth::id(), 
-            'service_request_id'    =>  $createServiceRequest->id,
+            'service_request_id'    =>  $serviceRequestId,
             'payment_reference'     =>  $paymentReference, 
             'payment_method'        =>  'Online', 
-            'amount'                =>  $request-input('service_fee'),
+            'amount'                =>  $paidRFQFee,
         ]);
+
+        $updateServiceRequest = ServiceRequest::where('id', $serviceRequestId)->update([
+            'total_amount'  =>  $totalAmount,
+        ]);
+
+        $updateRFQ = RFQ::where('id', $rfqId)->update([
+            'status'  =>  '2'
+        ]);
+
+        if($paymentRecord AND $updateServiceRequest AND $updateRFQ){
+
+            /*
+            * Code to send email goes here...
+            */
+
+            //Notify CSE and Technician with messages
+            // MailController::clientServiceRequestCancellationEmailNotification($clientEmail, $clientName,$jobReference, $reason);
+            // MailController::adminServiceRequestCancellationEmailNotification('info@fixmaster.com.ng', $clientName,$jobReference, $reason);
+
+            //Record crurrenlty logged in user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Payment';
+            $severity = 'Informational';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = Auth::user()->fullName->name.' paid an Invoice('.$request->invoice.') of ₦'.$paidRFQFee.' for '.$jobReference.' service request.';
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return redirect()->route('client.requests')->with('success', 'Your Invoice('.$request->invoice.') for'.$jobReference.' service request has been paid.');
+
+        }else{
+            //Record Unauthorized user activity
+            $this->addRecord = new RecordActivityLogController();
+            $id = Auth::id();
+            $type = 'Errors';
+            $severity = 'Error';
+            $actionUrl = Route::currentRouteAction();
+            $controllerActionPath = URL::full();
+            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to pay for Invoice('.$request->invoice.') for '.$jobReference.' service request.';
+
+            $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
+
+            return back()->with('error', 'An error occurred while trying to pay for Invoice('.$request->invoice.') for '.$jobReference.' service request.');
+        }
+
+        return back()->withInput();
     }
 
     

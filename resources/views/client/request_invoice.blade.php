@@ -131,7 +131,8 @@
                                 </div><!--end row-->
                             </div>
 
-                            <form method="POST" action="">
+                            <form method="POST" action="{{ route('client.pay_request_invoice') }}">
+                                @csrf
                                 {{-- REQUIREMENTS FOR PAYMENT GATWAYS  --}}
                                 <input type="hidden" class="d-none" value="{{ old('email') ?? $email }}" id="email" name="email">
                                 <input type="hidden" class="d-none" value="{{ old('client_discount') ?? $clientDiscount }}" id="client_discount" name="client_discount">
@@ -146,7 +147,11 @@
                                 
                                 <input type="hidden" class="d-none" value="{{ old('service_request_id') ?? $invoiceExists->service_request_id }}" id="service_request_id" name="service_request_id">
 
-                                <button type="submit" class="submitBnt btn btn-primary d-none">Submit</button>
+                                <input type="hidden" class="d-none" value="{{ old('rfq_id') ?? $invoiceExists->id }}" id="rfq_id" name="rfq_id">
+
+                                <input type="hidden" class="d-none" value="{{ old('invoice') ?? $invoiceExists->invoice_number }}" id="invoice" name="invoice">
+
+                                <button type="submit" class="submitBnt btn btn-primary d-non">Submit</button>
 
 
                             </form>

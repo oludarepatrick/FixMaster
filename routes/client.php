@@ -45,6 +45,8 @@ Route::middleware(['clientRole'])->group(function() {
 
         // Route::view('/requests/invoice', 	    'client.request_invoice')->name('client.request_invoice');
         Route::get('/requests/invoice/{id}',                    [App\Http\Controllers\ClientRequestController::class, 'invoiceDetails'])->name('client.request_invoice');
+
+        Route::post('/requests/invoice/pay',                    [App\Http\Controllers\ClientRequestController::class, 'RFQPayment'])->name('client.pay_request_invoice');
         
         Route::get('/payments',            [App\Http\Controllers\ClientDashboardController::class, 'payments'])->name('client.payments');
 

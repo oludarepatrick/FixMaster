@@ -140,8 +140,8 @@ class LoginController extends Controller
 
                 //redirect User to check for dashboard url  
                 // return \Redirect::to(\Session::get('url.intended'));
-                return \Redirect::intended();
-                // return redirect()->route('home');
+                // return \Redirect::intended();
+                return redirect()->route('home');
                 
             }else{
                 //Record Unverified User activity
