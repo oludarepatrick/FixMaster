@@ -85,7 +85,7 @@
                         </tr>
                         <tr>
                           <td class="tx-medium">Payments Disbursed</td>
-                          <td class="tx-color-03">8</td>
+                          <td class="tx-color-03">{{ $admin->adminDisbursedPayment()->count() }}</td>
                         </tr>
                         <tr>
                           <td class="tx-medium">Messages Sent</td>

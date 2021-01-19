@@ -42,115 +42,93 @@
                   <h4 class="tx-20 tx-sm-18 tx-md-20 tx-normal tx-rubik mg-b-0">{{ $disbursedPayments->count() }}</h4>
                 </div>
               </div>
+
+              <div class="media mg-t-20 mg-sm-t-0 mg-sm-l-15 mg-md-l-40">
+                <div class="wd-40 wd-md-50 ht-40 ht-md-50 bg-pink tx-white mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded op-5">
+                  <i data-feather="bar-chart-2"></i>
+                </div>
+                <div class="media-body">
+                  <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold mg-b-5 mg-md-b-8"> Total Amount</h6>
+                  <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0">₦{{ number_format($totalAmounts) }}</h4>
+                </div>
+              </div>
               
             </div>
           </div><!-- card-body -->
           <div class="table-responsive">
             <div class="row mt-1 mb-1 ml-1 mr-1">
+                {{-- <input value="{{ $userId }}" type="hidden" id="user_id"> --}}
+                <input value="{{ route("admin.disbursed_payments_sorting") }}" type="hidden" id="route">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Sort</label>
-                        <select class="custom-select" id="request-sorting">
+                        <label>Sort Type</label>
+                        <select class="custom-select" id="sort_by_range">
                             <option value="None">Select...</option>
                             <option value="Date">Date</option>
                             <option value="Month">Month</option>
+                            <option value="Year">Year</option>
                             <option value="Date Range">Date Range</option>
                         </select>
                     </div>
                 </div><!--end col-->
     
-                <div class="col-md-4 specific-date d-none">
+                <div class="col-md-3 specific-date d-none">
                     <div class="form-group position-relative">
                         <label>Specify Date <span class="text-danger">*</span></label>
-                        <input name="name" id="name" type="date" class="form-control pl-5">
+                        <input name="name" id="specific_date" type="date" class="form-control pl-5">
                     </div>
                 </div>
     
-                <div class="col-md-4 sort-by-year d-none">
+                <div class="col-md-3 sort-by-year d-none">
                     <div class="form-group position-relative">
                         <label>Specify Year <span class="text-danger">*</span></label>
-                        <select class="form-control custom-select" id="Sortbylist-Shop">
-                            <option>Select...</option>
-                            <option>2018</option>
-                            <option>2019</option>
-                            <option>2020</option>
+                        <select class="form-control custom-select" id="sort_by_year">
+                            <option value="">Select...</option>
+                            @foreach ($years as $year)
+                              <option value="{{ $year }}">{{ $year }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
     
-                <div class="col-md-4 sort-by-year d-none">
-                    <div class="form-group position-relative">
-                        <label>Specify Month <span class="text-danger">*</span></label>
-                        <select class="form-control custom-select" id="Sortbylist-Shop">
-                            <option>Select...</option>
-                            <option>January</option>
-                            <option>February</option>
-                            <option>March</option>
-                            <option>April</option>
-                            <option>May</option>
-                            <option>June</option>
-                            <option>July</option>
-                            <option>August</option>
-                            <option>September</option>
-                            <option>October</option>
-                            <option>November</option>
-                            <option>December</option>
-                        </select>
-                    </div>
+                <div class="col-md-4 sort-by-year d-none" id="sort-by-month">
+                  <div class="form-group position-relative">
+                      <label>Specify Month <span class="text-danger">*</span></label>
+                      <select class="form-control custom-select" id="sort_by_month">
+                          <option value="">Select...</option>
+                          <option value="January">January</option>
+                          <option value="February">February</option>
+                          <option value="March">March</option>
+                          <option value="April">April</option>
+                          <option value="May">May</option>
+                          <option value="June">June</option>
+                          <option value="July">July</option>
+                          <option value="August">August</option>
+                          <option value="September">September</option>
+                          <option value="October">October</option>
+                          <option value="November">November</option>
+                          <option value="December">December</option>
+                      </select>
+                  </div>
                 </div>
     
-                <div class="col-md-4 date-range d-none">
+                <div class="col-md-3 date-range d-none">
                     <div class="form-group position-relative">
                         <label>From <span class="text-danger">*</span></label>
-                        <input name="name" id="name" type="date" class="form-control pl-5">
+                        <input name="name" id="date_from" type="date" class="form-control pl-5">
                     </div>
                 </div>
     
-                <div class="col-md-4 date-range d-none">
+                <div class="col-md-3 date-range d-none">
                     <div class="form-group position-relative">
                         <label>To <span class="text-danger">*</span></label>
-                        <input name="name" id="name" type="date" class="form-control pl-5">
+                        <input name="name" id="date_to" type="date" class="form-control pl-5">
                     </div>
                 </div>
               </div>
-            <table class="table table-hover mg-b-0" id="basicExample">
-              <thead class="thead-primary">
-                <tr>
-                  <th class="text-center">#</th>
-                  <th>Job Reference</th>
-                  <th>Reference No</th>
-                  <th>Recorded By</th>
-                  <th>Recipient</th>
-                  <th>Job Role</th>
-                  <th>Amount</th>
-                  {{-- <th>Status</th> --}}
-                  <th class="text-center">Payment Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($disbursedPayments as $disbursedPayment)
-                  <tr>
-                    <td class="tx-color-03 tx-center">{{ ++$i }}</td>
-                    <td class="tx-medium">{{ $disbursedPayment->serviceRequest->job_reference }}</td>
-                    <td class="tx-medium">{{ $disbursedPayment->payment_reference }}</td>
-                    <td class="tx-medium">{{ $disbursedPayment->user->fullName->name }}</td>
-                    <td class="tx-medium">{{ $disbursedPayment->recipient->fullName->name }}</td>
-                    <td class="tx-medium">
-                      @if($disbursedPayment->recipient->designation == '[CSE_ROLE]')
-                        CSE
-                      @else 
-                        Technician
-                      @endif
-                      
-                    </td>
-                    <td class="tx-medium">₦{{ number_format($disbursedPayment->amount) }}</td>
-                    {{-- <td class="text-medium text-success">Paid</td> --}}
-                    <td class="text-medium tx-center">{{ Carbon\Carbon::parse($disbursedPayment->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
-                  </tr>
-                @endforeach
-                
-              </tbody>
-            </table>
+              <div id="sort_table">
+                @include('admin.payments._disbursed_table')
+              </div>
           </div><!-- table-responsive -->
         </div><!-- card -->
 
@@ -273,7 +251,7 @@
 
 @push('scripts')
 
-<script src="{{ asset('assets/dashboard/assets/js/dashforge.mail.js') }}"></script>
+<script src="{{ asset('assets/dashboard/assets/js/payments-sorting.js') }}"></script>
 
 <script>
   $(document).ready(function (){
@@ -284,7 +262,7 @@
     var mm = String(today.getMonth() + 1).padStart(2, '0');
     var yyyy = today.getFullYear();
     today = yyyy + '-' + mm + '-' + dd;
-    $('#payment_date').attr('max', today);
+    $('#payment_date, #date_to, #date_from, #specific_date').attr('max', today);
 
     //Get list of users by a particular service request reference
     $(document).on('change', '#ongoing_requests', function () {

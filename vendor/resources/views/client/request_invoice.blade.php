@@ -30,7 +30,7 @@
 
                                             <dt class="col-2 text-muted"><i data-feather="mail" class="fea icon-sm"></i></dt>
                                             <dd class="col-10 text-muted">
-                                                <a href="mailto:info@FixMaster.ng" class="text-muted">info@FixMaster.ng</a>
+                                                <a href="mailto:info@fixmaster.com.ng" class="text-muted">info@fixmaster.com.ng</a>
                                             </dd>
 
                                             <dt class="col-2 text-muted"><i data-feather="phone" class="fea icon-sm"></i></dt>

@@ -119,7 +119,7 @@
         });
 
         $.ajax({
-                url: '{{ route("page.services_search") }}',
+                url: '{{ route("client.services_search") }}',
                 beforeSend: function() {
                     $("#spinner-icon").html('<div class="d-flex justify-content-center mt-4 mb-4"><span class="loadingspinner"></span></div>');
                 },

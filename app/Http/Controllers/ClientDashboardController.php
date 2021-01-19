@@ -401,4 +401,34 @@ class ClientDashboardController extends Controller
         }
 
     }
+
+    public function payments(){
+
+        $user = User::findOrFail(Auth::id());
+
+        $payments = $user->receivedPayments()->latest()->get();
+
+        $data = [
+            'user'   =>  $user,
+            'payments'  =>  $payments,
+        ];
+
+        return view('client.payments', $data)->with('i');
+
+    }
+
+    public function walletTransactions(){
+
+        $user = User::findOrFail(Auth::id());
+
+        $walletTransactions = $user->walletTransactions;
+
+        $data = [
+            'user'   =>  $user,
+            'walletTransactions'  =>  $walletTransactions,
+        ];
+
+        return view('client.wallet', $data)->with('i');
+
+    }
 }

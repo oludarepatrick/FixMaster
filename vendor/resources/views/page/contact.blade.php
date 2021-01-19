@@ -79,7 +79,7 @@
                         </div>
                         <div class="media-body content">
                             <h4 class="title font-weight-bold mb-0">Email</h4>
-                            <a href="mailto:info@FixMaster.ng" class="texty">info@FixMaster.ng</a>
+                            <a href="mailto:info@fixmaster.com.ng" class="texty">info@fixmaster.com.ng</a>
                         </div>
                     </div>
                     

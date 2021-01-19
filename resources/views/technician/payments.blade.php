@@ -115,42 +115,38 @@
                   <th class="text-center">#</th>
                   <th>Job Reference</th>
                   <th>Reference No</th>
+                  <th>Paid By</th>
                   <th>Amount</th>
-                  <th>Status</th>
+                  <th>Payment Mode</th>
+                  <th>Comment</th>
                   <th class="text-center">Payment Date</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="tx-color-03 tx-center">1</td>
-                  <td class="tx-medium">REF-234094623496</td>
-                  <td class="tx-medium">234092734623496</td>
-                  <td class="tx-medium">₦7,000</td>
-                  <td class="text-medium text-success">Paid</td>
-                  <td class="text-medium tx-center">Apr 3, 2020, 12:56pm</td>
-                </tr>
+                @foreach ($payments as $payment)
+                  <tr>
+                  <td class="tx-color-03 tx-center">{{ ++$i }}</td>
+                  <td class="tx-medium">{{ $payment->serviceRequest->job_reference }}</td>
+                    <td class="tx-medium">{{ $payment->payment_reference }}</td>
+                    <td class="tx-medium">
+                      @if($payment->payment_mode == 1)
+                        ATM Transfer
+                      @elseif($payment->payment_mode == 2)
+                        Bank Transfer
+                      @elseif($payment->payment_mode == 3)
+                        Internet Banking
+                      @else
+                        USSD Transfer
+                      @endif
+                    </td>
+                    <td class="tx-medium">{{ $payment->user->fullName->name }}</td>
 
-                <tr>
-                    <td class="tx-color-03 tx-center">2</td>
-                    <td class="tx-medium">REF-094009623412</td>
-                    <td class="tx-medium">4352927346209232</td>
-                    <td class="tx-medium">₦4,800</td>
-                    <td class="text-medium text-success">Paid</td>
-                    <td class="text-medium tx-center">Mar 21, 2020, 3:30pm</td>
-                </tr>
-
-                <tr>
-                    <td class="tx-color-03 tx-center">3</td>
-                    <td class="tx-medium">REF-237290223123</td>
-                    <td class="tx-medium">1234527346092372</td>
-                    <td class="tx-medium">₦2,500</td>
-                    <td class="text-medium text-success">Paid</td>
-                    <td class="text-medium tx-center">Feb 25, 2020, 8:17am</td>
-                </tr>
-
-             
-
-                
+                    <td class="tx-medium">₦{{ number_format($payment->amount) }}</td>
+                    <td class="text-medium">{{ $payment->comment }}</td>
+                    {{-- <td class="text-medium tx-center">{{ $payment->payment_date }}</td> --}}
+                    <td class="text-medium tx-center">{{ Carbon\Carbon::parse($payment->payment_date, 'UTC')->isoFormat('MMMM Do YYYY') }}</td>
+                  </tr>
+                @endforeach
               </tbody>
             </table>
           </div><!-- table-responsive -->

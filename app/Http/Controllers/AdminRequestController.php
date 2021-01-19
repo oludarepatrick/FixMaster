@@ -122,9 +122,6 @@ class AdminRequestController extends Controller
         $clientEmail = $requestExists->user->email;
         $securityCode = $requestExists->security_code;
 
-        // return [
-        //     $clientId, $clientName, $securityCode
-        // ];
 
         //service_request_status_id = Pending(1), Ongoing(4), Completed(3), Cancelled(2) 
         $assignCSETechnician = ServiceRequest::where('id', $id)->update([

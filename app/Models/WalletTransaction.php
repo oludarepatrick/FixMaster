@@ -34,4 +34,14 @@ class WalletTransaction extends Model
     {
         return $this->hasMany(Wallet::class, 'wallet_id');
     }
+
+    public function serviceRequest()
+    {
+        return $this->belongsTo(ServiceRequest::class, 'service_request_id');
+    }
+
+    public function serviceRequests()
+    {
+        return $this->hasMany(ServiceRequest::class, 'service_request_id');
+    }
 }

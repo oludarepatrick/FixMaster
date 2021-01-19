@@ -8,6 +8,8 @@
         <a href="{{ route('client.requests') }}" class="btn btn-sm btn-primary">Back </a>
         @if($requestDetail->service_request_status_id == '1')
         <a href="#editRequest" id="edit-request" data-toggle="modal" data-url="{{ route('client.edit_request', $requestDetail->id) }}" data-job-reference="{{ $requestDetail->job_reference }}" class="btn btn-sm btn-warning">Edit Request </a>
+
+        <a href="#cancelRequest" id="cancel-request" data-toggle="modal" data-url="{{ route('client.cancel_request', $requestDetail->id) }}" data-job-reference="{{ $requestDetail->job_reference }}" class="btn btn-sm btn-danger">Cancel Request </a>
         @endif
     </div>
 
@@ -101,13 +103,13 @@
 
         <h5 class="mt-4">Status</h5>
         <ul class="list-unstyled">
-            @if($requestDetail->service_request_status_id == 'Pending')
+            @if($requestDetail->service_request_status_id == '1')
             <li class="text-warning"><i data-feather="arrow-right" class="fea icon-sm text-primary mr-2"></i>Pending</li>
-            @elseif($requestDetail->service_request_status_id == 'Ongoing')
+            @elseif($requestDetail->service_request_status_id > '3')
             <li class="text-info"><i data-feather="arrow-right" class="fea icon-sm text-primary mr-2"></i>Ongoing</li>
-            @elseif($requestDetail->service_request_status_id == 'Completed')
+            @elseif($requestDetail->service_request_status_id == '3')
             <li class="text-success"><i data-feather="arrow-right" class="fea icon-sm text-primary mr-2"></i>Completed</li>
-            @elseif($requestDetail->service_request_status_id == 'Cancelled')
+            @elseif($requestDetail->service_request_status_id == '2')
             <li class="text-danger"><i data-feather="arrow-right" class="fea icon-sm text-primary mr-2"></i>Cancelled</li>
             @endif
         </ul>
@@ -209,11 +211,12 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" class="d-none" id="security-code" readonly value="{{ $requestDetail->security_code }}" />
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group position-relative">
                         <label>Security Code:<span class="text-danger">*</span></label>
-                        <i data-feather="file-text" class="fea icon-sm icons"></i>
-                        <input name="security_code" type="text" class="form-control pl-5" placeholder="Click to select :" id="security_code" value="" required />
+                        <i data-feather="lock" class="fea icon-sm icons"></i>
+                        <input name="security_code" type="text" class="form-control pl-5" placeholder="Security Code:" id="security_code" value="" required />
+                        <small style="font-size: 10px;" class="text-danger">Securoty Code must be in uppercase.<small>
                     </div>
                 </div>
                 <!--end col-->
@@ -249,6 +252,46 @@
     <!-- modal-content -->
 </div>
 <!-- modal-dialog -->
+
+<div class="modal fade" id="cancelRequest" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content rounded shadow border-0">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Kindly state your reason for cancellation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" id="modal-cancel-request">
+            <form class="p-4" method="POST" id="cancel-request-form">
+                @csrf
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                        <div class="form-group position-relative">
+                            <label>Reason</label>
+                            <i data-feather="info" class="fea icon-sm icons"></i>
+                            <textarea name="reason" id="reason" rows="3" class="form-control pl-5 @error('reason') is-invalid @enderror" placeholder="">{{ old('reason')  }}</textarea>
+                            @error('reason')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div><!--end col--> 
+            
+                {{-- </div><!--end row--> --}}
+            
+                    <div class="col-sm-12">
+                    <button type="submit" class="submitBnt btn btn-primary">Update</button>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </form><!--end form-->
+        </div>
+        </div><!-- modal-body -->
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
 
 @if(!empty($requestDetail->cse_id))
 
@@ -434,25 +477,13 @@
             }
         });
 
-        // $(document).on("click", ".submit-message", function () {
-        //     const Toast = swal.mixin({
-        //         toast: true,
-        //         position: "top-end",
-        //         showConfirmButton: false,
-        //         timer: 8000,
-        //         timerProgressBar: true,
-        //         didOpen: (toast) => {
-        //             toast.addEventListener("mouseenter", Swal.stopTimer);
-        //             toast.addEventListener("mouseleave", Swal.resumeTimer);
-        //         },
-        //     });
+        $(document).on('click', '#cancel-request', function(event) {
+            event.preventDefault();
+            let route = $(this).attr('data-url');
+            let jobReference = $(this).attr('data-job-reference');
 
-        //     Toast.fire({
-        //         icon: "success",
-        //         type: "success",
-        //         title: "Message has been sent",
-        //     });
-        // });
+            $('#cancel-request-form').attr('action', route);
+        });
     });
 </script>
 @endpush 

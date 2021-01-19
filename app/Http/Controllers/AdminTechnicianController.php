@@ -50,6 +50,7 @@ class AdminTechnicianController extends Controller
             return $name->select(['name', 'user_id']);
         }])
         ->where('users.designation', '[TECHNICIAN_ROLE]')
+        // ->orWhere('users.deleted_at', '!=', '')
         ->orderBy('users.is_active', 'DESC')
         ->latest('users.created_at')
         ->get();
@@ -445,7 +446,7 @@ class AdminTechnicianController extends Controller
             }
         }
 
-        // return $activityLogs;
+        $payments = $technician->cseTechnicianDisbursedPayments()->latest()->get();
 
         $years = array_unique($yearList);
 
@@ -463,6 +464,8 @@ class AdminTechnicianController extends Controller
             'years'             =>  $years,
             'userId'            =>  $user,
             'totalFee'          =>  0,
+            'totalPaymentAmount'=>  0,
+            'payments'          =>  $payments,
         ];
 
         return view('admin.users.technician.summary', $data)->with('i');
@@ -581,7 +584,6 @@ class AdminTechnicianController extends Controller
             return back()->with('error', 'An error occurred while trying to reinstate Admin Profile.');
         } 
     }
-
 
     /**
      * @param Request $request

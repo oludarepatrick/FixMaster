@@ -12,8 +12,8 @@
     <meta name="Telephone" content="Tel: +234 903 554 7107" />
     <meta name="description" content="FixMaster is your best trusted one-call solution for a wide range of home maintenance, servicing and repair needs. Our well-trained & certified uniformed technicians are fully insured professionals with robust experience to provide home services to fully meet your needs with singular objective to make you totally relax while your repair requests are professionally handled." />
     <meta name="keywords" content="Home-fix, Home-improvement, Home-repairs, Cleaning-services, Modern" />
-    <meta name="email" content="info@FixMaster.ng" />
-    <meta name="website" content="https://FixMaster.ng" />
+    <meta name="email" content="info@fixmaster.com.ng" />
+    <meta name="website" content="https://www.fixmaster.com.ng" />
     <meta name="Version" content="v0.0.1" />
 
     <!-- <link rel="shortcut icon" href="images/favicon.ico"> -->

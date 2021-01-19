@@ -31,7 +31,7 @@
                 <img src="{{ asset('assets/images/job/Circleci.svg') }}" class="avatar avatar-ex-sm" alt="">
                 <div class="media-body content ml-3">
                     <h4 class="title mb-0">Transactions</h4>
-                    <p class="text-muted mb-0">7</p>
+                <p class="text-muted mb-0">{{ $walletTransactions->count() }}</p>
                     {{-- <p class="text-muted mb-0"><a href="javascript:void(0)" class="text-primary">CircleCi</a> @London, UK</p>     --}}
                 </div>
             </div>
@@ -236,60 +236,47 @@
                     <thead>
                         <tr>
                             <th class="py-3">#</th>
-                            <th class="py-3">Reference</th>
-                            <th class="py-3">Type</th>
+                            <th class="py-3">Job Reference</th>
+                            <th class="py-3">Payment Type</th>
                             <th class="py-3">Timestamp</th>
-                            <th class="py-3">Status</th>
                             <th class="py-3">Amount</th>
-                            <th class="py-3">Balance</th>
+                            {{-- <th class="py-3">Balance</th> --}}
                         </tr>
                     </thead>
         
                     <tbody>
+                        @foreach ($walletTransactions as $walletTransaction)
                         <tr>
-                            <td>1</td>
-                            <td>REF-1356225635032</td>
-                            <td>Service Payment</td>
-                            <td>23/07/2020 08:12</td>
-                            <td class="text-success">Completed</td>
-                            <td class="font-weight-bold">30,000.00</td>
-                            <td class="font-weight-bold">54,560.00</td>
+                            <td>{{ ++$i }}</td>
+                            <td>{{ $walletTransaction->serviceRequest->job_reference }}</td>
+                            <td> 
+                                @if($walletTransaction->payment_type == "Payment")
+                                    Service Request Payment
+                                @elseif($walletTransaction->payment_type == 'Refund')
+                                    Service Request Refund
+                                @else
+                                    E-Wallet Funding
+                                @endif
+                            </td>
+                            <td>{{ Carbon\Carbon::parse($walletTransaction->created_at, 'UTC')->isoFormat('MMMM Do YYYY, h:mm:ssa') }}</td>
+                            <td class="font-weight-bold">₦{{ number_format($walletTransaction->amount) }}</td>
+                            {{-- <td class="font-weight-bold">
+                                @if($walletTransaction->payment_type == "Payment")
+                                    ₦{{ number_format($walletTransaction->wallet->balance - $walletTransaction->amount) }}
+                                @elseif($walletTransaction->payment_type == 'Refund')
+                                    ₦{{ number_format($walletTransaction->wallet->balance + $walletTransaction->amount) }}
+                                @else
+                                    ₦{{ number_format($walletTransaction->wallet->balance + $walletTransaction->amount) }}
+                                @endif
+                            </td> --}}
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>REF-3246982639486</td>
-                            <td>Account Funding</td>
-                            <td>15/05/2020 14:28</td>
-                            <td class="text-success">Completed</td>
-                            <td class="font-weight-bold">84,560.00</td>
-                            <td class="font-weight-bold">84,560.00</td>
-                        </tr>
+                        @endforeach
                       
                        
                     </tbody>
                 </table>
         
-                <div class="example gc3 mb-4">
-                    <div class="html-code">
                 
-                      <div id="payment-modal" class="mfp-hide white-popup-block">
-                        <h3>Payment Details</h3>
-                        
-                        <p>
-                            Depositor Name: <strong>Femi Joseph</strong><br>
-                            Payment Mode: <strong>Online Payment</strong><br>
-                            Bank Name: <strong>FCMB</strong><br> 
-                            Account Name: <strong>FixMaster NG</strong><br> 
-                            Account Number: <strong>1234567890</strong><br> 
-                            Amount: <strong>₦14,000</strong><br> 
-                            Reference No.: <strong>234092734623496</strong><br> 
-                            Status: <strong class="text-success">Paid</strong><br> 
-                        </p>
-        
-                        <a class="btn btn-primary btn-sm popup-modal-dismiss" href="#">Dismiss</a></p>
-                      </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

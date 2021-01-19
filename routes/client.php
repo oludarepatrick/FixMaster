@@ -43,11 +43,15 @@ Route::middleware(['clientRole'])->group(function() {
 
         Route::post('/requests/cancel/{id}',      [App\Http\Controllers\ClientRequestController::class, 'cancelRequest'])->name('client.cancel_request');
 
-        Route::view('/requests/invoice', 	    'client.request_invoice')->name('client.request_invoice');
+        // Route::view('/requests/invoice', 	    'client.request_invoice')->name('client.request_invoice');
+        Route::get('/requests/invoice/{id}',                    [App\Http\Controllers\ClientRequestController::class, 'invoiceDetails'])->name('client.request_invoice');
 
+        Route::post('/requests/invoice/pay',                    [App\Http\Controllers\ClientRequestController::class, 'RFQPayment'])->name('client.pay_request_invoice');
         
-        Route::view('/payments', 	            'client.payments')->name('client.payments');
-        Route::view('/wallet', 	                'client.wallet')->name('client.wallet');
+        Route::get('/payments',            [App\Http\Controllers\ClientDashboardController::class, 'payments'])->name('client.payments');
+
+        Route::get('/wallet',            [App\Http\Controllers\ClientDashboardController::class, 'walletTransactions'])->name('client.wallet');
+
         Route::view('/technician', 	            'client.technician_profile')->name('client.technician_profile');
 
     });
