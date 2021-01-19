@@ -15,11 +15,11 @@
 
                                         <div class="logo-invoice mb-2">
                                             @if($invoiceExists->status == 1)
-                                            <span class="text-primary"> Pending Payment</span><br>
-
-                                            <button type="button" onclick="payWithPaystack()" id="paystack_option"  class="btn btn-success">PAY </button>
-                                        @endif
-
+                                                <span class="text-primary"> Pending Payment</span><br>
+                                                <button type="button" onclick="payWithPaystack()" id="paystack_option"  class="btn btn-success">PAY </button>
+                                            @elseif($invoiceExists->status == 2)
+                                                <span class="text-success">Paid</span><br>
+                                            @endif
                                         </div>
 
                                         <a href="{{ route('page.home') }}" class="text-primary h6"><i data-feather="link" class="fea icon-sm text-muted mr-2"></i>www.fixmaster.com.ng</a>
@@ -124,7 +124,7 @@
                                     <div class="col-lg-4 col-md-5 ml-auto">
                                         <ul class="list-unstyled h5 font-weight-normal mt-4 mb-0">
                                             <li class="text-muted d-flex justify-content-between">Subtotal :<span>₦{{ number_format($invoiceExists->total_amount + $invoiceExists->rfqSupplier->devlivery_fee) ?? '0' }}</span></li>
-                                        <li class="text-muted d-flex justify-content-between">Taxes :<span> {{ number_format($tax) }}</span></li>
+                                        <li class="text-muted d-flex justify-content-between">Taxes :<span> ₦{{ number_format($tax) }}</span></li>
                                             <li class="d-flex justify-content-between">Total :<span>₦{{ number_format($invoiceExists->total_amount + $tax + $invoiceExists->rfqSupplier->devlivery_fee) ?? '0' }}</span></li>
                                         </ul>
                                     </div><!--end col-->
@@ -151,7 +151,7 @@
 
                                 <input type="hidden" class="d-none" value="{{ old('invoice') ?? $invoiceExists->invoice_number }}" id="invoice" name="invoice">
 
-                                <button type="submit" class="submitBnt btn btn-primary d-non">Submit</button>
+                                <button type="submit" class="submitBnt btn btn-primary d-none">Submit</button>
 
 
                             </form>

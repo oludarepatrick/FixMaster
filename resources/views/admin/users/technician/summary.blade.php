@@ -178,7 +178,7 @@
               <tbody>
                 <tr>
                   <td class="tx-medium">Service Category</td>
-                  <td class="tx-color-03">@if(!empty($categoryNames)) @foreach ($categoryNames as $name) {{ $name }}<br> @endforeach @else Not Assigned @endif</td>
+                  <td class="tx-color-03"><?php $m = 0; ?>@if(!empty($categoryNames)) @foreach ($categoryNames as $name) ({{ ++$m }}) {{ $name }}<br> @endforeach @else Not Assigned @endif</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Status</td>
@@ -198,7 +198,7 @@
                 </tr>
                 <tr>
                   <td class="tx-medium">Payments Received</td>
-                  <td class="tx-color-03">8</td>
+                  <td class="tx-color-03">{{ $technician->cseTechnicianDisbursedPayment()->count() }}</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Messages Sent</td>
@@ -214,7 +214,7 @@
                 </tr>
                 <tr>
                   <td class="tx-medium">Tools Requested</td>
-                  <td class="tx-color-03">3</td>
+                  <td class="tx-color-03">{{ $technician->toolRequester()->count() }}</td>
                 </tr>
                 
               </tbody>
@@ -233,7 +233,7 @@
                       <th>Job Ref.</th>
                       <th>Client</th>
                       <th>Supervised By</th>
-                      <th>Technician</th>
+                      <th>CSE</th>
                       <th class="text-center">Amount</th>
                       <th class="text-center">Fee Type</th>
                       <th class="text-center">Status</th>
@@ -242,19 +242,19 @@
                     </tr>
                   </thead>
                   <tbody>
-                    
+                    <?php $k = 0; ?>
                     @foreach($technician->technician->requests as $request)
                     @if(!empty($request->serviceRequestDetail->discount_service_fee))
-                        {{$totalFee += $request->serviceRequestDetail->discount_service_fee}}
+                        <?php $totalFee += $request->serviceRequestDetail->discount_service_fee; ?>
                       @else
-                        {{$totalFee += $request->serviceRequestDetail->initial_service_fee}}
+                        <?php $totalFee += $request->serviceRequestDetail->initial_service_fee; ?>
                       @endif
                     <tr>
-                      <td class="tx-color-03 tx-center">1</td>
+                    <td class="tx-color-03 tx-center">{{ ++$k }}</td>
                       <td class="tx-medium">{{ $request->job_reference }}</td>
                       <td class="tx-medium">{{ $request->user->fullName->name }}</td>
                       <td class="tx-medium">{{ $request->admin->first_name.' '.$request->admin->last_name }}</td>
-                      <td class="tx-medium">{{ $request->technician->first_name.' '.$request->technician->last_name }}</td>
+                      <td class="tx-medium">{{ $request->cse->first_name.' '.$request->cse->last_name }}</td>
                       <td class="tx-medium text-center">
                         @if(!empty($request->serviceRequestDetail->discount_service_fee))
                             ₦{{ number_format($request->serviceRequestDetail->discount_service_fee) }}
@@ -386,7 +386,7 @@
                   </thead>
                   <tbody>
                     @foreach ($payments as $payment)
-                    {{ $totalPaymentAmount += $payment->amount }}
+                        <?php $totalPaymentAmount += $payment->amount; ?>
 
                       <tr>
                         <td class="tx-color-03 tx-center">{{ ++$i }}</td>
@@ -412,13 +412,11 @@
                       </tr>
                     @endforeach
                     <tr>
-                      <td></td>
-                      <td></td>
-                      <td class="text-center" colspan="2">Total</td>
+                      <td class="text-center" colspan="4">Total</td>
                       <td class="text-center tx-medium">₦{{ number_format($totalPaymentAmount) }}</td>
+                      {{-- <td></td>
                       <td></td>
-                      <td></td>
-                      <td></td>
+                      <td></td> --}}
                     </tr>
                   </tbody>
                 </table>

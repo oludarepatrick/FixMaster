@@ -178,7 +178,7 @@
               <tbody>
                 <tr>
                   <td class="tx-medium">Service Category</td>
-                  <td class="tx-color-03">@if(!empty($categoryNames)) @foreach ($categoryNames as $name) {{ $name }}<br> @endforeach @else Not Assigned @endif</td>
+                  <td class="tx-color-03"><?php $m = 0; ?>@if(!empty($categoryNames)) @foreach ($categoryNames as $name) ({{ ++$m }}) {{ $name }}<br> @endforeach @else Not Assigned @endif</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Status</td>
@@ -198,7 +198,7 @@
                 </tr>
                 <tr>
                   <td class="tx-medium">Payments Received</td>
-                  <td class="tx-color-03">8</td>
+                  <td class="tx-color-03">{{ $cse->cseTechnicianDisbursedPayment()->count() }}</td>
                 </tr>
                 <tr>
                   <td class="tx-medium">Messages Sent</td>
@@ -214,7 +214,7 @@
                 </tr>
                 <tr>
                   <td class="tx-medium">Tools Requested</td>
-                  <td class="tx-color-03">3</td>
+                  <td class="tx-color-03">{{ $cse->toolRequester()->count() }}</td>
                 </tr>
                 
               </tbody>
@@ -413,7 +413,7 @@
                     <tr>
                       <td></td>
                       <td></td>
-                      <td class="text-center" colspan="2">Total</td>
+                      <td class="text-center" colspan="3">Total</td>
                       <td class="text-center tx-medium">₦{{ number_format($totalPaymentAmount) }}</td>
                       <td></td>
                       <td></td>

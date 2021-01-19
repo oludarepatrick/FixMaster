@@ -336,4 +336,38 @@ class EssentialsController extends Controller
         ]); 
 
     }
+
+    public function clientProformaInvoiceSuccessPaymentMessage($clientName, $clientId, $jobReference, $amount, $paymentReference, $invoice){
+
+        $body = '<p>Hello <strong>'.$clientName.'</strong>, this is to inform you that your proforma invoice payment for Service Request (<strong>'.$jobReference.'</strong>) was successful.</p><p><strong>Invoice:</strong> '.$invoice.'</p><p><strong>Amount:</strong> ₦'.$amount.'</p><p><strong>Payment Reference:</strong> '.$paymentReference.'</p><div>Thanks,</div><div>FixMaster Management</div></div>';
+
+        Message::create([
+            'sender_id'         =>  4, 
+            'recipient_id'      =>  $clientId, 
+            'subject'           =>  'Service Request('.$jobReference.') proforma invoice.', 
+            'body'              =>  $body, 
+            'is_read'           =>  '0'
+        ]); 
+    }
+
+    public function adminProformaInvoiceSuccessPaymentMessage($clientName, $adminId, $cseId, $jobReference, $amount, $paymentReference, $invoice){
+
+        $body = '<p>Hello Administrator, this is to inform you that your proforma invoice payment for <strong>Mr/Mrs '.$clientName.'</strong> cancelled his/her Service Request (<strong>'.$jobReference.'</strong>) was successful.</p><p><strong>Invoice:</strong> '.$invoice.'</p><p><strong>Amount:</strong> ₦'.$amount.'</p><p><strong>Payment Reference:</strong> '.$paymentReference.'</p><div>Thanks,</div><div>FixMaster Management</div></div>';
+
+        Message::create([
+            'sender_id'         =>  4, 
+            'recipient_id'      =>  $adminId, 
+            'subject'           =>  $clientName.' Payment for Service Request('.$jobReference.') proforma invoice.', 
+            'body'              =>  $body, 
+            'is_read'           =>  '0'
+        ]); 
+
+        Message::create([
+            'sender_id'         =>  4, 
+            'recipient_id'      =>  $cseId, 
+            'subject'           =>  $clientName.' Payment for Service Request('.$jobReference.') proforma invoice.', 
+            'body'              =>  $body, 
+            'is_read'           =>  '0'
+        ]); 
+    }
 }

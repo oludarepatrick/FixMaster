@@ -228,6 +228,16 @@ class User extends Authenticatable
         return $this->hasMany(ToolsInventory::class, 'created_by');
     }
 
+    public function toolRequester()
+    {
+        return $this->hasOne(ToolsRequest::class, 'requested_by');
+    }
+
+    public function toolRequesters()
+    {
+        return $this->hasMany(ToolsRequest::class, 'requested_by');
+    }
+
     public function serviceRequestProgress()
     {
         return $this->hasOne(ServiceRequestProgress::class, 'user_id');
@@ -256,6 +266,16 @@ class User extends Authenticatable
     public function cseTechnicianDisbursedPayments()
     {
         return $this->hasMany(DisbursedPayment::class, 'recipient_id');
+    }
+
+    public function adminDisbursedPayment()
+    {
+        return $this->hasOne(DisbursedPayment::class, 'user_id');
+    }
+
+    public function adminDisbursedPayments()
+    {
+        return $this->hasMany(DisbursedPayment::class, 'user_id');
     }
     
 

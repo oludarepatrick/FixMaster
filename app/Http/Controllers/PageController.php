@@ -34,6 +34,45 @@ class PageController extends Controller
         return view('page.services', $data);
     }
 
+    public function searchCategories(Request $request){
+        if($request->ajax()){
+
+            $query = $request->get('query');
+            $query2 = $request->get('query');
+            $type = $request->type;
+
+            if($type == 'Name'){
+                $services = Category::select('id', 'name', 'url', 'image', 'service_id')
+                ->where('name', 'LIKE', '%'.$query.'%')
+                ->orWhere('description', 'LIKE', '%'.$query.'%')
+                ->get();
+
+            }
+
+            if($type == 'ID'){
+
+                $services = Category::select('id', 'name', 'url', 'image', 'service_id')
+                ->where('service_id', $query)
+                ->with(['service'    =>  function($query){
+                    return $query->select('name', 'id');
+                }])->get();
+
+                if(count($services) == 0){
+                    $query = Service::where('id', $query2)->first()->name;
+                }
+            }
+
+            $data = [
+                'services'  =>  $services,
+                'query'     =>  $query,
+                'type'      =>  $type,
+            ];
+
+            return view('page._service_search', $data);
+        }
+
+    }
+
     public function contactUs(){
 
         return view('page.contact');

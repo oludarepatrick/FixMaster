@@ -50,6 +50,7 @@ class AdminTechnicianController extends Controller
             return $name->select(['name', 'user_id']);
         }])
         ->where('users.designation', '[TECHNICIAN_ROLE]')
+        // ->orWhere('users.deleted_at', '!=', '')
         ->orderBy('users.is_active', 'DESC')
         ->latest('users.created_at')
         ->get();
@@ -583,7 +584,6 @@ class AdminTechnicianController extends Controller
             return back()->with('error', 'An error occurred while trying to reinstate Admin Profile.');
         } 
     }
-
 
     /**
      * @param Request $request

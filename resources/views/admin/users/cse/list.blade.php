@@ -50,7 +50,7 @@
                 @foreach ($cse->cses as $item)@endforeach
                 <tr>
                   <td class="tx-color-03 tx-center">{{ ++$i }}</td>
-                  <td class="tx-medium">{{ $cse->fullName->name }}</td>
+                  <td class="tx-medium">{{ $cse->fullName->name ?? 'Not found' }}</td>
                   <td class="tx-medium text-center">{{ $item->tag_id }}</td>
                   <td class="tx-medium">{{ $cse->email }}</td>
                   <td class="tx-medium">{{ $item->phone_number }}</td>

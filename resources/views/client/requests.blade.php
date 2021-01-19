@@ -99,13 +99,12 @@
                         <td>@if(!empty($userServiceRequest->cse_id)) {{ $userServiceRequest->cse->first_name.' '.$userServiceRequest->cse->last_name }} @else Not Assigned @endif</td>
                         <td>{{ $userServiceRequest->serviceRequestDetail->timestamp ?? '' }}</td>
                         <td class="font-weight-bold text-center">
+                            ₦{{ number_format($userServiceRequest->total_amount) }}
                             @if(!empty($userServiceRequest->serviceRequestDetail->discount_service_fee))
-                                ₦{{ number_format($userServiceRequest->serviceRequestDetail->discount_service_fee) }}
                                 <sup style="font-size: 10px;" class="text-success">Discount</sup>
-                            @else
-                                ₦{{ number_format($userServiceRequest->serviceRequestDetail->initial_service_fee) }}
                             @endif
                         </td>
+                        <td class="font-weight-bold">{{ $userServiceRequest->serviceRequestDetail->service_fee_name }}</td>
                         @if($userServiceRequest->serviceRequestStatus->name == 'Pending')
                             <td class="text-warning">Pending</td>
                         @elseif($userServiceRequest->service_request_status_id > '3')
@@ -115,7 +114,7 @@
                         @elseif($userServiceRequest->serviceRequestStatus->name == 'Cancelled')
                             <td class="text-danger">Cancelled</td>
                         @endif
-                        <td class="font-weight-bold">{{ $userServiceRequest->serviceRequestDetail->service_fee_name }}</td>
+                        
                         <td>
                             
                             <div class="btn-group dropdown-primary mr-2 mt-2">

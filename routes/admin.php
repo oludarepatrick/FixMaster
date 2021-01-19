@@ -160,6 +160,11 @@ Route::middleware(['adminRole'])->group(function() {
                 [App\Http\Controllers\PaymentsController::class, 'receivedPayments'])->name('received_payments');
                 Route::get('/payments/disbursed', 
                 [App\Http\Controllers\PaymentsController::class, 'disbursedPayments'])->name('disbursed_payments');
+
+                Route::post('/payments/disbursed/sorting',                [App\Http\Controllers\PaymentsController::class, 'sortDisbursedPayments'])->name('disbursed_payments_sorting');
+
+                Route::post('/payments/recieved/sorting',                [App\Http\Controllers\PaymentsController::class, 'sortReceivedPayments'])->name('recieved_payments_sorting');
+
                 Route::post('/payments/record-payment', 
                 [App\Http\Controllers\PaymentsController::class, 'recordPayment'])->name('record_payments');
                 Route::get('/payments/ongoing-service-request/{id}', [App\Http\Controllers\PaymentsController::class, 'getOngoingServiceRequestDetail'])->name('ongoing_service_request_detail');

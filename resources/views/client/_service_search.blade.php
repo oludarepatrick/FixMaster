@@ -62,7 +62,7 @@
                     <div class="card-body content">
                         <h5><a href="javascript:void(0)" class="card-title title text-dark" style="color: #3c4858 !important; font-size: 20px !important; transition: all 0.5s ease !important;">{{ $item->name }}</a> <a href="{{ route('client.services_details', $item->url) }}" title="View {{ $item->name }} service details"> <i data-feather="info" class="text-primary"></i></a></h5>
                         <div class="post-meta d-flex justify-content-between mt-3">
-                            <a href="{{ route('client.service_quote', $item->url) }}" class="text-muted readmore" style="color: red !important; font-size: 15px  !important;">Request Service <i class="mdi mdi-chevron-right"></i></a>
+                            <a href="{{ route('client.service_quote', $item->url) }}" class="text-muted readmore" >Request Service <i class="mdi mdi-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>

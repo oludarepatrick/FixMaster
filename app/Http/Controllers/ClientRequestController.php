@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL; 
 use Route;
+use DB;
 
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\EssentialsController;
@@ -565,51 +566,63 @@ class ClientRequestController extends Controller
 
     public function RFQPayment(Request $request){
 
+        // try{
         //Check if client has internect connected
-        // $this->isConnected = new EssentialsController();
+        $this->isConnected = new EssentialsController();
 
-        // if($this->isConnected->internetConnection() == false){
-        //     return back()->withInput()->with('error', 'You are currently offline. Please connect to the internet to continue.');
-        // }
+        if($this->isConnected->internetConnection() == false){
+            return back()->withInput()->with('error', 'You are currently offline. Please connect to the internet to continue.');
+        }
 
-        $serviceRequestId = $request->service_request_id;
+        $serviceRequestId = (int)$request->input('service_request_id');
         $requestExists = ServiceRequest::findOrFail($serviceRequestId);
         $initialServiceFee = $requestExists->total_amount;
-        $paidRFQFee = $requestExists->service_fee;
-        $totalAmount = $initialServiceFee + $paidRFQFee;
-        $rfqId = $request->rfq_id;
+        $amount = $request->input('service_fee');
+        $totalAmount = $initialServiceFee + $amount;
+        $rfqId = $request->input('rfq_id');
         $clientName = $requestExists->user->fullName->name;
+        $clientId = Auth::id();
+        $clientEmail = $request->input('email');
+        $adminId = $requestExists->admin_id;
+        $cseId = $requestExists->cse_id;
         $jobReference = $requestExists->job_reference;
+        $invoice = $request->input('invoice');
+        $paymentReference = $request->input('payment_reference');
 
-        return [
-             $clientName, $jobReference
-        ];
+        // return [
+        //      $clientId, $adminId, $cseId, $serviceRequestId, $requestExists
+        // ];
+ 
+        // DB::transaction(function () {
 
-        $paymentRecord = ReceivedPayment::create([
-            'user_id'               =>  Auth::id(), 
-            'service_request_id'    =>  $serviceRequestId,
-            'payment_reference'     =>  $paymentReference, 
-            'payment_method'        =>  'Online', 
-            'amount'                =>  $paidRFQFee,
-        ]);
+            // return $request;
+            $paymentRecord = ReceivedPayment::create([
+                'user_id'               =>  Auth::id(), 
+                'service_request_id'    =>  $serviceRequestId,
+                'payment_reference'     =>  $paymentReference, 
+                'payment_method'        =>  'Online', 
+                'amount'                =>  $amount,
+            ]);
 
-        $updateServiceRequest = ServiceRequest::where('id', $serviceRequestId)->update([
-            'total_amount'  =>  $totalAmount,
-        ]);
+            $updateServiceRequest = ServiceRequest::where('id', $serviceRequestId)->update([
+                'total_amount'  =>  $totalAmount,
+            ]);
 
-        $updateRFQ = RFQ::where('id', $rfqId)->update([
-            'status'  =>  '2'
-        ]);
+            $updateRFQ = RFQ::where('id', $rfqId)->update([
+                'status'  =>  '2'
+            ]);
+        // });
 
         if($paymentRecord AND $updateServiceRequest AND $updateRFQ){
 
-            /*
-            * Code to send email goes here...
-            */
+            //Notify Client and Admin with messages
+            $this->sendMessage = new EssentialsController();
+            $this->sendMessage->clientProformaInvoiceSuccessPaymentMessage($clientName, $clientId, $jobReference, $amount, $paymentReference, $invoice);
+            $this->sendMessage->adminProformaInvoiceSuccessPaymentMessage($clientName, $adminId, $cseId, $jobReference, $amount, $paymentReference, $invoice);
 
-            //Notify CSE and Technician with messages
-            // MailController::clientServiceRequestCancellationEmailNotification($clientEmail, $clientName,$jobReference, $reason);
-            // MailController::adminServiceRequestCancellationEmailNotification('info@fixmaster.com.ng', $clientName,$jobReference, $reason);
+            //Notify Client and FixMaster Email
+            MailController::clientProformaInvoiceSuccessPaymentNotification($clientEmail, $clientName,$jobReference, $amount, $paymentReference, $invoice);
+            MailController::adminProformaInvoiceSuccessPaymentNotification('info@fixmaster.com.ng', $clientName, $jobReference, $amount, $paymentReference, $invoice);
 
             //Record crurrenlty logged in user activity
             $this->addRecord = new RecordActivityLogController();
@@ -618,12 +631,13 @@ class ClientRequestController extends Controller
             $severity = 'Informational';
             $actionUrl = Route::currentRouteAction();
             $controllerActionPath = URL::full();
-            $message = Auth::user()->fullName->name.' paid an Invoice('.$request->invoice.') of ₦'.$paidRFQFee.' for '.$jobReference.' service request.';
+            $message = Auth::user()->fullName->name.' paid a proforma invoice('.$request->invoice.') of ₦'.$amount.' for '.$jobReference.' service request.';
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 
-            return redirect()->route('client.requests')->with('success', 'Your Invoice('.$request->invoice.') for'.$jobReference.' service request has been paid.');
+            return redirect()->route('client.requests')->with('success', 'Your Proforma invoice('.$request->invoice.') for'.$jobReference.' service request has been paid.');
 
         }else{
+        // }catch (\Exception $e){
             //Record Unauthorized user activity
             $this->addRecord = new RecordActivityLogController();
             $id = Auth::id();
@@ -631,11 +645,11 @@ class ClientRequestController extends Controller
             $severity = 'Error';
             $actionUrl = Route::currentRouteAction();
             $controllerActionPath = URL::full();
-            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to pay for Invoice('.$request->invoice.') for '.$jobReference.' service request.';
+            $message = 'An error occurred while '.Auth::user()->fullName->name.' was trying to pay for Proforma invoice('.$request->invoice.') of '.$jobReference.' service request.';
 
             $this->addRecord->createMessage($id, $type, $severity, $actionUrl, $controllerActionPath, $message);
 
-            return back()->with('error', 'An error occurred while trying to pay for Invoice('.$request->invoice.') for '.$jobReference.' service request.');
+            return back()->with('error', 'An error occurred while trying to pay for Proforma invoice('.$request->invoice.') of '.$jobReference.' service request.');
         }
 
         return back()->withInput();
