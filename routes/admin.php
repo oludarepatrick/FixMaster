@@ -166,10 +166,13 @@ Route::middleware(['adminRole'])->group(function() {
 
                 Route::view('/ratings/category', 	                'admin.ratings.category')->name('category_ratings');
                 Route::view('/ratings/job', 	                    'admin.ratings.job')->name('job_ratings');
-                Route::view('/location-request', 	                'admin.location_request')->name('location_request');
+               
+                //  location request
+                Route::get('/location-request',                     [App\Http\Controllers\AdminLocationRequestController::class, 'index'])->name('location_request'); 
+                Route::post('/get-names',                           [App\Http\Controllers\AdminLocationRequestController::class, 'getNames'])->name('get_names');
+                Route::post('/request-location',                    [App\Http\Controllers\AdminLocationRequestController::class, 'requestLocation'])->name('request_location');
 
-                Route::get('/location-request',                    [App\Http\Controllers\AdminLocationRequestController::class, 'index'])->name('location_request');
-                
+               
             });
         });
     // });
